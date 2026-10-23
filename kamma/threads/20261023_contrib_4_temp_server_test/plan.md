@@ -1,9 +1,9 @@
 # Plan: test gui2 on a borrowed server — no domain, a few weeks of access
 
-**Thread:** 20261007_contrib_temp_server_test · **Spec:** `spec.md` (read first)
+**Thread:** 20261023_contrib_4_temp_server_test · **Spec:** `spec.md` (read first)
 **GitHub issue:** #215
-**Phases 1–2 start now. Phase 3 waits** until `20261007_contrib_edits_json`
-and `20261007_contrib_preview_before_save` are finished, committed and pushed by the
+**Phases 1–2 start now. Phase 3 waits** until `20261023_contrib_2_edits_json`
+and `20261023_contrib_3_preview_before_save` are finished, committed and pushed by the
 maintainer. Waiting there is normal, not a failure.
 
 ## Architecture Decisions
@@ -30,13 +30,13 @@ maintainer. Waiting there is normal, not a failure.
       session and logs in himself. It prints a login URL to open in his local
       browser. Copy this thread's folder over, because it is not on GitHub
       until committed:
-      `cd /home/bodhirasa/MyFiles/3_Active/dpd-db && rsync --bwlimit=400 -r kamma/threads/20261007_contrib_temp_server_test <user>@<ip>:~/handoff/`.
+      `cd /home/bodhirasa/MyFiles/3_Active/dpd-db && rsync --bwlimit=400 -r kamma/threads/20261023_contrib_4_temp_server_test <user>@<ip>:~/handoff/`.
       After 2.1 it moves to `~/dpd-db/kamma/threads/`. Start the server Claude
       in `~/dpd-db` so it reads the project `CLAUDE.md`. Its first prompt points
       at this spec and plan. Use the normal permission mode, not bypass,
       because the server is borrowed.
       → verify: `claude --version` prints a version. In the server session, the
-      server Claude reads `~/handoff/20261007_contrib_temp_server_test/plan.md` and
+      server Claude reads `~/handoff/20261023_contrib_4_temp_server_test/plan.md` and
       names the next open task. Record which tasks it then ran.
 
 ## Phase 2 — Setup and smoke test of the current code
@@ -71,7 +71,7 @@ maintainer. Waiting there is normal, not a failure.
       → verify: `git log -1 --oneline` on the server shows the maintainer's
       latest commit.
 - [ ] 3.2 Over the tunnel, run the contributor checklist from
-      `20261007_contrib_edits_json` plan 3.1 and `20261007_contrib_preview_before_save`
+      `20261023_contrib_2_edits_json` plan 3.1 and `20261023_contrib_3_preview_before_save`
       plan 2.2: preview opens in the maintainer's browser (or via the link) →
       Save writes JSON only → the server db row is unchanged (sqlite count) →
       own edit shown on reload → Pass2 re-edit of own new word → Delete

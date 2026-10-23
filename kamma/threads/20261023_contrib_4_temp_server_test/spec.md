@@ -1,13 +1,13 @@
 # Spec: test gui2 on a borrowed server — no domain, a few weeks of access
 
-**Thread:** 20261007_contrib_temp_server_test
+**Thread:** 20261023_contrib_4_temp_server_test
 **Date:** 2026-10-07
 **GitHub issue:** [#215 — Contributor Onboarding](https://github.com/digitalpalidictionary/dpd-db/issues/215)
-**Builds on:** `kamma/threads/20260719_contributor_web_server/` (its Phase 1–2
+**Builds on:** `kamma/threads/20261023_contrib_1_web_server/` (its Phase 1–2
 work is committed: per-user files, env-var username/role, server-mode gating,
 `scripts/server_contrib/`).
-**Waits on (for Phase 3 only):** `20261007_contrib_edits_json` and
-`20261007_contrib_preview_before_save`. Phases 1–2 can start now.
+**Waits on (for Phase 3 only):** `20261023_contrib_2_edits_json` and
+`20261023_contrib_3_preview_before_save`. Phases 1–2 can start now.
 
 ## Overview
 

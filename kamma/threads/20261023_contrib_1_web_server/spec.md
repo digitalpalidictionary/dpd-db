@@ -1,6 +1,6 @@
 # Spec: Contributor Web Server — zero-install onboarding for data-entry contributors
 
-**Thread:** 20260719_contributor_web_server
+**Thread:** 20261023_contrib_1_web_server
 **Date:** 2026-07-19
 **GitHub issue:** [#215 — Contributor Onboarding: Easy GUI Setup & Data Submission](https://github.com/digitalpalidictionary/dpd-db/issues/215)
 **Status:** Confirmed direction — provider choice and domain name deliberately left open
@@ -97,7 +97,7 @@ uv run flet run --web -p 8550 gui2/main.py
    HTTP basic auth per contributor (browser remembers the password after the
    first visit — that's the entire login story). Websocket proxying required
    (`proxy_http_version 1.1`, Upgrade/Connection headers).
-4. **(Superseded by 20261007_contrib_edits_json: contributors no longer
+4. **(Superseded by 20261023_contrib_2_edits_json: contributors no longer
    write the db.)** **One shared db, read-WRITE for contributors.** Contributors use the same
    code paths as the primary user — they write to the db, because the server db
    is a **scratch copy** periodically wiped and rebuilt from main's TSVs.

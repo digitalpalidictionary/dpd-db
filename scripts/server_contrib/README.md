@@ -8,7 +8,7 @@ record. A nightly maintenance window pushes those JSONs up, and — only when sa
 — rebuilds the scratch db from `main`.
 
 See also: `config_server.md` (the lean rebuild — kept/dropped step rationale),
-`spec.md`/`plan.md` in `kamma/threads/20260719_contributor_web_server/`.
+`spec.md`/`plan.md` in `kamma/threads/20261023_contrib_1_web_server/`.
 
 ## The nightly maintenance window
 

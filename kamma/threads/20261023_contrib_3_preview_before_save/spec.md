@@ -1,14 +1,14 @@
 # Spec: preview before save — the webapp view of the unsaved word
 
-**Thread:** 20261007_contrib_preview_before_save
+**Thread:** 20261023_contrib_3_preview_before_save
 **Date:** 2026-10-07
 **GitHub issue:** [#215 — Contributor Onboarding](https://github.com/digitalpalidictionary/dpd-db/issues/215)
 (commits reference `#215`)
-**Depends on:** `20261007_contrib_edits_json` — must be finished first. It
+**Depends on:** `20261023_contrib_2_edits_json` — must be finished first. It
 adds the save seam (`gui2/save_router.py::save_headword`) that the Save button
 here calls, and it edits the same two save handlers. Never run both threads in
 the same working tree at once.
-**Sibling:** `20261007_contrib_temp_server_test` (its live checks include this preview).
+**Sibling:** `20261023_contrib_4_temp_server_test` (its live checks include this preview).
 
 ## Overview
 
@@ -110,7 +110,7 @@ The form stays filled until Save.
   and whether a file written after start-up is served, must be checked live.
   Set `assets_dir` explicitly if needed.
 - **Path prefix behind nginx**: only checkable on a server
-  (`20261007_contrib_temp_server_test`, optional step). Locally, check that the URL is
+  (`20261023_contrib_4_temp_server_test`, optional step). Locally, check that the URL is
   relative.
 - **Template coverage with a transient word**: the executor renders real words
   of several kinds and a sample of random words to catch helpers that need a
@@ -150,4 +150,4 @@ The form stays filled until Save.
 
 - An in-app (WebView) preview.
 - Regenerating build-time fields (inflections, frequency) for the preview.
-- Server work (`20261007_contrib_temp_server_test`).
+- Server work (`20261023_contrib_4_temp_server_test`).

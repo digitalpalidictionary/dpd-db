@@ -1,8 +1,8 @@
 # Plan: preview before save — the webapp view of the unsaved word
 
-**Thread:** 20261007_contrib_preview_before_save · **Spec:** `spec.md` (read first)
+**Thread:** 20261023_contrib_3_preview_before_save · **Spec:** `spec.md` (read first)
 **GitHub issue:** #215 — commits reference `#215`
-**Start only after** `20261007_contrib_edits_json` is finished (needs
+**Start only after** `20261023_contrib_2_edits_json` is finished (needs
 `gui2/save_router.py::save_headword`; same save handlers).
 
 ## Architecture Decisions

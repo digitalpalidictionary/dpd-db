@@ -1,6 +1,6 @@
 # Plan: Contributor Web Server
 
-**Thread:** 20260719_contributor_web_server
+**Thread:** 20261023_contrib_1_web_server
 **Spec:** `spec.md` in this folder — read it first; it contains the full context,
 all decisions, and all known unknowns.
 **GitHub issue:** [#215](https://github.com/digitalpalidictionary/dpd-db/issues/215)
