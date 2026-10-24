@@ -155,10 +155,13 @@ Unless specified, the repo is https://github.com/digitalpalidictionary/dpd-db.
 - Test a workflow's `run:` blocks before the first GitHub run: extract them with `yaml.safe_load` and run them in a scratchpad against throwaway git repos with `file://` upstreams.
 
 ## graphify
-A knowledge graph of the codebase lives at `graphify-out/` (14,254 nodes, 28,833 edges). Prefer these over grepping raw files — a scoped subgraph at ~13× fewer tokens:
+A knowledge graph of the codebase lives at `graphify-out/` (26,707 nodes, 45,416 edges, ~23 MB). Prefer these over grepping raw files — a scoped subgraph at ~13× fewer tokens:
 ```bash
-graphify query "how does X work"       # BFS subgraph — use first
+graphify query "how does X work"       # BFS subgraph — use first (code keywords, not prose)
 graphify path "DpdHeadword" "Lookup"   # shortest path between concepts
 graphify explain "ProjectPaths"        # plain-language node summary
+graphify affected "sync_templates()"   # reverse blast radius (exact node id, parens included)
 ```
 Read `graphify-out/GRAPH_REPORT.md` only for broad architecture review. God nodes: `ProjectPaths`, `DpdHeadword`, `get_db_session()`, `Lookup`, `ToolKit`. After editing code run `graphify update .` (AST-only, no API cost); full rebuild is `/graphify` (costs session tokens).
+
+**The repo's `.graphifyignore` is load-bearing.** The data corpora (dictionary JSONs in `resources/` and `exporter/archive/`, `shared_data/`, …) each spawn a node per entry; without the ignore file the graph passed 1.5M nodes / 1.2 GB — past graphify's 512 MiB query cap, so every command failed. Never delete `.graphifyignore`; add new data dirs to it before running update. Every update writes a ~snapshot under `graphify-out/` and never prunes — prune right after it finishes, keeping only the newest: `ls -d graphify-out/20* | sort | head -n -1 | xargs rm -rf`.

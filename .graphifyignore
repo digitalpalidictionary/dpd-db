@@ -1,0 +1,24 @@
+# graphify exclusions for dpd-db.
+# The repo's data corpora dwarf the code: one dictionary JSON can hold
+# ~500k entries, and the extractor makes a node per entry. Without this
+# file the graph passed 1.5M nodes / 1.2 GB — past graphify's 512 MiB
+# query cap, so no command could read it. Keep this file to real code.
+# Data corpora (third-party dictionaries, suttas, submodules)
+resources/
+# Legacy and generated dumps
+archive/
+exporter/archive/
+exporter/share/
+exporter/kindle/
+exporter/kobo/
+exporter/analysis/
+exporter/tpr/output/
+go_modules/deconstructor/output/
+# Generated and runtime data
+shared_data/
+temp/
+audio/
+db/backup_tsv/
+db/bold_definitions/
+# Old thread plans (current kamma/threads stays indexed)
+kamma/archive/
