@@ -4,7 +4,9 @@ DPD is revised every month. Always cite the version you used.
 
 ## The dictionary
 
-> Bodhirasa Bhikkhu. Digital Pāḷi Dictionary. Version v0.4.20260926. https://www.dpdict.net/
+> Bodhirasa Bhikkhu. Digital Pāḷi Dictionary. Version v0.4.20260926. https://doi.org/10.5281/zenodo.22979413
+
+The DOI <https://doi.org/10.5281/zenodo.22979413> always resolves to the newest release.
 
 ## A single entry
 
