@@ -4,7 +4,7 @@ Read Pāḷi with DPD right inside [KOReader](https://koreader.rocks){target="_b
 
 Long-press any Pāḷi word while you are reading, and the DPD entry pops up on the page. All the meanings appear together, compounds are broken into their parts, and the grammar tables are a tap away. Close the popup and you are back on your page, exactly where you left off.
 
-The plugin is made by [Ven. Nirodhavihārī](https://github.com/nirodhav){target="_blank"} and uses the full DPD mobile database, so it works offline, on the device. It is a free download from the [plugin's releases page](https://github.com/digitalpalidictionary/dpd-koreader/releases/latest){target="_blank"}.
+The plugin is made by [Ven. Nirodhavihāri](https://github.com/nirodhav){target="_blank"} and uses the full DPD mobile database, so it works offline, on the device. It is a free download from the [plugin's releases page](https://github.com/digitalpalidictionary/dpd-koreader/releases/latest){target="_blank"}.
 
 ![DPD for KOReader: compounds explained in one lookup, every sense in one view, declensions and conjugations](../pics/koreader/hero_light.png#only-light)
 ![DPD for KOReader: compounds explained in one lookup, every sense in one view, declensions and conjugations](../pics/koreader/hero_dark.png#only-dark)
@@ -29,15 +29,23 @@ And here are the senses of *dhammaṃ*, with one expanded in place:
 
 ## Installation
 
-You will need KOReader v2026.07 or newer (on a Kindle this means a jailbroken device) and about 1.1 GB of free space.
+You will need KOReader v2026.07 or newer (on a Kindle, this takes some technical setup) and about 1.1 GB of free space.
 
 1. Download the plugin zip from the [releases page](https://github.com/digitalpalidictionary/dpd-koreader/releases/latest){target="_blank"} and extract it into `koreader/plugins/` on the device.
 2. Download `dpd-mobile-db.zip` from the [latest DPD release](https://github.com/digitalpalidictionary/dpd-db/releases/latest){target="_blank"} and copy the `dpd-mobile.db` inside it to `koreader/data/dpd/`.
-3. Restart KOReader. **Database status** in the DPD menu should say **Core columns: OK**.
+3. Restart KOReader. **Database status** in the DPD menu should say **Database ready**, or **Newer release, should work** for a newer database.
 
-Full instructions are in the plugin's [usage guide](https://github.com/digitalpalidictionary/dpd-koreader/blob/main/docs/USAGE.md){target="_blank"}, which is also included in the download.
+Full instructions are in the plugin's [README](https://github.com/digitalpalidictionary/dpd-koreader#install){target="_blank"}, which is also included in the download.
 
 ## Keeping DPD Up to Date
+
+### The Plugin
+
+Open **Help → Check for updates** in the DPD menu, choose **Install** and restart KOReader. Your settings are kept. Optional automatic checks (**Help → Check for updates automatically**) run about once a week, only when Wi-Fi is already on. They notify you of updates but don't install them automatically.
+
+Versions 0.3.0 and earlier need one manual update first: exit KOReader, replace `koreader/plugins/dpd.koplugin` with the folder from the [new zip](https://github.com/digitalpalidictionary/dpd-koreader/releases/latest){target="_blank"} and restart.
+
+### The Database
 
 DPD has a new release every month, on the Uposatha day. To update:
 
@@ -47,11 +55,11 @@ DPD has a new release every month, on the Uposatha day. To update:
 
 The DPD menu lives under **Search → Digital Pāḷi Dictionary**:
 
-![the DPD menu in KOReader](../pics/koreader/database_status_menu_light.png#only-light){width="400"}
-![the DPD menu in KOReader](../pics/koreader/database_status_menu_dark.png#only-dark){width="400"}
+![the DPD menu, showing Database: ready](../pics/koreader/database_status_menu_light.png#only-light){width="400"}
+![the DPD menu, showing Database: ready](../pics/koreader/database_status_menu_dark.png#only-dark){width="400"}
 
-![database status: core columns OK](../pics/koreader/database_status_light.png#only-light){width="400"}
-![database status: core columns OK](../pics/koreader/database_status_dark.png#only-dark){width="400"}
+![Database status: Database ready](../pics/koreader/database_status_light.png#only-light){width="400"}
+![Database status: Database ready](../pics/koreader/database_status_dark.png#only-dark){width="400"}
 
 ## Bugs and Feedback
 
