@@ -421,3 +421,10 @@
 - 2026-10-23 [CONFUSION] db_tests_terminal: the replace step could not match a word split by a bold tag, so a word came back every run. It took a read of the real db text to find it, not the unit tests.
 - 2026-10-23 [WORKFLOW] db_tests_terminal: three prompt and display designs were built from guesses (raw text with ids, an upfront skip) and rejected. One look at the user's pasted screen first would have avoided two of them.
 - 2026-10-23 [POSITIVE] db_tests_terminal: a read-only preview script with the save stubbed out gave real counts (2336 auto-approved, 106 bold-tag words) before any live run touched the data file.
+- 2026-10-24 [BEHAVIOR] inflection_templates_tsv: reported a gui2 file as pyright-clean from plain `pyright`, which skips gui2; the reviewer found a real AttributeError. gui2/README.md already says to use `--project /dev/null`.
+- 2026-10-24 [BEHAVIOR] inflection_templates_tsv: told the user a herdr agent was not running because `ListAgents` showed none; it lists only Claude sessions and the pi agent was idle in a pane.
+- 2026-10-24 [REPEATED] inflection_templates_tsv: the user said four times that grid boxes were cramped, too wide or wrapping; the pixel widths were guessed and only came right once measured from their screenshots.
+- 2026-10-24 [BEHAVIOR] inflection_templates_tsv: committed and filed the issue without running finalize or offering CodeRabbit; the user said "i'm happy means finalize".
+- 2026-10-24 [WORKFLOW] inflection_templates_tsv: built an automatic inflections update after Save, then removed it because the user makes many edits in a row; asking how many saves come in a row would have avoided the build.
+- 2026-10-24 [BEHAVIOR] inflection_templates_tsv: a view test pressed Save, which started a real background update on the real dpd.db; a handler that starts a thread needs the worker patched in every test of that file.
+- 2026-10-24 [POSITIVE] inflection_templates_tsv: loading the new files and comparing them with the live db rows showed the only difference (ant adj) before any build code changed.

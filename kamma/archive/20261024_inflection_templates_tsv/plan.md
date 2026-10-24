@@ -241,7 +241,7 @@
       **Done 2026-10-24:** typecheck 0 errors (119 suppressed, 89 warnings —
       normal); 514 tests pass. `graphify update .` DEFERRED by user until
       after the thread is proven, signed off and committed — run it then.
-- [~] 4.3 Live check by the user (the only part that needs the screen). Hand
+- [x] 4.3 Live check by the user (the only part that needs the screen). Hand
       the user `cd /home/bodhirasa/MyFiles/3_Active/dpd-db && just gui`, with
       these steps: open Infl, pick `ati pr` (widest kind of grid) and confirm
       it lines up as a spreadsheet with no sideways scroll at the default
