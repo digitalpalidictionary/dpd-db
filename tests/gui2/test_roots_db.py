@@ -113,6 +113,27 @@ def test_update_root_in_db_updates_fields(
     assert fetched.root_meaning == "to perform"
 
 
+def test_update_root_in_db_keeps_fields_the_form_does_not_set(
+    db_manager: DatabaseManager, db_session: Session
+):
+    stored = db_session.query(DpdRoot).filter_by(root="√kar").first()
+    assert stored is not None
+    stored.root_info = "<p>info</p>"
+    stored.root_matrix = "<p>matrix</p>"
+    db_session.commit()
+
+    # the gui builds a fresh root and never sets root_info or root_matrix
+    form_root = DpdRoot(root="√kar", root_meaning="to do", note="a note")
+    success, msg = db_manager.update_root_in_db("√kar", form_root)
+    assert success is True, msg
+
+    fetched = db_session.query(DpdRoot).filter_by(root="√kar").first()
+    assert fetched is not None
+    assert fetched.note == "a note"
+    assert fetched.root_info == "<p>info</p>"
+    assert fetched.root_matrix == "<p>matrix</p>"
+
+
 def test_update_root_in_db_renames_primary_key(
     db_manager: DatabaseManager, db_session: Session
 ):

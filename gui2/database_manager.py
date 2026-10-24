@@ -646,7 +646,9 @@ class DatabaseManager:
             else:
                 for col in DpdRoot.__table__.columns:
                     if col.name not in ("root", "created_at", "updated_at"):
-                        setattr(existing, col.name, getattr(root, col.name))
+                        new_val = getattr(root, col.name)
+                        if new_val is not None:
+                            setattr(existing, col.name, new_val)
 
             self.db_session.commit()
             if new_key != original_key:
