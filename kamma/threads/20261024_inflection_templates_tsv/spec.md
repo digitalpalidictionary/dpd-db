@@ -279,7 +279,8 @@ Behaviour of the other buttons:
 
 - Do not change `InflectionTemplates`, its JSON shape, or any reader of it.
 - `create_inflection_templates.py` keeps its path and command line.
-- Leave `inflection_templates.xlsx` in place, unused. Do not delete it. Do not
+- Leave the spreadsheet unused. Do not delete it (it was later moved to
+  `misc/inflection_templates_legacy.xlsx`, 2026-10-24). Do not
   carry its `abbreviations` and `scripts` sheets into the new files.
 - Code-written data files: canonical `pali_sort_key` order, LF endings.
 - Concurrent threads share this tree: `gui2/database_manager.py`,

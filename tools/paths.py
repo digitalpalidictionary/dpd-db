@@ -55,7 +55,7 @@ class ProjectPaths:
 
         # db/inflections
         self.inflection_templates_path = (
-            base_dir / "db/inflections/inflection_templates.xlsx"
+            base_dir / "misc/inflection_templates_legacy.xlsx"
         )
         self.inflection_templates_index_path = (
             base_dir / "db/inflections/templates_index.tsv"

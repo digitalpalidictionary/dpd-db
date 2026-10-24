@@ -52,6 +52,6 @@ in the same commit as the regenerated words) and the gitignored pickle
 after it writes). A gui2 Save followed by a build therefore never loses a
 regeneration.
 
-`inflection_templates.xlsx` is the old source of these files. It is unused
-and kept for now; its `abbreviations` and `scripts` sheets are not carried
+`misc/inflection_templates_legacy.xlsx` is the old source of these files. It
+is unused and kept for now; its `abbreviations` and `scripts` sheets are not carried
 into the TSV files.
