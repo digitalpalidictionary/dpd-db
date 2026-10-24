@@ -92,7 +92,7 @@ There are four main parts to the code:
 
 	- **grammar/** Grammar data and processing.
 
-	- **inflections/** Populate the `inflection_templates` table and use that to create HTML inflection tables for every word.
+	- **inflections/** Populate the `inflection_templates` table and use that to create HTML inflection tables for every word. Sources: `templates_index.tsv` (one row per template: pattern, like, group) and `templates/<pattern>.tsv` (one grid file per template).
 
 	- **lookup/** Populate the `lookup` table for instant accces to every word in the dictionary.
 

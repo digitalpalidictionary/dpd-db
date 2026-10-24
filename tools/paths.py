@@ -57,6 +57,10 @@ class ProjectPaths:
         self.inflection_templates_path = (
             base_dir / "db/inflections/inflection_templates.xlsx"
         )
+        self.inflection_templates_index_path = (
+            base_dir / "db/inflections/templates_index.tsv"
+        )
+        self.inflection_templates_dir = base_dir / "db/inflections/templates"
 
         # db/sanskrit
         self.root_families_sanskrit_path = (

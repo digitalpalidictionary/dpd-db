@@ -21,3 +21,37 @@ This subsystem follows a "Template-Driven Generation" pattern:
 - **Sync Templates:** `uv run python db/inflections/create_inflection_templates.py`
 - **Regenerate Tables:** `uv run python db/inflections/generate_inflection_tables.py`
 - **Transliterate:** `uv run python db/inflections/transliterate_inflections.py`
+
+## Template source files
+
+The inflection templates live in plain TSV files, one index plus one grid
+per template:
+
+- `templates_index.tsv` — columns `pattern`, `like`; one row per
+  template, sorted by pattern (Pāḷi order).
+- `templates/<pattern>.tsv` — the stem/ending grid, shaped like the old
+  spreadsheet block: row 0 holds the pattern name and the column headings;
+  rows 1+ hold row label, forms, grammar label triples. Multiple forms in
+  one cell are joined with `", "` in Pāḷi alphabetical order; an empty cell
+  is an empty string; LF line endings, UTF-8, no quoting.
+
+All reading and writing of these files belongs to
+`inflection_template_files.py`, which also checks on load: every index row
+has a table file and vice versa, pattern names are unique, the top-left
+cell equals the file name, every row is full width, and `like`
+is not empty. A broken file raises `ValueError` naming it.
+
+Edit the files in the gui2 **Infl** tab (Alt+I), or by hand and run the
+sync. Saving or renaming in the tab does not regenerate the words: press
+**Update Inflections** on the Global tab afterwards. Either way `create_inflection_templates.py` adds, updates or deletes
+`inflection_templates` rows to match the files, and **adds** the changed
+pattern names to two pending lists instead of overwriting them:
+`DbInfo.changed_templates_list` (cleared by `generate_inflection_tables.py`
+in the same commit as the regenerated words) and the gitignored pickle
+`shared_data/changed_templates` (cleared by `transliterate_inflections.py`
+after it writes). A gui2 Save followed by a build therefore never loses a
+regeneration.
+
+`inflection_templates.xlsx` is the old source of these files. It is unused
+and kept for now; its `abbreviations` and `scripts` sheets are not carried
+into the TSV files.

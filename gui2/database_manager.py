@@ -12,6 +12,11 @@ from sqlalchemy.orm import defer
 from sqlalchemy.orm.session import Session
 
 from db.db_helpers import get_db_session
+from db.inflections.create_inflection_templates import (
+    add_pending_templates,
+    sync_templates,
+)
+from db.inflections.inflection_template_files import load_templates
 from db.models import (
     DpdHeadword,
     DpdRoot,
@@ -680,6 +685,40 @@ class DatabaseManager:
             .filter(DpdHeadword.root_key == root_key)
             .count()
         )
+
+    # --- INFLECTION TEMPLATE CRUD ---
+
+    def get_pattern_headword_count(self, pattern: str) -> int:
+        """Count DpdHeadword rows using this pattern."""
+        return (
+            self.db_session.query(DpdHeadword)
+            .filter(DpdHeadword.pattern == pattern)
+            .count()
+        )
+
+    def rename_pattern_in_headwords(self, old: str, new: str) -> int:
+        """Set DpdHeadword.pattern from old to new. Returns the count."""
+        count: int = (
+            self.db_session.query(DpdHeadword)
+            .filter(DpdHeadword.pattern == old)
+            .update({"pattern": new}, synchronize_session=False)
+        )
+        self.db_session.commit()
+        return count
+
+    def sync_inflection_templates(self) -> list[str]:
+        """Load the TSV files, sync the db, add pending, refresh patterns.
+
+        Returns the changed pattern names."""
+        templates = load_templates(
+            self.pth.inflection_templates_index_path,
+            self.pth.inflection_templates_dir,
+        )
+        changed = sync_templates(self.db_session, templates)
+        add_pending_templates(self.db_session, self.pth, changed)
+        self.db_session.commit()
+        self.get_all_patterns()
+        return changed
 
     # --- GENERIC DB SEARCHES ---
 

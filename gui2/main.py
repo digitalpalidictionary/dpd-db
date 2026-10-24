@@ -25,6 +25,7 @@ class App:
     def __init__(self, page: ft.Page) -> None:
         from gui2.filter_tab_view import FilterTabView
         from gui2.global_tab_view import GlobalTabView
+        from gui2.inflection_templates_tab_view import InflectionTemplatesTabView
         from gui2.pass1_add_view import Pass1AddView
         from gui2.pass1_auto_view import Pass1AutoView
         from gui2.pass2_add_view import Pass2AddView
@@ -127,6 +128,7 @@ class App:
             13: lambda: BoldSearchView(self.page, self.toolkit),
             14: lambda: RootsTabView(self.page, self.toolkit),
             15: lambda: CompoundTypeTabView(self.page, self.toolkit),
+            16: lambda: InflectionTemplatesTabView(self.page, self.toolkit),
         }
 
         # Most-used tabs first so they are ready soonest.
@@ -217,6 +219,7 @@ class App:
         "B": 13,  # Bold Search
         "R": 14,  # √ (Roots)
         "C": 15,  # CT (Compound Type)
+        "I": 16,  # Infl
     }
 
     # Page scroll keys -> scroll delta in px. Numpad 9/3 are the keypad
@@ -243,6 +246,7 @@ class App:
         13: lambda view: view.controller.clear_fields(None),  # Bold Search
         14: lambda view: view._clear_all(None),  # √ (Roots)
         15: lambda view: view._on_clear(None),  # CT (Compound Type)
+        16: lambda view: view._clear_all(None),  # Infl
     }
 
     # Alt+? opens the shortcuts popup. Some keyboard layouts report the key
@@ -283,6 +287,8 @@ class App:
                 view._save_changes_clicked(None)
             elif hasattr(view, "_save_root"):
                 view._save_root(None)
+            elif hasattr(view, "_save_template"):
+                view._save_template(None)
             elif hasattr(view, "commit_clicked"):
                 view.commit_clicked(None)
             elif hasattr(view, "test_and_add_to_db"):
@@ -362,6 +368,7 @@ class App:
                     ("Ctrl+S", "', Sp: commit"),
                     ("Ctrl+S", "DB, CT: save changes"),
                     ("Ctrl+S", "√: save to the db"),
+                    ("Ctrl+S", "Infl: save the template"),
                     ("Ctrl+S", "Global: back up the db and quit"),
                     ("Alt+X", f"Clear or Clear All on {clear_tabs}"),
                     ("Page Up / Page Down", "Scroll Pass2Add"),
@@ -543,6 +550,7 @@ class App:
             "Bold Search",
             "√",
             "CT",
+            "Infl",
         ]
         # Derived from _TAB_JUMP_KEYS so the tooltips can never drift from the
         # keys the handler actually acts on.

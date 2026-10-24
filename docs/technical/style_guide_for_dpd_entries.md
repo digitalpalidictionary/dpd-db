@@ -219,7 +219,7 @@
 ### pattern
 
 - Pattern by which the word changes its inflected forms.
-- All patterns can be found in the [inflection_templates.xlsx](https://github.com/digitalpalidictionary/dpd-db/raw/main/db/inflections/inflection_templates.xlsx){target="_blank"}
+- All patterns can be found in the [inflection templates folder](https://github.com/digitalpalidictionary/dpd-db/tree/main/db/inflections/templates){target="_blank"}
 
 
 

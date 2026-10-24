@@ -18,6 +18,7 @@ from aksharamukha import transliterate
 from sqlalchemy.orm import Session
 
 from db.db_helpers import get_db_session
+from db.inflections.create_inflection_templates import clear_pickle_pending_templates
 from db.models import DpdHeadword
 from tools.configger import config_test
 from tools.paths import ProjectPaths
@@ -273,6 +274,9 @@ def main() -> None:
     pr.green_tmr("writing to db")
 
     translit_counter = _write_translit_to_db(db_session, dpd_db, translit_dict)
+    # remove only the names this run used, and only after the db write
+    # succeeded; names added since the pickle was loaded stay pending
+    clear_pickle_pending_templates(pth, changed_templates)
     db_session.close()
     pr.yes(translit_counter)
 

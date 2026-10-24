@@ -12,6 +12,7 @@ from gui2.bold_search_view import BoldSearchView
 from gui2.compound_type_tab_view import CompoundTypeTabView
 from gui2.filter_tab_view import FilterTabView
 from gui2.global_tab_view import GlobalTabView
+from gui2.inflection_templates_tab_view import InflectionTemplatesTabView
 from gui2.main import App
 from gui2.pass1_add_view import Pass1AddView
 from gui2.pass1_auto_view import Pass1AutoView
@@ -34,6 +35,7 @@ CLEAR_BUTTON_HANDLERS: dict[int, tuple[type, str]] = {
     11: (FilterTabView, "_clear_filters_clicked"),
     14: (RootsTabView, "_clear_all"),
     15: (CompoundTypeTabView, "_on_clear"),
+    16: (InflectionTemplatesTabView, "_clear_all"),
 }
 
 
@@ -55,6 +57,7 @@ TAB_LABELS: list[str] = [
     "Bold Search",
     "√",
     "CT",
+    "Infl",
 ]
 
 
@@ -145,6 +148,7 @@ def test_alt_x_before_the_tab_is_built_does_not_raise() -> None:
         (9, SpellingFindReplaceView, "commit_clicked"),
         (14, RootsTabView, "_save_root"),
         (15, CompoundTypeTabView, "_on_save_changes"),
+        (16, InflectionTemplatesTabView, "_save_template"),
     ],
 )
 def test_ctrl_s_calls_that_tabs_save_handler(
