@@ -1,12 +1,10 @@
 # DPD for KOReader
 
-**--- Coming Soon ---**
-
-Soon you will be able to read Pāḷi with DPD right inside [KOReader](https://koreader.rocks){target="_blank"}, the free e-book reading app that runs on Kindle, Kobo, PocketBook and many other devices.
+Read Pāḷi with DPD right inside [KOReader](https://koreader.rocks){target="_blank"}, the free e-book reading app that runs on Kindle, Kobo, PocketBook and many other devices.
 
 Long-press any Pāḷi word while you are reading, and the DPD entry pops up on the page. All the meanings appear together, compounds are broken into their parts, and the grammar tables are a tap away. Close the popup and you are back on your page, exactly where you left off.
 
-The plugin is made by [Ven. Nirodhavihārī](https://github.com/nirodhav){target="_blank"} and uses the full DPD mobile database, so it works offline, on the device. It will be a free download from the [plugin's releases page](https://github.com/digitalpalidictionary/dpd-koreader/releases/latest){target="_blank"} when it comes out.
+The plugin is made by [Ven. Nirodhavihārī](https://github.com/nirodhav){target="_blank"} and uses the full DPD mobile database, so it works offline, on the device. It is a free download from the [plugin's releases page](https://github.com/digitalpalidictionary/dpd-koreader/releases/latest){target="_blank"}.
 
 ![DPD for KOReader: compounds explained in one lookup, every sense in one view, declensions and conjugations](../pics/koreader/hero_light.png#only-light)
 ![DPD for KOReader: compounds explained in one lookup, every sense in one view, declensions and conjugations](../pics/koreader/hero_dark.png#only-dark)
