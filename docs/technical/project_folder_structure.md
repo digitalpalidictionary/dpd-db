@@ -40,6 +40,7 @@ Where are all the parts of the project located?
 │   ├── frequency
 │   ├── tools
 ├── gui2
+├── newsletter
 ├── resources
 ├── scripts
 │   ├── add
@@ -155,6 +156,8 @@ There are four main parts to the code:
 	- **tools/** GO packages used across the project
 
 - **gui2/** A GUI for data capture and running database tests
+
+- **newsletter/** The monthly newsletter: one folder per month (`<YYYY-MM>/newsletter.md` + `pics/`), the shared footer, and the builder behind `just newsletter-new`, `newsletter-preview` and `newsletter-publish`.
 
 - **resources/** All external resources used by the project, imported as submodules
 

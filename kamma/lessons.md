@@ -428,3 +428,11 @@
 - 2026-10-24 [WORKFLOW] inflection_templates_tsv: built an automatic inflections update after Save, then removed it because the user makes many edits in a row; asking how many saves come in a row would have avoided the build.
 - 2026-10-24 [BEHAVIOR] inflection_templates_tsv: a view test pressed Save, which started a real background update on the real dpd.db; a handler that starts a thread needs the worker patched in every test of that file.
 - 2026-10-24 [POSITIVE] inflection_templates_tsv: loading the new files and comparing them with the live db rows showed the only difference (ant adj) before any build code changed.
+- 2026-10-25 [BEHAVIOR] gmail_app_password: told the user a layout change would show on their next save; their preview process held the old code. Fixed by reloading the builder per rebuild, after the user reported "the preview did not update".
+- 2026-10-25 [BEHAVIOR] gmail_app_password: grepped the mail-tool config for auth lines through a redaction sed written for the v1 format; the v2 line shape did not match and a live app password printed into the transcript. Count matches instead of printing them.
+- 2026-10-25 [REPEATED] gmail_app_password: the user called a work summary "very verbose" and later said a lettered A-D decision list made no sense to them; one question at a time with plain context worked.
+- 2026-10-25 [CONFUSION] gmail_app_password: proposed a picture-shrink rule that ignored phone screenshots; the 51 past pictures already showed Gmail fits tall ones to 562 px high, and that box became the rule.
+- 2026-10-25 [WORKFLOW] gmail_app_password: the email footer had been copied from a derived copy, not the sent newsletter; the user had to say to read Gmail itself. Copy from the source of truth.
+- 2026-10-25 [BEHAVIOR] gmail_app_password: the live-preview server served the whole repo root, config.ini with passwords included; all three reviewers caught it.
+- 2026-10-25 [POSITIVE] gmail_app_password: measuring the real thing settled designs fast: a draft/send/forward byte check proved Gmail never shrinks pictures, and a headless-browser probe proved the reload kept scroll.
+- 2026-10-25 [POSITIVE] gmail_app_password: Sonnet, CodeRabbit and the pi agent in parallel each found real issues; pi alone spotted config.ini at mode 777.

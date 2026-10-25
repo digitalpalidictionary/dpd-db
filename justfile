@@ -308,14 +308,17 @@ anki-templates:
 anki-apkg:
     uv run exporter/anki/anki_apkg_exporter.py
 
-# Build docs/newsletters.md from Gmail (run after labelling the sent mail "DPD Mailers")
-newsletter:
-    uv run python scripts/build/newsletter_scraper.py
+# Start a new month's newsletter from the template (newsletter/<YYYY-MM>/)
+newsletter-new month:
+    uv run newsletter/newsletter_build.py {{month}} --init
 
-# Reprocess all newsletters from scratch
-newsletter-fresh:
-    rm -f scripts/build/newsletter_processed.json
-    uv run python scripts/build/newsletter_scraper.py
+# Live preview in the browser, rebuilt on every save (default: newest month)
+newsletter-preview month="":
+    uv run newsletter/newsletter_build.py {{month}} --watch
+
+# Gmail draft with the pics embedded; on uposatha days also the docs newsletters page
+newsletter-publish month="":
+    uv run newsletter/newsletter_build.py {{month}} --publish
 
 # Generate changelog and release notes
 changelog:

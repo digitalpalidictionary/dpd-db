@@ -13,8 +13,6 @@ class ProjectPaths:
         # root
         self.docs_dir = base_dir / "docs"
         self.dpd_db_path = base_dir / "dpd.db"
-        self.gmail_credentials_path = base_dir / "credentials.json"
-        self.gmail_token_path = base_dir / "token.json"
         self.mk_docs_yaml = base_dir / "mkdocs.yaml"
         self.pyproject_path = base_dir / "pyproject.toml"
         self.temp_dir = base_dir / "temp"
@@ -652,11 +650,6 @@ class ProjectPaths:
         )
         self.tpr_release_path = (
             base_dir / "resources/tpr_downloads/release_zips/dpd.zip"
-        )
-
-        # scripts/build
-        self.newsletter_processed_json = (
-            base_dir / "scripts/build/newsletter_processed.json"
         )
 
         # scripts/extractor

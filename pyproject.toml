@@ -23,6 +23,8 @@ dependencies = [
     "regex>=2026.5.9",
     "starlette>=1.2.1",
     "anyio>=4.13.0",
+    "css-inline>=0.23.0",
+    "pillow>=12.3.0",
 ]
 
 [dependency-groups]
@@ -60,12 +62,12 @@ tools = [
     "miniaudio>=1.61",
     "pathspec>=0.12.1",
     "flet[all]==1.0.1",
-    "google-api-python-client>=2.167.0",
-    "google-auth-oauthlib>=1.3.0",
-    "markdownify>=1.2.2",
     "pyicu>=2.16.2",
     "genanki>=0.13.1",
     "thefuzz>=0.22.1",
+    # bare, not under an extra: google-genai does not provide it, but
+    # tools/ai_gemini_manager.py imports google.api_core.exceptions directly
+    "google-api-core>=2.43.0",
 ]
 
 [tool.hatch.build.targets.sdist]
