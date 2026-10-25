@@ -1,10 +1,8 @@
 # ePitaka
 
-The full version of DPD is built into the ePitaka app, a free Tipiṭaka reader created by [Ven. Dhammañāṇa](https://github.com/dhammanana){target="_blank"}. It shows the Pāḷi and a translation side by side, sentence by sentence, in over 20 languages. Tap any word and the full DPD entry opens right next to the text.
+The full version of DPD is built into the ePitaka app. This is the app that I personally use for my daily Pāḷi reading and study. It shows the Pāḷi and a translation side by side, sentence by sentence, in over 20 languages. Tap any word and the full DPD entry opens right next to the text.
 
-This is the app that I personally use for my daily Pāḷi reading and study.
-
-ePitaka contains
+## ePitaka contains
 
 - the full Chaṭṭha Saṅgāyana Tipiṭaka, with commentaries
 - translations in over 20 languages, including Myanmar Nissaya
