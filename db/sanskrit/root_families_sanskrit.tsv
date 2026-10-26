@@ -590,7 +590,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √khip 1	1	a	throw	√kṣip	6	throw	saṃ √khip	saṃkṣip	asaṃkṣipta, saṅkṣiptvā, saṅkṣepitum, samkṣipati, saṃkṣipat, saṃkṣipamāṇa, saṃkṣipta, saṃkṣiptena, saṃkṣepa
 √khip 1	1	a	throw	√kṣip	6	throw	saṃ ni √khip	saṃnikṣip	
 √khip 2	1	a	sneeze	√kṣu	2	sneeze	√khip	kṣu	kṣauti, kṣip, kṣut, kṣuta, kṣutvā, kṣuvat
-√khī	1	a	exhaust, destroy	√kṣi	1, 5, 9	destroy	√khī	kṣi	a, akhila, akṣaya, khila, kṣaya, kṣayati, kṣayayati, kṣayitavya, kṣiyat, kṣīṇa, kṣīṇatā, kṣīṇatva, kṣīyate, kṣepayati
+√khī	1	a	exhaust, destroy	√kṣi	1, 5, 9	destroy	√khī	kṣi	a, akhila, akṣaya, khila, kṣaya, kṣayati, kṣayayati, kṣayitavya, kṣiṇoti, kṣiyat, kṣīṇa, kṣīṇatā, kṣīṇatva, kṣīyate, kṣepayati
 √khī	1	a	exhaust, destroy	√kṣi	1, 5, 9	destroy	ava √khī	avakṣi	avakṣaya, avakṣīṇa
 √khī	1	a	exhaust, destroy	√kṣi	1, 5, 9	destroy	pari √khī	parikṣi	na + parikṣīṇa, parikṣaya, parikṣayamāṇa, parikṣīṇa, parikṣīyate
 √khī	1	a	exhaust, destroy	√kṣi	1, 5, 9	destroy	vi √khī	vikṣi	vikṣīṇa
@@ -698,6 +698,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √gā	3	ya	sing	√gai √gā	4	sing	pati √gā		prati + gāthā, prati + gīta
 √gā	3	ya	sing	√gai √gā	4	sing	saṃ √gā	saṃgai	saṅgāyitavya, saṅgīta, saṅgītvā, saṃgāyat, saṃgāyati, saṃgāyana, saṃgīta, saṃgīti, su + saṃgīta
 √gādh	1	a	stand firmly	√gādh √gāh	1	stand firmly	√gādh	gādh	gādha, gādhate
+√gādh	1	a	stand firmly	√gādh √gāh	1	stand firmly	ava √gādh		gādha
 √gādh	1		stand firmly	√gādh √gāh	1	stand firmly	ni √gādh		
 √gādh	1	a	stand firmly	√gādh √gāh	1	stand firmly	pati √gādh		prati + gāḍha
 √gāh	1	a	dive, plunge	√gāh	1	plunge	√gāh	gāh	gāḍha, gāḍham, gāha, gāhate, nis + gāha, sa + gāha
@@ -1556,7 +1557,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √nī	1	a	lead, carry	√nī	1, 2	lead	pati √nī	pratinī	pratinayati
 √nī	1	a	lead, carry	√nī	1, 2	lead	pati vi √nī	vinī	na + prativinīta (bsk), prati + vinaya, prati + vinayati, prati + vinīta, prativinītvā, su + prati + vinīta, su + prati + vinīta +
 √nī	1	a	lead, carry	√nī	1, 2	lead	pari √nī	pariṇī	a + pariṇāyaka, na + pariṇīṭā, pariṇaya, pariṇayati, pariṇāyaka, pariṇīta, parīṇāyati
-√nī	1	a	lead, carry	√nī	1, 2	lead	vi √nī	vinī	avinaya, avinīta, durvinīta, vaināśika, vaineya, vinaya, vinayati, vinayitum, vinayena, vināyaka, viniyat, vinīta, vinītvā, vinīyate, vinetṛ, vineya, vineya, vaineya, vineya, vaineya +, su + vaineya, suvinīta
+√nī	1	a	lead, carry	√nī	1, 2	lead	vi √nī	vinī	avinaya, avinīta, durvinīta, vaināśika, vaineya, vinaya, vinayat, vinayati, vinayitum, vinayena, vināyaka, viniyat, vinīta, vinītvā, vinīyate, vinetṛ, vineya, vineya, vaineya, vineya, vaineya +, su + vaineya, suvinīta
 √nī	1	a	lead, carry	√nī	1, 2	lead	vi apa √nī		
 √nī	1	a	lead, carry	√nī	1, 2	lead	saṃ √nī	saṃnī	sannayitavya, sannayitum, saṃnayati, saṃniyat
 √nī	1	*aya	lead, carry	√nī	1, 2	lead	saṃ anu ā √nī	anvānī	sam + anvānayati, sam + anvānayamāna, sam + anvānīta
