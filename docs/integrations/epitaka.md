@@ -22,7 +22,7 @@ Everything works offline, except DPD's audio pronunciation and the AI tools.
 
 You can read the Pāḷi side by side with a translation in any of these languages:
 
-Bengali, Chinese, English, French, German, Hindi, Indonesian, Japanese, Khmer, Korean, Lao, Myanmar, Myanmar Nissaya, Nepali, Portuguese, Russian, Sinhala, Spanish, Tamil, Thai and Vietnamese.
+Bengali, Chinese, Czech, English, French, German, Hindi, Indonesian, Japanese, Khmer, Korean, Lao, Marathi, Myanmar, Myanmar Nissaya, Nepali, Portuguese, Russian, Sinhala, Spanish, Tamil, Thai and Vietnamese.
 
 Download the ones you want from inside the app.
 
