@@ -436,3 +436,9 @@
 - 2026-10-25 [BEHAVIOR] gmail_app_password: the live-preview server served the whole repo root, config.ini with passwords included; all three reviewers caught it.
 - 2026-10-25 [POSITIVE] gmail_app_password: measuring the real thing settled designs fast: a draft/send/forward byte check proved Gmail never shrinks pictures, and a headless-browser probe proved the reload kept scroll.
 - 2026-10-25 [POSITIVE] gmail_app_password: Sonnet, CodeRabbit and the pi agent in parallel each found real issues; pi alone spotted config.ini at mode 777.
+- 2026-10-26 [BEHAVIOR] sutamaya_integration: restarted the docs server only to answer "give me the address"; the user said they never asked for that, and the old server was still running. Check first, answer from what exists, start nothing.
+- 2026-10-26 [BEHAVIOR] sutamaya_integration: said "the sitemap lists every page" from memory; the built sitemap was 109 bytes and listed none. Open the file before describing it.
+- 2026-10-26 [WORKFLOW] sutamaya_integration: ticked "read the page in light and dark mode" after checking light only. Tick only what ran; write the unrun half in the plan.
+- 2026-10-26 [CONFUSION] sutamaya_integration: the page listed every Nikaya and a text count; the user said readers of SuttaCentral already know that. For an integration page, state what the app adds, not what its source corpus holds.
+- 2026-10-26 [CONFUSION] sutamaya_integration: a message cut off mid-word ("just want it el") was met with a question tool the user rejected. Ask for a cut-off message in one plain line, with no options.
+- 2026-10-26 [POSITIVE] sutamaya_integration: driving the live app with playwright-cli gave real facts and screenshots when both videos were unreadable (one silent, one blocked by YouTube).

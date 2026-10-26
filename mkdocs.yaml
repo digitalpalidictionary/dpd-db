@@ -49,6 +49,7 @@ nav:
       - Dhamma.gift website: "integrations/dhamma_gift.md"
       - ePitaka: "integrations/epitaka.md"
       - Simsapa Dhamma Reader: "integrations/simsapa.md"
+      # - Sutamaya: "integrations/sutamaya.md"
       - Sutta Central Website: "integrations/sutta_central.md"
       - The Buddha's Words: "integrations/tbw.md"
       - Tipitaka Pali Reader: "integrations/tpr.md"
