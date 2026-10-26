@@ -1,6 +1,6 @@
 # Digital Pāḷi Dictionary
 
-DPD is a freely-available, non-commercial project, providing hi-quality Pāḷi dictionary lookup in multiple formats.
+DPD is a freely-available, non-commercial project, providing high-quality Pāḷi dictionary lookup in multiple formats.
 
 ## Read the Docs
 [DPD Docs website](https://digitalpalidictionary.github.io)
@@ -20,6 +20,7 @@ DPD is a freely-available, non-commercial project, providing hi-quality Pāḷi 
 
 ## Get DPD
 Online: [www.dpdict.net](https://www.dpdict.net/)  
+On Android: [beta testing](https://digitalpalidictionary.github.io/install/dpd_app/)  
 On your device: [download the latest releases](https://github.com/digitalpalidictionary/dpd-db/releases)
 
 ## Installation Guides
@@ -27,7 +28,8 @@ On your device: [download the latest releases](https://github.com/digitalpalidic
 
 Desktop: [Windows](https://digitalpalidictionary.github.io/install/win/) | [Mac](https://digitalpalidictionary.github.io/install/mac/) | [Linux](https://digitalpalidictionary.github.io/install/linux/)  
 Mobile: [Android](https://digitalpalidictionary.github.io/install/android_dicttango/) | [iOS](https://digitalpalidictionary.github.io/install/ios/)   
-E-readers: [Kindle](https://digitalpalidictionary.github.io/install/kindle/) | [Kobo reader](https://digitalpalidictionary.github.io/install/kobo/) | PDF  
+E-readers: [Kindle](https://digitalpalidictionary.github.io/install/kindle/) | [Kobo reader](https://digitalpalidictionary.github.io/install/kobo/) | [KOReader](https://digitalpalidictionary.github.io/install/koreader/) | PDF  
+Other: [Anki](https://digitalpalidictionary.github.io/install/anki/) | [Apple Dictionary](https://digitalpalidictionary.github.io/install/apple_dict/) | [Browser Extension](https://digitalpalidictionary.github.io/install/browser_extension/) | [Chromebook](https://digitalpalidictionary.github.io/install/chromebook/)  
 API: [GoldenDict](https://digitalpalidictionary.github.io/webapp/api_goldendict/) |
 [DictTango](https://digitalpalidictionary.github.io/webapp/api_dicttango/)
 
@@ -37,17 +39,21 @@ API: [GoldenDict](https://digitalpalidictionary.github.io/webapp/api_goldendict/
 
 DPD is integrated into the following software and websites.  
 [Dhamma.gift](https://dhamma.gift/) | [Docs](https://digitalpalidictionary.github.io/integrations/dhamma_gift/)  
+[ePitaka](https://epitaka.org/) | [Docs](https://digitalpalidictionary.github.io/integrations/epitaka/)  
+[Pāli Practice](https://www.dhammabytes.org/pali-practice/)  
 [Simsapa Dhamma Reader](https://simsapa.github.io/) | [Docs](https://digitalpalidictionary.github.io/integrations/simsapa/)    
 [Sutta Central](https://suttacentral.net/) | [Docs](https://digitalpalidictionary.github.io/integrations/sutta_central/)  
 [Sutta Central Voice](https://www.sc-voice.net/#/sutta/dn15:0.1/en/sujato) | Docs  
 [The Buddha's Words](https://thebuddhaswords.net/mn/mn1.html#content) | [Docs](https://digitalpalidictionary.github.io/integrations/tbw/)  
-[Tipiṭaka Pali Reader](https://americanmonk.org/tipitaka-pali-reader/): [Win](https://apps.microsoft.com/store/detail/tipitaka-pali-reader/9MTH9TD82TGR?hl=en-ms&gl=ms) | [Mac](https://apps.apple.com/us/app/tipitaka-pali-reader/id1541426949) | [Linux](https://github.com/bksubhuti/tipitaka-pali-reader/releases/) | [Android](https://play.google.com/store/apps/details?id=com.paauk.tipitakapalireader) | [iOS](https://apps.apple.com/us/app/tipitaka-pali-reader/id1541426949) | [Docs](https://digitalpalidictionary.github.io/integrations/tpr/)  
+[Tipiṭaka Pali Reader](https://americanmonk.org/tipitaka-pali-reader/) | [Docs](https://digitalpalidictionary.github.io/integrations/tpr/)  
+[Tipitaka.org](https://www.tipitaka.org/)  
 [Tipitakapali.org website](https://tipitakapali.org/) | [iOS](https://apps.apple.com/vn/app/tipitakacst/id6743404213) | [Docs](https://digitalpalidictionary.github.io/integrations/tipitakapali/)  
 
 ## Additional Resources
-[Other Pāḷi & Sanskrit dictionaries](https://github.com/digitalpalidictionary/other-dictionaries)  
-[Monthly Changelog](https://digitalpalidictionary.github.io/changelog.html)  
-[Setup the hotkey in GoldenDict](https://digitalpalidictionary.github.io/setup_hotkey.html)  
+[Other Pāḷi & Sanskrit dictionaries](https://digitalpalidictionary.github.io/other_dicts/)  
+[Monthly Changelog](https://digitalpalidictionary.github.io/changelog/)  
+[Setup the hotkey in GoldenDict](https://digitalpalidictionary.github.io/goldendict/hotkey/)  
+[Join the mailing list](https://forms.gle/gJ7ouhJriYREPm1s8)  
 [Feedback Form](https://docs.google.com/forms/d/e/1FAIpQLSf9boBe7k5tCwq7LdWgBHHGIPVc4ROO5yjVDo1X5LDAxkmGWQ/viewform)
 
 ## License
