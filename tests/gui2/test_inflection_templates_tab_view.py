@@ -84,6 +84,18 @@ def test_grid_values_to_data_cleans_forms():
     ]
 
 
+def test_grid_values_to_data_drops_blank_rows():
+    """A row with every cell blank is dropped, so save does not refuse it."""
+    headings = ["sg"]
+    rows = [["nom", "a", "g"], ["", "", ""], ["", " \n", " "]]
+    data = grid_values_to_data(headings, rows)
+    assert data == [
+        [[""], ["sg"], [""]],
+        [["nom"], ["a"], ["g"]],
+    ]
+    assert validate_template(TemplateFile(pattern="p", like="q", data=data)) is None
+
+
 def test_grid_values_to_data_round_trip():
     """data → grid → data gives the same data."""
     t = make_template()

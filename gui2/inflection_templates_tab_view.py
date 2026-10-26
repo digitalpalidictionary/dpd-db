@@ -57,7 +57,7 @@ def grid_values_to_data(
     Forms are trimmed, blank lines dropped and sorted with
     pali_list_sorter; a cell with no forms is saved empty ([""]).
     Row 0 is [[""], heading, [""], heading, ...]; rows 1+ are
-    [label, forms, grammar, ...].
+    [label, forms, grammar, ...]. Rows with every cell blank are dropped.
     """
     data: list[list[list[str]]] = [[[""]]]
     for heading in headings:
@@ -65,6 +65,9 @@ def grid_values_to_data(
         data[0].append([""])
 
     for row in rows:
+        # the old spreadsheet import left blank spacer rows in a few files
+        if not any(cell.strip() for cell in row):
+            continue
         new_row: list[list[str]] = [[" ".join(row[0].split())]]
         for cell_no in range(1, len(row), 2):
             forms = [line.strip() for line in row[cell_no].splitlines()]
