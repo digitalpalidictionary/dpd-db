@@ -5,6 +5,38 @@ search:
 
 # Changelog
 
+## 2026-10-26
+
+### GitHub Issues Closed
+- [#228 Where's the data?](https://github.com/digitalpalidictionary/dpd-db/issues/228)
+- [#241 DPD for KOReader](https://github.com/digitalpalidictionary/dpd-db/issues/241)
+- [#262 How to cite DPD](https://github.com/digitalpalidictionary/dpd-db/issues/262)
+- [#267 Buddhist Wiki](https://github.com/digitalpalidictionary/dpd-db/issues/267)
+- [#268 Add server-side limits to webapp searches](https://github.com/digitalpalidictionary/dpd-db/issues/268)
+- [#270 42 lookup keys have leading or trailing spaces, so exact lookup cannot find their content](https://github.com/digitalpalidictionary/dpd-db/issues/270)
+- [#271 Contributions: update docs and new Google Form](https://github.com/digitalpalidictionary/dpd-db/issues/271)
+- [#272 GitHub: Draft release updates the TBW, Sutta Central, FDG, and TPR submodules](https://github.com/digitalpalidictionary/dpd-db/issues/272)
+- [#273 inflection templates: move from the spreadsheet to tsv files](https://github.com/digitalpalidictionary/dpd-db/issues/273)
+
+
+### Dictionary Data Updates
+- 89 763 headwords, 55 060 (61.3%) complete, 9 078 (10.1%) partially complete, 25 625 (28.5%) incomplete entries
+- 753 roots, 3 326 root families, 37 132 words derived from roots
+- 852 434 deconstructed compounds
+- 1 500 798 unique inflected forms recognized
+- 2 300 427 cells of Pāḷi word data
+- 18 311 cells of Pāḷi root data
+- Pass1 complete: VIN1-4, DN1-3, MN1-3, SN1-5, AN1-11, KN1-5, KN8-9
+- Pass1 in progress: VIN5
+- Pass2 complete: DN1-3, MN1-3, SN1-5, AN1-5
+- Pass2 in progress: AN6
+- numerous additions and corrections based on user feedback
+
+### New Words
+accācarati, accharāsaṅgha, adhigamasaddhā, adhipatatta, anatthapadasaṃhita, anvādisati, anvādisi, apāsādika 2, abala 3, ayamanudhammo 2, ayoni 2, alabhi 2, avabodhana, avahāya, aviccaṃ, ahamassa 1, ahamassa 2, āgamanīyasaddhā, āghātavinaya 1, āghātavinaya 2, ācikkhāpeti, ādigāthā, ādiyamāna 2, āramati 1.2, ārambha 1.4, ārodanā 1, itipissa, idamatthiya, indasama, uccaṃ, ujjāleti, utusamaya, uddesa 8, upakārānupakāra, upakkilissati 2, upaṭṭhita 4, upalāpanā, ubbilāvita, ullaṅghati, ullaṅghāpeti, ussaṅkita, ussāreti 2.1, ekissā 2, okappanasaddhā, ogadha 2.1, oḍḍiyitvā, onati, katamanukaroti, kathita 3, kathetumāraddha, kapicitta, kinti 3, kismici 2, kuppadhamma, kumbhaṭṭhāna, kulupaka 2, kusumbha 2, kodhanīya, kosambakavatthu, khāṇu 2, khiṇoti, gaṅgākūla, gacchati 3, gamanīya 3, gahaṇa 4, gaḷa 2.1, gīvā 3, ghaṇḍi, ghaṇḍikā, ghusati, cakkadhārī, cakkānuvattana, catuppāda 2, calayati, calayituṃ, cundasūkarikavatthu, cumbāpeti, chappāda, chātaka 3, jaggati 2, ṭhārasa, takkayati, taruṇakāla, tedha 2, thirakatha, deti 5, doṇabrāhmaṇa, dhammajāti, nattheso, nānappakāraṃ, nikhanati, nigama 3, nīcaṃ, nīharati 3, nesajja 2, pacchima 9, pañcakanipāta 1, paññattāpaññatta 2, paṭidesita 1, paṭipakkhabhāva, paṭivinodaya, paṭivinodayitvā, paṭisantharati 3, paṭisevitar 2, padakkhiṇaṃ, pabbājayati, parāmasati 1.3, parikuppa, parititta, paropadesa, paligedhī, pavajjati 2.1, pavaḍḍhana 2, pavāhayati, pasādasaddhā, pāda 10, pādanakha, pāsa 2.5, pāsādika 3, piṅgiyānī, pidahati 2, pupphī, pesetabba 2, bandhanatthāya 1, bandhumatī 3, bahubhaṇḍa 2, bāliya, bilaṅga 3, bhañji 2, bhatti 3, bhavataṇhāparikkhaya, bhikkhābhājana, bhuñjāpeti, bhūmyaṃ, bhoga 1.5, macchariyappahāna, maṭṭhakuṇḍalīvatthu, maṇi 4, mathana 1, madhura 2.2, maya 2, mariyāda 2, mahākāḷattheravatthu, māgadhika 2, muccati 1.4, muccati 1.6, rāgavirāgī 2, rosiyati, vaṇṇanā 3, vācca, vicinitvā 2, viḍayhati, vinayanta, vibhūsita 2, vimānita 1, virāga 2.2, vilajjati, vilasita 1, viviccaṃ, vissajjitar, vuṭṭhāpetvā 3, vega 3, veṇī 3, saṅkasāyati 2, saṇṭharituṃ, saṇṭhāpetuṃ, santharituṃ, sandhiyati 3, saparikkamana 2, sabhāga 3, samādahituṃ 1, sampaṭicchati 2, sampaṭicchi 3, sampaṭicchitvā 1, sampassati 2, saṃvāsana, saṃharati 4, sāka 3, sādhāraṇa 3, sīlānisaṃsa, supaṭivinodaya, subhikkha 3, sumanadevīvatthu, suratta 2, sūcipāsa, sotthi 2.1, sopādisesa, sobhana 3, hatthanakha, haliddirāga [190]
+
+
+
 ## 2026-09-26
 
 ### GitHub Issues Closed

@@ -4,28 +4,28 @@ DPD is revised every month. Always cite the version you used.
 
 ## The dictionary
 
-> Bodhirasa Bhikkhu. Digital Pāḷi Dictionary. Version v0.4.20260926. https://doi.org/10.5281/zenodo.22979413
+> Bodhirasa Bhikkhu. Digital Pāḷi Dictionary. Version v0.4.20261026. https://doi.org/10.5281/zenodo.22979413
 
 The DOI <https://doi.org/10.5281/zenodo.22979413> always resolves to the newest release.
 
 ## A single entry
 
-> Bodhirasa Bhikkhu. "gacchati 1." *Digital Pāḷi Dictionary*, version v0.4.20260926. <https://dpdict.net/24043>
+> Bodhirasa Bhikkhu. "gacchati 1." *Digital Pāḷi Dictionary*, version v0.4.20261026. <https://dpdict.net/24043>
 
 **Chicago (note)**
 
-> Bodhirasa Bhikkhu, "gacchati 1," *Digital Pāḷi Dictionary*, version v0.4.20260926,
+> Bodhirasa Bhikkhu, "gacchati 1," *Digital Pāḷi Dictionary*, version v0.4.20261026,
 > https://dpdict.net/24043.
 
 **MLA**
 
-> Bodhirasa Bhikkhu. "gacchati 1." *Digital Pāḷi Dictionary*, version v0.4.20260926,
+> Bodhirasa Bhikkhu. "gacchati 1." *Digital Pāḷi Dictionary*, version v0.4.20261026,
 > dpdict.net/24043.
 
 **APA**
 
 > Bodhirasa Bhikkhu. (2026). gacchati 1. In *Digital Pāḷi Dictionary*
-> (version v0.4.20260926). https://dpdict.net/24043
+> (version v0.4.20261026). https://dpdict.net/24043
 
 ## Finding the version
 
