@@ -127,6 +127,9 @@ DISPLAY_MAX_H = 560
 # the card's text column on the narrowest phone (320 px screen); a picture wider
 # than this is sized by the column, not by a fixed pixel width
 PHONE_COLUMN_W = 265
+# the docs column is wider than the mail's, and a tall pic at the mail's width
+# looked narrow there; the shrunk file holds 2x the mail width, so 1.5x stays sharp
+DOCS_TALL_SCALE = 1.5
 # Gmail never shrinks picture bytes (tested on draft, send and forward), so the
 # builder does: at most 2x the display size, sharp on phones and HiDPI screens
 PIXEL_DENSITY = 2
@@ -727,8 +730,15 @@ def docs_entry(
         name = match.group(2)
         pic = pics.get(name)
         path = f"{match.group(1)}pics/newsletters/{month}/{pic.name if pic else name}"
-        if pic and match.group(1) == "](" and match.group(3) == ")":
-            return f'{path}){{ width="{pic.display[0]}" }}'
+        # only tall pics keep the narrow email width: the 520 px of a wide pic
+        # is the mail's column, and the docs column is wider
+        if (
+            pic
+            and match.group(1) == "]("
+            and match.group(3) == ")"
+            and pic.display[0] < DISPLAY_MAX_W
+        ):
+            return f'{path}){{ width="{round(pic.display[0] * DOCS_TALL_SCALE)}" }}'
         return path + match.group(3)
 
     body = re.sub(r'(\]\(|src=")pics/([^)"\s]+)([)"]?)', published, body)

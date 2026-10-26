@@ -15,11 +15,11 @@ It is the first app to bring together Pāḷi texts, complete translations, the 
 
 It works seamlessly on the laptop ... 
 
-![epitaka-app](pics/newsletters/2026-10/epitaka-app.jpg){ width="520" }
+![epitaka-app](pics/newsletters/2026-10/epitaka-app.jpg)
 
 ... and on the phone.
 
-![epitaka-android](pics/newsletters/2026-10/epitaka-android.png){ width="265" }
+![epitaka-android](pics/newsletters/2026-10/epitaka-android.png){ width="398" }
 
 It also includes translations of the full Chaṭṭha Saṅgāyana Tipiṭaka in 22 languages. Currently you can read in: Bengali, Chinese, Czech, English, French, German, Hindi, Indonesian, Japanese, Khmer, Korean, Lao, Marathi, Myanmar, Myanmar Nissaya, Nepali, Portuguese, Russian, Sinhala, Spanish, Tamil, Thai, and Vietnamese, with more languages on the way.
 

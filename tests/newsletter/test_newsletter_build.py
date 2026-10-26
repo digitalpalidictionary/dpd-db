@@ -420,6 +420,17 @@ def test_mail_names_each_image_the_same_in_page_and_parts(tmp_path: Path) -> Non
         assert tag and f'alt="{name}"' in tag.group(0)
 
 
+def test_docs_entry_leaves_wide_pics_at_full_width(tmp_path: Path) -> None:
+    month_dir = make_month(tmp_path)
+    photo(2000, 1200).save(month_dir / "pics" / "wide.png")
+    md = NEWSLETTER_MD + "\n![a photo](pics/wide.png)\n"
+    dest = tmp_path / "docs_pics" / "2026-11"
+    pics = nb.copy_docs_pics(body_of(md), month_dir, dest)
+    assert pics["wide.png"].display[0] == nb.DISPLAY_MAX_W
+    entry = nb.docs_entry(SUBJECT, body_of(md), "2026-11", date(2026, 11, 24), pics)
+    assert re.search(r"!\[a photo\]\(pics/newsletters/2026-11/wide\.\w+\)\n", entry)
+
+
 def test_docs_entry_uses_published_name_and_width(tmp_path: Path) -> None:
     month_dir = make_month(tmp_path)
     photo(3072, 4080).save(month_dir / "pics" / "big.png")
@@ -429,11 +440,11 @@ def test_docs_entry_uses_published_name_and_width(tmp_path: Path) -> None:
     assert pics["big.png"].name == "big.jpg"
     assert (dest / "big.jpg").exists() and not (dest / "big.png").exists()
     entry = nb.docs_entry(SUBJECT, body_of(md), "2026-11", date(2026, 11, 24), pics)
-    assert '![a photo](pics/newsletters/2026-11/big.jpg){ width="422" }' in entry
+    assert '![a photo](pics/newsletters/2026-11/big.jpg){ width="633" }' in entry
     assert "![a caption](pics/newsletters/2026-11/koreader.jpg)" in entry
     page_path = tmp_path / "newsletters.md"
     page_path.write_text(nb.insert_docs_entry(PAGE, entry, SUBJECT), encoding="utf-8")
-    assert 'width="422"' in parse_newsletters(page_path)[0]["html_body"]
+    assert 'width="633"' in parse_newsletters(page_path)[0]["html_body"]
 
 
 def test_new_picture_markdown_goes_to_clipboard(
