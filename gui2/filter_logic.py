@@ -2,8 +2,10 @@
 without a live flet.Page (findings F6)."""
 
 import re
+from collections import Counter
 
 from sqlalchemy import ColumnElement
+from sqlalchemy.orm import Session
 
 from db.models import DpdHeadword
 
@@ -107,6 +109,35 @@ def group_changes_by_id(
     for (headword_id, col_name), value in modified_cells.items():
         changes_by_id.setdefault(headword_id, {})[col_name] = value
     return changes_by_id
+
+
+def find_duplicate_lemma_1(
+    db_session: Session, changes_by_id: dict[int, dict[str, str]]
+) -> list[str]:
+    """Return the lemma_1 names that two headwords would share after the save.
+
+    A headword that is itself being renamed does not count as holding its old
+    name, so swapping two names in one save is allowed.
+    """
+    new_names = {
+        headword_id: changes["lemma_1"]
+        for headword_id, changes in changes_by_id.items()
+        if "lemma_1" in changes
+    }
+    if not new_names:
+        return []
+
+    clashes = {name for name, n in Counter(new_names.values()).items() if n > 1}
+    taken = (
+        db_session.query(DpdHeadword.lemma_1)
+        .filter(
+            DpdHeadword.lemma_1.in_(set(new_names.values())),
+            DpdHeadword.id.notin_(list(new_names)),
+        )
+        .all()
+    )
+    clashes.update(name for (name,) in taken)
+    return sorted(clashes)
 
 
 def effective_total(total: int, limit: int) -> int:

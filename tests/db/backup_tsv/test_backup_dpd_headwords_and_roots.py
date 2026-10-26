@@ -4,8 +4,15 @@ import subprocess
 from pathlib import Path
 
 import pytest
+from sqlalchemy import create_engine, text
+from sqlalchemy.orm import Session
 
-from db.backup_tsv.backup_dpd_headwords_and_roots import git_commit
+from db.backup_tsv.backup_dpd_headwords_and_roots import (
+    check_no_duplicate_lemma_1,
+    find_duplicate_lemma_1,
+    git_commit,
+)
+from db.models import Base
 from tools.paths import ProjectPaths
 
 
@@ -72,3 +79,48 @@ def test_a_failed_commit_is_reported_not_raised(
 
     assert git(repo, "log", "-1", "--format=%s") == "initial"
     assert "pathspec" in capsys.readouterr().out
+
+
+@pytest.fixture
+def headword_session() -> Session:  # type: ignore
+    """In-memory db whose lemma_1 has no UNIQUE rule, like the live dpd.db."""
+    engine = create_engine("sqlite:///:memory:")
+    Base.metadata.create_all(engine)
+    session = Session(engine)
+    session.execute(text("DROP TABLE dpd_headwords"))
+    session.execute(
+        text(
+            "CREATE TABLE dpd_headwords (id INTEGER PRIMARY KEY, lemma_1 VARCHAR NOT NULL)"
+        )
+    )
+    session.commit()
+    yield session  # type: ignore
+    session.close()
+
+
+def add_names(session: Session, names: list[str]) -> None:
+    for i, name in enumerate(names, start=1):
+        session.execute(
+            text("INSERT INTO dpd_headwords (id, lemma_1) VALUES (:i, :n)"),
+            {"i": i, "n": name},
+        )
+    session.commit()
+
+
+def test_duplicate_lemma_1_lists_names_with_their_ids(
+    headword_session: Session,
+) -> None:
+    add_names(headword_session, ["a 1", "b 1", "a 1", "c 1", "b 1", "a 1"])
+    assert find_duplicate_lemma_1(headword_session) == {"a 1": [1, 3, 6], "b 1": [2, 5]}
+
+
+def test_unique_lemma_1_passes_the_check(headword_session: Session) -> None:
+    add_names(headword_session, ["a 1", "a 2", "b 1"])
+    check_no_duplicate_lemma_1(headword_session)
+
+
+def test_duplicate_lemma_1_stops_the_backup(headword_session: Session) -> None:
+    add_names(headword_session, ["a 1", "a 1"])
+    with pytest.raises(SystemExit) as stopped:
+        check_no_duplicate_lemma_1(headword_session)
+    assert stopped.value.code == 1

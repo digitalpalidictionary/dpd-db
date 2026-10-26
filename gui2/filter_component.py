@@ -10,6 +10,7 @@ from gui2.filter_logic import (
     clamp_page_index,
     compute_column_widths,
     effective_total,
+    find_duplicate_lemma_1,
     group_changes_by_id,
     page_label,
     track_cell_change,
@@ -442,6 +443,16 @@ class FilterComponent(ft.Column):
         db_session = self.toolkit.db_manager.db_session
         try:
             changes_by_id = group_changes_by_id(self.modified_cells)
+
+            duplicates = find_duplicate_lemma_1(db_session, changes_by_id)
+            if duplicates:
+                show_global_snackbar(
+                    self.page,
+                    f"lemma_1 already exists: {', '.join(duplicates)}",
+                    "error",
+                    6000,
+                )
+                return
 
             for headword_id, changes in changes_by_id.items():
                 record = db_session.query(DpdHeadword).filter_by(id=headword_id).first()

@@ -12,6 +12,7 @@ from gui2.filter_logic import (
     clamp_page_index,
     compute_column_widths,
     effective_total,
+    find_duplicate_lemma_1,
     group_changes_by_id,
     page_label,
     parse_id_filter,
@@ -236,3 +237,32 @@ def test_page_label_last_partial_page():
 
 def test_page_label_empty():
     assert page_label(0, 100, 0) == "0 of 0"
+
+
+# ── find_duplicate_lemma_1 ───────────────────────────────────────────────────
+
+
+def test_duplicate_lemma_1_none_when_no_name_edited(db_session: Session):
+    assert find_duplicate_lemma_1(db_session, {1: {"pos": "adj"}}) == []
+
+
+def test_duplicate_lemma_1_free_name_is_allowed(db_session: Session):
+    assert find_duplicate_lemma_1(db_session, {1: {"lemma_1": "kata 3"}}) == []
+
+
+def test_duplicate_lemma_1_name_held_by_other_headword(db_session: Session):
+    assert find_duplicate_lemma_1(db_session, {1: {"lemma_1": "kata 2"}}) == ["kata 2"]
+
+
+def test_duplicate_lemma_1_same_new_name_on_two_headwords(db_session: Session):
+    changes = {1: {"lemma_1": "kata 9"}, 3: {"lemma_1": "kata 9"}}
+    assert find_duplicate_lemma_1(db_session, changes) == ["kata 9"]
+
+
+def test_duplicate_lemma_1_swap_in_one_save_is_allowed(db_session: Session):
+    changes = {1: {"lemma_1": "kata 2"}, 2: {"lemma_1": "kata 1"}}
+    assert find_duplicate_lemma_1(db_session, changes) == []
+
+
+def test_duplicate_lemma_1_keeping_own_name_is_allowed(db_session: Session):
+    assert find_duplicate_lemma_1(db_session, {1: {"lemma_1": "kata 1"}}) == []

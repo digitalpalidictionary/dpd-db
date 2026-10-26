@@ -5,8 +5,10 @@
 
 import csv
 import subprocess
+import sys
 from pathlib import Path
 
+from sqlalchemy import func
 from sqlalchemy.orm.session import Session
 
 from db.db_helpers import get_db_session
@@ -19,11 +21,42 @@ def backup_dpd_headwords_and_roots(pth: ProjectPaths):
     pr.tic()
     pr.yellow_title("backing headword and roots tables to tsv")
     db_session = get_db_session(pth.dpd_db_path)
+    check_no_duplicate_lemma_1(db_session)
     backup_dpd_headwords(db_session, pth)
     backup_dpd_roots(db_session, pth)
     db_session.close()
     git_commit(pth)
     pr.toc()
+
+
+def find_duplicate_lemma_1(db_session: Session) -> dict[str, list[int]]:
+    """Map each lemma_1 held by more than one headword to those ids."""
+    duplicate_names = (
+        db_session.query(DpdHeadword.lemma_1)
+        .group_by(DpdHeadword.lemma_1)
+        .having(func.count() > 1)
+    )
+    rows = (
+        db_session.query(DpdHeadword.lemma_1, DpdHeadword.id)
+        .filter(DpdHeadword.lemma_1.in_(duplicate_names))
+        .order_by(DpdHeadword.lemma_1, DpdHeadword.id)
+        .all()
+    )
+    duplicates: dict[str, list[int]] = {}
+    for lemma_1, headword_id in rows:
+        duplicates.setdefault(lemma_1, []).append(headword_id)
+    return duplicates
+
+
+def check_no_duplicate_lemma_1(db_session: Session) -> None:
+    """Stop before any file is written: the database build rejects a duplicate."""
+    duplicates = find_duplicate_lemma_1(db_session)
+    if not duplicates:
+        return
+    pr.red("duplicate lemma_1, backup stopped, nothing written or committed")
+    for lemma_1, ids in duplicates.items():
+        pr.red(f"{lemma_1}: ids {', '.join(str(i) for i in ids)}")
+    sys.exit(1)
 
 
 def split_tsv_file(file_path: Path, prefix: str, chunk_size: int = 30000):
