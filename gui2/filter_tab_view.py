@@ -310,6 +310,7 @@ class FilterTabView(ft.Column):
         column_names = [column.name for column in DpdHeadword.__table__.columns]
         self.selected_columns_container = ft.Row([], wrap=True, expand=True)
         self.column_checkboxes = []
+        self.column_search: ft.TextField
 
         # Create checkboxes in a scrollable column that always shows scrollbar
         checkboxes_column = ft.Column(
@@ -326,8 +327,16 @@ class FilterTabView(ft.Column):
             self.column_checkboxes.append(checkbox)
             checkboxes_column.controls.append(checkbox)
 
+        self.column_search = ft.TextField(
+            hint_text="type to filter columns",
+            dense=True,
+            border=field_border(),
+            on_change=self._on_column_search_change,
+        )
         self.options_container = ft.Container(
-            content=checkboxes_column, visible=False, expand=False
+            content=ft.Column([self.column_search, checkboxes_column]),
+            visible=False,
+            expand=False,
         )
 
         self.dropdown_button = ft.Button(
@@ -343,6 +352,13 @@ class FilterTabView(ft.Column):
             [top_row, self.options_container],
             expand=True,
         )
+
+    def _on_column_search_change(self, e: ft.ControlEvent) -> None:
+        """Show only the column checkboxes whose name contains the typed text."""
+        text = (self.column_search.value or "").strip().lower()
+        for checkbox in self.column_checkboxes:
+            checkbox.visible = text in str(checkbox.label).lower()
+        self.page.update()
 
     def _toggle_column_options(self, e: ft.ControlEvent) -> None:
         """Toggle the visibility of column options."""
@@ -574,8 +590,8 @@ class FilterTabView(ft.Column):
             zip(self.column_dropdowns, self.regex_inputs)
         ):
             if column_dropdown.value:
-                # Save only the column name if no value is provided
-                if regex_input.value:
+                # A saved lemma_1 pattern would go stale; each search needs a new one.
+                if regex_input.value and column_dropdown.value != "lemma_1":
                     data_filters.append([column_dropdown.value, regex_input.value])
                 else:
                     data_filters.append([column_dropdown.value])
@@ -596,6 +612,7 @@ class FilterTabView(ft.Column):
         name_field = ft.TextField(
             label="Preset Name", autofocus=True, border=field_border()
         )
+        name_field.on_submit = lambda _: on_save_click(e)
 
         def on_save_click(e: ft.ControlEvent) -> None:
             preset_name = name_field.value.strip() if name_field.value else ""
@@ -649,6 +666,7 @@ class FilterTabView(ft.Column):
         name_field = ft.TextField(
             label="New Name", value=old_name, autofocus=True, border=field_border()
         )
+        name_field.on_submit = lambda _: on_ok_click(e)
 
         def on_ok_click(e: ft.ControlEvent) -> None:
             new_name = name_field.value.strip() if name_field.value else ""
