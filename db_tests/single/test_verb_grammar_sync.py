@@ -23,7 +23,7 @@ Four groups come out of a run:
    at a root would throw that away.
 3. Causative or passive forms no rule can settle: the verb is a draft, the
    entry and its finished verb disagree on the kind, or the root form needs
-   two kinds or a negative written in. Listed for you to fix.
+   an unsettled pair of kinds written in. Listed for you to fix.
 4. Entries where more than one verb fits. You pick one, skip it, or dismiss it.
 
 It writes to dpd.db, like the other maintenance scripts here.
@@ -141,8 +141,10 @@ def root_choice(row: dict[str, str]) -> str | None:
     """The grammar naming the entry's root family, or None to write it by hand.
 
     A causative or passive root form must say its kind in the grammar: "aor of
-    caus of pa √dhaṃs". Two kinds, or a negative, have no settled form. A
-    present verb already says its kind before "of": "pr, caus of ...".
+    caus of pa √dhaṃs". A negative follows the kind: "aor of caus of na pa
+    √dhaṃs". Caus and pass together read "caus pass of ...". Any other pair
+    has no settled form. A present verb already says its
+    kind before "of": "pr, caus of ...".
     """
     kind = (
         []
@@ -152,10 +154,15 @@ def root_choice(row: dict[str, str]) -> str | None:
             & set(FROM_A_VERB)
         )
     )
-    if len(kind) > 1 or (kind and " of na " in f" {row['grammar_current']} "):
+    if len(kind) > 1 and kind != ["caus", "pass"]:
         return None
-    root = f"{kind[0]} of {row['family_root']}" if kind else row["family_root"]
-    return grammar_naming(row["grammar_current"], row["pos"], root)
+    if kind:
+        ref = parse_grammar(row["grammar_current"], row["pos"])
+        if ref is None:
+            return ""
+        na = "na " if ref.na else ""
+        return f"{ref.head} of {' '.join(kind)} of {na}{row['family_root']}{ref.suffix}"
+    return grammar_naming(row["grammar_current"], row["pos"], row["family_root"])
 
 
 def gather(
@@ -326,7 +333,7 @@ def choose_for_ambiguous(
             # None of the candidates is the source, so point at the root family.
             proposed = root_choice(row)
             if proposed is None:
-                pr.red("    two kinds or a negative — write this root form by hand")
+                pr.red("    this pair of kinds — write the root form by hand")
                 continue
             if not proposed or not row["family_root"]:
                 pr.red("    no root family to point at — skipped")

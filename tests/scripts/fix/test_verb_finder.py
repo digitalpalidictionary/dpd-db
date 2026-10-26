@@ -591,6 +591,41 @@ def test_finished_entries_that_disagree(db_session: Session) -> None:
     assert row["grammar_proposed"] == ""
 
 
+def test_passive_of_a_causative_is_caus_pass(db_session: Session) -> None:
+    # Modelled on bhāviyati: its verb column is empty and its grammar says only
+    # "pass", but it names bhāveti, which is "caus". bhāviyamāna is correct.
+    add(
+        db_session,
+        "bhāveti",
+        "pr",
+        "pr, caus of bhavati",
+        "√bhū",
+        "√bhū",
+        root_sign="*e",
+    )
+    add(
+        db_session,
+        "bhāviyati",
+        "pr",
+        "pr, pass of bhāveti",
+        "√bhū",
+        "√bhū",
+        root_sign="*e iya",
+    )
+    add(
+        db_session,
+        "bhāviyamāna",
+        "prp",
+        "prp of bhāviyati",
+        "√bhū",
+        "√bhū",
+        "caus, pass",
+        "*e iya",
+    )
+    name, _row = bucket_of(db_session, "bhāviyamāna")
+    assert name == "special_verbs"
+
+
 def test_negative_verb_is_never_a_candidate(db_session: Session) -> None:
     # nappadūseti says "caus of na" but not "from na"; only the neg column
     # marks it.
@@ -632,8 +667,8 @@ def test_negative_verb_is_never_a_candidate(db_session: Session) -> None:
 
 
 def test_caus_pass_form_may_not_name_a_caus_verb(db_session: Session) -> None:
-    # rosiyamāna is caus, pass *e iya; roseti is caus *e. The root family,
-    # written by hand because it carries two kinds.
+    # rosiyamāna is caus, pass *e iya; roseti is caus *e. It names the root
+    # family, with both kinds written in.
     add(
         db_session,
         "roseti",
@@ -654,8 +689,8 @@ def test_caus_pass_form_may_not_name_a_caus_verb(db_session: Session) -> None:
         "*e iya",
     )
     name, row = bucket_of(db_session, "rosiyamāna")
-    assert name == "root_by_hand"
-    assert row["candidates"] == "√rus"
+    assert name == "would_change_to_root"
+    assert row["grammar_proposed"] == "prp of caus pass of √rus"
 
 
 @pytest.mark.parametrize(
@@ -744,7 +779,7 @@ def test_root_form_without_its_kind_is_corrected(db_session: Session) -> None:
     assert row["grammar_proposed"] == "aor of caus of abhi √dhar"
 
 
-def test_two_kinds_on_a_root_go_to_the_editor(db_session: Session) -> None:
+def test_caus_and_pass_on_a_root_are_written_together(db_session: Session) -> None:
     add(
         db_session,
         "kāriyamāna",
@@ -756,11 +791,42 @@ def test_two_kinds_on_a_root_go_to_the_editor(db_session: Session) -> None:
         "*e iya",
     )
     name, row = bucket_of(db_session, "kāriyamāna")
+    assert name == "would_change_to_root"
+    assert row["grammar_proposed"] == "prp of caus pass of √kar"
+
+
+def test_any_other_pair_of_kinds_goes_to_the_editor(db_session: Session) -> None:
+    add(
+        db_session,
+        "vīmaṃsiyamāna",
+        "prp",
+        "prp of vīmaṃsiyati",
+        "√man",
+        "√man",
+        "desid, pass",
+        "*e iya",
+    )
+    name, row = bucket_of(db_session, "vīmaṃsiyamāna")
     assert name == "root_by_hand"
     assert row["grammar_proposed"] == ""
 
 
-def test_negative_on_a_root_goes_to_the_editor(db_session: Session) -> None:
+def test_caus_pass_root_form_is_read_as_correct(db_session: Session) -> None:
+    add(
+        db_session,
+        "kāriyamāna",
+        "prp",
+        "prp of caus pass of √kar",
+        "√kar",
+        "√kar",
+        "caus, pass",
+        "*e iya",
+    )
+    name, _row = bucket_of(db_session, "kāriyamāna")
+    assert name == "special_verbs"
+
+
+def test_negative_root_form_puts_the_kind_before_na(db_session: Session) -> None:
     add(
         db_session,
         "acodiyamāna",
@@ -771,8 +837,44 @@ def test_negative_on_a_root_goes_to_the_editor(db_session: Session) -> None:
         "pass",
         "*e iya",
     )
+    name, row = bucket_of(db_session, "acodiyamāna")
+    assert name == "would_change_to_root"
+    assert row["grammar_proposed"] == "prp of pass of na √cud"
+
+
+def test_negation_after_the_kind_is_kept_when_the_kind_changes(
+    db_session: Session,
+) -> None:
+    # The grammar says only "caus" but the verb column adds "pass". The negation
+    # after the kind must survive the rewrite.
+    add(
+        db_session,
+        "acodiyamāna",
+        "prp",
+        "prp of caus of na √cud",
+        "√cud",
+        "√cud",
+        "pass",
+        "*e iya",
+    )
+    name, row = bucket_of(db_session, "acodiyamāna")
+    assert name == "would_change_to_root"
+    assert row["grammar_proposed"] == "prp of caus pass of na √cud"
+
+
+def test_negative_root_form_is_read_as_correct(db_session: Session) -> None:
+    add(
+        db_session,
+        "acodiyamāna",
+        "prp",
+        "prp of pass of na √cud",
+        "√cud",
+        "√cud",
+        "pass",
+        "*e iya",
+    )
     name, _row = bucket_of(db_session, "acodiyamāna")
-    assert name == "root_by_hand"
+    assert name == "special_verbs"
 
 
 def test_deno_form_is_skipped(db_session: Session) -> None:

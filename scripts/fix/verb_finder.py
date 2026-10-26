@@ -71,8 +71,9 @@ _IRREG_FORM_OF_RE = re.compile(r"\birreg form of\s+([^,]+)")
 # Whole words only: "pass" must not match inside passati.
 _MARKER_RE = re.compile(r"\b(" + "|".join(SPECIAL_VERB_MARKERS) + r")\b")
 # "pass of anuyuñjati" names anuyuñjati and says the form is its passive.
+# "caus pass of pa √dhaṃs" is the one two-kind spelling.
 _MARKER_CHAIN_RE = re.compile(
-    r"^(?:(?:" + "|".join(SPECIAL_VERB_MARKERS) + r")\s+of\s+)+"
+    r"^(?:(?:caus pass|" + "|".join(SPECIAL_VERB_MARKERS) + r")\s+of\s+)+"
 )
 
 
@@ -326,6 +327,14 @@ def build_typed_pr_index(db) -> tuple[TypedPrIndex, PrKindMap, VariantMap]:
         .filter(DpdHeadword.pos == "pr")
         .all()
     )
+    # bhāviyati is "pr, pass of bhāveti" and bhāveti is "pr, caus of bhavati",
+    # so bhāviyati is a passive of a causative. Its grammar never says "caus".
+    stated_caus: dict[str, list[bool]] = {}
+    for lemma_1, _root, _key, verb_col, grammar, *_rest in rows:
+        head = _OF_RE.split(grammar or "", maxsplit=1)[0]
+        stated_caus.setdefault(lemma_clean(lemma_1), []).append(
+            "caus" in verb_kind(verb_col or "") | verb_kind(head)
+        )
     for (
         lemma_1,
         family_root,
@@ -342,6 +351,11 @@ def build_typed_pr_index(db) -> tuple[TypedPrIndex, PrKindMap, VariantMap]:
         # column and "pr, pass of deseti" in the grammar.
         head = _OF_RE.split(grammar or "", maxsplit=1)[0]
         stated = verb_kind(verb_col or "") | verb_kind(head)
+        if "pass" in stated and "caus" not in stated:
+            parsed = parse_present_grammar(grammar or "")
+            source = stated_caus.get(lemma_clean(parsed[1])) if parsed else None
+            if source and all(source):
+                stated = stated | {"caus"}
         kind = stated
         if not kind:
             kind = verb_kind(
@@ -464,6 +478,13 @@ def parse_grammar(grammar: str, pos: str) -> GrammarRef | None:
     if body.startswith("na "):
         na = True
         body = body[3:].lstrip()
+    else:
+        # A causative or passive root form writes the kind first: "caus of na
+        # pa √dhaṃs". The negation stays a flag and the kind stays in the target.
+        chain = marker_chain(body)
+        if chain and body[len(chain) :].startswith("na "):
+            na = True
+            body = chain + body[len(chain) + 3 :].lstrip()
 
     if "√" in body:
         # Root reference; target is the whole body (e.g. "√dhā" or "ati ā √dhā").
@@ -687,7 +708,7 @@ def merge_present_buckets(
 
 def _build_proposed_to_root(ref: GrammarRef, family_root: str) -> str:
     na = "na " if ref.na else ""
-    return f"{ref.head} of {na}{marker_chain(ref.target)}{family_root}{ref.suffix}"
+    return f"{ref.head} of {marker_chain(ref.target)}{na}{family_root}{ref.suffix}"
 
 
 def _build_proposed_to_verb(ref: GrammarRef, verb_lemma: str) -> str:
@@ -719,8 +740,8 @@ def _resolve_special(
     Only three cases are left to the editor, because no rule can settle them:
     a draft verb is involved (`draft_verb`), more than one finished verb fits
     (`ambiguous`), or the form and its verb share a stem but their labels
-    disagree on the kind (`kind_mismatch`). A root form with two kinds or a
-    negative has no settled spelling (`root_by_hand`). Everything else is
+    disagree on the kind (`kind_mismatch`). A root form with two kinds has no
+    settled spelling (`root_by_hand`). Everything else is
     corrected.
     """
     chain = marker_chain(ref.target)
@@ -784,19 +805,21 @@ def _resolve_special(
         if not family_root:
             return row("rootless", "", "no family_root on this entry", "")
         # The root carries no kind, so the grammar must: "aor of caus of
-        # pa √dhaṃs". Two kinds, or a negative, have no settled form in the
-        # data, so those are written by hand.
-        if len(expected) != 1 or ref.na:
+        # pa √dhaṃs", and a negative follows the kind: "aor of caus of na pa
+        # √dhaṃs", and two kinds read "caus pass of pa √dhaṃs". Any other pair has
+        # no settled form, so those are written by hand.
+        if len(expected) != 1 and expected != {"caus", "pass"}:
             return row(
                 "root_by_hand",
                 "",
                 f"{reason}; write the {kind_name(expected)} root form by hand",
                 family_root,
             )
-        (marker,) = expected
+        marker = " ".join(sorted(expected))
         return row(
             "would_change_to_root",
-            f"{ref.head} of {marker} of {family_root}{ref.suffix}",
+            f"{ref.head} of {marker} of {'na ' if ref.na else ''}"
+            f"{family_root}{ref.suffix}",
             reason,
             named,
         )

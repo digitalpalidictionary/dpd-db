@@ -48,12 +48,22 @@ def test_root_choice_reads_the_kind_from_the_grammar() -> None:
     )
 
 
-def test_root_choice_refuses_two_kinds() -> None:
-    assert root_choice(row("prp", "prp of kāriyati", "caus, pass", "√kar")) is None
+def test_root_choice_writes_caus_and_pass_together() -> None:
+    assert (
+        root_choice(row("prp", "prp of kāriyati", "caus, pass", "√kar"))
+        == "prp of caus pass of √kar"
+    )
 
 
-def test_root_choice_refuses_a_negative() -> None:
-    assert root_choice(row("prp", "prp of na codiyati", "pass", "√cud")) is None
+def test_root_choice_refuses_any_other_pair() -> None:
+    assert root_choice(row("prp", "prp of kāriyati", "desid, pass", "√kar")) is None
+
+
+def test_root_choice_puts_the_kind_before_na() -> None:
+    assert (
+        root_choice(row("prp", "prp of na codiyati", "pass", "√cud"))
+        == "prp of pass of na √cud"
+    )
 
 
 def test_root_choice_leaves_a_present_verb_alone() -> None:
