@@ -196,6 +196,8 @@ class ChangelogGenerator:
                 if "/pull/" not in i.html_url
                 and i.closed_at is not None
                 and i.closed_at >= since_date
+                # "not_planned" and "duplicate" closures are not finished work
+                and i.state_reason == "completed"
             ]
             self.github_issues = "\n".join(
                 sorted(md, key=lambda x: int(x.split("#")[1].split()[0]))
