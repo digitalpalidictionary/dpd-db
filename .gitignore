@@ -133,6 +133,7 @@ misc/sutta_subdivisions.md
 newsletter*.html
 newsletter/*/preview.html
 newsletter/*/preview.tmp
+newsletter/*/pics/
 resources/flet-docs/
 resources/tipitaka.lk.tar.gz
 resources/tipitaka_translation_data_old/*

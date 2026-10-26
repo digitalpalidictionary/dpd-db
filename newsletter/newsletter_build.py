@@ -64,9 +64,6 @@ MONTH_PATTERN = r"\d{4}-(0[1-9]|1[0-2])"
 # the preview server hands out only these, never config.ini or the database
 PREVIEW_PATHS = ("newsletter/", "identity/logo/")
 
-# matches the email template's signoff and the older docs entries
-SIGNOFF_MD = "With much *mettā*,\n\nBodhirasa"
-
 # live preview only; the email never carries it
 RELOAD_SCRIPT = """
 <script>
@@ -120,12 +117,16 @@ COLOR_GRAY_DARK = "#404040"  # --gray-dark hsl(0,0%,25%) — body text
 FONT_STACK = "Inter, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
 LOGO_PATH = Path("identity/logo/dpd-logo-512.png")  # light icon
 LOGO_CID = "dpd-logo"
+LOGO_FILENAME = "dpd-logo.png"
 
 # Pictures fit a box one content column wide and 560 px tall: every tall picture
 # in the past newsletters (phone screenshots, a camera photo) was shown 562 px
 # tall by Gmail's "best fit", and wide ones filled the column.
 DISPLAY_MAX_W = 520  # 600 px card minus 2 x 40 px padding
 DISPLAY_MAX_H = 560
+# the card's text column on the narrowest phone (320 px screen); a picture wider
+# than this is sized by the column, not by a fixed pixel width
+PHONE_COLUMN_W = 265
 # Gmail never shrinks picture bytes (tested on draft, send and forward), so the
 # builder does: at most 2x the display size, sharp on phones and HiDPI screens
 PIXEL_DENSITY = 2
@@ -187,13 +188,9 @@ TEMPLATE = """<!DOCTYPE html>
           <td class="content" style="padding: 8px 40px 32px 40px; font-size: 15px;
                                      line-height: 1.65; color: {gray_dark};">
             {body}
-            <div style="margin-top: 24px;">
-              With much <i>mettā</i>,<br>
-              Bodhirasa
-            </div>
             <div style="margin-top: 16px; font-size: 13px; color: {gray};">
-              To unsubscribe from future updates, please reply with
-              'alamettāvatā' in the subject line.
+              <i>To unsubscribe from future updates, please reply with
+              'alamettāvatā' in the subject line.</i>
             </div>
           </td>
         </tr>
@@ -394,6 +391,12 @@ def size_pictures(body_html: str, pics_dir: Path) -> str:
         img["width"] = str(width)
         img["height"] = str(height)
         img["style"] = f"{centre} width: {width}px; height: auto;"
+        if width > PHONE_COLUMN_W:
+            # a fixed 520 px wide picture stuck out of the phone column, and
+            # the mail then showed with tiny text on the phone while max-width
+            # alone did not stop it (only after the pics stopped swapping, so
+            # the wide one was no longer in the 64 px logo slot)
+            img["style"] = f"{centre} width: 100%; max-width: {width}px; height: auto;"
     return str(soup)
 
 
@@ -641,35 +644,59 @@ def plain_text(html: str) -> str:
     return re.sub(r"\n{3,}", "\n\n", "\n".join(lines)).strip() + "\n"
 
 
+def name_cid_image(html: str, old: str, new: str) -> str:
+    """Point the <img> that used cid:`old` at cid:`new`, with `new` as its alt."""
+
+    def fix(match: re.Match[str]) -> str:
+        tag = match.group(0).replace(f'src="cid:{old}"', f'src="cid:{new}"')
+        return re.sub(r'alt="[^"]*"', f'alt="{new}"', tag)
+
+    return re.sub(rf'<img\b[^>]*src="cid:{re.escape(old)}"[^>]*>', fix, html)
+
+
 def make_mime_message(html: str, subject: str, month_dir: Path) -> MIMEMultipart:
     """Build a multipart/related message with pics as inline CID images."""
-    msg = MIMEMultipart("related")
-    msg["Subject"] = subject
-
-    alt = MIMEMultipart("alternative")
-    plain = plain_text(html)
-    alt.attach(MIMEText(plain, "plain", "utf-8"))
-    alt.attach(MIMEText(html, "html", "utf-8"))
-    msg.attach(alt)
-
+    # Each image gets ONE name for its filename, Content-ID and alt text, and
+    # the parts follow the page order, logo first. Do not "tidy" this back to
+    # separate names or sorted parts: when the three names differed (pic
+    # conversion had turned epitaka-app.png into .jpg, the alt was the
+    # markdown caption) and the parts were sorted alphabetically, Gmail's
+    # compose window swapped the pics on send, once even putting a screenshot
+    # in the logo slot. The names alone did not fix it: a draft with one name
+    # per image but no X-Attachment-Id still came out swapped (compose stored
+    # a blank X-Attachment-Id on every pic). Adding the X-Attachment-Id header
+    # below did, in one test; that it is THE cause is likely, not proven.
+    # If pics swap again, stop embedding and link them from the docs site.
     pics_dir = month_dir / "pics"
-    cids = sorted(set(re.findall(r'src="cid:([^"]+)"', html)))
+    cids = dict.fromkeys(re.findall(r'src="cid:([^"]+)"', html))
+    images: list[tuple[str, bytes, str]] = []
+    html = name_cid_image(html, LOGO_CID, LOGO_FILENAME)
+    images.append((LOGO_FILENAME, LOGO_PATH.read_bytes(), "png"))
     for src in [c for c in cids if c != LOGO_CID]:
         path = pics_dir / src
         if not path.exists():
             pr.amber(f"missing image: {path}")
             continue
         pic = prepare_pic(path)
-        image = MIMEImage(pic.data, _subtype=pic.subtype)
-        image.add_header("Content-ID", f"<{src}>")
-        image.add_header("Content-Disposition", "inline", filename=pic.name)
-        msg.attach(image)
+        html = name_cid_image(html, src, pic.name)
+        images.append((pic.name, pic.data, pic.subtype))
 
-    # the DPD light-mode logo, referenced as cid:dpd-logo in the header
-    logo = MIMEImage(LOGO_PATH.read_bytes(), _subtype="png")
-    logo.add_header("Content-ID", f"<{LOGO_CID}>")
-    logo.add_header("Content-Disposition", "inline", filename="dpd-logo.png")
-    msg.attach(logo)
+    msg = MIMEMultipart("related")
+    msg["Subject"] = subject
+    alt = MIMEMultipart("alternative")
+    alt.attach(MIMEText(plain_text(html), "plain", "utf-8"))
+    alt.attach(MIMEText(html, "html", "utf-8"))
+    msg.attach(alt)
+    for name, data, subtype in images:
+        image = MIMEImage(data, _subtype=subtype)
+        image.add_header("Content-ID", f"<{name}>")
+        # Gmail's own inline images carry these two headers. Without them
+        # compose stored a blank X-Attachment-Id on every pic and the pics
+        # lost their slots. Same fix as GAM-team/GAM pull request 2001.
+        image.add_header("X-Attachment-Id", name)
+        image.add_header("X-Attachment-Content-Disposition", "inline")
+        image.add_header("Content-Disposition", "inline", filename=name)
+        msg.attach(image)
     return msg
 
 
@@ -706,7 +733,7 @@ def docs_entry(
 
     body = re.sub(r'(\]\(|src=")pics/([^)"\s]+)([)"]?)', published, body)
     body = re.sub(r"\n{3,}", "\n\n", body).strip()
-    return f"## {day.isoformat()}\n**{subject}**\n\n{body}\n\n{SIGNOFF_MD}\n\n---\n\n"
+    return f"## {day.isoformat()}\n**{subject}**\n\n{body}\n\n---\n\n"
 
 
 def insert_docs_entry(page: str, entry: str, subject: str) -> str:

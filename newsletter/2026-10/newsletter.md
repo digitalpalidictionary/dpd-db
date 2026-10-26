@@ -2,48 +2,59 @@
 
 Dear Venerable monastics, professors, and Pāḷi enthusiasts,
 
-There have been a number of interesting updates to the dictionary over the
-past few months.
+There have been a number of interesting updates to the dictionary over the past few months.
+
+## ePitaka
+
+I'm pleased to be able to publicly share the **ePitaka app** with you. I've been using this app for some time for my everyday Pāḷi reading, text searches, and dictionary research. 
+
+It is the first app to bring together Pāḷi texts, complete translations, the full DPD database, and popular Pāḷi and Sanskrit dictionaries: PTS, CPD, DPPN, MW, BHS, etc. 
+
+It works seamlessly on the laptop ... 
+
+![epitaka-app](pics/epitaka-app.png)
+
+... and on the phone.
+
+![epitaka-android](pics/epitaka-android.png)
+
+It also includes translations of the full Chaṭṭha Saṅgāyana Tipiṭaka in 22 languages. Currently you can read in: Bengali, Chinese, Czech, English, French, German, Hindi, Indonesian, Japanese, Khmer, Korean, Lao, Marathi, Myanmar, Myanmar Nissaya, Nepali, Portuguese, Russian, Sinhala, Spanish, Tamil, Thai, and Vietnamese, with more languages on the way.
+
+Please click [here](https://digitalpalidictionary.github.io/integrations/epitaka/) for more information on its features and installation instructions.
+
+Give it a try, I'm sure you'll find that it is a powerful upgrade to whatever app you are currently using. 
 
 ## DPD for KOReader
 
-Good news for e-reader users: DPD now runs inside [KOReader](https://digitalpalidictionary.github.io/install/koreader/), the free open-source reading app for Kindle, Kobo, PocketBook and many other devices. Long-press any Pāḷi word while you are reading, and the full dictionary entry pops up right on the page — every sense together in one view, compounds split into their parts with a tap to expand each one, and the grammar tables a tap away. Close the popup and you are back on your page, exactly where you left off. It works completely offline, on the device.
+There is also good news for e-reader users: DPD now runs inside [KOReader](https://digitalpalidictionary.github.io/install/koreader/), an open-source reading app for Kindle, Kobo, PocketBook and many other devices. 
 
-The plugin was made for DPD by Ven. Nirodhavihārī, and is a free download.
+This is a full-featured version of DPD, and works completely offline, on the device. It is the perfect tool for forest monks.
 
-<!-- Drop the screenshot in pics/ and uncomment:
-![KOReader popup showing a dictionary entry](pics/koreader.jpg)
--->
+A special thanks goes to Ven. Nirodhavihārī in Sri Lanka, who created this plugin. You can find out how to [install it here](https://digitalpalidictionary.github.io/install/koreader/).
 
-You can find out how to install it here: <https://digitalpalidictionary.github.io/install/koreader/>
 
-## How to Cite DPD
+## Contributing to DPD
 
-A number of you have asked how to cite the dictionary in academic writing, so there is now [a page explaining exactly that](https://digitalpalidictionary.github.io/how_to_cite/).
-
-Because DPD is revised every month, please always cite the version you consulted, so the reading you quote can be found again. The page shows the recommended citation with the current version, ready-made examples in Chicago, MLA and APA style for both the whole dictionary and a single entry, and how to find a permanent link to any entry.
-
-The version number is always visible in the footer at [dpdict.net](https://www.dpdict.net/). If you use the offline versions, just look up *cite* in GoldenDict, MDict or DictTango, and the citation with your installed version is there. The DOI <https://doi.org/10.5281/zenodo.22979413> always resolves to the newest release.
+Thank you for all the very generous offers made to DPD in the past. I sincerely apologise to anyone whose offer was not properly followed up. There is now a new **system** to keep track of every offer to contribute, whether it be Pāḷi knowledge, coding skills, or material resources. Please [click here to log your support](https://digitalpalidictionary.github.io/contributing/) or fill in this [Google Form](https://forms.gle/Z7ENe8CVFpe2yQqKA).
 
 ## Buddhist Wiki
 
-There is a new addition to the other dictionaries family: **Buddhist Wiki**, a collection of articles on Buddhism from English Wikipedia, licence CC BY-SA 4.0. It is available for GoldenDict and MDict, and installs alongside DPD's other dictionaries like CPD and DPPN. You can [download it here](https://github.com/digitalpalidictionary/dpd-db/releases/latest).
+There is a useful new addition to the other dictionaries family: **Buddhist Wiki**, a collection of articles on Buddhism from English Wikipedia (licence CC BY-SA 4.0). I started with the major articles on Buddhism and followed the category tree five levels down, to cover the topic in depth. You can [download it here](https://digitalpalidictionary.github.io/other_dicts/) for GoldenDict and MDict. 
 
-## Contribute to DPD
+## How to Cite DPD
 
-If you would like to help with the dictionary, there is now [a single contribution form](https://docs.google.com/forms/d/e/1FAIpQLSdMbJJrddEfpWca-ma-9rKql9LCWvzwdgqbW5Rz_8bBZfuxUQ/viewform) where you can offer your help — proofreading, creating Pāḷi entries, coding, or resources such as servers and domains. It only takes a few minutes, and every offer is recorded so nothing gets lost. You can find it [here](https://docs.google.com/forms/d/e/1FAIpQLSdMbJJrddEfpWca-ma-9rKql9LCWvzwdgqbW5Rz_8bBZfuxUQ/viewform).
+Many of you have asked how to cite DPD in academic writing, so there is now [a docs page explaining exactly that](https://digitalpalidictionary.github.io/how_to_cite/). Every new DPD release is also archived on [Zenodo](https://doi.org/10.5281/zenodo.22979413) and given its own **DOI** (a permanent, citable identifier), so each version can be traced and referenced.
 
 ## Corrections and Additions
 
-As always, thank you for the abundant dictionary feedback over the past few months. Every correction, however small, makes the dictionary better for everyone who uses it. Please do keep them coming.
+As always, thank you for the abundant dictionary **feedback** over the past few months. Every correction, however small, makes the dictionary better for everyone who uses it. Please do keep them coming! Hundreds of precise, critical improvements have been added thanks to your feedback. 
 
 ## Latest Release
 
-With that, I am very pleased to share today's release with you. Download the latest version of DPD for your device using these links:
+With that, I am very happy to share today's **release** with you. Download the latest version of DPD for your device using these links:
 
 * [DPD online](https://www.dpdict.net/)
 * [DPD Android app](https://digitalpalidictionary.github.io/install/dpd_app/)
-* [DPD for KOReader](https://digitalpalidictionary.github.io/install/koreader/)
 * [DPD for GoldenDict](https://github.com/digitalpalidictionary/dpd-db/releases/latest/download/dpd-goldendict.zip)
 * [DPD for MDict and DictTango](https://github.com/digitalpalidictionary/dpd-db/releases/latest/download/dpd-mdict.zip)
 * [DPD Apple dictionary](https://github.com/digitalpalidictionary/dpd-db/releases/latest/download/dpd-apple.dictionary.zip)
@@ -59,5 +70,8 @@ With that, I am very pleased to share today's release with you. Download the lat
 
 Please share this information with those who might be interested.
 
-<!-- optional personal closing line, e.g. "I wish all the monastics a fruitful
-rains retreat." -->
+Wishing you well with your Pāḷi studies and meditation practice.
+
+With *mettā* from India,
+
+Bodhirasa

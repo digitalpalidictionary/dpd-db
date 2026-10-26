@@ -34,8 +34,7 @@ newsletter/
 ## Writing the newsletter
 
 Everything above the first `# heading` is ignored; that heading becomes the
-subject line. The greeting is yours to write; the signoff ("With much
-*mettā*, Bodhirasa") is added by the template — don't type it.
+subject line. The greeting and the signoff are both yours to write; the template starts you with them.
 
 Structure that matches the usual mail:
 

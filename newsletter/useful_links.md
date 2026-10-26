@@ -9,23 +9,24 @@ On your device: [download the latest releases](https://github.com/digitalpalidic
 [All Installation Guides](https://digitalpalidictionary.github.io/install/)
 Anki: [install](https://digitalpalidictionary.github.io/install/anki/)
 API: [GoldenDict](https://digitalpalidictionary.github.io/webapp/api_goldendict/) | [DictTango](https://digitalpalidictionary.github.io/webapp/api_dicttango/)
-Browser Extension: [Chrome](https://chromewebstore.google.com/detail/digital-p%C4%81%E1%B8%B7i-dictionary/hcbcholkdooblegdipdaicdknhmbpbna?authuser=0&hl=en) | [Firefox](https://addons.mozilla.org/en-US/firefox/addon/digital-p%C4%81%E1%B8%B7i-dictionary/)
-E-readers: [Kindle](https://digitalpalidictionary.github.io/install/kindle/) | [Kobo reader](https://digitalpalidictionary.github.io/install/kobo/) | PDF
+Browser Extension: [Chrome](https://chromewebstore.google.com/detail/digital-p%C4%81%E1%B8%B7i-dictionary/hcbcholkdooblegdipdaicdknhmbpbna?authuser=0&hl=en) | [Firefox](https://addons.mozilla.org/en-US/firefox/addon/digital-p%C4%81%E1%B8%B7i-dictionary/) | [Install guide](https://digitalpalidictionary.github.io/install/browser_extension/)
+Chromebook: [install](https://digitalpalidictionary.github.io/install/chromebook/)
+E-readers: [Kindle](https://digitalpalidictionary.github.io/install/kindle/) | [Kobo reader](https://digitalpalidictionary.github.io/install/kobo/) | [KOReader](https://digitalpalidictionary.github.io/install/koreader/) | PDF
 GoldenDict Desktop: [Windows](https://digitalpalidictionary.github.io/install/win/) | [Mac](https://digitalpalidictionary.github.io/install/mac/) | [Linux](https://digitalpalidictionary.github.io/install/linux/)
 MDict Mobile: [Android](https://digitalpalidictionary.github.io/install/android_dicttango/) | [iOS](https://digitalpalidictionary.github.io/install/ios/)
 Native: [Apple Dictionary](https://digitalpalidictionary.github.io/install/apple_dict/)
 
 **Apps**
 DPD is integrated into these apps:
-[ePitaka](https://epitaka.org/): [Win | Mac | Linux](https://github.com/dhammanana/epitaka_app/releases) | [Android](https://play.google.com/store/apps/details?id=com.dn.epitaka)
+[ePitaka](https://epitaka.org/): [Windows](https://apps.microsoft.com/detail/9nr3sjfr6cf9) | [Mac | Linux](https://github.com/dhammanana/epitaka_app/releases) | [Android](https://play.google.com/store/apps/details?id=com.dn.epitaka) | [Docs](https://digitalpalidictionary.github.io/integrations/epitaka/)
 [Pāli Practice](https://www.dhammabytes.org/pali-practice/): [Win | Mac | Linux](https://github.com/DhammaBytes/PaliPractice/releases) | [Android](https://play.google.com/store/apps/details?id=org.dhammabytes.palipractice) | [iOS](https://apps.apple.com/us/app/p%C4%81li-practice/id6742040410)
 [Simsapa Dhamma Reader](https://simsapa.github.io/) | [Docs](https://digitalpalidictionary.github.io/integrations/simsapa/)
-[Tipiṭaka Pali Reader](https://americanmonk.org/tipitaka-pali-reader/): [All Operating Systems](https://americanmonk.org/tipitaka-pali-reader/)
+[Tipiṭaka Pali Reader](https://americanmonk.org/tipitaka-pali-reader/): [All Operating Systems](https://americanmonk.org/tipitaka-pali-reader/) | [Docs](https://digitalpalidictionary.github.io/integrations/tpr/)
 
 **Websites**
 DPD is integrated into these websites:
 [All Integrations](https://digitalpalidictionary.github.io/integrations/)
-[Dhamma.gift website](https://find.dhamma.gift/) | [Docs](https://digitalpalidictionary.github.io/integrations/dhamma_gift/)
+[Dhamma.gift website](https://dhamma.gift/) | [Docs](https://digitalpalidictionary.github.io/integrations/dhamma_gift/)
 [ePitaka website](https://epitaka.org/)
 [SuttaCentral Voice](https://www.sc-voice.net/)
 [SuttaCentral website](https://suttacentral.net/) | [Docs](https://digitalpalidictionary.github.io/integrations/sutta_central/)
@@ -35,11 +36,13 @@ DPD is integrated into these websites:
 
 **Other Links and Resources**
 [Changelog](https://digitalpalidictionary.github.io/changelog/)
-[Contributing to the project](https://digitalpalidictionary.github.io/contributing/)
+[Contributing to the project](https://digitalpalidictionary.github.io/contributing/) | [Pāḷi](https://digitalpalidictionary.github.io/contributing/pali/) | [Code](https://digitalpalidictionary.github.io/contributing/code/) | [Resources](https://digitalpalidictionary.github.io/contributing/resources/)
 [Developer docs](https://digitalpalidictionary.github.io/technical/)
 [DPD GitHub repo](https://github.com/digitalpalidictionary/dpd-db)
+[Feedback form](https://docs.google.com/forms/d/e/1FAIpQLSf9boBe7k5tCwq7LdWgBHHGIPVc4ROO5yjVDo1X5LDAxkmGWQ/viewform)
 [How to cite DPD](https://digitalpalidictionary.github.io/how_to_cite/)
 [Join this mailing list](https://forms.gle/gJ7ouhJriYREPm1s8)
 [License](https://digitalpalidictionary.github.io/license/)
 [More Pāḷi and Sanskrit dictionaries](https://digitalpalidictionary.github.io/other_dicts/)
 [Read the docs](https://digitalpalidictionary.github.io/)
+[Setup the hotkey in GoldenDict](https://digitalpalidictionary.github.io/goldendict/hotkey/)

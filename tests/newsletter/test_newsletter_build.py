@@ -54,6 +54,10 @@ Long-press any Pāḷi word.
 ### A sub point
 
 Text.
+
+With much *mettā*,
+
+Bodhirasa
 """
 
 SUBJECT = "Digital Pāḷi Dictionary update (November 2026)"
@@ -101,6 +105,7 @@ def test_docs_entry_shape() -> None:
     assert "hidden.jpg" not in entry
     assert "<!--" not in entry
     assert entry.endswith("With much *mettā*,\n\nBodhirasa\n\n---\n\n")
+    assert entry.count("Bodhirasa") == 1
     assert "\n\n\n" not in entry
 
 
@@ -377,6 +382,42 @@ def test_mail_carries_the_shrunk_picture(tmp_path: Path) -> None:
     assert isinstance(data, bytes)
     assert Image.open(io.BytesIO(data)).size == (504, 1122)
     assert len(data) < original.stat().st_size
+
+
+def test_mail_attaches_logo_first_then_pics_in_page_order(tmp_path: Path) -> None:
+    month_dir = make_month(tmp_path)
+    screenshot(800, 600).save(month_dir / "pics" / "b-laptop.png")
+    screenshot(800, 600).save(month_dir / "pics" / "a-phone.png")
+    md = "# Subject\n\n![l](pics/b-laptop.png)\n\n![p](pics/a-phone.png)\n"
+    (month_dir / "newsletter.md").write_text(md, encoding="utf-8")
+    subject, body = nb.read_newsletter(month_dir, "2026-11")
+    html = nb.render_html(body, subject, month_dir / "pics", "cid")
+    msg = nb.make_mime_message(html, subject, month_dir)
+    ids = [p.get("Content-ID") for p in msg.walk() if p.get("Content-ID")]
+    assert ids == ["<dpd-logo.png>", "<b-laptop.png>", "<a-phone.png>"]
+
+
+def test_mail_names_each_image_the_same_in_page_and_parts(tmp_path: Path) -> None:
+    month_dir = make_month(tmp_path)
+    photo(3072, 4080).save(month_dir / "pics" / "big.png")
+    md = "# Subject\n\n![a big photo](pics/big.png)\n"
+    (month_dir / "newsletter.md").write_text(md, encoding="utf-8")
+    subject, body = nb.read_newsletter(month_dir, "2026-11")
+    html = nb.render_html(body, subject, month_dir / "pics", "cid")
+    msg = nb.make_mime_message(html, subject, month_dir)
+    html_part = next(p for p in msg.walk() if p.get_content_type() == "text/html")
+    html_bytes = html_part.get_payload(decode=True)
+    assert isinstance(html_bytes, bytes)
+    page = html_bytes.decode("utf-8")
+    images = [p for p in msg.walk() if p.get("Content-ID")]
+    assert [p.get_filename() for p in images] == ["dpd-logo.png", "big.jpg"]
+    for part in images:
+        name = part.get_filename() or ""
+        assert part.get("Content-ID") == f"<{name}>"
+        assert part.get("X-Attachment-Id") == name
+        assert part.get("X-Attachment-Content-Disposition") == "inline"
+        tag = re.search(rf'<img[^>]*src="cid:{re.escape(name)}"[^>]*>', page)
+        assert tag and f'alt="{name}"' in tag.group(0)
 
 
 def test_docs_entry_uses_published_name_and_width(tmp_path: Path) -> None:

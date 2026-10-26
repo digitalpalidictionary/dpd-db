@@ -14,18 +14,14 @@ Drop pictures into `pics/` and reference them like this:
 
 ## Corrections and Additions
 
-As always, thank you for the abundant dictionary feedback. Every correction,
-however small, makes the dictionary better for everyone who uses it. Please
-do keep them coming.
+As always, thank you for the abundant dictionary feedback. Every correction, however small, makes the dictionary better for everyone who uses it. Please do keep them coming.
 
 ## Latest Release
 
-With that, I am very pleased to share today's release with you. Download the
-latest version of DPD for your device using these links:
+With that, I am very pleased to share today's release with you. Download the latest version of DPD for your device using these links:
 
 * [DPD online](https://www.dpdict.net/)
 * [DPD Android app](https://digitalpalidictionary.github.io/install/dpd_app/)
-* [DPD for KOReader](https://digitalpalidictionary.github.io/install/koreader/)
 * [DPD for GoldenDict](https://github.com/digitalpalidictionary/dpd-db/releases/latest/download/dpd-goldendict.zip)
 * [DPD for MDict and DictTango](https://github.com/digitalpalidictionary/dpd-db/releases/latest/download/dpd-mdict.zip)
 * [DPD Apple dictionary](https://github.com/digitalpalidictionary/dpd-db/releases/latest/download/dpd-apple.dictionary.zip)
@@ -41,5 +37,8 @@ latest version of DPD for your device using these links:
 
 Please share this information with those who might be interested.
 
-<!-- optional personal closing line, e.g. "I wish all the monastics a fruitful
-rains retreat." The mettā signoff is added automatically. -->
+<!-- optional personal closing line, e.g. "I wish all the monastics a fruitful rains retreat." -->
+
+With much *mettā*,
+
+Bodhirasa
