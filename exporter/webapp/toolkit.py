@@ -2,7 +2,7 @@ import difflib
 import re
 import time
 
-from sqlalchemy import or_
+from sqlalchemy import literal_column, or_
 from sqlalchemy.exc import OperationalError
 
 from db.db_helpers import get_db_session
@@ -99,21 +99,30 @@ def make_dpd_html(
                     only_suggestions = False
                     q = q.replace("'", "").replace("ṁ", "ṃ").strip()
 
-                    # ilike is only for case-insensitivity: escape % and _ so a
-                    # query like "%" matches itself, not every row
-                    q_like = (
-                        q.replace("\\", "\\\\").replace("%", "\\%").replace("_", "\\_")
-                    )
-                    lookup_results = (
-                        db_session.query(Lookup)
-                        .filter(
+                    lookup_query = db_session.query(Lookup)
+                    if "\x00" in q:
+                        # SQLite LIKE truncates at NUL; preserve the legacy edge
+                        # case rather than silently changing its results.
+                        q_like = (
+                            q.replace("\\", "\\\\")
+                            .replace("%", "\\%")
+                            .replace("_", "\\_")
+                        )
+                        lookup_query = lookup_query.filter(
                             or_(
                                 Lookup.lookup_key.ilike(q_like, escape="\\"),
                                 Lookup.lookup_key.ilike(q_like + ".", escape="\\"),
                             )
                         )
-                        .all()
-                    )
+                    else:
+                        # SQLite NOCASE and lower/LIKE both fold ASCII only.
+                        lookup_query = lookup_query.filter(
+                            Lookup.lookup_key.collate("NOCASE").in_((q, q + "."))
+                        )
+                    # Preserve the old table-scan order, including case collisions.
+                    lookup_results = lookup_query.order_by(
+                        literal_column("lookup.rowid")
+                    ).all()
 
                     # Check manual variants from TSV first
                     main_form = vm.get_main(q)

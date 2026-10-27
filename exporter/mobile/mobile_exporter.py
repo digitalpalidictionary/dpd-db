@@ -275,7 +275,8 @@ def export_lookup(g: GlobalVars, dest: sqlite3.Connection) -> None:
     dest.executemany(f"INSERT INTO lookup ({col_list}) VALUES ({placeholders})", batch)
 
     for idx in g.src.execute(
-        "SELECT sql FROM sqlite_master WHERE type='index' AND tbl_name='lookup' AND sql IS NOT NULL"
+        "SELECT sql FROM sqlite_master WHERE type='index' AND tbl_name='lookup' AND sql IS NOT NULL "
+        "AND name != 'ix_lookup_key_nocase'"
     ).fetchall():
         try:
             dest.execute(idx[0])
