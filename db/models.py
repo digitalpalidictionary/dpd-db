@@ -7,7 +7,7 @@ from functools import cached_property, lru_cache
 from typing import List, Optional
 
 from aksharamukha import transliterate
-from sqlalchemy import DateTime, ForeignKey, and_, case, null
+from sqlalchemy import DateTime, ForeignKey, Index, and_, case, null
 from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.orm import (
     DeclarativeBase,
@@ -230,6 +230,8 @@ class Lookup(Base):
     sinhala: Mapped[str] = mapped_column(default="")
     devanagari: Mapped[str] = mapped_column(default="")
     thai: Mapped[str] = mapped_column(default="")
+
+    __table_args__ = (Index("ix_lookup_key_nocase", lookup_key.collate("NOCASE")),)
 
     # headwords pack unpack
 

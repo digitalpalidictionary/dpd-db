@@ -34,6 +34,7 @@ echo "=== 6. Downloading Latest dpd.db ==="
 wget -qO update_tmp/dpd.db.tar.xz https://github.com/digitalpalidictionary/dpd-db/releases/latest/download/dpd.db.tar.xz
 tar -xJf update_tmp/dpd.db.tar.xz -C update_tmp
 uv run python -c "import sqlite3, sys; n = sqlite3.connect(sys.argv[1]).execute('SELECT COUNT(*) FROM dpd_headwords').fetchone()[0]; sys.exit(0 if n else 'Error: new dpd.db has no headwords')" update_tmp/dpd.db
+uv run tools/prepare_webapp_lookup.py update_tmp/dpd.db
 mv update_tmp/dpd.db dpd.db
 uv run exporter/webapp/generate_search_index.py
 
