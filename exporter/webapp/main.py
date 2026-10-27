@@ -22,6 +22,7 @@ import re
 from db.db_helpers import get_db_session
 from db.models import BoldDefinition, DbInfo
 from audio.db.db_helpers import get_audio_record
+from exporter.webapp.response_encoding import encode_search_response
 from exporter.webapp.preloads import (
     make_ascii_to_unicode_dict,
     make_headwords_clean_set,
@@ -187,8 +188,9 @@ def db_search_json(request: Request, q: str):
         "dpd_html": dpd_html,
         "license": LICENSE_NOTICE,
     }
-    headers = {"Accept-Encoding": "gzip", **LICENSE_LINK_HEADER}
-    return JSONResponse(content=response_data, headers=headers)
+    return encode_search_response(
+        request, JSONResponse(content=response_data, headers=LICENSE_LINK_HEADER)
+    )
 
 
 @app.get("/gd", response_class=HTMLResponse)
