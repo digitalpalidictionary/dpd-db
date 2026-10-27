@@ -831,7 +831,7 @@ class SuttaInfo(Base):
     @cached_property
     def sc_book_code(self) -> str | None:
         if self.sc_code:
-            return re.sub(r"\d+\.*-*\d*", "", self.sc_code)
+            return re.sub(r"\d.*", "", self.sc_code)
         else:
             return None
 
@@ -924,8 +924,7 @@ class SuttaInfo(Base):
         if not (sc_code and sc_book_code):
             return None
 
-        # sc_book_code leaves a trailing hyphen on range codes (SN39.1-15 → "SN-")
-        book = sc_book_code.rstrip("-").lower()
+        book = sc_book_code.lower()
         code = sc_code.lower()
 
         if book in ("dn", "mn"):
