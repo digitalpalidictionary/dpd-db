@@ -12,7 +12,7 @@ from fastapi.responses import (
     RedirectResponse,
     Response,
 )
-from fastapi.staticfiles import StaticFiles
+from exporter.webapp.precompressed_index import IndexStaticFiles
 from fastapi.templating import Jinja2Templates
 from sqlalchemy.exc import OperationalError
 from starlette.convertors import Convertor, register_url_convertor
@@ -54,7 +54,9 @@ app.add_middleware(
     expose_headers=["Link"],
 )
 app.add_middleware(GZipMiddleware, minimum_size=500)
-app.mount("/static", StaticFiles(directory=str(pth.webapp_static_dir)), name="static")
+app.mount(
+    "/static", IndexStaticFiles(directory=str(pth.webapp_static_dir)), name="static"
+)
 
 # Create session factory for database connections
 SessionLocal = sessionmaker(

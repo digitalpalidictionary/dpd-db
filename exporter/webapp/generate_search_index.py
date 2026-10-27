@@ -6,6 +6,7 @@ import unicodedata
 
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword, DpdRoot, FamilyRoot
+from exporter.webapp.precompressed_index import publish_index
 from tools.configger import config_read
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
@@ -81,8 +82,10 @@ def main() -> None:
     # Save to JSON
     pr.green_tmr("saving index")
     output_path = pth.webapp_static_dir / "search_index.json"
-    with output_path.open("w", encoding="utf-8") as f:
-        json.dump(search_index, f, ensure_ascii=False, indent=None)
+    publish_index(
+        output_path,
+        json.dumps(search_index, ensure_ascii=False, indent=None).encode("utf-8"),
+    )
     pr.yes("ok")
 
     db_sess.close()
