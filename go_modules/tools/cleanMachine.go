@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"regexp"
 	"strings"
+	"unicode"
 )
 
 var pf = fmt.Printf
@@ -268,6 +269,10 @@ func characterTest(text string, textSet string) {
 
 	errors := []rune{}
 	for _, ch := range text {
+		// Burmese script appears in the other texts as an exercise to translate; it is not a mistake.
+		if textSet == "other" && unicode.Is(unicode.Myanmar, ch) {
+			continue
+		}
 		if !strings.Contains(allowedCharacters, string(ch)) {
 			errors = append(errors, ch)
 		}
