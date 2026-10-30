@@ -99,3 +99,28 @@ def test_spelling_user_one_still_writes_shared_file(shared: SimpleNamespace) -> 
     assert shared.spelling.read_text(encoding="utf-8") == (
         "mistake\tcorrection\nshared_m\tshared_c\nnew_m\tnew_c\n"
     )
+
+
+def test_variant_user_one_shared_path_as_own_path_writes_shared_file(
+    shared: SimpleNamespace,
+) -> None:
+    """The app builds user 1's manager with the shared path as its own path."""
+    manager = VariantReadingFileManager(shared.variants)
+
+    manager.update_and_save("new_v", "new_main")
+
+    assert shared.variants.read_text(encoding="utf-8") == (
+        "variant\tmain\nshared_v\tshared_main\nnew_v\tnew_main\n"
+    )
+
+
+def test_spelling_user_one_shared_path_as_own_path_writes_shared_file(
+    shared: SimpleNamespace,
+) -> None:
+    manager = SpellingMistakesFileManager(shared.spelling)
+
+    manager.update_and_save("new_m", "new_c")
+
+    assert shared.spelling.read_text(encoding="utf-8") == (
+        "mistake\tcorrection\nshared_m\tshared_c\nnew_m\tnew_c\n"
+    )

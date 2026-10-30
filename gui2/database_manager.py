@@ -212,9 +212,11 @@ class DatabaseManager:
     def get_all_lemma_1_and_lemma_clean(self):
         lemmas = self.db_session.query(DpdHeadword.lemma_1).all()
         self.all_lemma_1 = set([lemma[0] for lemma in lemmas])
-        for entry in self._own_additions().values():
-            if entry.get("lemma_1"):
-                self.all_lemma_1.add(str(entry["lemma_1"]))
+        if self._own_edits:
+            for entries in self._own_edits():
+                for entry in entries.values():
+                    if entry.get("lemma_1"):
+                        self.all_lemma_1.add(str(entry["lemma_1"]))
         self.all_lemma_clean = set([clean_lemma_1(lemma) for lemma in self.all_lemma_1])
 
     def get_all_pos(self):

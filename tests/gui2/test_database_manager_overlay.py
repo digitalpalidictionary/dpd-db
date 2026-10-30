@@ -118,3 +118,14 @@ def test_overlay_word_is_not_in_a_session(manager: DatabaseManager) -> None:
     word = manager.get_headword_by_id(1)
     assert word is not None
     assert inspect(word).session is None
+
+
+def test_lemma_set_includes_a_corrected_lemma(manager: DatabaseManager) -> None:
+    corrections = {"alice_1": {"id": 1, "lemma_1": "assa 2", "meaning_1": "mine"}}
+    additions = {"alice_9": {"id": 9, "lemma_1": "new 1"}}
+    manager.set_overlay(lambda: (corrections, additions))
+
+    manager.get_all_lemma_1_and_lemma_clean()
+
+    assert manager.all_lemma_1 is not None
+    assert {"assa 2", "new 1", "assa 1", "buddha 1"} <= manager.all_lemma_1

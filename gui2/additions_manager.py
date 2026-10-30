@@ -49,14 +49,24 @@ class AdditionsManager:
             try:
                 with open(self.additions_path, encoding="utf-8") as f:
                     merged = json.load(f)
-            except (FileNotFoundError, json.JSONDecodeError):
+            except FileNotFoundError:
                 pass
+            except json.JSONDecodeError:
+                # The file is the contributor's only record. Keep the damaged
+                # copy aside so the next save does not overwrite it.
+                corrupt = self.additions_path.with_name(
+                    self.additions_path.name + ".corrupt"
+                )
+                self.additions_path.replace(corrupt)
+                pr.red(f"{self.additions_path.name} is damaged, kept as {corrupt.name}")
 
         return merged
 
     def _save_dict(self, data: AdditionsDict) -> None:
-        with open(self.additions_path, "w", encoding="utf-8") as f:
-            json.dump(data, f, ensure_ascii=False, indent=4)
+        # Write then swap, so a crash mid-write cannot leave a half-written file.
+        tmp = self.additions_path.with_name(self.additions_path.name + ".tmp")
+        tmp.write_text(json.dumps(data, ensure_ascii=False, indent=4), encoding="utf-8")
+        tmp.replace(self.additions_path)
 
     def save_additions(self) -> None:
         self._save_dict(self.additions_dict)
@@ -70,8 +80,17 @@ class AdditionsManager:
         # reviewer would process repeatedly. Reuse an existing entry's key even
         # if it predates this scheme (e.g. an old uuid key).
         key = self._key_for_id(word.id) or f"{self._username()}_{word.id}"
+        previous = self.additions_dict.get(key)
         self.additions_dict[key] = word_dict
-        self.save_additions()
+        try:
+            self.save_additions()
+        except OSError:
+            # The overlay reads this dict, so it must not show an unsaved edit.
+            if previous is None:
+                del self.additions_dict[key]
+            else:
+                self.additions_dict[key] = previous
+            raise
 
     def _username(self) -> str:
         """The contributor this file belongs to, from its name
@@ -94,8 +113,12 @@ class AdditionsManager:
         key = self._key_for_id(id_no)
         if key is None:
             return False
-        del self.additions_dict[key]
-        self.save_additions()
+        removed = self.additions_dict.pop(key)
+        try:
+            self.save_additions()
+        except OSError:
+            self.additions_dict[key] = removed
+            raise
         return True
 
     def is_not_in_additions(self, id_no: int) -> bool:

@@ -27,7 +27,7 @@ class SandhiOK:
 
     def update_sandhi_checked(self, sandhi: str):
         """
-        Updates `shared_data/deconstructor/checked.csv`
+        Appends to this user's sandhi checked file
         """
         with open(self.gui2pth.sandhi_checked_path, "a", encoding="utf-8") as f:
             f.write(f"{sandhi}\n")

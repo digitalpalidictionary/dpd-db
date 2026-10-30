@@ -913,6 +913,10 @@ class Pass2AddView(ft.Column, PopUpMixin):
         )
 
         if committed:
+            if self.toolkit.username_manager.is_not_primary():
+                # A contributor save writes no db row, so only a refresh lets
+                # the duplicate check see the new lemma.
+                self._db.get_all_lemma_1_and_lemma_clean()
             request_dpd_server(str(word_to_save.id))
             item_id = (
                 self.headword.id
@@ -1101,6 +1105,7 @@ class Pass2AddView(ft.Column, PopUpMixin):
         A discarded correction shows the db version again."""
         was_addition = self.additions_manager.discard(id_no)
         was_correction = self.corrections_manager.discard(id_no)
+        self._db.get_all_lemma_1_and_lemma_clean()
         self.clear_all_fields()
         if was_correction and not was_addition:
             self._enter_id_or_lemma_field.value = str(id_no)

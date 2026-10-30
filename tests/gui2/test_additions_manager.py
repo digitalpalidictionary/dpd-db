@@ -4,6 +4,8 @@ from pathlib import Path
 from types import SimpleNamespace
 from typing import TYPE_CHECKING, cast
 
+import pytest
+
 from gui2.additions_manager import (
     AdditionsManager,
     _contributor_from_origin,
@@ -165,3 +167,64 @@ class TestDiscard:
 
         assert manager.discard(5) is True
         assert manager.additions_dict == {}
+
+
+class TestSafeWrites:
+    def test_save_leaves_no_temp_file(self, tmp_path: Path):
+        manager = _manager(tmp_path, "alice")
+        manager.add_additions(_fake_word(1, "one"), "c")
+        assert not list(tmp_path.rglob("*.tmp"))
+
+    def test_failed_write_does_not_leave_the_edit_in_memory(
+        self, tmp_path: Path, monkeypatch
+    ):
+        manager = _manager(tmp_path, "alice")
+
+        def fail(data: dict) -> None:
+            raise OSError("disk full")
+
+        monkeypatch.setattr(manager, "_save_dict", fail)
+        with pytest.raises(OSError):
+            manager.add_additions(_fake_word(1, "one"), "c")
+        assert manager.additions_dict == {}
+
+    def test_failed_rewrite_restores_the_earlier_entry(
+        self, tmp_path: Path, monkeypatch
+    ):
+        manager = _manager(tmp_path, "alice")
+        manager.add_additions(_fake_word(1, "one"), "first")
+
+        def fail(data: dict) -> None:
+            raise OSError("disk full")
+
+        monkeypatch.setattr(manager, "_save_dict", fail)
+        with pytest.raises(OSError):
+            manager.add_additions(_fake_word(1, "one"), "second")
+        assert [e["comment"] for e in manager.additions_dict.values()] == ["first"]
+
+    def test_failed_discard_keeps_the_entry(self, tmp_path: Path, monkeypatch):
+        manager = _manager(tmp_path, "alice")
+        manager.add_additions(_fake_word(1, "one"), "c")
+
+        def fail(data: dict) -> None:
+            raise OSError("disk full")
+
+        monkeypatch.setattr(manager, "_save_dict", fail)
+        with pytest.raises(OSError):
+            manager.discard(1)
+        assert len(manager.additions_dict) == 1
+
+    def test_damaged_contributor_file_is_kept_aside_not_overwritten(
+        self, tmp_path: Path
+    ):
+        manager = _manager(tmp_path, "alice")
+        path = manager.additions_path
+        path.write_text("{broken", encoding="utf-8")
+
+        reloaded = _manager(tmp_path, "alice")
+
+        assert reloaded.additions_dict == {}
+        assert (
+            path.with_name(path.name + ".corrupt").read_text(encoding="utf-8")
+            == "{broken"
+        )

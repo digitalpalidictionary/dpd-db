@@ -46,14 +46,26 @@ class CorrectionsManager:
             try:
                 with open(self.corrections_path, encoding="utf-8") as f:
                     merged = json.load(f)
-            except (FileNotFoundError, json.JSONDecodeError):
+            except FileNotFoundError:
                 pass
+            except json.JSONDecodeError:
+                # The file is the contributor's only record. Keep the damaged
+                # copy aside so the next save does not overwrite it.
+                corrupt = self.corrections_path.with_name(
+                    self.corrections_path.name + ".corrupt"
+                )
+                self.corrections_path.replace(corrupt)
+                pr.red(
+                    f"{self.corrections_path.name} is damaged, kept as {corrupt.name}"
+                )
 
         return merged
 
     def _save_dict(self, data: CorrectionsDict) -> None:
-        with open(self.corrections_path, "w", encoding="utf-8") as f:
-            json.dump(data, f, ensure_ascii=False, indent=4)
+        # Write then swap, so a crash mid-write cannot leave a half-written file.
+        tmp = self.corrections_path.with_name(self.corrections_path.name + ".tmp")
+        tmp.write_text(json.dumps(data, ensure_ascii=False, indent=4), encoding="utf-8")
+        tmp.replace(self.corrections_path)
 
     def save_corrections(self) -> None:
         self._save_dict(self.corrections_dict)
@@ -67,8 +79,17 @@ class CorrectionsManager:
         # reviewer would process repeatedly. Reuse an existing entry's key even
         # if it predates this scheme (e.g. an old uuid key).
         key = self._key_for_id(word.id) or f"{self._username()}_{word.id}"
+        previous = self.corrections_dict.get(key)
         self.corrections_dict[key] = word_dict
-        self.save_corrections()
+        try:
+            self.save_corrections()
+        except OSError:
+            # The overlay reads this dict, so it must not show an unsaved edit.
+            if previous is None:
+                del self.corrections_dict[key]
+            else:
+                self.corrections_dict[key] = previous
+            raise
 
     def _username(self) -> str:
         """The contributor this file belongs to, from its name
@@ -94,8 +115,12 @@ class CorrectionsManager:
         key = self._key_for_id(id_no)
         if key is None:
             return False
-        del self.corrections_dict[key]
-        self.save_corrections()
+        removed = self.corrections_dict.pop(key)
+        try:
+            self.save_corrections()
+        except OSError:
+            self.corrections_dict[key] = removed
+            raise
         return True
 
     def get_next_correction(

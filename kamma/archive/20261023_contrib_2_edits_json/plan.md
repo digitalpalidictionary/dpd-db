@@ -19,7 +19,19 @@
 - Not abstracted: no generic "user data layer" class. The additions and
   corrections managers stay the store.
 
-## Phase 1 — Remaining per-user files
+**Next thread (2026-10-30):** `20261030_contrib_5_hardening` follows this one
+and fixes flaws found after this thread's code was written (tabs, login,
+nightly sync, review side). Finish Phases 3–4 here first.
+
+## Model Strategy
+
+| Phase | Model | Why |
+|---|---|---|
+| 1, 2, 2B (done) | Sonnet | Done |
+| 3 Live contributor check | Sonnet | Runs a fixed checklist with the user |
+| 4 Finish | Sonnet | Notes, typecheck, tests |
+
+## Phase 1 — Remaining per-user files — *Sonnet*
 - [x] 1.1 `Gui2Paths.user_dictionary_path` (user 1 → `ProjectPaths().user_dict_path`;
       contributor → `gui2/data/user_dictionary_{u}.txt`, set in `for_user`).
       `CustomSpellChecker` (`tools/spelling.py`) takes optional
@@ -48,7 +60,7 @@
       gui2/filter_component.py reports 101 flet-typing errors (`_BaseControlType`, none on lines this
       thread touched). gui2 is excluded from the pre-commit pyright, so the hook does not see them.
 
-## Phase 2 — Save seam, overlay, contributor delete
+## Phase 2 — Save seam, overlay, contributor delete — *Sonnet*
 - [x] 2.1 `gui2/save_router.py::save_headword(toolkit, word, comment, is_existing) -> tuple[bool, str]`.
       User 1 → `db_manager.update_word_in_db` / `add_word_to_db` (unchanged).
       Contributor → an existing id in own additions (`additions_manager._key_for_id`)
@@ -80,13 +92,14 @@
       own correction beats the db row; no entry → db row; own addition found by
       id and by lemma; next id skips own additions; no overlay → old results;
       the returned object has no session (`object_session(x) is None`).
-- [~] 2.3 Wire the seam in: `gui2/pass1_add_controller.py::make_dpd_headword_and_add_to_db`
+- [x] 2.3 Wire the seam in: `gui2/pass1_add_controller.py::make_dpd_headword_and_add_to_db`
       (both branches; this also fixes a contributor re-edit writing no JSON)
       and `gui2/pass2_add_view.py::_click_add_to_db` (the update/add block at
       ~826-852). Keep every post-save step. Do not touch the user-1
       processed addition/correction blocks.
       DONE in code: both save sites call `save_headword`. Pass1 now keeps the id and origin
-      logic and drops its own db/JSON branches. Live desktop run still PENDING (needs the user).
+      logic and drops its own db/JSON branches. Live desktop run as user 1 DONE 2026-10-30: new word id 90368 added to the db (count 89764 → 89765),
+      then edited (updated_at later than created_at). PASS.
       → verify: `uv run pytest tests/gui2/`. Then a live desktop run
       (`uv run flet run gui2/main.py`) WITH the user: a Pass1Add add and a
       Pass2 edit as user 1 land in the db as before.
@@ -114,7 +127,7 @@
       NOTICED — NOT TOUCHING: `UsernameManager.is_not_primary()` is True when the username is
       None (desktop first run before the dialog). Such a session now saves to JSON only.
 
-## Phase 2B — Pass1Add helper buttons get per-user files (added 2026-10-11, user choice A)
+## Phase 2B — Pass1Add helper buttons get per-user files (added 2026-10-11, user choice A) — *Sonnet*
 - [x] 2B.1 `Gui2Paths`: add `sandhi_checked_path`, `sandhi_corrections_path`,
       `variant_readings_path`, `spelling_mistakes_path`. User 1 → the shared
       `shared_data/deconstructor/{checked.csv,manual_corrections.tsv,variant_readings.tsv,spelling_mistakes.tsv}`
@@ -153,8 +166,8 @@
       variant_readings_*.tsv, spelling_mistakes_*.tsv (and user_dictionary_*.txt) or the maintainer never
       sees contributor flags.
 
-## Phase 3 — Live contributor check (local)
-- [ ] 3.1 Back up `dpd.db` to the scratchpad first. Run
+## Phase 3 — Live contributor check (local) — *Sonnet*
+- [x] 3.1 Back up `dpd.db` to the scratchpad first. Run
       `DPD_GUI2_USERNAME=alice DPD_GUI2_ROLE=contributor-server uv run flet run --web -p 8551 gui2/main.py`
       WITH the user. Pass1Add new word → `additions_alice.json` has it and
       `sqlite3 dpd.db "select count(*) from dpd_headwords"` is unchanged. Edit
@@ -166,10 +179,38 @@
       `shared_data/deconstructor/` files are byte-identical (checksum before/after).
       Remove the test entries from alice's files after.
       → verify: every item logged here with the observed result.
+      PREP 2026-10-30: db backup at the scratchpad `dpd.db.bak` (89764 headwords). Checksums of the
+      five shared files saved to the scratchpad `shared_before.sha`. Waiting for the user's live run.
+      RESULT 3.1 (2026-10-30, local web run as alice; started with `FLET_FORCE_WEB_SERVER=true
+      FLET_SERVER_PORT=8551 ... uv run python gui2/main.py`, NOT `flet run`, which changes the cwd to
+      gui2/.flet/storage/data and breaks every relative data path):
+      - Pass1Add new word: in additions_alice.json, db count stays 89764. PASS.
+      - Pass2 re-edit of own new word: saved to JSON, db unchanged. PASS.
+      - Pass2 delete of own edit: PASS (user confirmed).
+      - Pass1Add Sandhi OK / Add to Sandhi / Add to Variants / Add to Spelling: only alice's four files
+        changed. PASS.
+      - Spelling add: written to user_dictionary_alice.txt only. PASS.
+      - Five shared files: checksums identical to before after every step. PASS.
+      NOT TESTED: edit of an existing db word in Pass2 (a correction), and refusal to delete a plain db
+      word. Reason: contrib_5 hides Pass2 tabs from contributors; unit tests cover both.
+      NOTICED — NOT TOUCHING: web run raised `PlatformException(copy_fail, Clipboard.setData failed.)`
+      at the post-save `ft.Clipboard().set` in pass2_add_view.py; it cut off the later post-save steps
+      until the browser allowed clipboard access. Pass2 is hidden for contributors, so low risk. Pass1
+      uses pyperclip (server-side clipboard), not tested here.
+      NOTICED — NOT TOUCHING: the plan's command `flet run --web` is wrong (above).
 
-## Phase 4 — Finish
-- [ ] 4.1 Add a one-line note to 20260719 spec point 4: "superseded by
+## Phase 4 — Finish — *Sonnet*
+- [x] 4.1 Add a one-line note to 20260719 spec point 4: "superseded by
       20261023_contrib_2_edits_json: contributors no longer write the db".
       Update `gui2/README.md` (contributor saves go to JSON; user 1 unchanged).
       Run `just typecheck`, full pytest and `graphify update .`.
       → verify: all pass. Paste the counts here.
+      PARTIAL 2026-10-30: 20260719 note and `gui2/README.md` line were already in place. Full suite
+      2540 passed, 12 deselected. `just typecheck` 0 errors. `graphify update .` done after Phase 3.
+
+## Review fixes (2026-10-30)
+After the three-way review: contributor JSON writes are now atomic (temp file then swap) with the
+in-memory entry rolled back on a failed write; a damaged contributor file is kept as `*.corrupt`;
+the duplicate-lemma set includes own corrections; Pass2 refreshes it after a contributor save and
+after a discard; one docstring fixed; tests added. Deferred items live in
+`20261030_contrib_x_problem_children`.
