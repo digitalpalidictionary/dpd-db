@@ -3,6 +3,7 @@
 import json
 from pathlib import Path
 
+from tools.contrib_entry import entry_hash
 from tools.printer import printer as pr
 
 AdditionsDict = dict[str, dict[str, str | int]]
@@ -147,14 +148,44 @@ class AdditionsManager:
         word_data: dict[str, str],
         origin_path: Path | None = None,
         source_key: str | None = None,
+        original_entry: dict | None = None,
     ) -> None:
         """Append processed addition to additions_added.json, tagging the
         contributor, and remove that key from the origin contributor file.
         source_key is the key as stored in the contributor file (may differ
         from word_data["id"] which gets a new DB-assigned value on commit).
+        original_entry is the contributor's entry as it was loaded; its hash
+        and source_key go in the log so the server can tell it was processed.
         """
         contributor = _contributor_from_origin(origin_path, prefix="additions_")
 
+        tagged = {**word_data, "_contributor": contributor}
+        if source_key is not None and original_entry is not None:
+            tagged["_source_key"] = source_key
+            tagged["_source_hash"] = entry_hash(original_entry)
+        self._append_to_log(tagged)
+
+        if origin_path is not None and source_key is not None:
+            _remove_key_from_file(origin_path, source_key)
+
+    def reject(self, origin_path: Path, source_key: str, original_entry: dict) -> None:
+        """Turn a contributor's addition down: log it as rejected, then remove it
+        from their file. The log entry stops the server from sending the same
+        entry back, as it does for an accepted one."""
+        self._append_to_log(
+            {
+                "_source_key": source_key,
+                "_source_hash": entry_hash(original_entry),
+                "_contributor": _contributor_from_origin(
+                    origin_path, prefix="additions_"
+                ),
+                "lemma_1": original_entry.get("lemma_1", ""),
+                "_rejected": True,
+            }
+        )
+        _remove_key_from_file(origin_path, source_key)
+
+    def _append_to_log(self, entry: dict) -> None:
         existing_data: list[dict] = []
         try:
             with open(self.paths.additions_added_path, encoding="utf-8") as f:
@@ -162,14 +193,10 @@ class AdditionsManager:
         except (FileNotFoundError, json.JSONDecodeError):
             pass
 
-        tagged = {**word_data, "_contributor": contributor}
-        existing_data.append(tagged)
+        existing_data.append(entry)
 
         with open(self.paths.additions_added_path, "w", encoding="utf-8") as f:
             json.dump(existing_data, f, ensure_ascii=False, indent=4)
-
-        if origin_path is not None and source_key is not None:
-            _remove_key_from_file(origin_path, source_key)
 
 
 def _contributor_from_origin(origin_path: Path | None, prefix: str) -> str:

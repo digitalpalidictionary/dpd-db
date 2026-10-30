@@ -39,6 +39,21 @@ Specific maintenance utilities can be run from the `utilities/` subfolder.
 | Bold Search | `bold_search_view.py` | Search bold definitions |
 | **Roots** | **`roots_tab_view.py`** | **Full CRUD editor for `dpd_roots` table** |
 
+## Contributor server tabs
+When `DPD_GUI2_ROLE=contributor-server`, the tab bar shows only the tabs a contributor may use (`contributor_tabs.py`). The tab decides what they can do:
+
+| Kind | Tabs | Rule |
+|------|------|------|
+| Base (always) | Pass1Auto, Pass1Add | Saves go to the contributor's own JSON files |
+| Safe (extra, by env) | Transl, Bold Search | Write nothing shared |
+| Read (extra, by env) | DB, √ (Roots), Infl | Read only: every save handler returns at once |
+| Hidden | everything else | Never shown, whatever the env says |
+
+- `DPD_GUI2_TABS` lists the extra tabs, comma-separated (e.g. `Bold Search,DB`).
+- `DPD_GUI2_DATA_DIR` moves the per-user files outside the repo.
+- One live session per process: the newest browser tab wins and the older tab shows "already open". Flet does not always fire its disconnect event on a reload, so the app does not wait for it.
+- A contributor process opens the db read-only (`PRAGMA query_only`).
+
 ## GUI Assets
 - **Linux Integration:** A `dpd-gui2.desktop` file is provided in `gui2/linux/` to ensure the custom icon is correctly displayed in the Linux Mint taskbar and Alt-Tab switcher.
 

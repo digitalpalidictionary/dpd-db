@@ -296,6 +296,12 @@ css:
 backup:
     uv run python db/backup_tsv/backup_dpd_headwords_and_roots.py
 
+# Merge the server's contributions branch into main, then fold the flag files into the shared files
+contrib-merge:
+    git fetch origin contributions
+    git merge --no-edit origin/contributions
+    uv run scripts/server_contrib/merge_contrib_files.py
+
 # Update Anki cards from the DB
 anki:
     uv run exporter/anki/anki_updater.py

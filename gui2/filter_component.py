@@ -17,6 +17,7 @@ from gui2.filter_logic import (
     validate_regex_patterns,
 )
 from gui2.toolkit import ToolKit
+from gui2.contributor_tabs import READ_ONLY_MESSAGE
 from gui2.ui_utils import field_border, is_mounted, request_focus, show_global_snackbar
 from tools.spelling import CustomSpellChecker
 
@@ -110,9 +111,11 @@ class FilterComponent(ft.Column):
         display_filters: list[str] | None = None,
         limit: int | None = None,
         sort_column: str | None = None,
+        read_only: bool = False,
     ) -> None:
         super().__init__(expand=True, spacing=5, controls=[])
         self.toolkit: ToolKit = toolkit
+        self.read_only = read_only
         self.spellchecker = CustomSpellChecker(toolkit.paths.user_dictionary_path)
 
         # State management
@@ -423,6 +426,9 @@ class FilterComponent(ft.Column):
     def _save_changes(self, e: ft.ControlEvent | None) -> None:
         """Save any changes back to the database: one commit for the whole
         batch, one relationship-detector invalidation."""
+        if self.read_only:
+            show_global_snackbar(self.page, READ_ONLY_MESSAGE, "warning")
+            return
         if not self.modified_cells:
             show_global_snackbar(self.page, "No changes to save", "info", 3000)
             return

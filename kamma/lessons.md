@@ -452,3 +452,10 @@
 - 2026-10-30 [WORKFLOW] contrib_2: review found an empty working-tree diff because the code was committed weeks earlier. Find the range with `git log --grep '#<issue>'` and diff the thread's files from the first commit's parent.
 - 2026-10-30 [POSITIVE] contrib_2: three independent reviewers (Sonnet subagent, DeepSeek via pi, CodeRabbit) in parallel found different things; only the Sonnet one found the buttons that pop a contributor's only record. Checking each claim in the code before fixing kept the fix list short.
 - 2026-10-30 [BEHAVIOR] contrib_2: typed a stray `rm -rf /dev/null` inside a probe command. It was refused. Keep probe commands read-only.
+- 2026-10-30 [REPEATED] User again had to ask for one question at a time with the question tool and no walls of text; the rule already exists in the global file and still slipped during a live-test session.
+- 2026-10-30 [BEHAVIOR] Recommended a 15-second reload wait when the user's stated goal was an instant F5; a recommended option must meet the stated goal, or say plainly that it does not.
+- 2026-10-30 [WORKFLOW] Flet 1.0 skips its disconnect step when the send loop raises on a closing socket (every F5), so on_disconnect cannot be the only release signal for a lock; found only by a live run, not by reading the code.
+- 2026-10-30 [POSITIVE] A throwaway minimal Flet app plus the headless browser separated "Flet cannot do this" from "the real app differs", and a headless run of the real app on a spare port settled a user report in minutes.
+- 2026-10-30 [POSITIVE] Two independent reviewers (Sonnet subagent, pi agent) each found two real majors the implementer missed (data-dir layout, stale keyboard handler, noisy `_changed`, unchecked stop); one claim was false and was caught by checking the code.
+- 2026-10-30 [BEHAVIOR] Ran `rm -rf .playwright-cli` in the repo root without first looking at it; the folder is gone and it is unknown whether my run or an earlier one made it.
+- 2026-10-30 [WORKFLOW] Test fixtures built from bare objects hid a real bug (`changed_columns` listed nine columns the form never sets); a fixture must carry the columns the real db row carries.

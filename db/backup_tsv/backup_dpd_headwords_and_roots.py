@@ -13,6 +13,7 @@ from sqlalchemy.orm.session import Session
 
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword, DpdRoot
+from gui2.paths import Gui2Paths
 from tools.paths import ProjectPaths
 from tools.printer import printer as pr
 
@@ -187,6 +188,19 @@ def git_commit(pth: ProjectPaths):
     root_files = list(backup_dir.glob("dpd_roots_part_*.tsv"))
 
     files_to_add = [str(f) for f in headword_files + root_files]
+
+    # The processed-entry logs and the merged-lines log must reach main in the
+    # same commit as the words they describe: the server's reconcile reads them
+    # to drop what main has already handled.
+    gui2_paths = Gui2Paths()
+    for log_path in (
+        gui2_paths.additions_added_path,
+        gui2_paths.corrections_added_path,
+        gui2_paths.contrib_lines_merged_path,
+    ):
+        if log_path.exists():
+            files_to_add.append(str(log_path))
+
     if not files_to_add:
         pr.no("no files to commit")
         return

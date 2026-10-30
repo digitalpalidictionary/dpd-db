@@ -6,7 +6,8 @@ from db.models import DpdHeadword
 from gui2.dpd_fields_classes import DpdDropdown, DpdTextField
 from gui2.filter_component import FilterComponent
 from gui2.toolkit import ToolKit
-from gui2.ui_utils import field_border, page_of
+from gui2.contributor_tabs import READ_ONLY_MESSAGE
+from gui2.ui_utils import field_border, page_of, show_global_snackbar
 
 LABEL_COLOUR = ft.Colors.GREY_500
 
@@ -33,6 +34,7 @@ class FilterTabView(ft.Column):
     ) -> None:
         super().__init__(expand=True, spacing=0, controls=[])
         self.toolkit: ToolKit = toolkit
+        self.read_only: bool = False
 
         self.dpd_headword_columns = [c.name for c in DpdHeadword.__table__.columns]
 
@@ -499,6 +501,7 @@ class FilterTabView(ft.Column):
             display_filters=display_filters,
             limit=limit,
             sort_column=sort_column,
+            read_only=self.read_only,
         )
 
         self.filter_component_container.content = new_filter_component
@@ -520,6 +523,9 @@ class FilterTabView(ft.Column):
 
     def _save_changes_clicked(self, e: ft.ControlEvent) -> None:
         """Delegate save to the current FilterComponent."""
+        if self.read_only:
+            show_global_snackbar(self.page, READ_ONLY_MESSAGE, "warning")
+            return
         content = self.filter_component_container.content
         if isinstance(content, FilterComponent):
             content._save_changes(e)

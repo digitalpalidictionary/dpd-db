@@ -9,7 +9,7 @@ from sqlalchemy.orm import Session, sessionmaker
 from sqlalchemy.pool import StaticPool
 
 from db.models import Base, DpdHeadword
-from gui2.database_manager import DatabaseManager
+from gui2.database_manager import CONTRIB_ID_BASE, DatabaseManager
 
 
 @pytest.fixture
@@ -88,10 +88,29 @@ def test_correction_wins_over_addition_for_same_id(manager: DatabaseManager) -> 
     assert word.meaning_1 == "correction"
 
 
-def test_next_id_skips_own_additions(manager: DatabaseManager) -> None:
-    additions = {"alice_9": {"id": 9}, "alice_4": {"id": 4}}
+def test_contributor_first_id_is_in_the_reserved_range(
+    manager: DatabaseManager,
+) -> None:
+    manager.set_overlay(lambda: ({}, {}))
+    assert manager.get_next_id() == CONTRIB_ID_BASE + 1 == 10_000_001
+
+
+def test_contributor_next_id_follows_own_max(manager: DatabaseManager) -> None:
+    additions = {
+        "alice_10000003": {"id": 10_000_003},
+        "alice_10000001": {"id": 10_000_001},
+    }
     manager.set_overlay(lambda: ({}, additions))
-    assert manager.get_next_id() == 10
+    assert manager.get_next_id() == 10_000_004
+
+
+def test_contributor_id_ignores_the_db_max(
+    manager: DatabaseManager, session: Session
+) -> None:
+    session.add(DpdHeadword(id=20_000_000, lemma_1="far 1"))
+    session.commit()
+    manager.set_overlay(lambda: ({}, {}))
+    assert manager.get_next_id() == 10_000_001
 
 
 def test_overlay_reads_live_dicts(manager: DatabaseManager) -> None:

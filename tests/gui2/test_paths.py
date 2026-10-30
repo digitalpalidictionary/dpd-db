@@ -1,5 +1,7 @@
 from pathlib import Path
 
+import pytest
+
 from gui2.paths import Gui2Paths
 
 
@@ -125,3 +127,53 @@ class TestSandhiHelperPaths:
         assert a.variant_readings_path == data / "variant_readings_alice.tsv"
         assert a.spelling_mistakes_path == data / "spelling_mistakes_alice.tsv"
         assert b.sandhi_checked_path != a.sandhi_checked_path
+
+
+class TestDataDirOverride:
+    # Every path for_user routes per user, including the test exceptions file.
+    ROUTED: tuple[str, ...] = (
+        "additions_path",
+        "additions_added_path",
+        "corrections_path",
+        "corrections_added_path",
+        "daily_log_path",
+        "history_json_path",
+        "filter_presets_path",
+        "headword_stash_json_path",
+        "example_stash_json_path",
+        "commentary_stash_json_path",
+        "user_dictionary_path",
+        "sandhi_checked_path",
+        "sandhi_corrections_path",
+        "variant_readings_path",
+        "spelling_mistakes_path",
+        "db_test_exceptions_path",
+    )
+
+    def test_contributor_files_all_move_to_the_data_dir(
+        self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+    ):
+        outside = tmp_path / "etc_dpd" / "alice"
+        monkeypatch.setenv("DPD_GUI2_DATA_DIR", str(outside))
+        paths = Gui2Paths.for_user("alice", base_dir=tmp_path)
+        for name in self.ROUTED:
+            path = getattr(paths, name)
+            assert path is not None, name
+            assert path.parent == outside, name
+            assert "alice" in path.name, name
+
+    def test_without_the_env_var_files_stay_in_gui2_data(
+        self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+    ):
+        monkeypatch.delenv("DPD_GUI2_DATA_DIR", raising=False)
+        paths = Gui2Paths.for_user("alice", base_dir=tmp_path)
+        for name in self.ROUTED:
+            assert getattr(paths, name).parent == tmp_path / "gui2" / "data", name
+
+    def test_user_one_ignores_the_env_var(
+        self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+    ):
+        monkeypatch.setenv("DPD_GUI2_DATA_DIR", str(tmp_path / "elsewhere"))
+        paths = Gui2Paths.for_user("1", base_dir=tmp_path)
+        assert paths.additions_path == tmp_path / "gui2" / "data" / "additions.json"
+        assert paths.db_test_exceptions_path is None

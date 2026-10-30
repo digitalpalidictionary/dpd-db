@@ -64,6 +64,36 @@ def test_commits_only_the_part_files_and_leaves_other_staged_files(
     assert git(repo, "diff", "--cached", "--name-only") == "other.txt"
 
 
+def test_commits_the_contributor_logs_that_exist(repo: Path) -> None:
+    pth = ProjectPaths(base_dir=repo, create_dirs=False)
+    data = repo / "gui2/data"
+    data.mkdir(parents=True)
+    logs = (
+        "additions_added.json",
+        "corrections_added.json",
+        "contrib_lines_merged.json",
+    )
+    write_parts(pth.pali_word_path.parent, "old")
+    for name in logs:
+        (data / name).write_text("{}")
+    (data / "other.json").write_text("{}")
+    git(repo, "add", "-A")
+    git(repo, "commit", "-q", "-m", "initial")
+
+    write_parts(pth.pali_word_path.parent, "new")
+    for name in (*logs, "other.json"):
+        (data / name).write_text('{"a": 1}')
+
+    git_commit(pth)
+
+    committed = set(git(repo, "show", "--name-only", "--format=", "HEAD").split())
+    assert committed == {
+        "db/backup_tsv/dpd_headwords_part_001.tsv",
+        "db/backup_tsv/dpd_roots_part_001.tsv",
+        *(f"gui2/data/{name}" for name in logs),
+    }
+
+
 def test_a_failed_commit_is_reported_not_raised(
     repo: Path, capsys: pytest.CaptureFixture[str]
 ) -> None:

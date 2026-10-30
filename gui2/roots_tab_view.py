@@ -3,6 +3,7 @@ import flet as ft
 
 from db.models import DpdRoot
 from gui2.toolkit import ToolKit
+from gui2.contributor_tabs import READ_ONLY_MESSAGE
 from gui2.ui_utils import field_border, is_mounted, request_focus, show_global_snackbar
 
 GROUP_LABEL_WIDTH = 150
@@ -18,6 +19,7 @@ class RootsTabView(ft.Column):
         super().__init__(expand=True, spacing=5, controls=[])
 
         self.toolkit = toolkit
+        self.read_only: bool = False
         self._db = toolkit.db_manager
 
         self._current_root_key: str | None = None
@@ -289,6 +291,9 @@ class RootsTabView(ft.Column):
         self.page.update()  # type: ignore
 
     def _save_root(self, e: ft.ControlEvent) -> None:
+        if self.read_only:
+            show_global_snackbar(self.page, READ_ONLY_MESSAGE, "warning")  # type: ignore
+            return
         root_field: ft.TextField = getattr(self, "_field_root")
         root_key = (root_field.value or "").strip()
 
@@ -335,6 +340,9 @@ class RootsTabView(ft.Column):
         request_focus(root_field)
 
     def _delete_root(self, e: ft.ControlEvent) -> None:
+        if self.read_only:
+            show_global_snackbar(self.page, READ_ONLY_MESSAGE, "warning")  # type: ignore
+            return
         if self._is_new_mode or self._current_root_key is None:
             show_global_snackbar(self.page, "No root loaded to delete", "warning")  # type: ignore
             return

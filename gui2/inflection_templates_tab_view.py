@@ -22,6 +22,7 @@ from db.inflections.inflection_template_files import (
 )
 from gui2.filter_component import FilterComponent
 from gui2.toolkit import ToolKit
+from gui2.contributor_tabs import READ_ONLY_MESSAGE
 from gui2.ui_utils import field_border, is_mounted, request_focus
 from tools.pali_sort_key import pali_list_sorter, pali_sort_key
 
@@ -257,6 +258,7 @@ class InflectionTemplatesTabView(ft.Column):
         super().__init__(expand=True, spacing=5, controls=[])
 
         self.toolkit = toolkit
+        self.read_only: bool = False
         self._db = toolkit.db_manager
 
         self._template: TemplateFile | None = None
@@ -661,6 +663,7 @@ class InflectionTemplatesTabView(ft.Column):
                     "pattern",
                     "meaning_1",
                 ],
+                read_only=self.read_only,
             )
         if is_mounted(self):
             self.page.update()
@@ -783,6 +786,9 @@ class InflectionTemplatesTabView(ft.Column):
         return None
 
     def _rename_template(self, e: ft.ControlEvent) -> None:
+        if self.read_only:
+            self._set_message(READ_ONLY_MESSAGE)
+            return
         if self._template is None:
             self._set_message("no pattern loaded")
             return
@@ -835,6 +841,9 @@ class InflectionTemplatesTabView(ft.Column):
         return None
 
     def _save_template(self, e: ft.ControlEvent) -> None:
+        if self.read_only:
+            self._set_message(READ_ONLY_MESSAGE)
+            return
         if self._template is None:
             self._set_message("no pattern loaded")
             return
@@ -869,6 +878,9 @@ class InflectionTemplatesTabView(ft.Column):
         )
 
     def _delete_template(self, e: ft.ControlEvent) -> None:
+        if self.read_only:
+            self._set_message(READ_ONLY_MESSAGE)
+            return
         if self._template is None:
             self._set_message("no pattern loaded")
             return

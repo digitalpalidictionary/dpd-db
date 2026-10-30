@@ -11,6 +11,7 @@ import flet as ft
 
 from gui2.ai_search_window import launch_ai_search_window
 from gui2.compound_type_tab_view import CompoundTypeTabView
+from gui2.contributor_tabs import allowed_tabs, resolve_extra_tabs
 from gui2.roots_tab_view import RootsTabView
 from gui2.sandhi_find_replace_view import SandhiFindReplaceView
 from gui2.sandhi_view import SandhiView
@@ -19,9 +20,66 @@ from gui2.spelling_find_replace_view import SpellingFindReplaceView
 from gui2.toolkit import ToolKit
 from gui2.ui_utils import cancel_top_dialog, is_dialog_open, show_global_snackbar
 from tools.fast_api_utils import start_dpd_server
+from tools.printer import printer as pr
+from tools.server_mode import is_headless_server
+
+# Tab order must match the App._view_builders index keys.
+TAB_LABELS: list[str] = [
+    "Global",
+    "Transl",
+    "Pass1Auto",
+    "Pass1Add",
+    "Pass2Pre",
+    "Pass2x",
+    "Pass2Auto",
+    "Pass2Add",
+    "'",
+    "Sp",
+    "Sandhi",
+    "DB",
+    "Tests",
+    "Bold Search",
+    "√",
+    "CT",
+    "Infl",
+]
+
+
+def tab_selection() -> tuple[list[int], frozenset[int]]:
+    """The tab indices to show and the read-only ones. A contributor-server
+    session gets its allowed tabs; every other role gets all of them."""
+    if not is_headless_server():
+        return list(range(len(TAB_LABELS))), frozenset()
+    visible, read_only = allowed_tabs(TAB_LABELS, resolve_extra_tabs())
+    return visible, frozenset(read_only)
 
 
 class App:
+    # Tab-bar position -> tab index. Every index-based lookup below keeps the
+    # 17 original indices; only the tab bar and its bodies use positions. The
+    # desktop shows every tab, so this is the identity list there.
+    _visible: list[int] = list(range(len(TAB_LABELS)))
+    _read_only: frozenset[int] = frozenset()
+
+    # Most-used tabs first so they are ready soonest.
+    _WARMUP_TAB_ORDER: tuple[int, ...] = (
+        7,
+        4,
+        5,
+        6,
+        2,
+        3,
+        1,
+        13,
+        11,
+        8,
+        9,
+        10,
+        12,
+        14,
+        15,
+    )
+
     def __init__(self, page: ft.Page) -> None:
         from gui2.filter_tab_view import FilterTabView
         from gui2.global_tab_view import GlobalTabView
@@ -110,7 +168,11 @@ class App:
         # Pass1Auto first via _view(2).
         self._views: dict[int, ft.Control] = {}
         self._mounted_tabs: set[int] = set()
-        self._focused_tab_index: int = 0
+        self._visible, self._read_only = tab_selection()
+        # The server opens on Pass1Auto, never on a safe tab that sorts before
+        # it; the desktop opens on its first tab, Global.
+        self._start_index: int = 2 if is_headless_server() else self._visible[0]
+        self._focused_tab_index: int = self._start_index
         self._view_builders: dict[int, Callable[[], ft.Control]] = {
             0: lambda: GlobalTabView(self.page, self.toolkit),
             1: lambda: TranslationsView(self.page, self.toolkit),
@@ -130,25 +192,6 @@ class App:
             15: lambda: CompoundTypeTabView(self.page, self.toolkit),
             16: lambda: InflectionTemplatesTabView(self.page, self.toolkit),
         }
-
-        # Most-used tabs first so they are ready soonest.
-        self._warmup_tab_order: list[int] = [
-            7,
-            4,
-            5,
-            6,
-            2,
-            3,
-            1,
-            13,
-            11,
-            8,
-            9,
-            10,
-            12,
-            14,
-            15,
-        ]
 
         self.build_ui()
 
@@ -275,7 +318,7 @@ class App:
             # Sourced from _views, not from the tab control: 1.0's Tab has no
             # content slot, and the hasattr checks below would simply miss,
             # so a wrong lookup here stops Ctrl+S saving without any error.
-            view = self._views.get(self.tabs.selected_index)
+            view = self._views.get(self._current_index())
             # Ctrl+S saves in tabs that support it.
             # The first four targets are synchronous today. If any is ever made
             # `async def`, these calls become discarded coroutines and Ctrl+S
@@ -306,8 +349,8 @@ class App:
                 await self._on_tab_activated()
                 self.page.update()
         elif e.key == "X" and e.alt:
-            clear = self._CLEAR_ACTIONS.get(self.tabs.selected_index)
-            view = self._views.get(self.tabs.selected_index)
+            clear = self._CLEAR_ACTIONS.get(self._current_index())
+            view = self._views.get(self._current_index())
             if clear is not None and view is not None and not is_dialog_open(self.page):
                 clear(view)
         elif e.alt and e.key in self._SHORTCUTS_KEYS:
@@ -317,8 +360,12 @@ class App:
                         self._shortcut_groups(), lambda _: self.page.pop_dialog()
                     )
                 )
-        elif e.alt and e.key in self._TAB_JUMP_KEYS:
-            self.tabs.selected_index = self._TAB_JUMP_KEYS[e.key]
+        elif (
+            e.alt
+            and e.key in self._TAB_JUMP_KEYS
+            and self._TAB_JUMP_KEYS[e.key] in self._visible
+        ):
+            self.tabs.selected_index = self._visible.index(self._TAB_JUMP_KEYS[e.key])
             await self._on_tab_activated()
             self.page.update()
         elif e.key in self._SCROLL_KEYS:
@@ -327,7 +374,7 @@ class App:
             # views exposing a `_middle_section` scrollable respond (Pass2Add
             # today); others simply ignore it. "Numpad 9"/"Numpad 3" are the
             # keypad PageUp/PageDown keys reported when Num Lock is off.
-            view = self._views.get(self.tabs.selected_index)
+            view = self._views.get(self._current_index())
             target = getattr(view, "_middle_section", None)
             if target is not None:
                 await target.scroll_to(delta=self._SCROLL_KEYS[e.key], duration=100)
@@ -335,8 +382,17 @@ class App:
     def _shortcut_groups(self) -> list[ShortcutGroup]:
         """Every shortcut on_keyboard handles, for the Alt+? popup. The tab
         jumps and the Alt+X tabs come from the tables the keys act on."""
-        tab_jumps = sorted(self._TAB_JUMP_KEYS.items(), key=lambda item: item[1])
-        clear_tabs = ", ".join(self._tab_label(i) for i in self._CLEAR_ACTIONS)
+        tab_jumps = sorted(
+            (
+                (key, index)
+                for key, index in self._TAB_JUMP_KEYS.items()
+                if index in self._visible
+            ),
+            key=lambda item: item[1],
+        )
+        clear_tabs = ", ".join(
+            self._tab_label(i) for i in self._CLEAR_ACTIONS if i in self._visible
+        )
         return [
             (
                 "App",
@@ -390,7 +446,7 @@ class App:
 
     def _get_current_lemma(self) -> str:
         """Return lemma_clean from the active add-view, or empty string."""
-        index = self.tabs.selected_index
+        index = self._current_index()
         if index not in (3, 7):
             return ""
         view = self._views.get(index)
@@ -403,11 +459,18 @@ class App:
         except Exception:
             return ""
 
+    def _current_index(self) -> int:
+        """The tab index of the open tab (the selection is a tab-bar position)."""
+        return self._visible[self.tabs.selected_index]
+
     def _view(self, index: int) -> ft.Control:
         """Build (once) and return the view for a tab index."""
         with self._build_lock:
             if index not in self._views:
-                self._views[index] = self._view_builders[index]()
+                view = self._view_builders[index]()
+                if index in self._read_only:
+                    setattr(view, "read_only", True)
+                self._views[index] = view
             return self._views[index]
 
     def _ensure_tab_built(self, index: int) -> None:
@@ -415,7 +478,7 @@ class App:
         with self._build_lock:
             if index in self._mounted_tabs:
                 return
-            self._tab_bodies.controls[index] = self._view(index)
+            self._tab_bodies.controls[self._visible.index(index)] = self._view(index)
             self._mounted_tabs.add(index)
         self.page.update()
 
@@ -432,7 +495,7 @@ class App:
 
     async def _on_tab_activated(self, e: ft.ControlEvent | None = None) -> None:
         """Build the newly-active tab's content on demand and kick db init."""
-        index = self.tabs.selected_index
+        index = self._current_index()
         if index not in self._mounted_tabs:
             # Hand the loop a turn so the placeholder spinner reaches the
             # client before the build blocks, then build off the event loop.
@@ -498,7 +561,9 @@ class App:
         # A failing builder leaves its tab unmounted (retried on click) and
         # must not abort the warm-up of the remaining tabs and managers.
         failed: list[str] = []
-        for index in self._warmup_tab_order:
+        for index in self._WARMUP_TAB_ORDER:
+            if index not in self._visible:
+                continue
             try:
                 self._ensure_tab_built(index)
             except Exception:
@@ -523,35 +588,16 @@ class App:
 
     def _tab_label(self, index: int) -> str:
         """Return a tab's visible label, for messages about that tab."""
-        label = self._tab_bar.tabs[index].label
+        label = self._tab_bar.tabs[self._visible.index(index)].label
         text = getattr(label, "value", None)
         return text or str(index)
 
     def build_ui(self) -> None:
         """Constructs the main UI elements."""
 
-        # Tab order must match the _view_builders index keys. Each tab starts
-        # with a lightweight placeholder; the real view is built and mounted on
-        # first selection by _on_tab_activated.
-        tab_labels = [
-            "Global",
-            "Transl",
-            "Pass1Auto",
-            "Pass1Add",
-            "Pass2Pre",
-            "Pass2x",
-            "Pass2Auto",
-            "Pass2Add",
-            "'",
-            "Sp",
-            "Sandhi",
-            "DB",
-            "Tests",
-            "Bold Search",
-            "√",
-            "CT",
-            "Infl",
-        ]
+        # Each tab starts with a lightweight placeholder; the real view is
+        # built and mounted on first selection by _on_tab_activated.
+        tab_labels = [TAB_LABELS[index] for index in self._visible]
         # Derived from _TAB_JUMP_KEYS so the tooltips can never drift from the
         # keys the handler actually acts on.
         shortcuts = {index: key for key, index in self._TAB_JUMP_KEYS.items()}
@@ -569,7 +615,7 @@ class App:
                         else None,
                     ),
                 )
-                for index, label in enumerate(tab_labels)
+                for index, label in zip(self._visible, tab_labels)
             ],
         )
         # A spinner, not an empty box: building a view takes ~1.6 s on first
@@ -593,15 +639,17 @@ class App:
                 [self._loading_bar, self._tab_bar, self._tab_bodies], expand=True
             ),
             length=len(tab_labels),
-            selected_index=0,
+            selected_index=self._visible.index(self._start_index),
             animation_duration=300,
             on_change=self._on_tab_activated,
             expand=True,
         )
 
         # The first tab is visible at startup, so build it eagerly.
-        self._mounted_tabs.add(0)
-        self._tab_bodies.controls[0] = self._view(0)
+        self._mounted_tabs.add(self._start_index)
+        self._tab_bodies.controls[self._visible.index(self._start_index)] = self._view(
+            self._start_index
+        )
 
         self.page.add(self.tabs)
         self.page.update()
@@ -611,6 +659,44 @@ class App:
         # _initialize_db_in_background so the two do not compete.
         self._db_init_started = True
         self.page.run_thread(self._initialize_db_in_background)
+
+
+# One live app per process. A second browser tab would build a second copy of
+# the app (~2.5 GB) that holds the same contributor JSON in memory, and two
+# copies rewriting one file lose each other's saves. The newest page wins:
+# Flet does not always fire on_disconnect when a tab reloads (its send loop
+# raises on a closing socket and skips the disconnect step), so waiting for the
+# old page to say it left would lock a reloading contributor out.
+_session_lock = threading.Lock()
+_session_page: ft.Page | None = None
+
+ALREADY_OPEN_MESSAGE = "This app is already open in another tab or window."
+
+
+def claim_session(page: ft.Page) -> None:
+    """Take the process's one session. The page that held it, if any, is retired."""
+    global _session_page
+    with _session_lock:
+        previous = _session_page
+        _session_page = page
+    if previous is not None and previous is not page:
+        try:
+            # The old App stays alive in memory; without this its Ctrl+S would
+            # still save from a stale copy of the contributor's file.
+            previous.on_keyboard_event = None
+            previous.controls.clear()
+            previous.add(ft.Text(ALREADY_OPEN_MESSAGE))
+        except Exception as e:
+            # The old connection may already be dead; nothing is left to show.
+            pr.red(f"could not retire the old page: {e}")
+
+
+def release_session(page: ft.Page) -> None:
+    """Free the session, but only if this page is the one that holds it."""
+    global _session_page
+    with _session_lock:
+        if _session_page is page:
+            _session_page = None
 
 
 def main(page: ft.Page) -> None:
@@ -626,6 +712,10 @@ def main(page: ft.Page) -> None:
     # desktop client fills with its own name ("flet") instead of leaving the
     # title bar blank.
     page.title = ""
+
+    claim_session(page)
+    page.on_disconnect = lambda _: release_session(page)
+    page.on_close = lambda _: release_session(page)
 
     # Time App initialization
     start_time = time.time()

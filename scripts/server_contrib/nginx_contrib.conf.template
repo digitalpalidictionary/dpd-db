@@ -1,0 +1,14 @@
+# One HTTPS server for every contributor instance. Copy to
+# /etc/nginx/sites-available/dpd-contrib, replace @SERVER_NAME@, enable it.
+# add_contributor.sh writes one location file per user into /etc/nginx/dpd/;
+# the include below picks them all up.
+
+server {
+    listen 443 ssl;
+    server_name @SERVER_NAME@;
+
+    ssl_certificate     /etc/letsencrypt/live/@SERVER_NAME@/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/@SERVER_NAME@/privkey.pem;
+
+    include /etc/nginx/dpd/*.conf;
+}

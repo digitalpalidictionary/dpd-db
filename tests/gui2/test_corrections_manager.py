@@ -1,3 +1,4 @@
+import copy
 import json
 import uuid
 from pathlib import Path
@@ -12,6 +13,7 @@ from gui2.corrections_manager import (
     _remove_key_from_file,
 )
 from gui2.paths import Gui2Paths
+from tools.contrib_entry import entry_hash
 
 if TYPE_CHECKING:
     from db.models import DpdHeadword
@@ -85,6 +87,18 @@ class TestUpdateCorrectionsKey:
         entry = mgr.corrections_dict[key]
         assert entry["id"] == 42
         assert entry["comment"] == "a note"
+
+    def test_changed_columns_are_stored_in_the_entry(self, tmp_path: Path):
+        mgr = _manager(tmp_path, "bob")
+        mgr.update_corrections(_fake_word(42, "gacchati"), "n", ["meaning_1"])
+        assert mgr.corrections_dict["bob_42"]["_changed"] == ["meaning_1"]
+        saved = json.loads(mgr.corrections_path.read_text(encoding="utf-8"))
+        assert saved["bob_42"]["_changed"] == ["meaning_1"]
+
+    def test_no_changed_argument_stores_no_changed_key(self, tmp_path: Path):
+        mgr = _manager(tmp_path, "bob")
+        mgr.update_corrections(_fake_word(42, "gacchati"), "n")
+        assert "_changed" not in mgr.corrections_dict["bob_42"]
 
     def test_recorrecting_same_id_updates_in_place_latest_wins(self, tmp_path: Path):
         mgr = _manager(tmp_path, "bob")
@@ -225,3 +239,71 @@ class TestSafeWrites:
             path.with_name(path.name + ".corrupt").read_text(encoding="utf-8")
             == "{broken"
         )
+
+
+class TestSourceLogAndReject:
+    def _primary_with_two_entries(
+        self, tmp_path: Path
+    ) -> tuple[CorrectionsManager, Path]:
+        data_dir = tmp_path / "gui2" / "data"
+        data_dir.mkdir(parents=True)
+        contrib = data_dir / "corrections_alice.json"
+        contrib.write_text(
+            json.dumps(
+                {
+                    "alice_1": {"id": 1, "lemma_1": "one", "meaning_1": "proposal"},
+                    "alice_2": {"id": 2, "lemma_1": "two"},
+                }
+            ),
+            encoding="utf-8",
+        )
+        mgr = CorrectionsManager(_fake_toolkit(Gui2Paths(base_dir=tmp_path)))
+        return mgr, contrib
+
+    def _log(self, mgr: CorrectionsManager) -> list[dict]:
+        return json.loads(mgr.paths.corrections_added_path.read_text(encoding="utf-8"))
+
+    def test_processed_entry_logs_source_key_and_hash_of_the_original(
+        self, tmp_path: Path
+    ):
+        mgr, _ = self._primary_with_two_entries(tmp_path)
+        entry, origin, key, _ = mgr.get_next_correction()
+        assert entry is not None and key is not None
+        edited = {"id": "77", "lemma_1": "one", "meaning_1": "edited by maintainer"}
+
+        mgr.save_processed_correction(edited, origin, key, copy.deepcopy(entry))
+
+        (logged,) = self._log(mgr)
+        assert logged["_source_key"] == key
+        assert logged["_source_hash"] == entry_hash(entry)
+        assert logged["_source_hash"] != entry_hash(edited)
+        assert logged["meaning_1"] == "edited by maintainer"
+
+    def test_without_the_original_entry_no_source_fields_are_logged(
+        self, tmp_path: Path
+    ):
+        mgr, _ = self._primary_with_two_entries(tmp_path)
+        entry, origin, key, _ = mgr.get_next_correction()
+        assert entry is not None
+
+        mgr.save_processed_correction({"id": "77"}, origin, key)
+
+        (logged,) = self._log(mgr)
+        assert "_source_key" not in logged and "_source_hash" not in logged
+
+    def test_reject_logs_and_removes_only_that_key(self, tmp_path: Path):
+        mgr, contrib = self._primary_with_two_entries(tmp_path)
+        entry, origin, key, _ = mgr.get_next_correction()
+        assert entry is not None and origin is not None and key is not None
+
+        mgr.reject(origin, key, entry)
+
+        (logged,) = self._log(mgr)
+        assert logged == {
+            "_source_key": "alice_1",
+            "_source_hash": entry_hash(entry),
+            "_contributor": "alice",
+            "lemma_1": "one",
+            "_rejected": True,
+        }
+        assert list(json.loads(contrib.read_text(encoding="utf-8"))) == ["alice_2"]

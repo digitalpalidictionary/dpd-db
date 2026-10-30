@@ -96,7 +96,10 @@ locally and on the server. A review on 2026-10-29 found these flaws:
 ### B. Read tabs and the read-only db
 5. In a read tab, these actions refuse with "Read only: you can look but not
    save here." and change nothing:
-   - DB: Save Changes (`filter_tab_view._save_changes_clicked`).
+   - DB: Save Changes (`filter_tab_view._save_changes_clicked`) and the
+     on-screen Save Changes button, which lives in `FilterComponent` and calls
+     `FilterComponent._save_changes` directly (found in 1.3; `FilterComponent`
+     also gets `read_only`, and the DB and Infl views pass it on).
    - √: Save (`roots_tab_view._save_root`) and Delete (`_delete_root`).
    - Infl: Save (`inflection_templates_tab_view._save_template`), Rename
      (`_rename_template`) and Delete (`_delete_template`).
@@ -116,6 +119,15 @@ locally and on the server. A review on 2026-10-29 found these flaws:
    already open in another tab or window." and builds nothing. When the live
    session disconnects or closes, the next session is allowed. A page reload of
    the live tab must still work.
+
+   **Amended 2026-10-30 (live run 7.1, user decision): newest tab wins.** F5 left
+   the old session holding the lock: Flet's send loop raises when the socket
+   closes mid-update, and it then skips its disconnect step, so `on_disconnect`
+   never fires. A new session now always takes over. The old page, if it is
+   still open, is replaced by "This app is already open in another tab or
+   window." A second live tab is therefore no longer refused; it takes over from
+   the first. Both copies of the app stay in memory until Flet drops the old
+   session (up to an hour).
 
 ### D. Server files live outside the code
 8. `DPD_GUI2_DATA_DIR` moves every per-user file in `Gui2Paths.for_user` to
@@ -171,6 +183,56 @@ locally and on the server. A review on 2026-10-29 found these flaws:
     and cannot conflict.
 23. `absorption_check.py`, its tests and the snapshot code are deleted.
     Contributors never write the db, so a rebuild can never lose their work.
+
+**Amendment 2026-10-30 (Phase 4 check, case table in plan 4.1; user
+decisions A–C).** Where these points differ from 19–22 above, these win.
+
+- G.a **Merged-lines log** (decision A). The merge script keeps a tracked log
+  `gui2/data/contrib_lines_merged.json` = `{contributor_file_name: [line, …]}`.
+  It skips every line already logged, and logs every line it handles (added,
+  already present, or skipped as an unknown test). Only the maintainer writes
+  it. Reconcile drops a local flag line or test-exception line when it is
+  logged for that file; this replaces "once main's shared file holds it" in
+  21. The header line of an own variant/spelling file is never dropped (it
+  equals the shared header, and `read_tsv_2col_to_dict` reads line 1 as the
+  header). Why: a line the maintainer deletes or changes in a shared file must
+  not come back, and the main copies of contributor files lag one cycle.
+- G.b **Reserved-id test exceptions.** The merge script skips and reports
+  exception ids ≥ `CONTRIB_ID_BASE` and does not log them. Reconcile drops a
+  reserved-id exception line once the contributor's additions no longer hold
+  that id (`get_next_id` reuses the id after processing).
+- G.c **Logs travel with the words** (decision B). The maintainer's local
+  Backup & Quit (`db/backup_tsv/backup_dpd_headwords_and_roots.py::git_commit`)
+  adds `gui2/data/additions_added.json`, `corrections_added.json` and
+  `contrib_lines_merged.json` to its path-limited commit. The server never runs
+  it.
+- G.d **Window order and rollback.** Capture the rollback before the pull: db,
+  `HEAD`, and every delivered contributor file in `DPD_GUI2_DATA_DIR`. A failed
+  dirty-tree check or pull skips reconcile, push and rebuild. A failed rebuild
+  restores all three, so the overlay matches the old db. After a good rebuild,
+  restore the tracked files the build rewrote (`db/sanskrit/root_families_sanskrit.tsv`
+  every run, `CITATION.cff` on uposatha days) and log their names; the tree
+  was clean before the pull, so only the build changed them. Otherwise the
+  next night's dirty-tree check refuses.
+- G.e **Push.** Base `contributions` on the server clone's `HEAD` after the
+  pull (the commit reconcile read), not a fresh `origin/main`. Run
+  `git fetch --prune <remote>` before `--force-with-lease`, so a branch GitHub
+  deleted after a merge does not fail the lease. Copy only the delivered kinds
+  (additions, corrections, user dictionary, checked, manual corrections,
+  variants, spelling, test exceptions; never history, daily log, presets or
+  stash), from one list shared by push, reconcile and the merge script. Push
+  even when nothing is staged, so a discarded entry leaves the branch.
+  Reconcile writes an emptied file, never deletes it.
+- G.f **No pull requests** (decision C). The maintainer merges
+  `contributions` straight into local `main` with one `just` recipe: fetch,
+  merge `origin/contributions`, run the merge script, show its report. "The PR
+  cannot conflict" in 22 is wrong: the branch can conflict when main's copy of
+  a contributor file changed after the branch was built (processing). Skip
+  that merge; the next night's branch is built on current main and is clean.
+  Merge before processing to avoid it.
+- G.g **Removing a contributor** (README procedure): run a window first,
+  process or reject their entries, archive (not delete) their files (`*_<user>.*`),
+  then remove their env, htpasswd and nginx files.
 
 ### H. Login
 24. `scripts/server_contrib/nginx_contrib.conf.template`: HTTPS server, one
@@ -264,3 +326,15 @@ locally and on the server. A review on 2026-10-29 found these flaws:
   Pass2Add would need.
 - Running nginx, certbot or systemd (contrib_4 and contrib_1 Phase 3).
 - An in-app login screen.
+
+**Amendment 2026-10-30 (review round, two independent reviewers).**
+- All users share ONE flat data folder, `/var/lib/dpd/contrib_data`. The sync
+  scripts glob one folder and the file names carry the user, so a per-user folder
+  (`/var/lib/dpd/<user>`) made the nightly window find no files. Spec D.8 and
+  G.g read "per-user folder" as "one folder, user in the file name".
+- A failed `systemctl stop` refuses the window (an instance could still write
+  the files it reads). After a rollback the db's `-wal`/`-shm` are removed.
+  `last_built_commit` is written last.
+- `_changed` lists only columns the form supplied (the form never sets dates,
+  inflection tables, frequency data).
+- A retired tab (C.7) also loses its keyboard handler.

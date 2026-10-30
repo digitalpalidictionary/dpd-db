@@ -1,83 +1,169 @@
-import json
+"""push_contributions against a bare `file://` origin and a worktree."""
+
 import subprocess
 from pathlib import Path
 
+import pytest
+
 from scripts.server_contrib.contrib_push import build_commit_message, push_contributions
-from scripts.server_contrib.contrib_reconcile import load_json_dict
 
 
-def _git(*args: str, cwd: Path) -> subprocess.CompletedProcess[str]:
-    return subprocess.run(
+def _git(*args: str, cwd: Path) -> str:
+    result = subprocess.run(
         ["git", *args], cwd=cwd, capture_output=True, text=True, check=True
     )
+    return result.stdout.strip()
 
 
-def _make_repo_with_remote(tmp_path: Path) -> tuple[Path, Path, Path, Path]:
-    """Return (repo, data_dir, snapshot_dir, bare_remote)."""
-    bare = tmp_path / "remote.git"
-    bare.mkdir()
-    _git("init", "--bare", "-b", "main", cwd=bare)
-
-    repo = tmp_path / "repo"
-    repo.mkdir()
-    _git("init", "-b", "main", cwd=repo)
+def _configure(repo: Path) -> None:
     _git("config", "user.email", "t@t.t", cwd=repo)
     _git("config", "user.name", "t", cwd=repo)
-    _git("remote", "add", "origin", str(bare), cwd=repo)
-    (repo / "README").write_text("x", encoding="utf-8")
-    _git("add", "README", cwd=repo)
-    _git("commit", "-m", "seed", cwd=repo)
-
-    data_dir = repo / "gui2" / "data"
-    data_dir.mkdir(parents=True)
-    snapshot_dir = data_dir / "last_pushed"
-    snapshot_dir.mkdir()
-    return repo, data_dir, snapshot_dir, bare
+    _git("config", "commit.gpgsign", "false", cwd=repo)
 
 
-class TestBuildCommitMessage:
-    def test_has_contrib_prefix(self):
-        assert build_commit_message().startswith("contrib: submit data ")
+class Setup:
+    def __init__(self, tmp_path: Path) -> None:
+        self.bare = tmp_path / "remote.git"
+        self.bare.mkdir()
+        _git("init", "--bare", "-b", "main", cwd=self.bare)
 
-
-class TestPushContributions:
-    def test_push_then_noop_and_snapshots(self, tmp_path: Path):
-        repo, data_dir, snapshot_dir, bare = _make_repo_with_remote(tmp_path)
-        work = {"alice_1": {"id": 1, "meaning_1": "a"}}
-        (data_dir / "additions_alice.json").write_text(
-            json.dumps(work), encoding="utf-8"
+        self.maintainer = tmp_path / "maintainer"
+        self.maintainer.mkdir()
+        _git("init", "-b", "main", cwd=self.maintainer)
+        _configure(self.maintainer)
+        _git("remote", "add", "origin", self.bare.as_uri(), cwd=self.maintainer)
+        (self.maintainer / ".gitignore").write_text(
+            "gui2/data/*.txt\ngui2/data/*.csv\ngui2/data/*.tsv\n"
         )
+        (self.maintainer / "README").write_text("x")
+        self.main_commit("seed")
 
-        first = push_contributions(repo, data_dir, snapshot_dir)
-        assert first.pushed is True
-        assert "gui2/data/additions_alice.json" in first.committed_files
+        self.server = tmp_path / "server"
+        _git("clone", "-q", self.bare.as_uri(), str(self.server), cwd=tmp_path)
+        _configure(self.server)
+        self.worktree = tmp_path / "worktree"
+        self.data = tmp_path / "server_data"
+        self.data.mkdir()
 
-        # Landed on the contributions branch of the bare remote.
-        branches = _git("branch", cwd=bare).stdout
-        assert "contributions" in branches
+    def main_commit(self, message: str, **files: str) -> None:
+        for name, text in files.items():
+            path = self.maintainer / name
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_text(text)
+        _git("add", "-A", cwd=self.maintainer)
+        _git("commit", "-q", "-m", message, cwd=self.maintainer)
+        _git("push", "-q", "origin", "main", cwd=self.maintainer)
 
-        # Snapshot mirrors the pushed file.
-        assert load_json_dict(snapshot_dir / "additions_alice.json") == work
+    def pull(self) -> None:
+        _git("pull", "-q", "--ff-only", cwd=self.server)
 
-        # Second call with no changes is a no-op.
-        second = push_contributions(repo, data_dir, snapshot_dir)
-        assert second.pushed is False
+    def push(self) -> None:
+        push_contributions(self.server, self.data, self.worktree)
 
-    def test_excludes_added_files(self, tmp_path: Path):
-        repo, data_dir, snapshot_dir, _ = _make_repo_with_remote(tmp_path)
-        (data_dir / "additions_alice.json").write_text(
-            '{"alice_1": {}}', encoding="utf-8"
-        )
-        (data_dir / "additions_added_alice.json").write_text(
-            '[{"id": 1}]', encoding="utf-8"
-        )
+    def remote_sha(self, branch: str) -> str:
+        return _git("rev-parse", branch, cwd=self.bare)
 
-        result = push_contributions(repo, data_dir, snapshot_dir)
+    def remote_files(self, branch: str) -> set[str]:
+        out = _git("ls-tree", "-r", "--name-only", branch, cwd=self.bare)
+        return set(out.split("\n"))
 
-        assert result.committed_files == ["gui2/data/additions_alice.json"]
 
-    def test_nothing_to_push_when_no_files(self, tmp_path: Path):
-        repo, data_dir, snapshot_dir, _ = _make_repo_with_remote(tmp_path)
-        result = push_contributions(repo, data_dir, snapshot_dir)
-        assert result.pushed is False
-        assert result.message == "nothing to push"
+@pytest.fixture
+def setup(tmp_path: Path) -> Setup:
+    return Setup(tmp_path)
+
+
+def test_commit_message_has_contrib_prefix() -> None:
+    assert build_commit_message().startswith("contrib:")
+
+
+def test_first_push_creates_the_branch_with_delivered_files_only(
+    setup: Setup,
+) -> None:
+    (setup.data / "additions_alice.json").write_text('{"alice_1": {}}')
+    (setup.data / "user_dictionary_alice.txt").write_text("word\n")
+    (setup.data / "variant_readings_alice.tsv").write_text("variant\tmain\n")
+    for name in (
+        "additions_added_alice.json",
+        "history_alice.json",
+        "daily_log_alice.json",
+        "filter_presets_alice.json",
+        "headword_stash_alice.json",
+    ):
+        (setup.data / name).write_text("{}")
+
+    setup.push()
+
+    assert setup.remote_files("contributions") - setup.remote_files("main") == {
+        "gui2/data/additions_alice.json",
+        "gui2/data/user_dictionary_alice.txt",
+        "gui2/data/variant_readings_alice.tsv",
+    }
+
+
+def test_nothing_changed_makes_no_commit(setup: Setup) -> None:
+    setup.push()
+
+    assert setup.remote_sha("contributions") == setup.remote_sha("main")
+
+
+def test_a_second_push_after_main_moved_is_a_clean_reset(setup: Setup) -> None:
+    (setup.data / "additions_alice.json").write_text('{"alice_1": {}}')
+    setup.push()
+    setup.main_commit("more", other="y")
+    setup.pull()
+    (setup.data / "additions_alice.json").write_text('{"alice_2": {}}')
+
+    setup.push()
+
+    assert _git("rev-parse", "contributions~1", cwd=setup.bare) == setup.remote_sha(
+        "main"
+    )
+    shown = _git("show", "contributions:gui2/data/additions_alice.json", cwd=setup.bare)
+    assert shown == '{"alice_2": {}}'
+
+
+def test_a_discarded_entry_leaves_the_branch(setup: Setup) -> None:
+    (setup.data / "additions_alice.json").write_text('{"alice_1": {}}')
+    setup.push()
+    (setup.data / "additions_alice.json").unlink()
+
+    setup.push()
+
+    assert setup.remote_sha("contributions") == setup.remote_sha("main")
+
+
+def test_an_emptied_file_shows_as_emptied_over_main(setup: Setup) -> None:
+    setup.main_commit("pending", **{"gui2/data/additions_alice.json": '{"a": {}}'})
+    setup.pull()
+    (setup.data / "additions_alice.json").write_text("{}")
+
+    setup.push()
+
+    shown = _git("show", "contributions:gui2/data/additions_alice.json", cwd=setup.bare)
+    assert shown == "{}"
+
+
+def test_branch_deleted_on_the_remote_does_not_block_the_next_push(
+    setup: Setup,
+) -> None:
+    (setup.data / "additions_alice.json").write_text('{"alice_1": {}}')
+    setup.push()
+    _git("branch", "-D", "contributions", cwd=setup.bare)
+
+    setup.push()
+
+    assert "gui2/data/additions_alice.json" in setup.remote_files("contributions")
+
+
+def test_a_move_of_main_after_the_pull_does_not_change_the_base(
+    setup: Setup,
+) -> None:
+    pulled = _git("rev-parse", "HEAD", cwd=setup.server)
+    setup.main_commit("later", late="z")
+    (setup.data / "additions_alice.json").write_text('{"alice_1": {}}')
+
+    setup.push()
+
+    assert _git("rev-parse", "contributions~1", cwd=setup.bare) == pulled
+    assert "late" not in setup.remote_files("contributions")

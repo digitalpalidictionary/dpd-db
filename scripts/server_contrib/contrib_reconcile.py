@@ -1,51 +1,49 @@
-"""Snapshot-based key-level reconcile of contributor JSON work files.
+"""Drop from the server's contributor files what main has already handled.
 
-Server adds keys to `gui2/data/{additions,corrections}_{user}.json`; the
-maintainer's review processing removes keys upstream. A raw `git pull` would
-conflict, so instead we reconcile per key against a snapshot of what was last
-pushed:
+Run in the nightly window right after `git pull`, so the working tree is main.
 
-    final = local - (last_pushed - main_version)
+JSON entries (`additions_*.json`, `corrections_*.json`): the maintainer logs
+every accepted or rejected entry in main's `additions_added.json` /
+`corrections_added.json` as `(_source_key, _source_hash)`. A local entry is
+dropped when its `(key, entry_hash)` is in that log. An entry the contributor
+edited again after review has a new hash, so it stays.
 
-i.e. drop exactly the keys that were pushed and have since been removed
-upstream (processed by the maintainer), while keeping everything the server
-added locally since the last push.
+Flag lines (user dictionary, checked, manual corrections, variants, spelling,
+test exceptions): `merge_contrib_files.py` logs every line it handles in
+`contrib_lines_merged.json`. A local line is dropped when it is logged for that
+file. The header line of a variant or spelling file always stays: it equals the
+shared header, and the reader takes line 1 as the header, so dropping it would
+turn the first pair into a header.
 
-REFINEMENT (Phase 1 dedup-by-id): keys are stable across re-edits of the same
-word (`{username}_{id}`), so a key pushed and processed upstream can be edited
-again locally under the same key. Such a fresh edit must NOT be dropped. A key
-is dropped only when it is unchanged since the push (`local[key] ==
-last_pushed[key]`); a changed entry is kept.
+A test exception on a reserved id (CONTRIB_ID_BASE and up) means nothing on
+main, so it is dropped once the contributor's additions no longer hold that id.
+`get_next_id` gives the same id to the next new word after processing.
+
+An emptied file is written back, never deleted.
 """
 
 import argparse
 import json
 import os
-import subprocess
 import tempfile
 from pathlib import Path
 
+from gui2.database_manager import CONTRIB_ID_BASE
+from gui2.paths import Gui2Paths
+from tools.contrib_entry import delivered_files, entry_hash
+
 ContribDict = dict[str, dict]
+Processed = set[tuple[str, str]]
 
-
-def reconcile(
-    local: ContribDict, pushed: ContribDict, upstream: ContribDict
-) -> ContribDict:
-    """Return the reconciled contributor dict.
-
-    Drops a key only when it was pushed, has since been removed upstream, and is
-    unchanged locally since that push. Everything else — locally-added keys,
-    still-pending pushed keys, and locally re-edited keys — is kept.
-    """
-    result: ContribDict = {}
-    for key, value in local.items():
-        was_pushed = key in pushed
-        removed_upstream = key not in upstream
-        unchanged_since_push = was_pushed and value == pushed[key]
-        if was_pushed and removed_upstream and unchanged_since_push:
-            continue
-        result[key] = value
-    return result
+# Kinds whose first line is a header that must stay.
+HEADER_KINDS = ("variant_readings", "spelling_mistakes")
+LINE_KINDS = (
+    "user_dictionary",
+    "checked",
+    "manual_corrections",
+    "variant_readings",
+    "spelling_mistakes",
+)
 
 
 def load_json_dict(path: Path) -> ContribDict:
@@ -69,17 +67,13 @@ def load_json_dict(path: Path) -> ContribDict:
     return data
 
 
-def write_json_dict(path: Path, data: ContribDict) -> None:
-    """Atomically write a JSON dict, matching the gui2 managers' formatting.
-
-    Writes to a temp file in the same dir then os.replace()s it, so a crash
-    mid-write can never leave a half-written (corrupt) contributor file.
-    """
+def _write_atomic(path: Path, content: str) -> None:
+    """Write to a temp file in the same dir then os.replace() it, so a crash
+    mid-write can never leave a half-written contributor file."""
     path.parent.mkdir(parents=True, exist_ok=True)
-    content = json.dumps(data, ensure_ascii=False, indent=4) if data else "{}"
     fd, tmp_name = tempfile.mkstemp(dir=path.parent, suffix=".tmp")
     try:
-        with os.fdopen(fd, "w", encoding="utf-8") as f:
+        with os.fdopen(fd, "w", encoding="utf-8", newline="") as f:
             f.write(content)
         os.replace(tmp_name, path)
     except BaseException:
@@ -87,70 +81,149 @@ def write_json_dict(path: Path, data: ContribDict) -> None:
         raise
 
 
-def upstream_from_git(project_root: Path, ref: str, rel_path: str) -> ContribDict:
-    """Return the JSON dict of `rel_path` at `ref`.
+def write_json_dict(path: Path, data: ContribDict) -> None:
+    """Atomically write a JSON dict, matching the gui2 managers' formatting."""
+    content = json.dumps(data, ensure_ascii=False, indent=4) if data else "{}"
+    _write_atomic(path, content)
 
-    A file absent at `ref` -> {} (normal: the maintainer emptied/removed it).
-    Any OTHER git failure or invalid JSON raises (fails closed): silently
-    returning {} would make reconcile treat every snapshot key as removed
-    upstream and drop local data.
-    """
-    result = subprocess.run(
-        ["git", "show", f"{ref}:{rel_path}"],
-        cwd=project_root,
-        capture_output=True,
-        text=True,
-        timeout=30,
-    )
-    if result.returncode != 0:
-        stderr = result.stderr.lower()
-        if "does not exist" in stderr or "exists on disk, but not in" in stderr:
-            return {}
-        raise RuntimeError(
-            f"git show {ref}:{rel_path} failed (rc={result.returncode}): "
-            f"{result.stderr.strip()}"
-        )
+
+def load_processed(log_path: Path) -> Processed:
+    """The `(_source_key, _source_hash)` pairs in one processed log. Missing
+    file -> empty. A corrupt log raises, so nothing is dropped on a guess."""
     try:
-        data = json.loads(result.stdout)
+        with open(log_path, encoding="utf-8") as f:
+            data = json.load(f)
+    except FileNotFoundError:
+        return set()
     except json.JSONDecodeError as exc:
-        raise RuntimeError(f"invalid JSON in {ref}:{rel_path}: {exc}") from exc
-    return data if isinstance(data, dict) else {}
+        raise RuntimeError(f"invalid JSON in {log_path}: {exc}") from exc
+    if not isinstance(data, list):
+        raise RuntimeError(f"expected a JSON list in {log_path}")
+    return {
+        (row["_source_key"], row["_source_hash"])
+        for row in data
+        if isinstance(row, dict) and "_source_key" in row and "_source_hash" in row
+    }
 
 
-def contributor_files(data_dir: Path) -> list[Path]:
-    """Return the per-contributor work files (excluding the *_added review files)."""
-    files: list[Path] = []
-    for pattern in ("additions_*.json", "corrections_*.json"):
-        for path in sorted(data_dir.glob(pattern)):
-            if "_added" in path.name:
+def load_merged_lines(log_path: Path) -> dict[str, set[str]]:
+    """The merged-lines log: contributor file name -> logged lines."""
+    data = load_json_dict(log_path)
+    return {name: set(lines) for name, lines in data.items()}
+
+
+def reconcile_entries(local: ContribDict, processed: Processed) -> ContribDict:
+    """Drop every entry whose (key, hash) main has processed."""
+    return {
+        key: value
+        for key, value in local.items()
+        if (key, entry_hash(value)) not in processed
+    }
+
+
+def reconcile_lines(
+    local_lines: list[str], merged_lines: set[str], keep_header: bool
+) -> list[str]:
+    """Drop the lines the maintainer has merged. Each line keeps its own ending."""
+    kept: list[str] = []
+    for index, line in enumerate(local_lines):
+        if keep_header and index == 0:
+            kept.append(line)
+        elif line.rstrip("\r\n") not in merged_lines:
+            kept.append(line)
+    return kept
+
+
+def is_reserved_exception(line: str) -> bool:
+    _, _, raw_id = line.rstrip("\r\n").partition("\t")
+    return raw_id.strip().isdigit() and int(raw_id) >= CONTRIB_ID_BASE
+
+
+def reconcile_exception_lines(
+    local_lines: list[str], merged_lines: set[str], held_ids: set[int]
+) -> list[str]:
+    """Drop merged exception lines, and reserved-id lines whose id no addition
+    holds any more."""
+    kept: list[str] = []
+    for line in reconcile_lines(local_lines, merged_lines, keep_header=False):
+        if is_reserved_exception(line):
+            _, _, raw_id = line.rstrip("\r\n").partition("\t")
+            if int(raw_id) not in held_ids:
                 continue
-            files.append(path)
-    return files
+        kept.append(line)
+    return kept
 
 
-def reconcile_all(
-    project_root: Path,
-    data_dir: Path,
-    snapshot_dir: Path,
-    ref: str,
-) -> dict[str, int]:
-    """Reconcile every contributor file against its snapshot and upstream.
+def _read_lines(path: Path) -> list[str]:
+    """Lines with their endings. Split on "\\n" only: str.splitlines() also
+    splits on characters that can sit inside a text line."""
+    with open(path, encoding="utf-8", newline="") as f:
+        text = f.read()
+    parts = text.split("\n")
+    lines = [f"{part}\n" for part in parts[:-1]]
+    if parts[-1]:
+        lines.append(parts[-1])
+    return lines
 
-    Writes the reconciled result back to each file and refreshes its snapshot.
-    Returns a map of filename -> remaining key count.
+
+def _held_ids(additions: ContribDict) -> set[int]:
+    ids: set[int] = set()
+    for entry in additions.values():
+        raw = str(entry.get("id", ""))
+        if raw.isdigit():
+            ids.add(int(raw))
+    return ids
+
+
+def reconcile_all(project_root: Path, data_dir: Path) -> dict[str, int]:
+    """Reconcile every delivered contributor file against main's logs.
+
+    main's logs are read from `project_root` (the server is on main after the
+    pull). Returns a map of file name -> remaining entry or line count.
     """
+    main_paths = Gui2Paths(project_root)
+    processed = load_processed(main_paths.additions_added_path) | load_processed(
+        main_paths.corrections_added_path
+    )
+    merged = load_merged_lines(main_paths.contrib_lines_merged_path)
+    found = delivered_files(data_dir)
     remaining: dict[str, int] = {}
-    for local_path in contributor_files(data_dir):
-        rel_path = local_path.relative_to(project_root).as_posix()
-        upstream = upstream_from_git(project_root, ref, rel_path)
-        snapshot_path = snapshot_dir / local_path.name
-        pushed = load_json_dict(snapshot_path)
-        local = load_json_dict(local_path)
 
-        result = reconcile(local, pushed, upstream)
-        write_json_dict(local_path, result)
-        write_json_dict(snapshot_path, result)
-        remaining[local_path.name] = len(result)
+    held_by_contributor: dict[str, set[int]] = {}
+    for kind in ("additions", "corrections"):
+        for path in found[kind]:
+            local = load_json_dict(path)
+            result = reconcile_entries(local, processed)
+            if result != local:
+                write_json_dict(path, result)
+            remaining[path.name] = len(result)
+            if kind == "additions":
+                held_by_contributor[path.stem.removeprefix("additions_")] = _held_ids(
+                    result
+                )
+
+    for kind in LINE_KINDS:
+        for path in found[kind]:
+            lines = _read_lines(path)
+            kept = reconcile_lines(
+                lines, merged.get(path.name, set()), kind in HEADER_KINDS
+            )
+            if kept != lines:
+                _write_atomic(path, "".join(kept))
+            remaining[path.name] = len(kept)
+
+    for path in found["db_test_exceptions"]:
+        lines = _read_lines(path)
+        kept = reconcile_exception_lines(
+            lines,
+            merged.get(path.name, set()),
+            held_by_contributor.get(
+                path.stem.removeprefix("db_test_exceptions_"), set()
+            ),
+        )
+        if kept != lines:
+            _write_atomic(path, "".join(kept))
+        remaining[path.name] = len(kept)
     return remaining
 
 
@@ -160,7 +233,7 @@ def main() -> None:
         "--project-root",
         type=Path,
         default=Path("."),
-        help="Repository root (default: current directory).",
+        help="Repository root, on main (default: current directory).",
     )
     parser.add_argument(
         "--data-dir",
@@ -168,26 +241,13 @@ def main() -> None:
         default=None,
         help="Contributor data dir (default: <project-root>/gui2/data).",
     )
-    parser.add_argument(
-        "--snapshot-dir",
-        type=Path,
-        default=None,
-        help="last_pushed snapshot dir (default: <data-dir>/last_pushed).",
-    )
-    parser.add_argument(
-        "--ref",
-        default="origin/main",
-        help="Git ref holding the upstream (processed) version.",
-    )
     args = parser.parse_args()
 
     project_root: Path = args.project_root
     data_dir: Path = args.data_dir or project_root / "gui2" / "data"
-    snapshot_dir: Path = args.snapshot_dir or data_dir / "last_pushed"
 
-    remaining = reconcile_all(project_root, data_dir, snapshot_dir, args.ref)
-    for name, count in remaining.items():
-        print(f"{name}: {count} keys remaining")
+    for name, count in reconcile_all(project_root, data_dir).items():
+        print(f"{name}: {count} remaining")
 
 
 if __name__ == "__main__":

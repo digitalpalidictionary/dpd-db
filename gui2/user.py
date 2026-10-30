@@ -22,6 +22,11 @@ class UsernameManager:
     def __init__(self, page: ft.Page):
         self.page = page
         self.username: str | None = resolve_username()
+        # The user the toolkit routed its files with at start-up (no username
+        # means the primary user). A username entered later in the first-run
+        # dialog must not change where this session saves, so is_not_primary
+        # reads this, not self.username.
+        self.routed_username: str = self.username or "1"
         self.role: str | None = resolve_role()
         self.username_field = ft.TextField(
             border=field_border(),
@@ -35,6 +40,7 @@ class UsernameManager:
             content=ft.Column(
                 [
                     ft.Text("Please enter your username."),
+                    ft.Text("This takes effect the next time you start the app."),
                     self.username_field,
                 ],
                 tight=True,
@@ -69,4 +75,4 @@ class UsernameManager:
             self.username_field.update()
 
     def is_not_primary(self) -> bool:
-        return self.username != "1"
+        return self.routed_username != "1"

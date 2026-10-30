@@ -2,12 +2,22 @@ from types import SimpleNamespace
 from typing import Any
 
 from db.models import DpdHeadword
-from gui2.save_router import save_headword
+from gui2.dpd_fields_functions import make_dpd_headword_from_dict
+from gui2.save_router import changed_columns, save_headword
+
+
+class FakeSession:
+    def __init__(self, rows: dict[int, DpdHeadword]) -> None:
+        self.rows = rows
+
+    def get(self, _model: type, id_no: int) -> DpdHeadword | None:
+        return self.rows.get(id_no)
 
 
 class FakeDb:
-    def __init__(self) -> None:
+    def __init__(self, rows: dict[int, DpdHeadword] | None = None) -> None:
         self.calls: list[str] = []
+        self.db_session = FakeSession(rows or {})
 
     def update_word_in_db(self, word: DpdHeadword) -> tuple[bool, str]:
         self.calls.append("update")
@@ -33,9 +43,13 @@ class FakeAdditions:
 class FakeCorrections:
     def __init__(self) -> None:
         self.saved: list[int] = []
+        self.changed: list[list[str] | None] = []
 
-    def update_corrections(self, word: DpdHeadword, comment: str) -> None:
+    def update_corrections(
+        self, word: DpdHeadword, comment: str, changed: list[str] | None = None
+    ) -> None:
         self.saved.append(word.id)
+        self.changed.append(changed)
 
 
 def make_toolkit(primary: bool, own_ids: set[int] | None = None) -> Any:
@@ -101,3 +115,59 @@ def test_contributor_write_failure_returns_the_error() -> None:
 
     tk.additions_manager.add_additions = boom
     assert save_headword(tk, word(9), "c", False) == (False, "disk full")
+
+
+def headword(id_no: int, **columns: str) -> DpdHeadword:
+    w = DpdHeadword()
+    w.id = id_no
+    for name, value in columns.items():
+        setattr(w, name, value)
+    return w
+
+
+def test_changed_meaning_is_listed() -> None:
+    tk = make_toolkit(primary=False)
+    tk.db_manager = FakeDb({7: headword(7, lemma_1="assa 1", meaning_1="horse")})
+
+    save_headword(tk, headword(7, lemma_1="assa 1", meaning_1="mare"), "c", True)
+
+    assert tk.corrections_manager.changed == [["meaning_1"]]
+
+
+def test_untouched_empty_fields_are_not_changes() -> None:
+    row = headword(7, lemma_1="assa 1")
+    row.meaning_2 = None  # pyright: ignore[reportAttributeAccessIssue]
+    word = headword(7, lemma_1="assa 1", meaning_2="")
+
+    assert changed_columns(row, word) == []
+
+
+def test_re_edit_of_an_own_correction_compares_with_the_db_row() -> None:
+    # The earlier correction said "mare"; the contributor now sets it back to
+    # the db's "horse". Against the db row that is no change at all.
+    tk = make_toolkit(primary=False)
+    tk.db_manager = FakeDb({7: headword(7, lemma_1="assa 1", meaning_1="horse")})
+    save_headword(tk, headword(7, lemma_1="assa 1", meaning_1="mare"), "c", True)
+    save_headword(tk, headword(7, lemma_1="assa 1", meaning_1="horse"), "c", True)
+
+    assert tk.corrections_manager.changed == [["meaning_1"], []]
+
+
+def test_stray_spaces_the_form_removes_are_not_changes() -> None:
+    row = headword(7, sanskrit="ṭīkā ", example_1="a  b")
+    word = headword(7, sanskrit="ṭīkā", example_1="a b")
+
+    assert changed_columns(row, word) == []
+
+
+def test_columns_the_form_never_supplies_are_not_changes() -> None:
+    # A word built from form fields (as the Pass2 form does) never carries the
+    # dates, inflection tables or frequency data, which the db row always has.
+    row = headword(7, lemma_1="assa 1", meaning_1="horse")
+    for column in ("created_at", "updated_at", "inflections", "freq_data", "ebt_count"):
+        setattr(row, column, 5)
+    word = make_dpd_headword_from_dict(
+        {"id": 7, "lemma_1": "assa 1", "meaning_1": "mare"}
+    )
+
+    assert changed_columns(row, word) == ["meaning_1"]

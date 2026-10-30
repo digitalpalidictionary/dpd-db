@@ -51,7 +51,9 @@ class ToolKit:
         self.project_paths = ProjectPaths()
         username = resolve_username() or "1"
         self.paths: Gui2Paths = Gui2Paths.for_user(username)
-        self.db_test_manager: DbTestManager = DbTestManager()
+        self.db_test_manager: DbTestManager = DbTestManager(
+            self.paths.db_test_exceptions_path
+        )
         self.test_manager: GuiTestManager = GuiTestManager(self)
         self.speech_marks_manager: SpeechMarkManager = SpeechMarkManager()
 

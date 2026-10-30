@@ -10,6 +10,7 @@ import csv
 import json
 import re
 from json import dumps
+from pathlib import Path
 from typing import NamedTuple
 
 from rich import print
@@ -128,9 +129,12 @@ class DbTestManager:
     """Loads the column-rule tests TSV, checks its integrity, runs tests
     against headwords and saves changes back to the TSV."""
 
-    def __init__(self) -> None:
+    def __init__(self, own_exceptions_path: Path | None = None) -> None:
         self.pth = ProjectPaths()
         self.tests_path = self.pth.internal_tests_path
+        # A contributor's own exceptions (`test_name<TAB>id` per line). They
+        # are added to the loaded tests and never written to the shared TSV.
+        self.own_exceptions_path = own_exceptions_path
         self.fieldnames: list[str] = []
         self.internal_tests_list = self.load_tests()
         self.integrity_ok, self.integrity_failures = self.integrity_check()
@@ -142,7 +146,24 @@ class DbTestManager:
             if reader.fieldnames:
                 self.fieldnames = list(reader.fieldnames)
             internal_tests_list = [InternalTestRow(**row) for row in reader]
+        self._add_own_exceptions(internal_tests_list)
         return internal_tests_list
+
+    def _add_own_exceptions(self, tests: list[InternalTestRow]) -> None:
+        """Add the ids in the own exceptions file to each named test."""
+        if self.own_exceptions_path is None or not self.own_exceptions_path.exists():
+            return
+        by_name = {test.test_name: test for test in tests}
+        with open(self.own_exceptions_path, encoding="utf-8") as own_file:
+            for line in own_file:
+                test_name, _, raw_id = line.rstrip("\n").partition("\t")
+                test = by_name.get(test_name)
+                if test is None or not raw_id.strip().isdigit():
+                    continue
+                exception_id = int(raw_id)
+                if exception_id not in test.exceptions:
+                    test.exceptions.append(exception_id)
+                    test.exceptions.sort()
 
     def integrity_check(self) -> tuple[bool, list[IntegrityFailure]]:
         """
@@ -379,12 +400,22 @@ class DbTestManager:
                     pr.green_title(
                         f"Added exception {exception_id} to test '{test_name}'."
                     )
-                    self.save_tests()
+                    if self.own_exceptions_path is None:
+                        self.save_tests()
+                    else:
+                        self._append_own_exception(test_name, exception_id)
                 # an already-present exception also counts as success
                 return True
 
         pr.red(f"Test '{test_name}' not found.")
         return False
+
+    def _append_own_exception(self, test_name: str, exception_id: int) -> None:
+        if self.own_exceptions_path is None:
+            return
+        self.own_exceptions_path.parent.mkdir(parents=True, exist_ok=True)
+        with open(self.own_exceptions_path, "a", encoding="utf-8") as own_file:
+            own_file.write(f"{test_name}\t{exception_id}\n")
 
     def sort_tests_by_name(self) -> None:
         """Sorts the tests alphabetically by test_name, preserving the header row."""

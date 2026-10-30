@@ -1,6 +1,7 @@
 """Alt+X clears and Ctrl+S saves the open tab, through its own button handlers."""
 
 import asyncio
+import threading
 from types import SimpleNamespace
 from unittest.mock import AsyncMock, MagicMock, call
 
@@ -13,7 +14,14 @@ from gui2.compound_type_tab_view import CompoundTypeTabView
 from gui2.filter_tab_view import FilterTabView
 from gui2.global_tab_view import GlobalTabView
 from gui2.inflection_templates_tab_view import InflectionTemplatesTabView
-from gui2.main import App
+from gui2.main import (
+    ALREADY_OPEN_MESSAGE,
+    App,
+    claim_session,
+    main,
+    release_session,
+    tab_selection,
+)
 from gui2.pass1_add_view import Pass1AddView
 from gui2.pass1_auto_view import Pass1AutoView
 from gui2.pass2_add_view import Pass2AddView
@@ -278,3 +286,195 @@ def test_shortcut_list_names_every_tab_jump_and_clear_tab() -> None:
         assert shortcuts[f"Alt+{key}"] == f"Go to {TAB_LABELS[index]}"
     for index in App._CLEAR_ACTIONS:
         assert TAB_LABELS[index] in shortcuts["Alt+X"]
+
+
+def _server_app(monkeypatch: pytest.MonkeyPatch, tabs: str) -> App:
+    """An App built through build_ui as a contributor-server session."""
+    monkeypatch.setenv("DPD_GUI2_ROLE", "contributor-server")
+    monkeypatch.setenv("DPD_GUI2_TABS", tabs)
+    app = App.__new__(App)
+    app._visible, app._read_only = tab_selection()  # pyright: ignore[reportAttributeAccessIssue]
+    app._start_index = 2  # pyright: ignore[reportAttributeAccessIssue]
+    app._focused_tab_index = 2  # pyright: ignore[reportAttributeAccessIssue]
+    app._build_lock = threading.RLock()  # pyright: ignore[reportAttributeAccessIssue]
+    app._mounted_tabs = set()  # pyright: ignore[reportAttributeAccessIssue]
+    app._views = {}  # pyright: ignore[reportAttributeAccessIssue]
+    app._loading_bar = ft.ProgressBar()  # pyright: ignore[reportAttributeAccessIssue]
+    app._db_init_started = False  # pyright: ignore[reportAttributeAccessIssue]
+    app.toolkit = MagicMock()  # pyright: ignore[reportAttributeAccessIssue]
+    dialog = ft.AlertDialog(modal=True)
+    dialog.open = False
+    app.page = MagicMock()  # pyright: ignore[reportAttributeAccessIssue]
+    app.page._dialogs = SimpleNamespace(controls=[dialog])
+    app._view_builders = {  # pyright: ignore[reportAttributeAccessIssue]
+        index: (lambda: SimpleNamespace(_save_changes_clicked=MagicMock()))
+        for index in range(len(TAB_LABELS))
+    }
+    app.build_ui()
+    return app
+
+
+def _tab_bar_labels(app: App) -> list[str]:
+    return [tab.label.value for tab in app._tab_bar.tabs]  # pyright: ignore[reportAttributeAccessIssue]
+
+
+def test_tab_selection_is_every_tab_off_the_server(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.delenv("DPD_GUI2_ROLE", raising=False)
+    monkeypatch.setenv("DPD_GUI2_TABS", "DB")
+    monkeypatch.setattr("tools.server_mode.config_read", lambda *_: None)
+    visible, read_only = tab_selection()
+    assert visible == list(range(len(TAB_LABELS)))
+    assert read_only == frozenset()
+
+
+def test_server_shows_base_and_listed_tabs_only(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    app = _server_app(monkeypatch, "Bold Search,DB")
+
+    assert _tab_bar_labels(app) == ["Pass1Auto", "Pass1Add", "DB", "Bold Search"]
+    assert len(app._tab_bodies.controls) == 4
+    assert app.tabs.selected_index == 0
+    assert app._current_index() == 2
+
+
+def test_server_alt_jump_to_a_hidden_tab_does_nothing(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    app = _server_app(monkeypatch, "Bold Search,DB")
+
+    asyncio.run(app.on_keyboard(_key("P", alt=True)))
+
+    assert app._current_index() == 2
+
+
+def test_server_alt_jump_selects_a_listed_tab(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    app = _server_app(monkeypatch, "Bold Search,DB")
+
+    asyncio.run(app.on_keyboard(_key("D", alt=True)))
+
+    assert app._current_index() == 11
+    assert app.tabs.selected_index == 2
+    assert 11 in app._mounted_tabs
+
+
+def test_server_marks_read_tabs_read_only_and_ctrl_s_reaches_the_handler(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    app = _server_app(monkeypatch, "Bold Search,DB")
+
+    asyncio.run(app.on_keyboard(_key("D", alt=True)))
+    asyncio.run(app.on_keyboard(_ctrl_s()))
+
+    db_view = app._views[11]
+    assert db_view.read_only is True  # pyright: ignore[reportAttributeAccessIssue]
+    db_view._save_changes_clicked.assert_called_once_with(None)  # pyright: ignore[reportAttributeAccessIssue]
+    assert not hasattr(app._views[2], "read_only")
+
+
+def test_server_alt_arrows_stay_inside_the_visible_tabs(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    app = _server_app(monkeypatch, "DB")
+
+    asyncio.run(app.on_keyboard(_key("Arrow Left", alt=True)))
+    assert app._current_index() == 2
+    for _ in range(5):
+        asyncio.run(app.on_keyboard(_key("Arrow Right", alt=True)))
+    assert app._current_index() == 11
+
+
+def test_server_shortcut_list_names_only_visible_tabs(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    app = _server_app(monkeypatch, "DB")
+    rows = dict(
+        (keys, action)
+        for _title, group in app._shortcut_groups()
+        for keys, action in group
+        if keys != "Ctrl+S"
+    )
+
+    assert rows["Alt+D"] == "Go to DB"
+    assert "Alt+P" not in rows
+    assert "Pass2Add" not in rows["Alt+X"]
+
+
+def test_server_warmup_builds_only_visible_tabs(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    app = _server_app(monkeypatch, "Bold Search,DB")
+    built: list[int] = []
+    app._ensure_tab_built = built.append  # pyright: ignore[reportAttributeAccessIssue]
+
+    app._warmup_in_background()
+
+    assert built == [2, 3, 13, 11]
+
+
+@pytest.fixture
+def free_session(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setattr("gui2.main._session_page", None)
+
+
+def test_the_newest_page_takes_over_and_the_old_one_is_retired(
+    free_session: None,
+) -> None:
+    first, second = MagicMock(), MagicMock()
+
+    claim_session(first)
+    claim_session(second)
+
+    first.controls.clear.assert_called_once()
+    assert first.on_keyboard_event is None  # a stale Ctrl+S must not save
+    shown = first.add.call_args.args[0]
+    assert shown.value == ALREADY_OPEN_MESSAGE
+    second.add.assert_not_called()
+    release_session(first)  # no longer the holder: must not free the session
+    claim_session(MagicMock())
+    second.add.assert_called_once()  # the third claim retired the second
+
+
+def test_reload_works_when_the_old_page_never_reported_a_disconnect(
+    free_session: None, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    built = MagicMock()
+    monkeypatch.setattr("gui2.main.App", built)
+    monkeypatch.setattr("gui2.main.start_dpd_server", MagicMock())
+    first, reloaded = MagicMock(), MagicMock()
+
+    main(first)
+    main(reloaded)  # F5: Flet never fired first.on_disconnect
+
+    assert built.call_count == 2
+    assert reloaded.add.call_count == 0
+
+
+def test_a_dead_old_page_does_not_break_the_takeover(free_session: None) -> None:
+    dead, fresh = MagicMock(), MagicMock()
+    dead.add.side_effect = RuntimeError("connection closed")
+
+    claim_session(dead)
+    claim_session(fresh)  # must not raise
+
+    claim_session(MagicMock())
+    fresh.add.assert_called_once()  # fresh really became the holder
+
+
+def test_main_releases_the_session_when_the_page_disconnects(
+    free_session: None, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    monkeypatch.setattr("gui2.main.App", MagicMock())
+    monkeypatch.setattr("gui2.main.start_dpd_server", MagicMock())
+    first, second = MagicMock(), MagicMock()
+
+    main(first)
+    first.on_disconnect(None)
+    main(second)
+
+    assert second.add.call_count == 0  # the real App (mocked) was built, no notice
+    assert first.add.call_count == 0  # released first, so nothing to retire

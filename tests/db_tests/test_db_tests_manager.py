@@ -1,6 +1,10 @@
 """Tests for the core (DB-free) logic of DbTestManager, the GUI's own
 internal DB-integrity test runner."""
 
+import hashlib
+import shutil
+from pathlib import Path
+
 import pytest
 
 from db.models import DpdHeadword
@@ -156,3 +160,69 @@ class TestRunTestOnAllDbEntries:
         h1 = _headword(id=1, commentary="clean")
         result = manager.run_test_on_all_db_entries(row, [h1])
         assert result == []
+
+
+class TestOwnExceptions:
+    """A contributor's exceptions go to their own file, never the shared TSV."""
+
+    @pytest.fixture
+    def own_manager(self, tmp_path: Path) -> DbTestManager:
+        own_path = tmp_path / "db_test_exceptions_alice.tsv"
+        manager = DbTestManager(own_path)
+        # Work on a copy so a regression cannot touch the real tests file.
+        shared_copy = tmp_path / "db_tests_columns.tsv"
+        shutil.copyfile(manager.tests_path, shared_copy)
+        manager.tests_path = shared_copy
+        manager.internal_tests_list = manager.load_tests()
+        return manager
+
+    def test_add_exception_writes_own_file_only(
+        self, own_manager: DbTestManager
+    ) -> None:
+        shared_before = hashlib.sha256(own_manager.tests_path.read_bytes()).digest()
+        test = own_manager.internal_tests_list[0]
+        new_id = max(test.exceptions, default=0) + 1
+
+        assert own_manager.add_exception(test.test_name, new_id) is True
+
+        assert own_manager.own_exceptions_path is not None
+        assert own_manager.own_exceptions_path.read_text(encoding="utf-8") == (
+            f"{test.test_name}\t{new_id}\n"
+        )
+        shared_after = hashlib.sha256(own_manager.tests_path.read_bytes()).digest()
+        assert shared_after == shared_before
+
+    def test_next_load_treats_the_id_as_an_exception(
+        self, own_manager: DbTestManager
+    ) -> None:
+        test = own_manager.internal_tests_list[0]
+        new_id = max(test.exceptions, default=0) + 1
+        own_manager.add_exception(test.test_name, new_id)
+
+        reloaded = {t.test_name: t for t in own_manager.load_tests()}
+
+        assert new_id in reloaded[test.test_name].exceptions
+
+    def test_unknown_test_name_and_junk_lines_are_ignored(
+        self, own_manager: DbTestManager
+    ) -> None:
+        assert own_manager.own_exceptions_path is not None
+        own_manager.own_exceptions_path.write_text(
+            "no such test\t5\nbroken line\n", encoding="utf-8"
+        )
+
+        own_manager.load_tests()
+
+    def test_primary_still_writes_the_shared_file(self, tmp_path: Path) -> None:
+        manager = DbTestManager()
+        shared_copy = tmp_path / "db_tests_columns.tsv"
+        shutil.copyfile(manager.tests_path, shared_copy)
+        manager.tests_path = shared_copy
+        manager.internal_tests_list = manager.load_tests()
+        test = manager.internal_tests_list[0]
+        new_id = max(test.exceptions, default=0) + 1
+
+        manager.add_exception(test.test_name, new_id)
+
+        saved = {t.test_name: t for t in manager.load_tests()}
+        assert new_id in saved[test.test_name].exceptions

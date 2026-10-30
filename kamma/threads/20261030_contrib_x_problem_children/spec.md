@@ -107,3 +107,13 @@ buttons, for non-primary users.
 - Not covered by any test: the Pass2 view methods `_has_own_edit` / `_discard_own_edit`,
   and a full chain (save, overlay shows it, re-edit stays an addition, discard).
 
+- Alt+number tab shortcuts clash with Chrome's own shortcuts in the web version.
+  Found in the live run of contrib_5 task 7.1 (2026-10-30). The user wants the
+  conflicting ones disabled when gui2 runs in Chrome. Which keys clash is not yet
+  listed.
+- Read tabs: grey out the Save Changes button instead of showing the "read only"
+  message on click. Found in contrib_5 task 7.1 (2026-10-30). Save is refused
+  today, which is correct, but the user wants no message ceremony.
+- DB tab presets: contributors can save their own presets (works), but they need
+  a better starter preset. Which filters it holds is not yet decided. Found in
+  contrib_5 task 7.1 (2026-10-30).

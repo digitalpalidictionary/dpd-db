@@ -39,6 +39,9 @@ from tools.synonym_variant import RelationshipDetector
 # Lets a burst of rapid saves coalesce into a single detector rebuild.
 DETECTOR_REBUILD_DEBOUNCE_SECS = 1.0
 
+# First id of the range reserved for contributor additions.
+CONTRIB_ID_BASE = 10_000_000
+
 
 class DatabaseManager:
     def __init__(self, own_sandhi_checked: Path | None = None) -> None:
@@ -334,6 +337,9 @@ class DatabaseManager:
             # lock held by the build pipeline, concurrent self-heal race)
             # must never gate db_loaded. The set is already in memory.
             print(f"decon cache refresh failed: {exc}")
+            # The failed write leaves the session in a rolled-back-pending
+            # state; later queries on it would raise until it is rolled back.
+            self.db_session.rollback()
 
     # --- PASS1 AUTO ---
 
@@ -889,8 +895,12 @@ class DatabaseManager:
             return (False, str(e))
 
     def get_next_id(self) -> int:
-        last_id: int = self.db_session.query(func.max(DpdHeadword.id)).scalar() or 0
         own_ids = [int(e["id"]) for e in self._own_additions().values() if e.get("id")]
+        if self._own_edits is not None:
+            # A contributor takes ids from a reserved range, so a new word can
+            # never collide with an id the maintainer adds to the db meanwhile.
+            return max([CONTRIB_ID_BASE, *own_ids]) + 1
+        last_id: int = self.db_session.query(func.max(DpdHeadword.id)).scalar() or 0
         return max([last_id, *own_ids]) + 1
 
     # --- DPD FIELDS FUNCTIONS ---

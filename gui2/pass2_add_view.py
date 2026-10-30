@@ -8,6 +8,7 @@ import flet as ft
 from sqlalchemy import or_
 
 from db.models import DpdHeadword, Lookup
+from gui2.contributor_proposal import proposal_fields
 from gui2.dpd_fields import DpdFields
 from gui2.dpd_fields_commentary import DpdCommentaryField
 from gui2.dpd_fields_examples import DpdExampleField
@@ -241,6 +242,13 @@ class Pass2AddView(ft.Column, PopUpMixin):
             on_click=self._click_add_to_db,
             width=BUTTON_WIDTH,
         )
+        # Shown only while a contributor's addition or correction is loaded.
+        self._reject_button = ft.Button(
+            "Reject",
+            on_click=self._click_reject,
+            width=BUTTON_WIDTH,
+            visible=False,
+        )
         self._top_section = ft.Container(
             content=ft.Column(
                 controls=[
@@ -291,6 +299,7 @@ class Pass2AddView(ft.Column, PopUpMixin):
                                 width=BUTTON_WIDTH,
                             ),
                             self._add_to_db_button,  # Use the member variable here
+                            self._reject_button,
                             ft.Button(
                                 "Delete",
                                 on_click=self._click_delete_from_db,
@@ -806,8 +815,49 @@ class Pass2AddView(ft.Column, PopUpMixin):
         self._current_correction_origin = None
         self._current_correction_key = None
 
+        self._reject_button.visible = False
         self.update_message("")  # Clear message field
         self.page.update()
+
+    def _click_reject(self, e: ft.ControlEvent) -> None:
+        """Turn down the loaded contributor addition or correction: remove it
+        from their file, log it as rejected, and clear the form."""
+        if self.dpd_fields.flags.addition:
+            manager = self.additions_manager
+            entry = self.current_addition
+            origin = self._current_addition_origin
+            key = self._current_addition_key
+        elif self.dpd_fields.flags.correction:
+            manager = self.corrections_manager
+            entry = self.current_correction
+            origin = self._current_correction_origin
+            key = self._current_correction_key
+        else:
+            return
+        if entry is None or origin is None or key is None:
+            return
+        try:
+            manager.reject(origin, key, entry)
+        except OSError as ex:
+            self.update_message(f"Reject failed: {ex}")
+            self.page.update()
+            return
+        self.clear_all_fields()
+        self.update_message(f"Rejected {entry.get('lemma_1', key)}")
+        self.page.update()
+
+    def _show_reject_if_contributor_entry(self) -> None:
+        """Show Reject only for an entry that came from a contributor's file."""
+        loaded_from_contributor = (
+            self.dpd_fields.flags.addition
+            and self._current_addition_origin is not None
+            and self._current_addition_key is not None
+        ) or (
+            self.dpd_fields.flags.correction
+            and self._current_correction_origin is not None
+            and self._current_correction_key is not None
+        )
+        self._reject_button.visible = loaded_from_contributor
 
     def _click_run_tests(self, e: ft.ControlEvent | None) -> None:
         """Run tests on current field values"""
@@ -963,6 +1013,7 @@ class Pass2AddView(ft.Column, PopUpMixin):
                         word_data,
                         self._current_addition_origin,
                         self._current_addition_key,
+                        self.current_addition,
                     )
 
             # Save correction if flag is set
@@ -990,6 +1041,7 @@ class Pass2AddView(ft.Column, PopUpMixin):
                         word_data,
                         self._current_correction_origin,
                         self._current_correction_key,
+                        self.current_correction,
                     )
 
             await ft.Clipboard().set(word_to_save.lemma_1)
@@ -1149,7 +1201,9 @@ class Pass2AddView(ft.Column, PopUpMixin):
 
             # Map correction data to add fields
             processed_correction: dict[str, str] = {}
-            for field_name, value in correction_data.items():
+            for field_name, value in proposal_fields(
+                correction_data, "correction"
+            ).items():
                 processed_correction[field_name] = str(value)
                 if field_name in self.dpd_fields.fields:
                     add_field = f"{field_name}_add"
@@ -1160,6 +1214,7 @@ class Pass2AddView(ft.Column, PopUpMixin):
 
             # Set correction flag
             self.dpd_fields.flags.correction = True
+            self._show_reject_if_contributor_entry()
 
             # Update message with lemma if available
             lemma = correction_data.get("lemma_1", "unknown")
@@ -1194,7 +1249,7 @@ class Pass2AddView(ft.Column, PopUpMixin):
 
             # Map addition data to add fields
             processed_addition: dict[str, str] = {}
-            for field_name, value in addition_data.items():
+            for field_name, value in proposal_fields(addition_data, "addition").items():
                 processed_addition[field_name] = str(value)
                 if field_name in self.dpd_fields.fields:
                     add_field = f"{field_name}_add"
@@ -1205,6 +1260,7 @@ class Pass2AddView(ft.Column, PopUpMixin):
 
             # Set addition flag
             self.dpd_fields.flags.addition = True
+            self._show_reject_if_contributor_entry()
 
             # Update message with lemma if available
             lemma = addition_data.get("lemma_1", "unknown")

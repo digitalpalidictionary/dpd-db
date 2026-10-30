@@ -16,6 +16,7 @@ from sqlalchemy.pool import NullPool
 
 from db.models import Base, DpdHeadword
 from tools.printer import printer as pr
+from tools.server_mode import is_headless_server
 
 _engine_cache: dict[Path, Engine] = {}
 _engine_cache_lock = threading.Lock()
@@ -70,9 +71,15 @@ def _get_cached_engine(db_path: Path) -> Engine:
                 connect_args={"check_same_thread": False},
             )
 
+            # A contributor-server process only reads dpd.db: its edits go to
+            # JSON files. This stops any stray write path from reaching the db.
+            read_only = is_headless_server()
+
             @event.listens_for(engine, "connect")
             def set_wal_mode(dbapi_conn, _):
                 dbapi_conn.execute("PRAGMA journal_mode=WAL")
+                if read_only:
+                    dbapi_conn.execute("PRAGMA query_only = ON")
 
             _engine_cache[resolved] = engine
     return engine

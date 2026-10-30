@@ -2,80 +2,107 @@
 
 Server-side scripts for the hosted gui2 **contributor web server** (issue #215,
 round 2 — the zero-install web version of gui2 for non-technical contributors).
-Each contributor gets one gui2 web instance; their work writes to a shared
-scratch `dpd.db` **and** to per-user JSON files that are the authoritative
-record. A nightly maintenance window pushes those JSONs up, and — only when safe
-— rebuilds the scratch db from `main`.
+Each contributor gets one gui2 web instance. Their work goes to per-user files
+in `DPD_GUI2_DATA_DIR` (outside the repo). A nightly window pulls `main`,
+drops what the maintainer has handled, pushes the rest to the `contributions`
+branch, and rebuilds the scratch db when `main` has moved.
 
 See also: `config_server.md` (the lean rebuild — kept/dropped step rationale),
-`spec.md`/`plan.md` in `kamma/threads/20261023_contrib_1_web_server/`.
+`spec.md`/`plan.md` in `kamma/threads/20261030_contrib_5_hardening/`.
 
 ## The nightly maintenance window
 
-`maintenance_window.py` is the orchestrator. It composes the other scripts:
+`maintenance_window.py` is the orchestrator:
 
 ```
 stop instances
-  → contrib_push        (per-user JSONs → contributions branch)
-  → pin origin/main     (fetch once, git rev-parse — one commit for the whole run)
-  → absorption_check    (is every contributor JSON in main empty? i.e. all absorbed)
-     ├─ NO  → SKIP the rebuild, keep serving yesterday's db (a NORMAL outcome)
-     └─ YES → capture rollback (db + pre-pull HEAD + JSONs/snapshots)
-              → pull the pinned commit + submodules
-              → db_rebuild_from_tsv.py
-              → generate_components_server.py   (LEAN gui2-only rebuild)
-              → health check (headword/lookup row-count bounds)
-              → contrib_reconcile               (drop absorbed keys, keep local edits)
-              → re-apply WAL
-              on ANY failure: restore EVERYTHING, log ERROR
-  → start instances (always)
+  → capture rollback     (db copy, HEAD, every delivered contributor file)
+  → dirty-tree check     (tracked files only; a dirty tree refuses the window)
+  → git pull --ff-only + submodule update
+  → contrib_reconcile    (drop what main has processed or merged)
+  → contrib_push         (contributions branch; a failure is logged, not fatal)
+  → rebuild only if HEAD differs from logs/last_built_commit
+       db_rebuild_from_tsv.py → generate_components_server.py → health check
+       → re-apply WAL → restore the tracked files the build rewrote
+  on ANY failure after the pull: restore db, HEAD and contributor files
+start instances (always)
 ```
 
-Every run logs to `logs/maintenance_YYYYMMDD.log`.
+A failed instance stop, a failed dirty-tree check or a failed pull skips
+reconcile, push and rebuild. Every run logs to `logs/maintenance_YYYYMMDD.log`.
+
+- Every user shares one data folder, `/var/lib/dpd/contrib_data`
+  (`add_contributor.sh` sets it; file names carry the user). Pass the same folder
+  to the window with `--data-dir`, or set `DPD_GUI2_DATA_DIR` for it.
+- A corrupt contributor JSON stops the window (it rolls back) every night until
+  someone fixes the file. This is deliberate: it never guesses.
+- The push overwrites whatever is on the remote `contributions` branch. Do not
+  commit to it by hand.
+- `htpasswd` files are written mode 640. The nginx worker must be able to read
+  them: give the file to nginx's group on the server (not checked locally).
 
 ### Run it
 
 Production (cron on the server):
 
 ```bash
-uv run scripts/server_contrib/maintenance_window.py \
+cd <server clone> && uv run scripts/server_contrib/maintenance_window.py \
+    --data-dir /var/lib/dpd/contrib_data \
     --instance dpd-gui@alice --instance dpd-gui@bob
 ```
 
-Local dry-run (no systemd, logic only — safe to run against a scratch copy):
+Local dry-run (no systemd, no push — safe against a scratch copy):
 
 ```bash
-uv run scripts/server_contrib/maintenance_window.py --no-systemd --no-push \
-    --project-root /path/to/scratch/repo
+cd <scratch repo> && uv run scripts/server_contrib/maintenance_window.py --no-systemd --no-push
 ```
 
-Key flags: `--no-systemd` (log instead of `systemctl`), `--no-push` (skip the
-git push), `--instance <unit>` (repeatable), `--db-path`, `--data-dir`,
-`--snapshot-dir`, `--log-dir`, `--remote`, `--branch`.
+Flags: `--no-systemd`, `--no-push`, `--instance <unit>` (repeatable),
+`--db-path`, `--data-dir` (default: `DPD_GUI2_DATA_DIR`, else `gui2/data`),
+`--worktree` (default: `<project-root>_contrib_worktree`), `--log-dir`,
+`--remote`, `--branch`.
 
-## The pieces (each is a pure core + thin CLI; unit-tested in `tests/scripts/server_contrib/`)
+## The pieces
 
-| Script | Does | Run standalone |
-|---|---|---|
-| `contrib_push.py` | Stages ONLY `gui2/data/{additions,corrections}_*.json` by explicit path, commits on the `contributions` branch, pushes, and refreshes `last_pushed/` snapshots. No-op when nothing changed. | `uv run scripts/server_contrib/contrib_push.py` |
-| `absorption_check.py` | The wipe invariant: exits 0 (rebuild allowed) only if every contributor work file in `origin/main` is empty/absent; exits 1 and lists blockers otherwise. `*_added` review files are ignored. | `uv run scripts/server_contrib/absorption_check.py` |
-| `contrib_reconcile.py` | Snapshot key-level merge: `final = local − (last_pushed − main)`, but KEEPS a key the maintainer processed if it was re-edited locally since the push. Refreshes snapshots. | `uv run scripts/server_contrib/contrib_reconcile.py` |
-| `maintenance_window.py` | Orchestrator (above). | see Run it |
-| `generate_components_server.py` | LEAN rebuild — only the `generate_components.py` steps that populate tables/columns gui2 reads. No pytest. See `config_server.md`. | `uv run scripts/server_contrib/generate_components_server.py` |
-| `config_server.template` | Server `config.ini` template — secrets are `<FILL IN>` placeholders; audio/anki/exporter output OFF; db_rebuild + deconstructor ON. Copy to `./config.ini` on the server; NEVER commit the result. | copy to `config.ini` |
+| Script | Does |
+|---|---|
+| `contrib_reconcile.py` | Drops a JSON entry when main's `additions_added.json` / `corrections_added.json` holds its `(key, hash)`. Drops a flag line when `contrib_lines_merged.json` holds it for that file. Never drops the header of a variant or spelling file. Writes an emptied file, never deletes it. |
+| `contrib_push.py` | Resets `contributions` to the clone's `HEAD` in a separate worktree, copies in the delivered files, commits if anything differs, and always `git push --force-with-lease` after `git fetch --prune`. |
+| `merge_contrib_files.py` | Maintainer side. Folds each contributor's flag files into the shared files and logs every handled line in `gui2/data/contrib_lines_merged.json`. |
+| `maintenance_window.py` | The orchestrator above. |
+| `generate_components_server.py` | LEAN rebuild — only the steps gui2 reads. No pytest. See `config_server.md`. |
+| `config_server.template` | Server `config.ini` template. Copy to `config.ini`; NEVER commit the result. |
 
-## Snapshots (`last_pushed/`)
+The delivered file kinds (additions, corrections, user dictionary, checked,
+manual corrections, variants, spelling, test exceptions) come from one list in
+`tools/contrib_entry.py`. History, daily log, presets and stash files are
+never delivered.
 
-`contrib_push` writes a snapshot of each contributor file after pushing;
-`contrib_reconcile` reads those snapshots to tell "processed upstream" from
-"edited locally since the push". Default location `gui2/data/last_pushed/`
-(override with `--snapshot-dir`). These are server-local state — do not commit
-them.
+## Maintainer: taking in contributions
 
-## Common defaults
+There are no pull requests. From the repo root:
 
-All scripts default to `--project-root .`, data dir `gui2/data`, snapshot dir
-`<data>/last_pushed`, remote `origin`. The reconcile/absorption default ref is
-`origin/main`; the maintenance window pins one `origin/main` commit up front and
-uses it for both the absorption check and the reconcile so it never rebuilds a
-moving target.
+```bash
+cd ~/MyFiles/3_Active/dpd-db && just contrib-merge
+```
+
+This fetches `origin/contributions`, merges it into local `main`, and runs
+`merge_contrib_files.py`.
+
+- **Merge before you process.** Processing removes entries from main's copy of
+  a contributor file. A branch built before that can conflict.
+- **A conflicted merge:** abort it (`git merge --abort`). The next night's
+  branch is built on current main and is clean.
+- **Backup & Quit** commits `additions_added.json`, `corrections_added.json`
+  and `contrib_lines_merged.json` with the TSV backup, so the logs reach main
+  together with the words they describe. The server never runs it.
+
+## Removing a contributor
+
+1. Run a maintenance window.
+2. Process or reject all their entries.
+3. Archive their files in `/var/lib/dpd/contrib_data` (`*_<user>.*`; do not
+   delete them).
+4. Remove their env file, htpasswd entry and nginx files.
+
+Deleting their files first loses any work not yet pushed.
