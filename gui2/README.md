@@ -12,6 +12,7 @@ This subsystem follows a modern "Model-View-Controller (MVC)" or "Component-Base
 
 ## Relationships & Data Flow
 - **Writer:** Acts as the primary modern interface for adding and correcting data in the **db/**. Only user "1" writes the db. A contributor's saves go to their own JSON files (`save_router.py`), and the db shows their edits on top (`DatabaseManager.set_overlay`).
+- **Preview before save:** The Pass1Add and Pass2Add save buttons first open the unsaved word as the webapp shows it (`preview.py`, a dark page in a browser tab). A dialog then offers Save or Cancel, and the form stays filled until Save. The page is written to `gui2/assets/preview/` (gitignored).
 - **Validation:** Integrates deeply with **db_tests/** to ensure data quality at the point of entry.
 - **Support:** Relies on **tools/** for project-wide paths and Pāḷi-specific logic.
 

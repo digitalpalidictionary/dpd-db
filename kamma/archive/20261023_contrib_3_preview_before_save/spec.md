@@ -34,6 +34,10 @@ The form stays filled until Save.
   (`gui2/ui_utils.py::cancel_top_dialog`, which presses a button whose label is
   in `_CANCEL_LABELS`) covers it.
 
+- 3A (2026-10-30, user request): the preview page is always dark, like gui2.
+  The page inlines `dpd.css`, `home.css`, `switch.css` and `tt.css` (the
+  webapp's own order) and sets `class="dark-mode"` on `<html>`.
+
 ## Current behaviour / facts (verified 2026-10-07)
 
 ### Webapp rendering

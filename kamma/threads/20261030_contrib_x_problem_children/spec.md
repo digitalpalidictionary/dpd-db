@@ -117,3 +117,13 @@ buttons, for non-primary users.
 - DB tab presets: contributors can save their own presets (works), but they need
   a better starter preset. Which filters it holds is not yet decided. Found in
   contrib_5 task 7.1 (2026-10-30).
+
+### 10. Audio play button in the preview page (found 2026-10-30, contrib_3 live run)
+The preview page (`gui2/preview.py`) is a saved file, not served by the webapp,
+so the play button's `/audio/<headword>` request has nothing to answer it. The
+user reports the button "still not working" after contrib_3 added CSS
+`.dpd-button.play{display:none}` to hide it. Not yet checked: whether the user
+had restarted gui2, or whether the button still shows in Pass2Add. The user
+wants the button absent when there is no audio. Needs a decision: hide it
+always in the preview, or show it only for words that have audio files (which
+audio folder, and does the preview have a route to it).

@@ -98,6 +98,7 @@ db = get_db_session(Path("dpd.db"))
 - Serve gui2 as a web page with `FLET_FORCE_WEB_SERVER=true FLET_SERVER_PORT=<port> uv run python gui2/main.py`, never `flet run`. `flet run` starts the app in `gui2/.flet/storage/data`, and every relative data path (`ProjectPaths` uses the cwd) then fails.
 - Flet 1.0 dialogs: closing with `dialog.open = False` leaves the instance on `page._dialogs`, and a later `page.show_dialog` of that same instance raises "Dialog is already opened" (red screen). Don't assume Flutter's dismiss will clear it — guard reopen paths. Escape on modal dialogs is handled once, globally, by `cancel_top_dialog` in `gui2/ui_utils.py`; new popups only need a button labelled "Cancel" or "Close".
 - Flet 1.0 web: a browser reload (F5) does not fire `page.on_disconnect` (the send loop raises on the closing socket and Flet skips its disconnect step). Never use that event as the only way to free a lock or session; `claim_session` in `gui2/main.py` lets the newest page take over.
+- Preview before save: `gui2/preview.py` writes `gui2/assets/preview/preview_<user>.html`. A web gui2 serves it from the `assets` folder next to `gui2/main.py`, so never pass `assets_dir="gui2/assets"` to `ft.run` (the path doubles to `gui2/gui2/assets`).
 - Context7 MCP for up-to-date docs on `SQLAlchemy`, `Flet`, `FastAPI`, `aksharamukha`, `requests`.
 
 ## Testing

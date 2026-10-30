@@ -14,12 +14,12 @@ from gui2.mixins import SandhiOK, SnackBarMixin
 from gui2.pass1_add_view import Pass1AddView
 from gui2.pass1_auto_controller import Pass1AutoController
 from gui2.paths import Gui2Paths
+from gui2.preview import preview_and_confirm
 from gui2.save_router import save_headword
 from gui2.spelling import SpellingMistakesFileManager
 from gui2.toolkit import ToolKit
 from gui2.user import UsernameManager
 from gui2.variants import VariantReadingFileManager
-from tools.fast_api_utils import request_dpd_server
 from tools.goldendict_tools import open_in_goldendict
 from tools.wordfinder_manager import WordFinderManager
 
@@ -181,14 +181,30 @@ class Pass1AddController(SandhiOK, SnackBarMixin):
             new_word.id = self.db.get_next_id()
         new_word.origin = "pass1"
 
+        self.ui.page.run_task(self._preview_then_save, new_word, comment, already_in_db)
+
+    async def _preview_then_save(
+        self, new_word: DpdHeadword, comment: str, already_in_db: bool
+    ) -> None:
+        async def save() -> None:
+            self._save_previewed_word(new_word, comment, already_in_db)
+
+        await preview_and_confirm(
+            self.ui.page,
+            self.db.db_session,
+            new_word,
+            self.username_manager.routed_username,
+            save,
+        )
+
+    def _save_previewed_word(
+        self, new_word: DpdHeadword, comment: str, already_in_db: bool
+    ) -> None:
         committed, message = save_headword(
             self.toolkit, new_word, comment, already_in_db
         )
 
         if committed:
-            # open in browser
-            request_dpd_server(new_word.id)
-
             # Only increment daily log for new words, not re-edited words from history
             if not already_in_db:
                 self.daily_log.increment("pass1")

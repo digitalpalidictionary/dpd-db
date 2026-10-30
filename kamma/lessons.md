@@ -459,3 +459,9 @@
 - 2026-10-30 [POSITIVE] Two independent reviewers (Sonnet subagent, pi agent) each found two real majors the implementer missed (data-dir layout, stale keyboard handler, noisy `_changed`, unchecked stop); one claim was false and was caught by checking the code.
 - 2026-10-30 [BEHAVIOR] Ran `rm -rf .playwright-cli` in the repo root without first looking at it; the folder is gone and it is unknown whether my run or an earlier one made it.
 - 2026-10-30 [WORKFLOW] Test fixtures built from bare objects hid a real bug (`changed_columns` listed nine columns the form never sets); a fixture must carry the columns the real db row carries.
+- 2026-10-30 [REPEATED] The user had to ask for a clean copy-paste command outside the question tool twice. A command inside a question option is unreadable. Give the command as plain text first, then ask.
+- 2026-10-30 [BEHAVIOR] I asked a test question that assumed Pass1Add words have a grammar section. They never do. Check what the tester will actually see before writing the question.
+- 2026-10-30 [BEHAVIOR] I told the user the fix needed no restart, then it did. A running gui2 loads code once. Say "restart gui2" in every live-test step after a code change.
+- 2026-10-30 [WORKFLOW] Reusing the webapp's css in a standalone page pulled in home.css, which makes body a fixed-height flex column. That squeezed the summary box. Check the body and layout rules of any css file before reusing it outside its page.
+- 2026-10-30 [WORKFLOW] Three reviewers (Sonnet, CodeRabbit, pi pane) all found the same major bug: a new step that every save now depends on had no error path. Any new step placed in front of a save needs a fallback that still saves.
+- 2026-10-30 [WORKFLOW] CodeRabbit's first run failed with "WebSocket closed" and printed no findings. A failed run is not a clean review. Read the output for a "complete" line.

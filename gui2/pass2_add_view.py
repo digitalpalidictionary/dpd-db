@@ -30,6 +30,7 @@ from gui2.pass2_eg_manager import Pass2EgManager
 from gui2.pass2_pre_new_word_manager import Pass2NewWordManager
 from gui2.pass2_x_manager import Pass2XManager
 from gui2.pass2x.in_commentary_exceptions import InCommentaryExceptions
+from gui2.preview import preview_and_confirm
 from gui2.save_router import save_headword
 from gui2.toolkit import ToolKit
 from gui2.ui_utils import (
@@ -41,7 +42,6 @@ from gui2.ui_utils import (
 )
 from scripts.find.missing_meanings import find_missing_meanings
 from tools.dharmamitra_client import get_contextual_gloss
-from tools.fast_api_utils import request_dpd_server
 from tools.printer import printer as pr
 from tools.speech_marks import SpeechMarkManager
 
@@ -942,14 +942,34 @@ class Pass2AddView(ft.Column, PopUpMixin):
             == self.headword_original.id  # Compare ID from UI state with original
         )
 
+        item_to_history = word_to_save
         if not is_existing_word:
             # Check for duplicate id or lemma_1 when adding a new word
             if not self.dpd_fields.validate_no_duplicates(
                 word_to_save.id, word_to_save.lemma_1
             ):
                 return
-            item_to_history = word_to_save
 
+        async def save() -> None:
+            await self._save_previewed_word(
+                word_to_save, comment, is_existing_word, item_to_history
+            )
+
+        await preview_and_confirm(
+            self.page,
+            self._db.db_session,
+            word_to_save,
+            self.toolkit.username_manager.routed_username,
+            save,
+        )
+
+    async def _save_previewed_word(
+        self,
+        word_to_save: DpdHeadword,
+        comment: str | None,
+        is_existing_word: bool,
+        item_to_history: DpdHeadword,
+    ) -> None:
         committed, message = save_headword(
             self.toolkit, word_to_save, comment, is_existing_word
         )
@@ -967,7 +987,6 @@ class Pass2AddView(ft.Column, PopUpMixin):
                 # A contributor save writes no db row, so only a refresh lets
                 # the duplicate check see the new lemma.
                 self._db.get_all_lemma_1_and_lemma_clean()
-            request_dpd_server(str(word_to_save.id))
             item_id = (
                 self.headword.id
                 if hasattr(self, "headword") and self.headword
