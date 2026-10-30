@@ -33,7 +33,29 @@ all decisions, and all known unknowns.
   documented in the spec and must NOT be silently "fixed while we're here".
 - **One long-running contributions PR**, not a PR per day.
 
-## Phase 1 — Local groundwork in gui2 (no server required)
+**SUPERSEDED (2026-10-30) by `20261030_contrib_5_hardening` — read its spec
+before Phase 3:**
+- "JSON authoritative; db is scratch" → contributors never write the db
+  (contrib_2), and their process opens it read-only (contrib_5).
+- "Key-level snapshot reconcile" and "Rebuild gated by the absorption
+  invariant" → reconcile on a positive "processed" signal, the PR branch reset
+  to main each night from a worktree, rebuild whenever main moved;
+  `absorption_check.py` is deleted.
+- Per-user files on the server live in `DPD_GUI2_DATA_DIR`, outside the clone.
+- Each contributor's env file also sets `DPD_GUI2_DATA_DIR` and `DPD_GUI2_TABS`.
+  `add_contributor.sh` and the nginx template are written in contrib_5.
+- Order: contrib_2 → contrib_5 → contrib_3 → contrib_4 → this Phase 3.
+
+## Model Strategy
+
+| Phase | Model | Why |
+|---|---|---|
+| 1, 2 (done) | Sonnet | Done |
+| 3 Server provisioning | Sonnet | Runbook commands, using contrib_5's scripts |
+| 3B Security check | **Opus** | Analysis only: review the live nginx, auth and firewall setup before real users |
+| 4 Cycle proof and onboarding | Sonnet | Rehearsal, drills, docs, onboarding calls |
+
+## Phase 1 — Local groundwork in gui2 (no server required) — *Sonnet*
 
 - [x] 1.1 Audit `gui2/corrections_manager.py` + ALL per-user state in
       `gui2/data/` (daily log, pass1/pass2 queue files, history). Produce a
@@ -352,7 +374,7 @@ all decisions, and all known unknowns.
   - CR-test-return-annotations (minor, **skipped**) — matches the file's existing
     convention (no `-> None` on its test fns); ruff + pyright clean.
 
-## Phase 2 — Sync & maintenance-window machinery (local, testable without server)
+## Phase 2 — Sync & maintenance-window machinery (local, testable without server) — *Sonnet*
 
 All scripts in `scripts/server_contrib/`: pure-function cores + thin CLI mains,
 unit-tested against tmp dirs / scratch git repos in `tests/scripts/server_contrib/`.
@@ -611,7 +633,7 @@ unit-tested against tmp dirs / scratch git repos in `tests/scripts/server_contri
       seen in the isolated worktree were a copied-db/env artifact — they pass
       against the live db, so no regression).
 
-## Phase 3 — Server provisioning & deployment
+## Phase 3 — Server provisioning & deployment — *Sonnet*
 
 ⚠️ STOP — needs user decisions at phase start: provider (Contabo Mumbai /
 Hostinger India-or-Singapore / Hetzner Singapore — table in spec) and
@@ -630,8 +652,10 @@ exists.
       `scripts/onboarding/contributor_setup.py`); generate server config.ini
       from the 2.5 template; user enters his DeepSeek/OpenRouter key(s)
       manually (never committed).
-      → verify: from server, `git fetch` works; push to a test branch works;
-      push to main rejected by protection.
+      The `contributions` branch must stay unprotected: the nightly push
+      resets it to main and uses `--force-with-lease` (contrib_5).
+      → verify: from server, `git fetch` works; a force-with-lease push to a
+      test branch works; push to main rejected by protection.
 - [ ] 3.3 First db + THE MEASUREMENT: rsync the user's local dpd.db up (fast
       start), AND run one full server rebuild (`db_rebuild_from_tsv.py` +
       `generate_components.py`) to measure real wall-clock — this number fixes
@@ -642,26 +666,40 @@ exists.
       → verify: measured time recorded; server dpd.db passes the 2.4 health
       check.
 - [ ] 3.4 systemd template unit `dpd-gui@.service` (reads
-      `/etc/dpd/<user>.env`: username/role/ports) + nginx: one basic-auth
-      location per contributor → their Flet port; websocket headers
-      (`proxy_http_version 1.1`, Upgrade/Connection); HTTPS via certbot on the
-      chosen domain.
+      `/etc/dpd/<user>.env`: username, role, `DPD_GUI2_DATA_DIR`,
+      `DPD_GUI2_TABS`, port — the file `add_contributor.sh` writes) + nginx
+      from contrib_5's `scripts/server_contrib/nginx_contrib.conf.template`,
+      using the path-prefix or subdomain form that contrib_4 Phase 4 proved;
+      HTTPS via certbot on the chosen domain.
       → verify: from an outside network, two test URLs serve the GUI over
-      HTTPS after a password prompt; wrong password rejected; both sessions
-      work simultaneously; RSS per instance recorded IN THIS FILE.
-- [ ] 3.5 `scripts/server_contrib/add_contributor.sh`: create env file + htpasswd
-      entry + enable unit + reload nginx — the "<10 minutes to onboard #3"
-      script. Also `remove_contributor.sh` or a documented removal procedure.
-      → verify: run end-to-end for a test user: new URL live; then remove it.
+      HTTPS after a password prompt; wrong password rejected; each password
+      opens only its own URL; both sessions work simultaneously; RSS per
+      instance recorded IN THIS FILE.
+- [ ] 3.5 Onboard a test user with contrib_5's
+      `scripts/server_contrib/add_contributor.sh` (the "<10 minutes to onboard
+      #3" script), then remove them with the documented removal steps.
+      → verify: new URL live with the right tabs; after removal the URL refuses
+      and no unit or env file is left.
 - [ ] 3.6 Cron the maintenance window at 01:00 IST + a failure surface the
       user will actually see: window script appends to a status file served at
       an authed nginx path (`/status`) — no mail stack.
-      → verify: force one scheduled run of each path ON THE SERVER: happy,
-      skip (seed a non-empty additions file reachable by absorption_check —
-      or simulate), rollback (deliberately break the rebuild); `/status`
-      reflects each.
+      → verify: force one run of each path ON THE SERVER: happy (main moved →
+      rebuild), main unchanged (no rebuild), dirty tree (pull refused),
+      rollback (deliberately break the rebuild); `/status` reflects each.
 
-## Phase 4 — End-to-end cycle proof & real onboarding
+## Phase 3B — Security check before real users — *Opus*
+⚠️ MODEL SWITCH REQUIRED (Opus): analysis only.
+- [ ] 3B.1 Review the live server, read-only: `nginx -T` output, each
+      htpasswd file's owner and mode, the env files, `ufw status`, listening
+      ports (`ss -tlnp`: gui2 instances on 127.0.0.1 only), certbot renewal,
+      the deploy key's scope, and that no secret is in the clone
+      (`git status`, `config.ini` mode). Check that one user's password cannot
+      open another user's path, and that no hidden tab is reachable.
+      → verify: findings written here; every real issue fixed (Sonnet) before
+      Phase 4.
+
+## Phase 4 — End-to-end cycle proof & real onboarding — *Sonnet*
+⚠️ MODEL SWITCH REQUIRED (Sonnet): mechanical execution resumes.
 
 - [ ] 4.1 Full-cycle rehearsal, maintainer playing contributor: add 2–3 real
       words via the web GUI → nightly push lands in the contributions PR →
@@ -671,8 +709,9 @@ exists.
       → verify: every arrow evidenced (PR diff, `additions_added.json` entry,
       server db query for the new lemma, empty contributor JSON).
 - [ ] 4.2 Failure drills: (a) browser closed mid-edit + laptop-sleep
-      reconnect; (b) two sessions writing concurrently; (c) rebuild-skip
-      night. Document observed behavior + the contributor guidance ("if the
+      reconnect; (b) a second tab for the same user (must be refused) and how
+      long a closed tab blocks a new one; (c) a night where main did not move
+      (no rebuild) and a night with an unmerged PR (nothing dropped). Document observed behavior + the contributor guidance ("if the
       page goes grey, reload") IN THIS FILE and in 4.3's doc.
       → verify: written results for all three drills; no data loss in any.
 - [ ] 4.3 Contributor-facing instructions: ONE paragraph + screenshots at

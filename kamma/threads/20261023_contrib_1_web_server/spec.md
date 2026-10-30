@@ -109,6 +109,11 @@ uv run flet run --web -p 8550 gui2/main.py
    The maintainer merges on his own schedule and processes through the existing
    primary-side review queue, then commits the resulting data update to main
    (which also updates `db/backup_tsv/`).
+   **SUPERSEDED (2026-10-30):** points 7 (the rebuild gate), 8 and 10 below are
+   replaced by `20261030_contrib_5_hardening` spec section G: the server clone
+   stays on main, the PR branch is reset to main each night, reconcile drops an
+   entry only when main's processed log names it, and the rebuild runs whenever
+   main moved. `absorption_check.py` is deleted there.
 7. **Nightly maintenance window (~01:00 IST / 03:30 SGT)**: stop instances,
    push JSONs, rebuild db from main **only when safe** (invariant below),
    reconcile JSONs, restart. Rebuild = `git pull` →

@@ -2,8 +2,21 @@
 
 **Thread:** 20261023_contrib_3_preview_before_save · **Spec:** `spec.md` (read first)
 **GitHub issue:** #215 — commits reference `#215`
-**Start only after** `20261023_contrib_2_edits_json` is finished (needs
-`gui2/save_router.py::save_headword`; same save handlers).
+**Start only after** `20261023_contrib_2_edits_json` AND
+`20261030_contrib_5_hardening` are finished (needs
+`gui2/save_router.py::save_headword`; contrib_5 also edits
+`gui2/pass2_add_view.py` — Reject button, proposal fields).
+**Note (2026-10-30, contrib_5):** contributors on the server never see Pass2Add
+for now, and their per-user files live in `DPD_GUI2_DATA_DIR`. The contributor
+check (2.2) uses Pass1Add only.
+
+## Model Strategy
+
+| Phase | Model | Why |
+|---|---|---|
+| 1 Render the preview | Sonnet | Follows the webapp's own render path, with tests |
+| 2 Preview dialog | Sonnet | UI wiring plus live checks with the user |
+| 3 Finish | Sonnet | Docs, typecheck, tests |
 
 ## Architecture Decisions
 - **Real webapp template on a transient copy**, wrapped in a small proxy class
@@ -18,7 +31,7 @@
 - **Browser tab, not an in-app page**: WebView does not run on Linux desktop.
 - Not abstracted: no generic "render any webapp page" layer.
 
-## Phase 1 — Render the preview
+## Phase 1 — Render the preview — *Sonnet*
 - [ ] 1.1 `gui2/preview.py::render_preview(db_session, word) -> str`. Copy the
       word's column values into a new transient `DpdHeadword` (via
       `make_dpd_headword_from_dict`). Wrap it in a proxy with `rt` (DpdRoot by
@@ -51,7 +64,7 @@
       Report only, no commit.
       → verify: all clean. Paste the counts here.
 
-## Phase 2 — Preview dialog in the save flows
+## Phase 2 — Preview dialog in the save flows — *Sonnet*
 - [ ] 2.1 One shared dialog helper (in `gui2/preview.py`) taking an `on_save`
       callback: modal `AlertDialog` with "Save", "Cancel" and an "Open preview"
       link button (`url=` property). Guard the reopen per the Flet 1.0 note in
@@ -65,15 +78,15 @@
       Escape does the same → Save writes the db and Pass1Add loads the next item →
       opening the dialog twice gives no red screen.
 - [ ] 2.2 Live local web run as a contributor WITH the user:
-      `DPD_GUI2_USERNAME=alice DPD_GUI2_ROLE=contributor-server uv run flet run --web -p 8551 gui2/main.py`
-      on a backed-up db. The preview opens in the browser (or via the link) →
-      Save writes `additions_alice.json` / `corrections_alice.json` only. Remove
-      the test entries after.
+      `cd /home/bodhirasa/MyFiles/3_Active/dpd-db && DPD_GUI2_USERNAME=alice DPD_GUI2_ROLE=contributor-server DPD_GUI2_DATA_DIR=<scratchpad>/alice uv run flet run --web -p 8551 gui2/main.py`.
+      In Pass1Add (contributors have no Pass2Add): the preview opens in the
+      browser (or via the link) → Save writes `<scratchpad>/alice/additions_alice.json`
+      only, and the db row count is unchanged. Remove the test entries after.
       → verify: results logged here, including the popup-block result.
 - [ ] 2.3 Phase gate as 1.3 + `uv run pytest tests/`. Report only, no commit.
       → verify: full suite passes. Paste the counts here.
 
-## Phase 3 — Finish
+## Phase 3 — Finish — *Sonnet*
 - [ ] 3.1 Update `gui2/README.md` (the preview step before save). Run
       `just typecheck`, full pytest and `graphify update .`.
       → verify: all pass. Paste the counts here.
