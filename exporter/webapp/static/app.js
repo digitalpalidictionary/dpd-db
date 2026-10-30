@@ -23,6 +23,38 @@ const appState = {
   searchIndex: [], // Sorted array of "ascii|unicode1|unicode2" strings
 };
 
+// History contains navigation identity only. Accept legacy broad snapshots by
+// reading the same allowlist; never copy cached HTML or the autocomplete index.
+function navigationState(source = appState) {
+  const text = (value, fallback = "") => typeof value === "string" ? value : fallback;
+  // Whether a tab showed results, so Back can refetch them when it is opened.
+  // A tab still waiting to refetch counts, so repeated Back/Forward keeps it.
+  const hadResults = tab => tab?.hasResults === true || tab?.needsRefetch === true ||
+    text(tab?.resultsHTML) !== "";
+  const books = Array.isArray(source?.tt?.books)
+    ? source.tt.books.filter(book => typeof book === "string") : ["all"];
+  return {
+    version: 1,
+    activeTab: ["dpd", "bd", "tt"].includes(source?.activeTab) ? source.activeTab : "dpd",
+    dpd: {
+      searchTerm: text(source?.dpd?.searchTerm),
+      hasResults: hadResults(source?.dpd),
+    },
+    bd: {
+      searchTerm1: text(source?.bd?.searchTerm1),
+      searchTerm2: text(source?.bd?.searchTerm2),
+      searchOption: text(source?.bd?.searchOption, "regex"),
+      hasResults: hadResults(source?.bd),
+    },
+    tt: {
+      searchTerm: text(source?.tt?.searchTerm),
+      language: text(source?.tt?.language, "Pāḷi"),
+      books: books.length ? [...books] : ["all"],
+      hasResults: hadResults(source?.tt),
+    },
+  };
+}
+
 // Initialize the application
 function initializeApp() {
   // Initialize history panel entries array
@@ -69,6 +101,9 @@ function initializeApp() {
   appState.tt.searchTerm = q;
   appState.tt.books = books.length > 0 ? books : ["all"];
   appState.tt.language = lang;
+
+  // Seed the initial entry so Back can restore the empty home page.
+  window.history.replaceState(navigationState(), "", window.location.href);
 
   // If the URL contains search parameters, perform an initial search
   if (
@@ -405,6 +440,17 @@ function switchTab(tabName) {
 
   // Display the new active tab
   render();
+
+  // Refetch results that Back/Forward restored only as a query.
+  const tab = appState[tabName];
+  if (tab.needsRefetch && tab.resultsHTML === "") {
+    tab.needsRefetch = false;
+    if (tabName === "tt") {
+      if (typeof window.performTTSearch === "function") window.performTTSearch(false);
+    } else {
+      performSearch(false);
+    }
+  }
 }
 
 // Extract ID and title from HTML results for numeric ID searches
@@ -565,8 +611,22 @@ function addToHistory() {
   // Log the history update for debugging
 }
 
+// Whether the active tab has a search to put in the URL
+function hasActiveQuery() {
+  if (appState.activeTab === "bd") {
+    return Boolean(appState.bd.searchTerm1 || appState.bd.searchTerm2);
+  }
+  return Boolean(appState[appState.activeTab].searchTerm);
+}
+
 // Update the browser's URL
 function updateURL() {
+  // Update the browser's URL using history.pushState()
+  window.history.pushState(navigationState(), "", searchURL());
+}
+
+// The URL for the active tab's search
+function searchURL() {
   let url;
   if (appState.activeTab === "dpd") {
     url = `/?tab=dpd&q=${encodeURIComponent(appState.dpd.searchTerm)}`;
@@ -578,50 +638,62 @@ function updateURL() {
   } else if (appState.activeTab === "tt") {
     url = `/?tab=tt&q=${encodeURIComponent(appState.tt.searchTerm)}&book=${encodeURIComponent(appState.tt.books.join(","))}&lang=${encodeURIComponent(appState.tt.language)}`;
   }
-
-  // Update the browser's URL using history.pushState()
-  window.history.pushState({ ...appState }, "", url);
+  return url;
 }
 
 // Handle browser back/forward navigation
 function handlePopState(event) {
-  if (event.state) {
-    // Update appState with the new state from the history
-    appState.activeTab = event.state.activeTab;
-    appState.dpd = { ...event.state.dpd };
-    appState.bd = { ...event.state.bd };
-    appState.tt = { ...event.state.tt };
+  // In-page links, such as summary entries, add History entries without
+  // state; the search on screen stays as it is.
+  if (!event.state) return;
+  const state = navigationState(event.state);
+  const sameQuery = tab => Object.keys(state[tab]).every(key => key === "hasResults" ||
+    JSON.stringify(state[tab][key]) === JSON.stringify(appState[tab][key]));
+  // Returning to the search already on screen, e.g. Back from a summary
+  // link, keeps the page as it is instead of refetching it.
+  if (state.activeTab === appState.activeTab && appState[state.activeTab].resultsHTML !== "" &&
+    ["dpd", "bd", "tt"].every(sameQuery)) {
+    window.history.replaceState(
+      state, "", hasActiveQuery() ? searchURL() : window.location.href);
+    return;
+  }
+  appState.activeTab = state.activeTab;
+  let keptDpdResults = false;
+  for (const tab of ["dpd", "bd", "tt"]) {
+    const { hasResults, ...query } = state[tab];
+    const current = appState[tab];
+    // An inactive tab keeps results already in memory for the same query;
+    // otherwise, if it had results, they are refetched when it is opened.
+    const keep = tab !== state.activeTab && hasResults && current.resultsHTML !== "" &&
+      sameQuery(tab);
+    appState[tab] = {
+      ...query,
+      resultsHTML: keep ? current.resultsHTML : "",
+      needsRefetch: tab !== state.activeTab && hasResults && !keep,
+    };
+    if (tab === "dpd") keptDpdResults = keep;
+  }
+  const summary = document.getElementById("summary-results");
+  if (summary && !keptDpdResults) summary.innerHTML = "";
 
-    // Update the browser's URL to match the restored state without adding to history
-    let url;
-    if (appState.activeTab === "dpd") {
-      url = `/?tab=dpd&q=${encodeURIComponent(appState.dpd.searchTerm)}`;
-    } else if (appState.activeTab === "bd") {
-      url = `/?tab=bd&q1=${encodeURIComponent(
-        appState.bd.searchTerm1
-      )}&q2=${encodeURIComponent(appState.bd.searchTerm2)}&option=${appState.bd.searchOption
-        }`;
-    } else if (appState.activeTab === "tt") {
-      url = `/?tab=tt&q=${encodeURIComponent(appState.tt.searchTerm)}&book=${encodeURIComponent(appState.tt.books.join(","))}&lang=${encodeURIComponent(appState.tt.language)}`;
-    }
-    window.history.replaceState({ ...appState }, "", url);
+  // Upgrade legacy entries without retaining their large payloads, keeping
+  // each tab's result marker, and restore the entry's search URL so
+  // reloading or copying it keeps the search.
+  window.history.replaceState(
+    state, "", hasActiveQuery() ? searchURL() : window.location.href);
 
-    // Re-perform the search to get the results (since we don't store HTML in history)
-    if (appState.activeTab === "dpd" && appState.dpd.searchTerm) {
-      performSearch(false); // false to avoid adding to history again
-    } else if (
-      appState.activeTab === "bd" &&
-      (appState.bd.searchTerm1 || appState.bd.searchTerm2)
-    ) {
-      performSearch(false); // false to avoid adding to history again
-    } else if (appState.activeTab === "tt" && appState.tt.searchTerm) {
-      if (typeof window.performTTSearch === "function") {
-        window.performTTSearch(false);
-      }
-    } else {
-      // Update the UI for empty state
-      render();
-    }
+  // TT reads its DOM controls: restore them before starting the refetch.
+  // This also clears stale panels and restores focus for an empty entry.
+  render();
+  if (appState.activeTab === "dpd" && appState.dpd.searchTerm) {
+    performSearch(false);
+  } else if (appState.activeTab === "bd" &&
+    (appState.bd.searchTerm1 || appState.bd.searchTerm2 || state.bd.hasResults)) {
+    // An empty BD search still shows a "0 results" message worth restoring.
+    performSearch(false);
+  } else if (appState.activeTab === "tt" && appState.tt.searchTerm &&
+    typeof window.performTTSearch === "function") {
+    window.performTTSearch(false);
   }
 }
 
@@ -1129,7 +1201,7 @@ function clearHistory() {
   updateHistoryPanel();
 
   // Update the URL to remove query parameters
-  window.history.pushState({ ...appState }, "", "/");
+  window.history.pushState(navigationState(), "", "/");
 }
 
 // Function to perform a search for a specific history item

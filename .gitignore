@@ -81,6 +81,9 @@ exporter/tester/tester/
 exporter/tpr/output/
 exporter/epitaka/output/
 exporter/webapp/static/search_index.json
+exporter/webapp/static/search_index.json.br
+exporter/webapp/static/search_index.json.gzip
+exporter/webapp/static/search_index.json.encodings.json
 exporter/word_trees/
 GEMINI.md
 go_modules/deconstructor/deconstructor
