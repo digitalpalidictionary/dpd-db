@@ -301,13 +301,19 @@ by the agent only when the task says so and the maintainer has said yes.
 
 ## Decisions made while the owner was away (provisional — confirm at plan task 0.1)
 
+**Owner, 2026-11-01: all six confirmed as written, except decision 1 (the key stays
+after the test) and decision 5 (every shared file the merge writes is clean before
+Phase 6). Everything on the borrowed server is temporary; overwrite it freely.**
+
 The owner was away while this was planned. Each choice below had more than one fair
 answer. The planner picked one so the plan is complete; the owner confirms or changes
 each one before the run starts.
 
 1. **How the server pushes to GitHub.**
-   - Picked: a temporary deploy key with write access, made on the server, deleted
-     from GitHub at the end. The clone uses it only for pushes
+   - **Owner decision 2026-11-01: keep the key after the test** (he may use the
+     server long term). It is not deleted at the end. Blocking pushes to `main` stays
+     with contrib_1 task 3.2.
+   - Picked: a deploy key with write access, made on the server. The clone uses it only for pushes
      (`git remote set-url --push`, `core.sshCommand` with `IdentitiesOnly`).
    - Other options: (b) SSH agent forwarding from the maintainer's laptop during each
      window run — no key is stored on the server, but anyone with root on the box can
@@ -465,8 +471,8 @@ Rejected Gate 1 findings (owner may overrule):
 5. Window #2 ends `rebuilt`; reconcile dropped exactly the processed entries; the two
    words are headwords in the server db; Bold Search still returns results.
 6. gui2 never listened on anything but 127.0.0.1; the other project is unchanged.
-7. Results, logs and timings are in this thread's `artifacts/`; the deploy key is
-   removed from GitHub.
+7. Results, logs and timings are in this thread's `artifacts/`; the deploy key stays
+   on GitHub (decision 1), and its id is in `results.md`.
 
 ## What's not included
 

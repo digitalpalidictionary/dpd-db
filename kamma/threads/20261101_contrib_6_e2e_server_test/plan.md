@@ -277,7 +277,7 @@ tree: touch only the files a task names.
       then `uv run pytest tests/scripts/server_contrib/`, then `just typecheck`.
       → verify: all clean; paste the pytest summary line here. Record any pre-existing
         error in a file you touched and fix it (CLAUDE.md "touch a file = own its lint").
-- [ ] 1.9 **WHO: MAINTAINER.** Review and commit the Phase 1 files (only these:
+- [x] 1.9 **WHO: MAINTAINER.** Review and commit the Phase 1 files (only these:
       the five files above, `dpd-gui@.service`, `server_setup.sh`, `README.md`,
       `config_server.md`, and this thread folder), e.g.
       `#215 contrib server: setup script, unit, bold refill, no submodule init`, and
@@ -287,22 +287,22 @@ tree: touch only the files a task names.
 
 ## Phase 2 — Hand-off to the server — WHO: MAINTAINER
 
-- [ ] 2.1 Copy this thread folder to the server:
+- [x] 2.1 Copy this thread folder to the server:
       `ssh epitaka 'mkdir -p ~/dpd-contrib/handoff'`
       `cd /home/bodhirasa/MyFiles/3_Active/dpd-db && rsync --bwlimit=400 -r kamma/threads/20261101_contrib_6_e2e_server_test epitaka:~/dpd-contrib/handoff/`
       → verify: `ssh epitaka 'ls ~/dpd-contrib/handoff/20261101_contrib_6_e2e_server_test'`
         lists `spec.md` and `plan.md`.
-- [ ] 2.2 On the server (`ssh epitaka`), create
+- [x] 2.2 On the server (`ssh epitaka`), create
       `~/dpd-contrib/handoff/20261101_contrib_6_e2e_server_test/results.md` with
       `# Results — contrib_6 end-to-end server test`, an empty `## Decisions` section,
       and `## Values`: SSH login `root@187.126.118.33`, server name
       `187-126-118-33.sslip.io`.
       → verify: the file exists with the three headings.
-- [ ] 2.3 Read spec "Decisions made while the owner was away". Write each of the six
+- [x] 2.3 Read spec "Decisions made while the owner was away". Write each of the six
       under `## Decisions` in that file as "confirmed" or the change. A changed
       decision may change later tasks: tell the local agent before going on.
       → verify: six lines under `## Decisions`.
-- [ ] 2.4 Start the server agent in that folder in normal permission mode. First
+- [x] 2.4 Start the server agent in that folder in normal permission mode. First
       prompt: "Read spec.md, then plan.md in this folder. Do the first open AGENT task
       in plan.md, starting at Phase 3."
       → verify: the agent writes `## 3.1` into `results.md`.
@@ -658,10 +658,11 @@ read-only checks; the MAINTAINER runs every git write and gui2.
       server; if this rsync refuses them, add `--old-args`.)
       → verify: `ls kamma/threads/20261101_contrib_6_e2e_server_test/artifacts/server/`
         lists `results.md` and the logs.
-- [ ] 8.4 **WHO: MAINTAINER.** Delete the deploy key:
-      `gh repo deploy-key delete <deploy key id> --repo digitalpalidictionary/dpd-db`
-      → verify: `gh repo deploy-key list --repo digitalpalidictionary/dpd-db` no longer
-        lists it.
+- [ ] 8.4 **WHO: MAINTAINER.** The deploy key stays (owner decision 2026-11-01, spec
+      decision 1). Nothing to delete. Check it is still listed:
+      `gh repo deploy-key list --repo digitalpalidictionary/dpd-db`
+      → verify: the key id from `results.md` is listed. Follow-up for contrib_1 task
+        3.2: block pushes to `main` for this key.
 - [ ] 8.5 **WHO: LOCAL AGENT.** Read `artifacts/server/results.md` and add a
       `## Outcome` section to this plan: PASS/FAIL per phase, the measured build time,
       and a list of follow-ups, each marked for contrib_1 or contrib_x. Add the measured
