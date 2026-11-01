@@ -117,7 +117,7 @@ PROFILES: dict[str, dict[str, dict[str, str]]] = {
             "make_variants": "no",
             "make_ebook": "no",
             "make_tpr": "yes",
-            "make_mobile": "no",
+            "make_mobile": "yes",
             "make_tbw": "no",
             "make_sutta_central": "no",
             "make_pdf": "no",
