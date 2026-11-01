@@ -710,7 +710,17 @@ class TestsTabController:
         # Copy query text from view.test_db_query_input to clipboard using pyperclip.copy()
 
         if self.view.test_db_query_input.value:
-            pyperclip.copy(self.view.test_db_query_input.value)
+            try:
+                pyperclip.copy(self.view.test_db_query_input.value)
+            except pyperclip.PyperclipException:
+                # A headless server has no clipboard; don't kill the handler.
+                show_global_snackbar(
+                    self.page,
+                    "No clipboard available on this host",
+                    "warning",
+                    3000,
+                )
+                return
 
             # Show a snackbar confirmation
             show_global_snackbar(

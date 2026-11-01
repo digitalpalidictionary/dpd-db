@@ -184,9 +184,9 @@ class Pass1AutoView(ft.Column):
         self.ai_model_dropdown.options = self._build_model_options()
         self.ai_model_dropdown.update()
 
-    def handle_book_click(self, e):
+    async def handle_book_click(self, e):
         if self.books_dropdown.value:
-            self.controller.auto_process_book(self.books_dropdown.value)
+            await self.controller.auto_process_book(self.books_dropdown.value)
 
     def handle_text_button_click(self, e):
         self.text_input_field.value = ""
@@ -197,15 +197,17 @@ class Pass1AutoView(ft.Column):
         self.page.pop_dialog()
         self.page.update()
 
-    def handle_text_submit(self, e):
+    async def handle_text_submit(self, e):
         text = self.text_input_field.value
         self.page.pop_dialog()
         self.page.update()
         if text and text.strip():
-            self.controller.auto_process_text(text.strip())
+            await self.controller.auto_process_text(text.strip())
 
     def handle_stop_click(self, e):
         self.controller.stop_flag = True
+        if self.controller._run_in_progress:
+            self.update_message("stopping...")
 
     def handle_clear_click(self, e):
         self.clear_all_fields()

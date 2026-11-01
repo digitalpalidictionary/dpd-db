@@ -120,7 +120,11 @@ class Pass1AddController(SandhiOK, SnackBarMixin):
 
     def load_into_gui(self):
         open_in_goldendict(self.word_in_text)
-        pyperclip.copy(self.word_in_text)
+        try:
+            pyperclip.copy(self.word_in_text)
+        except pyperclip.PyperclipException:
+            # A headless server has no clipboard. The copy is only a convenience.
+            pass
         self.ui.word_in_text.value = self.word_in_text
         self.ui.word_in_text.update()
 

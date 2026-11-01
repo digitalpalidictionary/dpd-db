@@ -64,3 +64,29 @@ def test_ai_keys_go_to_add_fields_only(dpd_fields: FakeDpdFields) -> None:
 def test_source_text_keys_fill_main_fields(dpd_fields: FakeDpdFields) -> None:
     for name, value in SOURCE_TEXT_DATA.items():
         assert dpd_fields.fields[name].value == value
+
+
+def test_load_into_gui_survives_missing_clipboard(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """A headless server has no clipboard; the word must still load."""
+
+    def no_clipboard(_: str) -> None:
+        raise controller_module.pyperclip.PyperclipException("no mechanism")
+
+    monkeypatch.setattr(controller_module, "open_in_goldendict", lambda _: None)
+    monkeypatch.setattr(controller_module.pyperclip, "copy", no_clipboard)
+
+    fake_fields = FakeDpdFields()
+    ctrl = object.__new__(Pass1AddController)
+    ctrl.ui = SimpleNamespace(  # pyright: ignore[reportAttributeAccessIssue]
+        word_in_text=SimpleNamespace(value="", update=lambda: None),
+        page=SimpleNamespace(update=lambda: None),
+        dpd_fields=fake_fields,
+    )
+    ctrl.word_in_text = "narena"
+    ctrl.sentence_data = {**AI_DATA, **SOURCE_TEXT_DATA}
+    ctrl.load_into_gui()
+
+    assert ctrl.ui.word_in_text.value == "narena"
+    assert len(fake_fields.add_calls) == 1

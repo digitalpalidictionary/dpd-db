@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import asyncio
 import threading
 from json import JSONDecodeError, dump, dumps, loads
 
@@ -45,6 +46,9 @@ class Pass1AutoController:
         self.related_entries_list: list[str] = []
 
         self.stop_flag = False
+        # The loops are async, so their buttons stay clickable during a run.
+        # A second run would share this controller's per-word state.
+        self._run_in_progress = False
 
         self.prompt: str
         self.response: str | None = None  # Can be None if AI request fails
@@ -96,26 +100,42 @@ class Pass1AutoController:
         self.auto_processed_keys = list(self.auto_processed_dict.keys())
         self.ui.update_auto_processed_count("0 / 0")
 
-    def auto_process_book(self, book: str):
+    async def auto_process_book(self, book: str) -> None:
+        if self._run_in_progress:
+            self.ui.update_message("Already processing. Press Stop first.")
+            return
+        self._run_in_progress = True
+        try:
+            await self._auto_process_book(book)
+        finally:
+            self._run_in_progress = False
+
+    async def _auto_process_book(self, book: str) -> None:
         self.ui.clear_all_fields()
         self.stop_flag = False
         self.missing_words_dict = {}  # Clear for new book
 
         # should run clean every time to update changes in db
         self.ui.update_message("Loading database...")
-        self.db.make_inflections_lists()
+        await asyncio.to_thread(self.db.make_inflections_lists)
 
         self.book = book
         self.cst_books = sutta_central_books[book].cst_books
         self.load_auto_processed()
         self.current_book_processed = 0
-        self.find_missing_words_in_cst()
-        self.find_missing_words_in_sutta_central()
+        await asyncio.to_thread(self.find_missing_words_in_cst)
+        await asyncio.to_thread(self.find_missing_words_in_sutta_central)
         self.initial_auto_processed = len(self.auto_processed_dict)
         self.total_missing = len(self.missing_words_dict)
         self.unbroken_loop = True
 
         for self.word_in_text, self.sentence_data in self.missing_words_dict.items():
+            # Stop can arrive during the setup or after a failed word.
+            if self.stop_flag:
+                self.ui.clear_all_fields()
+                self.ui.update_message(f"Stopped processing {self.book}")
+                self.unbroken_loop = False
+                break
             self.ui.update_message(f"Processing {self.word_in_text}")
 
             self.related_entries_list = self.db.get_related_dict_entries(
@@ -131,8 +151,12 @@ class Pass1AutoController:
                 if len(parts) == 2:
                     provider_preference, model_name = parts
 
-            ai_resp = self.send_prompt(
-                provider_preference=provider_preference, model=model_name
+            # The AI call blocks for seconds. In a thread, the event loop can
+            # redraw the screen and read the Stop click meanwhile.
+            ai_resp = await asyncio.to_thread(
+                self.send_prompt,
+                provider_preference=provider_preference,
+                model=model_name,
             )
             self.response = ai_resp.content
             self.ai_status_message = ai_resp.status_message
@@ -155,13 +179,23 @@ class Pass1AutoController:
         if self.unbroken_loop:
             self.ui.update_message(f"Finished processing {self.book}")
 
-    def auto_process_text(self, text: str) -> None:
+    async def auto_process_text(self, text: str) -> None:
+        if self._run_in_progress:
+            self.ui.update_message("Already processing. Press Stop first.")
+            return
+        self._run_in_progress = True
+        try:
+            await self._auto_process_text(text)
+        finally:
+            self._run_in_progress = False
+
+    async def _auto_process_text(self, text: str) -> None:
         self.ui.clear_all_fields()
         self.stop_flag = False
         self.missing_words_dict = {}
 
         self.ui.update_message("Loading database...")
-        self.db.make_inflections_lists()
+        await asyncio.to_thread(self.db.make_inflections_lists)
 
         self.book = "text"
         self.load_auto_processed()
@@ -183,6 +217,12 @@ class Pass1AutoController:
         self.ui.update_message(f"Found {self.total_missing} missing words in text")
 
         for self.word_in_text, self.sentence_data in self.missing_words_dict.items():
+            # Stop can arrive during the setup or after a failed word.
+            if self.stop_flag:
+                self.ui.clear_all_fields()
+                self.ui.update_message(f"Stopped processing {self.book}")
+                self.unbroken_loop = False
+                break
             self.ui.update_message(f"Processing {self.word_in_text}")
 
             self.related_entries_list = self.db.get_related_dict_entries(
@@ -198,8 +238,12 @@ class Pass1AutoController:
                 if len(parts) == 2:
                     provider_preference, model_name = parts
 
-            ai_resp = self.send_prompt(
-                provider_preference=provider_preference, model=model_name
+            # The AI call blocks for seconds. In a thread, the event loop can
+            # redraw the screen and read the Stop click meanwhile.
+            ai_resp = await asyncio.to_thread(
+                self.send_prompt,
+                provider_preference=provider_preference,
+                model=model_name,
             )
             self.response = ai_resp.content
             self.ai_status_message = ai_resp.status_message
