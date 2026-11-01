@@ -468,3 +468,10 @@
 - 2026-10-31 [REPEATED] I drafted a spec/plan in chat without running the kamma skill or reading the real source, inventing filenames (`todoist_item.md`, `dpd_web_app_translations_tab.md`) that don't exist. The user corrected me twice. Run the verify gate and the actual skill before writing any spec.
 - 2026-10-31 [POSITIVE] The translation-database download URL was only discoverable in OpenTipitaka's production `app.js` (`SITE_EXTERNAL_LINKS.manualDatabases`), not by guessing. Reading the external site's own config is the right verify step, and it surfaced a latent `%2F` encoding bug in the README.
 - 2026-10-31 [WORKFLOW] `resources/tipitaka_translation_db` is a git submodule: its edits don't show in the parent repo's `git diff` and must be committed inside the submodule + pointer bumped, or the change silently never lands.
+- 2026-11-01 [BEHAVIOR] After writing a finished run's outcome (text files only), I suggested /kamma:3-review; the user called it crazy. When only text is left, finalize at once.
+- 2026-11-01 [REPEATED] Mid-run I gave the user several steps in one reply; they said "one thing at a time". During a live server run, give one step per reply.
+- 2026-11-01 [BEHAVIOR] I called four rebuild steps "not needed" before any timings existed; measured, they took 2.6 s together. Measure before recommending cuts.
+- 2026-11-01 [CONFUSION] I asked the owner to confirm six provisional decisions one by one; he said everything on the borrowed server is temporary, stop asking. On a throwaway test box, take the spec's defaults.
+- 2026-11-01 [WORKFLOW] The server results said the preview-folder fix was "made in code after the run"; the code had no such line. Check a remote agent's "fixed" claims against the tree before quoting them.
+- 2026-11-01 [WORKFLOW] The server agent appended addenda to its copies of spec.md and plan.md, but the copy-back step fetched only results.md. A copy-back step must list every file the remote agent may write.
+- 2026-11-01 [POSITIVE] Reading the flet 1.0.1 source found the preview root cause (the assets folder is checked once, at start) after two nginx stopgaps had missed it.

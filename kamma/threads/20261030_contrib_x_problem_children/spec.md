@@ -154,3 +154,39 @@ wherever the files land.
 
 Not checked: whether GitHub deploy keys or fine-grained tokens can be limited
 to one branch or to some paths on this repo.
+
+## Added from the contrib_6 server run (2026-11-01)
+
+Source: `kamma/threads/20261101_contrib_6_e2e_server_test/artifacts/server/results.md`.
+
+### 12. Duplicate additions survive the nightly reconcile (seen live)
+alice added `saṅkhasavhaya` and `kaṭhinabhūmi`, which were already headwords.
+The maintainer processed the others; reconcile kept these two (their hash is not in
+`additions_added.json`) and the window re-pushed them every night. Needed: a warning
+on save when the lemma already exists as a headword, and a way for reconcile or the
+maintainer to clear such entries (reject, or flag lemma collisions).
+
+### 13. A contributor cannot change their password
+The login is nginx basic auth. Only the maintainer can change it, by re-running
+`add_contributor.sh` or `htpasswd`. Decide whether that is enough.
+
+### 14. Flag buttons not tested end to end with real data
+In contrib_6 only Add to Sandhi was used for real. Sandhi OK, Add to Variants and
+Add to Spelling were not, so their server → merge → reconcile path is untested.
+
+### 15. Preview folder must exist before Flet starts (verified; not fixed)
+Flet 1.0.1 checks once, at `ft.run`, that `gui2/assets` exists, and drops it if not
+(`flet/app.py` `__get_assets_dir_path`). A fresh clone has no `gui2/assets`
+(nothing tracked; `gui2/assets/preview/` is gitignored), and `write_preview()` makes
+it only after start. Flet then answers the preview url with the app shell. Fix: one
+`mkdir` of `PREVIEW_DIR` in `gui2/main.py` before `ft.run`. Results "8.2" item 1
+says this was done; `gui2/main.py` has no such line (checked 2026-11-01). The
+missing user prefix in the preview link is separate (contrib_1, `root_path`).
+
+### 16. Decon cache cannot be saved on the read-only server db
+Every gui2 start on the server logs `decon cache refresh failed: (sqlite3.OperationalError)
+attempt to write a readonly database` (`gui2/database_manager.py`, the
+`save_decon_no_headwords_cache` call). Harmless (the set stays in memory), but every
+start pays the live scan, and the warning reads like an error. Either skip the save
+when the db is read-only, or let the build write the cache.
+

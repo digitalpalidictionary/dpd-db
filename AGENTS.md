@@ -13,6 +13,7 @@ Four main parts: **db** (build and populate tables), **db_tests** (data integrit
 ## Kamma
 - When a thread passes review, run the full `/kamma:4-finalize` sequence immediately — don't stop after archiving; also do the reflect/lessons step.
 - SKIP finalize's GitHub step here: never comment on or close the issue. Issues are tested externally before they close, and the GitHub rule below forbids any write unasked. Suggest the commit message only. (Violated 2026-09-25 on #266.)
+- When the work left after a thread's code is reviewed is only text (an outcome, notes, docs), finalize at once; don't propose another review (rejected 2026-11-01 on contrib_6).
 - Never pause a thread to ask for commit permission at phase checkpoints. The user commits everything at the end; checkpoint steps are report-only.
 
 ## Concurrent Threads (working tree safety)

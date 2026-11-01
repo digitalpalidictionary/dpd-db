@@ -309,7 +309,7 @@ tree: touch only the files a task names.
 
 ## Phase 3 — Pre-state and a fresh build
 
-- [ ] 3.1 **WHO: AGENT.** Record the pre-state under `## 3.1 Pre-state`:
+- [x] 3.1 **WHO: AGENT.** Record the pre-state under `## 3.1 Pre-state`:
       ```
       ls -la /etc/nginx/sites-enabled /etc/nginx/dpd
       ls /etc/letsencrypt/live
@@ -324,11 +324,11 @@ tree: touch only the files a task names.
       **EXPECT:** `NO_GUI2_RUNNING`, `NO_855X_LISTENERS`; `/etc/nginx/dpd` lists
       `alice.conf`, `alice.htpasswd`, `zz_root_asset_shim.conf`; `swapon --show` prints
       nothing. If gui2 runs or 855x listens: STOP.
-- [ ] 3.2 **WHO: AGENT.** Move the old clone aside:
+- [x] 3.2 **WHO: AGENT.** Move the old clone aside:
       `test ! -e ~/dpd-db_contrib4 && mv ~/dpd-db ~/dpd-db_contrib4 && echo MOVED`
       **CHECK:** `ls -d ~/dpd-db ~/dpd-db_contrib4`
       **EXPECT:** `MOVED`; then `~/dpd-db` is missing and `~/dpd-db_contrib4` exists.
-- [ ] 3.3 **WHO: AGENT, sudo, after the maintainer says yes.** Add swap:
+- [x] 3.3 **WHO: AGENT, sudo, after the maintainer says yes.** Add swap:
       ```
       sudo fallocate -l 4G /swapfile
       sudo chmod 600 /swapfile
@@ -338,7 +338,7 @@ tree: touch only the files a task names.
       ```
       **EXPECT:** `swapon --show` lists `/swapfile` with size `4G`. No `/etc/fstab`
       change (spec B.3).
-- [ ] 3.4 **WHO: AGENT, sudo (the script installs apt packages), after the maintainer
+- [x] 3.4 **WHO: AGENT, sudo (the script installs apt packages), after the maintainer
       says yes.** Fetch the setup script from GitHub and start the first run in the
       background:
       ```
@@ -356,7 +356,7 @@ tree: touch only the files a task names.
       **EXPECT:** `SYNTAX_OK`; the log ends with the two lines
       `copy config.ini into /root/dpd-db, then run this script again` and `exit=1`.
       Any other ending: STOP. Copy the `=== ` lines (step times) into `results.md`.
-- [ ] 3.5 **WHO: MAINTAINER, server.** Copy the config, then check the three values the
+- [x] 3.5 **WHO: MAINTAINER, server.** Copy the config, then check the three values the
       server build needs. He reads the counts; nobody prints the file:
       ```
       cp ~/dpd-db_contrib4/config.ini ~/dpd-db/config.ini
@@ -368,7 +368,7 @@ tree: touch only the files a task names.
       If one is `0`, he sets that value himself and re-runs the counts.
       **CHECK (AGENT):** `test -f ~/dpd-db/config.ini && echo CONFIG_PRESENT`
       **EXPECT:** `CONFIG_PRESENT`, and the maintainer says the three counts were `1`.
-- [ ] 3.6 **WHO: AGENT, sudo (the script writes `/var/lib/dpd` and the systemd unit),
+- [x] 3.6 **WHO: AGENT, sudo (the script writes `/var/lib/dpd` and the systemd unit),
       after the maintainer says yes.** Start the second run in the background, with a
       memory log:
       ```
@@ -397,7 +397,7 @@ tree: touch only the files a task names.
       and copy it (spec A.6: children may still run).
       Do not give up early: the run can take several hours on 2 CPUs. After 8 hours
       still `RUNNING`, STOP and ask.
-- [ ] 3.7 **WHO: AGENT.** Check the fresh build:
+- [x] 3.7 **WHO: AGENT.** Check the fresh build:
       ```
       cd ~/dpd-db
       git status --porcelain --untracked-files=no | head
@@ -415,7 +415,7 @@ tree: touch only the files a task names.
       `git submodule status` shows a space (initialised) only for `resources/sc-data`,
       `resources/dpd_submodules`, `resources/tipitaka.rte` and `-` for all the others.
       Any mismatch: STOP.
-- [ ] 3.8 **WHO: AGENT. Phase check.** Write `## Phase 3 verdict` in `results.md`:
+- [x] 3.8 **WHO: AGENT. Phase check.** Write `## Phase 3 verdict` in `results.md`:
       setup PASS or FAIL, total time (sum of the step times), the slowest three steps,
       the lowest free memory seen, and whether swap was used (the second `awk` line in
       3.6 printed a line or not).
@@ -424,7 +424,7 @@ tree: touch only the files a task names.
 
 ## Phase 4 — alice works in the browser
 
-- [ ] 4.1 **WHO: AGENT, sudo, after the maintainer says yes.** Move the old alice files
+- [x] 4.1 **WHO: AGENT, sudo, after the maintainer says yes.** Move the old alice files
       aside:
       ```
       sudo mkdir -p /root/contrib4_backup
@@ -432,11 +432,11 @@ tree: touch only the files a task names.
       sudo ls /root/contrib4_backup
       ```
       **EXPECT:** the three files are listed.
-- [ ] 4.2 **WHO: MAINTAINER, server.** Re-create alice with the fixed script and type a
+- [x] 4.2 **WHO: MAINTAINER, server.** Re-create alice with the fixed script and type a
       password at its prompt:
       `sudo bash ~/dpd-db/scripts/server_contrib/add_contributor.sh alice 8551 "Bold Search,DB"`
       **EXPECT:** `Added alice.`
-- [ ] 4.3 **WHO: AGENT, sudo, after the maintainer says yes.**
+- [x] 4.3 **WHO: AGENT, sudo, after the maintainer says yes.**
       ```
       sudo chgrp www-data /etc/nginx/dpd/alice.htpasswd
       sudo nginx -t
@@ -453,7 +453,7 @@ tree: touch only the files a task names.
       ```
       **EXPECT:** `syntax is ok` and `test is successful`; `active`; exactly one
       line `127.0.0.1:8551`; Traceback count `0`.
-- [ ] 4.4 **WHO: MAINTAINER, browser.** Open `https://187-126-118-33.sslip.io/alice/`,
+- [x] 4.4 **WHO: MAINTAINER, browser.** Open `https://187-126-118-33.sslip.io/alice/`,
       sign in with the new password. The AGENT asks one at a time and records each
       answer under `## 4.4`:
       1. Does gui2 load and show "Database loaded."?
@@ -469,7 +469,7 @@ tree: touch only the files a task names.
       7. Any error or red screen? Copy the text.
       **EXPECT:** yes to 1–6; "none" to 7. Any no: record it as a finding, then STOP and
       ask whether to go on.
-- [ ] 4.5 **WHO: AGENT.** Check what alice wrote, and that gui2 changed no tracked file
+- [x] 4.5 **WHO: AGENT.** Check what alice wrote, and that gui2 changed no tracked file
       (the window refuses a dirty tree):
       ```
       ls -l /var/lib/dpd/contrib_data/
@@ -482,19 +482,19 @@ tree: touch only the files a task names.
       `spelling_mistakes_alice.tsv` (Add to Spelling) exist; `git status` prints nothing.
       If `git status` prints anything: STOP (window #1 would refuse). Write the two
       lemmas into `results.md` under `## Values` as `word 1` and `word 2`.
-- [ ] 4.6 **WHO: AGENT. Phase check.** `## Phase 4 verdict`: PASS if 4.3–4.5 met EXPECT.
+- [x] 4.6 **WHO: AGENT. Phase check.** `## Phase 4 verdict`: PASS if 4.3–4.5 met EXPECT.
       → verify: the verdict names each of 4.3, 4.4, 4.5 as met or not.
 
 ## Phase 5 — Deploy key and window #1
 
-- [ ] 5.1 **WHO: AGENT.**
+- [x] 5.1 **WHO: AGENT.**
       ```
       test ! -e ~/.ssh/dpd_deploy && ssh-keygen -t ed25519 -N "" -C "dpd contrib6 temp server" -f ~/.ssh/dpd_deploy
       cat ~/.ssh/dpd_deploy.pub
       ```
       Show the public key line to the maintainer.
       **EXPECT:** one line starting `ssh-ed25519`.
-- [ ] 5.2 **WHO: MAINTAINER, GitHub.** Add the public key as a deploy key on
+- [x] 5.2 **WHO: MAINTAINER, GitHub.** Add the public key as a deploy key on
       `digitalpalidictionary/dpd-db` with **Allow write access**, title
       `dpd contrib6 temp server`. From the laptop (the key is public; `/tmp` is fine):
       `ssh epitaka 'cat ~/.ssh/dpd_deploy.pub' > /tmp/dpd_deploy.pub && gh repo deploy-key add /tmp/dpd_deploy.pub --repo digitalpalidictionary/dpd-db --allow-write --title "dpd contrib6 temp server" && rm /tmp/dpd_deploy.pub`
@@ -502,7 +502,7 @@ tree: touch only the files a task names.
       Then list it: `gh repo deploy-key list --repo digitalpalidictionary/dpd-db`.
       **EXPECT:** the key is listed with read-write. The maintainer tells the AGENT the
       id; the AGENT writes it into `results.md` under `## Values` as `deploy key id`.
-- [ ] 5.3 **WHO: AGENT.**
+- [x] 5.3 **WHO: AGENT.**
       ```
       cd ~/dpd-db
       git remote set-url --push origin git@github.com:digitalpalidictionary/dpd-db.git
@@ -515,7 +515,7 @@ tree: touch only the files a task names.
       **EXPECT:** `git remote -v` shows fetch on `https://github.com/...` and push on
       `git@github.com:...`; the ssh line prints `successfully authenticated` and
       `ssh_exit=1` (GitHub always exits 1 for `-T`). Anything else: STOP.
-- [ ] 5.4 **WHO: AGENT.** Window #1:
+- [x] 5.4 **WHO: AGENT.** Window #1:
       ```
       cd ~/dpd-db
       git rev-parse HEAD; git ls-remote origin main
@@ -532,11 +532,11 @@ tree: touch only the files a task names.
       the run were equal, else `rebuilt`; the log has `contrib_push: pushed` and no
       `FAILED`; `git ls-remote` prints one hash for `refs/heads/contributions`;
       `active`.
-- [ ] 5.5 **WHO: AGENT.** Freeze alice until window #2 (spec B.8):
+- [x] 5.5 **WHO: AGENT.** Freeze alice until window #2 (spec B.8):
       `sudo systemctl stop dpd-gui@alice && systemctl is-active dpd-gui@alice`
       **EXPECT:** `inactive`. Tell the maintainer: "alice is stopped until window #2;
       the local half can start."
-- [ ] 5.6 **WHO: AGENT. Phase check.** `## Phase 5 verdict`: PASS if 5.3–5.5 met
+- [x] 5.6 **WHO: AGENT. Phase check.** `## Phase 5 verdict`: PASS if 5.3–5.5 met
       EXPECT; include the window #1 outcome and the pushed hash.
       → verify: the verdict quotes the `contrib_push:` log line.
 
@@ -545,7 +545,7 @@ tree: touch only the files a task names.
 Run from `/home/bodhirasa/MyFiles/3_Active/dpd-db`. The LOCAL AGENT may run the
 read-only checks; the MAINTAINER runs every git write and gui2.
 
-- [ ] 6.0 **WHO: MAINTAINER.** Clear the files the merge writes of other threads'
+- [x] 6.0 **WHO: MAINTAINER.** Clear the files the merge writes of other threads'
       work (spec decision 5): commit, or set aside by your own method, the uncommitted
       changes in `shared_data/deconstructor/checked.csv`,
       `shared_data/deconstructor/variant_readings.tsv`,
@@ -555,7 +555,7 @@ read-only checks; the MAINTAINER runs every git write and gui2.
       commit in this phase.
       → verify (LOCAL AGENT):
         `git status --porcelain shared_data/ gui2/data/` prints nothing.
-- [ ] 6.1 **WHO: LOCAL AGENT.** Check the branch the server pushed:
+- [x] 6.1 **WHO: LOCAL AGENT.** Check the branch the server pushed:
       ```
       git fetch origin contributions
       git log --oneline origin/main..origin/contributions
@@ -563,12 +563,12 @@ read-only checks; the MAINTAINER runs every git write and gui2.
       ```
       **EXPECT:** exactly one commit, `contrib: submit data <date>`; its diff touches
       only `gui2/data/*_alice.*` files. If not: stop and tell the maintainer.
-- [ ] 6.2 **WHO: MAINTAINER.** `just contrib-merge`
+- [x] 6.2 **WHO: MAINTAINER.** `just contrib-merge`
       → verify (LOCAL AGENT): `git log -1 --oneline` is the merge; the files
         `gui2/data/additions_alice.json` etc. now exist on `main`; `git diff --stat`
         shows the merge script's changes to the shared files, and
         `gui2/data/contrib_lines_merged.json` lists the sandhi, spelling and variant lines.
-- [ ] 6.3 **WHO: MAINTAINER, desktop gui2 (`just gui`).** In Pass2Add press **Add**
+- [x] 6.3 **WHO: MAINTAINER, desktop gui2 (`just gui`).** In Pass2Add press **Add**
       (tooltip "additions"); the first of alice's words loads. Check it, then press
       **Add to DB**. Repeat for the second. Then the global tab → **Backup & Quit**.
       → verify (LOCAL AGENT):
@@ -579,14 +579,14 @@ read-only checks; the MAINTAINER runs every git write and gui2.
         `git diff --stat db/backup_tsv/` shows the TSV backup changed;
         `sqlite3 dpd.db "select id, lemma_1 from dpd_headwords where lemma_1 in ('<word 1>','<word 2>')"`
         (lemmas from `results.md` Values) prints both.
-- [ ] 6.4 **WHO: MAINTAINER.** Commit and push `main`. Stage by explicit file list:
+- [x] 6.4 **WHO: MAINTAINER.** Commit and push `main`. Stage by explicit file list:
       the files 6.2 and 6.3 changed (`gui2/data/*_alice.*`, `gui2/data/additions_added.json`,
       `gui2/data/contrib_lines_merged.json`, the shared files the merge changed,
       `db/backup_tsv/*`). Re-check `db_tests/db_tests_columns.tsv` is not in the list
       unless he meant it (CLAUDE.md).
       → verify: `git ls-remote origin main` equals `git rev-parse HEAD`; record the
         hash in the server's `results.md` (tell the server agent).
-- [ ] 6.5 **WHO: LOCAL AGENT. Phase check.** Write a short `## Phase 6 (local)` note
+- [x] 6.5 **WHO: LOCAL AGENT. Phase check.** Write a short `## Phase 6 (local)` note
       for the maintainer to paste into the server's `results.md`: the merge commit, the
       pushed hash, the two lemmas with their new db ids, and the entries in
       `additions_added.json`.
@@ -594,14 +594,14 @@ read-only checks; the MAINTAINER runs every git write and gui2.
 
 ## Phase 7 — Window #2 closes the loop — WHO: AGENT
 
-- [ ] 7.1 Save alice's files before the window:
+- [x] 7.1 Save alice's files before the window:
       ```
       mkdir -p ~/logs/before_window2
       cp -p /var/lib/dpd/contrib_data/* ~/logs/before_window2/
       ls -l ~/logs/before_window2
       ```
       **EXPECT:** the same files as in 4.5.
-- [ ] 7.2 Window #2, in the background (it rebuilds, so it takes hours):
+- [x] 7.2 Window #2, in the background (it rebuilds, so it takes hours):
       ```
       cd ~/dpd-db
       nohup ~/.local/bin/uv run scripts/server_contrib/maintenance_window.py --instance dpd-gui@alice --data-dir /var/lib/dpd/contrib_data > ~/logs/window2.log 2>&1 &
@@ -613,7 +613,7 @@ read-only checks; the MAINTAINER runs every git write and gui2.
       start date too.)
       **EXPECT:** last output line `rebuilt`; `health check passed`; no `FAILED`;
       `git rev-parse HEAD` is the hash from 6.4, or a later `main` commit (CI may push).
-- [ ] 7.3 Check the loop closed:
+- [x] 7.3 Check the loop closed:
       ```
       for f in ~/logs/before_window2/*; do echo "== $(basename "$f")"; diff "$f" "/var/lib/dpd/contrib_data/$(basename "$f")" | head -20; done
       ~/.local/bin/uv run python -c "import json; print(json.load(open('/var/lib/dpd/contrib_data/additions_alice.json')))"
@@ -631,42 +631,109 @@ read-only checks; the MAINTAINER runs every git write and gui2.
       server, so the push makes one new `contrib: submit data` commit that removes the
       merged lines (`contrib_push.py` commits whenever the copied files differ);
       `active`; one line `127.0.0.1:8551`.
-- [ ] 7.3b **WHO: LOCAL AGENT, laptop.** Read that push:
+- [x] 7.3b **WHO: LOCAL AGENT, laptop.** Read that push:
       `cd /home/bodhirasa/MyFiles/3_Active/dpd-db && git fetch origin contributions && git diff --stat origin/contributions~1 origin/contributions`
       **EXPECT:** only `gui2/data/*_alice.*` flag files change, by removing the lines
       merged in 6.2; `additions_alice.json` is not in the diff (already `{}` on both
       sides). This is the next night's normal "nothing new" state; merging it later is
       harmless. Record it in the server's `results.md` via the maintainer.
-- [ ] 7.4 **WHO: MAINTAINER, browser.** At `https://187-126-118-33.sslip.io/alice/`
+- [x] 7.4 **WHO: MAINTAINER, browser.** At `https://187-126-118-33.sslip.io/alice/`
       (reload): Bold Search returns results; searching the DB tab for `<word 1>` shows
       it as a normal headword. The AGENT records both answers.
-- [ ] 7.5 **Phase check.** `## Phase 7 verdict`: PASS if 7.2–7.4 and 7.3b met EXPECT.
+- [x] 7.5 **Phase check.** `## Phase 7 verdict`: PASS if 7.2–7.4 and 7.3b met EXPECT.
       → verify: the verdict lists each EXPECT clause of 7.3 and 7.3b as met or not.
 
 ## Phase 8 — Wrap-up
 
-- [ ] 8.1 **WHO: AGENT.** Compare with the pre-state: re-run the 3.1 commands; write
+- [x] 8.1 **WHO: AGENT.** Compare with the pre-state: re-run the 3.1 commands; write
       the differences under `## 8.1 End state`. **EXPECT:** the only nginx changes are
       the re-created `alice.conf` / `alice.htpasswd`; the epitaka processes from 3.1
       are still there (same pids, unless they restart on their own); `/swapfile` on.
-- [ ] 8.2 **WHO: AGENT.** Write `## Findings` in `results.md`: every STOP, every
+- [x] 8.2 **WHO: AGENT.** Write `## Findings` in `results.md`: every STOP, every
       deviation, the step times, the memory peak, and anything for contrib_1 Phase 3
       or contrib_x. Then stop; the agent's work ends here.
-- [ ] 8.3 **WHO: MAINTAINER, laptop.** Copy the results back:
+- [x] 8.3 **WHO: MAINTAINER, laptop.** Copy the results back:
       `cd /home/bodhirasa/MyFiles/3_Active/dpd-db && mkdir -p kamma/threads/20261101_contrib_6_e2e_server_test/artifacts/server && rsync --bwlimit=400 -r epitaka:dpd-contrib/handoff/20261101_contrib_6_e2e_server_test/results.md 'epitaka:logs/server_setup_run*.log' 'epitaka:logs/window*.log' epitaka:logs/vmstat_setup.log 'epitaka:dpd-db/logs/maintenance_*.log' epitaka:logs/before_window2 kamma/threads/20261101_contrib_6_e2e_server_test/artifacts/server/`
       (Remote paths are relative to root's home. The wildcards are expanded on the
       server; if this rsync refuses them, add `--old-args`.)
       → verify: `ls kamma/threads/20261101_contrib_6_e2e_server_test/artifacts/server/`
         lists `results.md` and the logs.
-- [ ] 8.4 **WHO: MAINTAINER.** The deploy key stays (owner decision 2026-11-01, spec
+- [x] 8.4 **WHO: MAINTAINER.** The deploy key stays (owner decision 2026-11-01, spec
       decision 1). Nothing to delete. Check it is still listed:
       `gh repo deploy-key list --repo digitalpalidictionary/dpd-db`
       → verify: the key id from `results.md` is listed. Follow-up for contrib_1 task
         3.2: block pushes to `main` for this key.
-- [ ] 8.5 **WHO: LOCAL AGENT.** Read `artifacts/server/results.md` and add a
+- [x] 8.5 **WHO: LOCAL AGENT.** Read `artifacts/server/results.md` and add a
       `## Outcome` section to this plan: PASS/FAIL per phase, the measured build time,
       and a list of follow-ups, each marked for contrib_1 or contrib_x. Add the measured
       first-build time and memory peak to `scripts/server_contrib/README.md` "New
       server" (one line). Do not edit contrib_1 or contrib_x files; list the edits for
       the maintainer instead.
       → verify: every number in `## Outcome` is quoted from `artifacts/server/`.
+
+## Outcome
+
+Every number below is quoted from `artifacts/server/results.md` (or, where named,
+from the logs in `artifacts/server/`).
+
+**Run verdict: the full loop PASSED** (results "8.2 Findings").
+
+| Phase | Result |
+|---|---|
+| 1 Local code fixes | PASS (74 tests, each fix reverted and caught) |
+| 2 Hand-off | PASS |
+| 3 Fresh build | PASS — run 2 2633 s ≈ 44 min (first build 2051 s, initial setup 568 s); run 1 647 s ≈ 11 min; lowest free memory 173936 KB ≈ 170 MB; swap peak 133632 KB ≈ 130 MB |
+| 4 alice in the browser | PASS with deviations — three gui2 defects (Pass1 loop UI, pyperclip, preview); the first two fixed mid-run (`4a280722`); flag buttons only partly exercised (Add to Sandhi) |
+| 5 Deploy key, window #1 | PASS — `rebuilt`, 34.6 min, `contrib_push: pushed 3 changed files`, `contributions` at `5174ad0b` |
+| 6 Local merge | PASS (`main` → `533c94cd`). 6.1 and 6.5 were run at finalize, from git and the db (note below) |
+| 7 Window #2 | PASS with one deviation — `rebuilt`, 34.2 min; saṅkhacariyā id 90373 and saṅkhasavhaya id 90368 are headwords; `bold_definitions` 369147; 2 duplicate additions survived reconcile |
+| 8 Wrap-up | PASS — deploy key 168360647 stays (decision 1); epitaka pid 1429346 untouched |
+
+Other measurements: one warm gui2 instance RSS 1.25 GB (Addendum B); the Go
+deconstructor is 1798.3 s of ~2049 s of the components run, about 88 % ("Finding:
+rebuild step times"); a window takes ~2 min when `main` has not moved.
+
+**Correction to results "8.2 Findings" item 1:** it says the preview folder fix
+(`mkdir` of `PREVIEW_DIR` before `ft.run`) was made in code after the run. It was
+not: `gui2/main.py` has no such line (checked 2026-11-01). Now contrib_x item 15.
+
+**Not copied back:** the server agent appended dated owner addenda (duplicate
+additions) to the server copies of `spec.md` and `plan.md`. Only `results.md` came
+back. Their content is in results "7.2 mid-window" and contrib_x item 12.
+
+**Follow-ups for contrib_1** (not edited here; for the maintainer):
+- Preview link must carry the user prefix (flet `root_path`). Until then nginx needs
+  an auth'd root-level `location /preview/` → the instance port.
+- Rebuild only when build inputs change. `main` moves almost daily; on 2026-10-18 to
+  2026-11-01, 17 of 87 commits touched the build files checked
+  (`db/backup_tsv`, `shared_data/deconstructor`, …), so most rebuilds are for nothing.
+- Speed up the deconstructor (30 min via `go run` on 2 CPUs): a built binary, or
+  rebuild only changed headwords (incremental regen keyed on the changed-headwords
+  markers).
+- Optional trims, measured as negligible: `see.py` 0.8 s, `spelling_mistakes.py`
+  0.8 s, `version.py` 0.9 s, `logo.py` 0.1 s. gui2 never reads what they write.
+  Dropping `version.py` and `sanskrit_root_families_updater.py` (13.9 s) would also
+  stop two tracked-file rewrites per rebuild.
+- Capacity and spec: Addendum B (1.5–2 GB RAM per contributor + 3–4 GB headroom,
+  4 vCPU floor, keep 4 GB swap with an fstab line in production, per-instance
+  `MemoryMax`).
+- Restrict deploy key 168360647 from pushing to `main` (task 3.2). Non-root per-user
+  units (decision 6).
+- Promote results "Addendum A" (quick setup on any server) into the README.
+
+**Follow-ups for contrib_x:** items 12–16 in its spec (duplicate additions,
+contributor password change, untested flag-button merge path, preview folder before
+start, read-only db cache warning).
+
+**Phase 6 (local) note** (tasks 6.1 and 6.5, run at finalize 2026-11-01 from git
+and the local `dpd.db`):
+- 6.1: `origin/contributions` was one commit, `5174ad0b contrib: submit data
+  2026-11-01`. It touched only `gui2/data/additions_alice.json`,
+  `checked_alice.csv` and `manual_corrections_alice.tsv`.
+- The merge was a fast-forward (`305b3351..5174ad0b`), so there is no merge commit.
+  The processed words were pushed in `533c94cd data update`.
+- `additions_added.json` at `533c94cd` holds 4 alice entries: 90373 saṅkhacariyā,
+  90374 kururājacariyā, 90375 kaliṅgaraṭṭhavisaya, 90377 upagañchu.
+- The two duplicates were already headwords: 90368 saṅkhasavhaya, 90369
+  kaṭhinabhūmi (contrib_x item 12).
+

@@ -24,6 +24,9 @@ clone. It is safe to re-run; each step is skipped when its result exists.
 - The systemd unit `dpd-gui@.service` is installed. Enable one instance with
   `sudo systemctl enable --now dpd-gui@<user>`. Logs: `journalctl -u dpd-gui@<user>`.
 
+Measured (2026-11-01, 2 vCPU, 8 GB, 4 GB swap): first build 2051 s (~34 min), lowest
+free memory ~170 MB, swap peak ~130 MB. Do not build without swap.
+
 Left out on purpose (one-time, per-host, or secret): swap, nginx and the
 certificate, `add_contributor.sh` (asks for a password), the deploy key,
 `systemctl enable`. The steps are in
