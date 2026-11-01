@@ -1135,6 +1135,33 @@ lesson recorded); two STOP-grade gui defects found and fixed mid-run by the
 maintainer; Q6 partially exercised (real sandhi only); 2 duplicate additions
 survived reconcile (owner-confirmed).
 
+## 8.3 Results copied back and pushed to the repo
+
+MAINTAINER step (rsync 8.3's command from the laptop, then lazygit commit +
+push). Verify: `ls kamma/threads/20261101_contrib_6_e2e_server_test/artifacts/server/`
+on the laptop lists `results.md`, `server_setup_run1.log`,
+`server_setup_run2.log`, `window1.log`, `window2.log`, `vmstat_setup.log`,
+`maintenance_20261101.log`, `before_window2/`. Commit message:
+`#215 contrib6: e2e server test results and logs`.
+
+Server-side confirmation: `git ls-remote origin main` →
+`3489add11122da79dd944054bd17455724d1049e`. The thread details are now part
+of `dpd-db` main, as the owner asked.
+
+## Phase 8 verdict
+
+- 8.1 met (end state vs pre-state; only the planned changes).
+- 8.2 findings written (above).
+- 8.3 met — results + logs in the repo on `main` (`3489add1`).
+- 8.4 (maintainer): deploy key **stays** (owner decision 1); id 168360647;
+  the follow-up "block pushes to main for this key" belongs to contrib_1
+  task 3.2.
+- 8.5 (local agent, laptop): add `## Outcome` to plan.md from
+  `artifacts/server/results.md`, add the measured build time + memory peak
+  to README "New server" (one line), list the contrib_1/contrib_x edits.
+
+**Phase 8: PASS. Agent work ends here per plan 8.2.**
+
 ## Addendum A — setting this up quickly on ANY server (agent instructions)
 
 Maintainer request 2026-11-01. Written for a future agent on a fresh
