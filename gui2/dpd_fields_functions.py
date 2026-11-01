@@ -33,7 +33,7 @@ def clean_root_sign(root_sign: str) -> str:
 
 def make_lemma_2(lemma_1: str, pos: str, grammar: str) -> str:
     lemma_clean = clean_lemma_1(lemma_1)
-    if "pl" in grammar:
+    if "pl" in (grammar or ""):
         return lemma_clean
 
     if pos == "masc":

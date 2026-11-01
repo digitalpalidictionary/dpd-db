@@ -65,6 +65,9 @@ class TestMakeLemma2:
     def test_other_pos_returns_lemma_clean(self):
         assert make_lemma_2("kata", "pp", "sg") == "kata"
 
+    def test_unset_grammar_does_not_crash(self):
+        assert make_lemma_2("putta 1", "masc", None) == "putto"  # type: ignore[arg-type]
+
 
 class TestMakeConstruction:
     def test_root_with_no_base(self):

@@ -851,7 +851,7 @@ class DpdFields(PopUpMixin):
     def pos_blur(self, e: ft.ControlEvent) -> None:
         pos_field, pos = self.get_event_field_and_value(e)
         grammar_field = self.get_field("grammar")
-        grammar = grammar_field.value
+        grammar = grammar_field.value or ""
 
         # test for wrong values (skipped while the corpus is still loading)
         if self.db.all_pos is not None and pos not in self.db.all_pos:
