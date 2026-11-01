@@ -13,10 +13,11 @@ from tools.paths import ProjectPaths
 _WORD_RE = re.compile(r"[^\W\d_]+(?:'[^\W\d_]+)*", re.UNICODE)
 
 
-def _english_words(sentence: str) -> list[str]:
+def _english_words(sentence: str | None) -> list[str]:
     """Tokenize keeping Pali/diacritic words whole, then drop any word that
     isn't pure ASCII -- Pali proper nouns aren't English words to spellcheck."""
-    return [w for w in _WORD_RE.findall(sentence) if w.isascii()]
+    # clear_fields sets every field to None, and Flet 1.0 passes that through
+    return [w for w in _WORD_RE.findall(sentence or "") if w.isascii()]
 
 
 class CustomSpellChecker:
@@ -56,7 +57,7 @@ class CustomSpellChecker:
 
             CustomSpellChecker._initialized = True
 
-    def check_sentence(self, sentence: str) -> dict[str, list[str]]:
+    def check_sentence(self, sentence: str | None) -> dict[str, list[str]]:
         """Check spelling in a sentence and return misspelled words with suggestions."""
 
         # Use lock to prevent concurrent access to the shared SpellChecker instance
@@ -74,7 +75,7 @@ class CustomSpellChecker:
 
             return results
 
-    def has_misspellings(self, sentence: str) -> bool:
+    def has_misspellings(self, sentence: str | None) -> bool:
         """Fast boolean spell check: no suggestion generation, which is what
         makes check_sentence expensive (candidates() explores all edit-
         distance variants per unknown word). Use this when only a yes/no

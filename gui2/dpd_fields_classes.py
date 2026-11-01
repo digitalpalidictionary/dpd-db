@@ -29,7 +29,7 @@ def get_last_focused_field() -> "DpdTextField | DpdDropdown | None":
 def track_focus(
     field: "DpdTextField | DpdDropdown",
     original: Callable[[ft.ControlEvent], Any] | None,
-) -> Callable[[ft.ControlEvent], Any]:
+) -> Callable[[ft.Event[Any]], Any]:
     """Wrap a field's on_focus so focusing it also records it for restoration.
 
     The original handler — a composite field's internal handler, or one of the
@@ -45,13 +45,13 @@ def track_focus(
     # call it, get a coroutine back, and drop it unrun.
     if inspect.iscoroutinefunction(original):
 
-        async def async_handler(e: ft.ControlEvent) -> None:
+        async def async_handler(e: ft.Event[Any]) -> None:
             record()
             await original(e)
 
         return async_handler
 
-    def handler(e: ft.ControlEvent) -> None:
+    def handler(e: ft.Event[Any]) -> None:
         record()
         if original is not None:
             original(e)
@@ -103,6 +103,14 @@ class DpdTextField(ft.TextField):
             border=field_border(),
         )
         self.name = name
+
+    # clear_fields and update_db_fields write None (a cleared field, an empty
+    # db column), and Flet 1.0 keeps it. Every handler that reads the value as
+    # text then crashes, so None is stored as the empty text it means.
+    def __setattr__(self, name: str, value: Any) -> None:
+        if name == "value" and value is None:
+            value = ""
+        super().__setattr__(name, value)
 
     # Flet 1.0 renamed TextField.error_text to `error` but left
     # Dropdown.error_text alone, so the two control types now spell it
@@ -215,6 +223,13 @@ class DpdText(ft.TextField):
             dense=True,
             multiline=True,
         )
+
+    # Same as DpdTextField, so a cleared main field and its cleared _add field
+    # still compare equal in check_and_color_add_fields.
+    def __setattr__(self, name: str, value: Any) -> None:
+        if name == "value" and value is None:
+            value = ""
+        super().__setattr__(name, value)
 
     # Same 1.0 rename as DpdTextField. No border toggle: this field is a
     # read-only display and deliberately carries no outline at all.

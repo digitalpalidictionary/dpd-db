@@ -56,3 +56,10 @@ def test_contributor_loads_shared_and_own_words(tmp_path: Path) -> None:
 
     assert not checker.has_misspellings("zzqshared zzqown")
     assert checker.has_misspellings("zzqother")
+
+
+def test_a_cleared_field_is_checked_as_empty_text(tmp_path: Path) -> None:
+    checker = make_checker(tmp_path / "shared.txt", None)
+
+    assert checker.check_sentence(None) == {}
+    assert not checker.has_misspellings(None)

@@ -1,11 +1,13 @@
 import asyncio
 import inspect
+from typing import Any
 
 import flet as ft
 import pytest
 
 import gui2.dpd_fields_classes
 from gui2.dpd_fields_classes import (
+    DpdText,
     DpdTextField,
     get_last_focused_field,
     track_focus,
@@ -63,3 +65,30 @@ class TestTrackFocus:
 
         assert calls == ["original"]
         assert get_last_focused_field() is field
+
+
+class TestClearedValue:
+    def test_none_is_stored_as_empty_text(self):
+        field = DpdTextField(name="meaning_1")
+        field.value = "a meaning"
+        cleared: Any = None  # what update_db_fields writes for an empty column
+
+        field.value = cleared
+
+        assert field.value == ""
+
+    def test_text_is_stored_unchanged(self):
+        field = DpdTextField(name="meaning_1")
+
+        field.value = "a meaning"
+
+        assert field.value == "a meaning"
+
+    def test_a_cleared_add_field_matches_a_cleared_main_field(self):
+        main, add = DpdTextField(name="meaning_1"), DpdText()
+        cleared: Any = None
+
+        main.value = cleared
+        add.value = cleared
+
+        assert main.value == add.value == ""
