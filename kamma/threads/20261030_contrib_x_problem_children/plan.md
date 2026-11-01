@@ -6,5 +6,5 @@
 Placeholder. Do not start. Triage first: go through each item in the spec with
 the user, one at a time. Decide to fix, move into another contrib thread, or drop.
 
-- [ ] 1 Triage every item (1–9) in the spec with the user.
+- [ ] 1 Triage every item (1–11) in the spec with the user. Item 11 is a design decision: settle it before contrib_1 Phase 3.
 - [ ] 2 Write the real tasks for the items kept.

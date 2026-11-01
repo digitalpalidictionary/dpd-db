@@ -122,6 +122,15 @@ starts. In MAINTAINER commands below, replace `<user>@<ip>` with them.
       line starts with a space, not `-` or `+`. Never run a bare
       `git submodule update --init` with no paths: it fetches every submodule.
       Never run `uv sync` without `--all-groups`.
+  **LESSON (2026-10-31, maintainer-directed, for every future server run):**
+  a fresh clone lacks the gitignored *generated* assets (`shared_data/frequency/*.json`,
+  `__init__.py` files, …), and piecemeal rsyncing them from the dev machine as each
+  one crashes gui2 is ridiculous. Future server setup: install **Go** right after uv,
+  then run the lean generation ONCE on the server
+  (`scripts/server_contrib/generate_components_server.py`) to produce every generated
+  asset locally, before the first gui2 start. Copy-from-dev-machine is the fallback,
+  not the method. Fold this into the `SERVER_SETUP.md` runbook (contrib_1 Phase 3.1).
+
 - [ ] 2.3 **WHO: MAINTAINER, own machine.** Copy the db. First close gui2 and
       anything else that has `dpd.db` open. Then fold the WAL into the db:
       `cd /home/bodhirasa/MyFiles/3_Active/dpd-db && uv run python -c "import sqlite3; print(sqlite3.connect('dpd.db').execute('PRAGMA wal_checkpoint(TRUNCATE)').fetchone())"`

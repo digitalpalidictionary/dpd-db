@@ -127,3 +127,30 @@ had restarted gui2, or whether the button still shows in Pass2Add. The user
 wants the button absent when there is no audio. Needs a decision: hide it
 always in the preview, or show it only for words that have audio files (which
 audio folder, and does the preview have a route to it).
+
+### 11. Push contributor files straight to main, or keep the `contributions` branch? (decision, raised 2026-10-31)
+Decide this carefully, with the maintainer, before contrib_1 Phase 3 builds the
+permanent server. The maintainer asked: "we don't need branching, do we? I just
+need the contributors files, committed and pushed to GitHub daily".
+
+Now (contrib_5, `scripts/server_contrib/contrib_push.py`): each night the server
+resets a separate `contributions` branch to its `HEAD`, copies in the delivered
+files, commits, and pushes with `--force-with-lease`.
+
+Why the branch exists:
+- No conflicts. The server's nightly commit never races with the maintainer's
+  own commits to main, or with the automated "data update" commits. The branch
+  is overwritten each night.
+- Less access. The server's key can write only to that branch, not to main. A
+  rented server that holds a key able to write to main is a bigger risk.
+
+Pushing straight to main can work, because every contributor file carries the
+user's name. It needs: pull before each commit, retry when the push is refused,
+a key with write access to main (or branch protection rules that allow only
+those paths), and a rule that the maintainer never edits those files by hand.
+It also changes `contrib_reconcile.py`, `maintenance_window.py` and their
+tests, and the maintainer's merge step (`merge_contrib_files.py`) reads from
+wherever the files land.
+
+Not checked: whether GitHub deploy keys or fine-grained tokens can be limited
+to one branch or to some paths on this repo.
