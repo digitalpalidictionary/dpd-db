@@ -25,6 +25,7 @@ DROPPED = [
 
 # Steps gui2 relies on that must be present.
 ESSENTIAL = [
+    "db/bold_definitions/update_bold_definitions_db.py",
     "db/inflections/create_inflection_templates.py",
     "db/inflections/generate_inflection_tables.py",
     "db/inflections/inflections_to_headwords.py",

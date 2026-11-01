@@ -14,8 +14,10 @@ transliterate/grammar/epd/sutta/frequency steps are ≈ 220s of that, and the
 lean db also skips the assets that made the full pytest gate fail).
 
 Prerequisites on the server: the **Go toolchain** (the deconstructor `go run`
-step) and the `resources/sc-data` + `resources/dpd_submodules` submodules. No
-audio hardware, no Anki, no GPU, no outbound network beyond `git fetch/pull`.
+step) and the `resources/sc-data`, `resources/dpd_submodules` and
+`resources/tipitaka.rte` submodules. No audio hardware, no Anki, no GPU. The
+nightly window needs no network beyond `git fetch/pull`. The first setup also
+needs network for apt, uv, the Go modules and the audio index download.
 
 ## Lean rebuild — kept vs dropped (verified against gui2 source, 2026-07-19)
 
@@ -26,7 +28,9 @@ name columns. `spelling` feeds pass2pre filtering (kept despite gui2 not reading
 the column directly).
 
 **KEPT** (in `generate_components_server.py`): logo, version,
-create_inflection_templates, generate_inflection_tables, root_has_verb,
+update_bold_definitions_db (Bold Search reads the `bold_definitions` table; the
+rebuild deletes the db. Needs `db/bold_definitions/bold_definitions.tsv` from the
+initial setup), create_inflection_templates, generate_inflection_tables, root_has_verb,
 sanskrit_root_families, family_root/word/compound/set/idiom, deconstructor
 `go run` + deconstructor_output_add_to_db, api_ca_eva_iti_iva_hi,
 inflections_to_headwords, lookup/see, lookup/spelling_mistakes.

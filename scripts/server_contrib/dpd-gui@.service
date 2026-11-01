@@ -1,0 +1,23 @@
+# One gui2 web instance per contributor: systemctl enable --now dpd-gui@<user>
+# server_setup.sh fills the @...@ values and installs this file.
+# The per-user settings (port, tabs, data folder, bind address) come from
+# /etc/dpd/<user>.env, written by add_contributor.sh.
+[Unit]
+Description=DPD gui2 contributor instance for %i
+After=network-online.target
+StartLimitIntervalSec=300
+StartLimitBurst=5
+
+[Service]
+Type=simple
+User=@USER@
+Environment=HOME=@HOME@
+EnvironmentFile=/etc/dpd/%i.env
+WorkingDirectory=@CLONE@
+ExecStart=@UV@ run --no-sync python gui2/main.py
+Restart=on-failure
+RestartSec=10
+TimeoutStopSec=30
+
+[Install]
+WantedBy=multi-user.target

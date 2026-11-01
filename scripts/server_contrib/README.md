@@ -10,6 +10,30 @@ branch, and rebuilds the scratch db when `main` has moved.
 See also: `config_server.md` (the lean rebuild — kept/dropped step rationale),
 `spec.md`/`plan.md` in `kamma/threads/20261030_contrib_5_hardening/`.
 
+## New server
+
+`server_setup.sh [clone dir]` (default `~/dpd-db`) builds a server from a fresh
+clone. It is safe to re-run; each step is skipped when its result exists.
+
+- Packages, uv and the clone: apt (`pkg-config`, `libicu-dev`, `golang-go`), uv, `git clone`.
+- Three submodules: `sc-data`, `dpd_submodules` and `tipitaka.rte`. The frequency
+  setup reads the SYA corpus from `tipitaka.rte`.
+- Setup runs: `uv sync --all-groups`, `initial_setup_run_once.py`, the audio index download.
+- It stops until `config.ini` is in the clone. Copy it, then run the script again.
+- The first build is the maintenance window itself (`--no-systemd --no-push`).
+- The systemd unit `dpd-gui@.service` is installed. Enable one instance with
+  `sudo systemctl enable --now dpd-gui@<user>`. Logs: `journalctl -u dpd-gui@<user>`.
+
+Left out on purpose (one-time, per-host, or secret): swap, nginx and the
+certificate, `add_contributor.sh` (asks for a password), the deploy key,
+`systemctl enable`. The steps are in
+`kamma/threads/20261101_contrib_6_e2e_server_test/plan.md`.
+
+- The window no longer runs `git submodule update --init`. If `main` ever needs a
+  new submodule, init it once by hand on the server.
+- The deploy key is for pushes only: `git remote set-url --push` plus
+  `core.sshCommand`. It needs write access. Delete it when the server goes away.
+
 ## The nightly maintenance window
 
 `maintenance_window.py` is the orchestrator:
@@ -71,6 +95,8 @@ Flags: `--no-systemd`, `--no-push`, `--instance <unit>` (repeatable),
 | `merge_contrib_files.py` | Maintainer side. Folds each contributor's flag files into the shared files and logs every handled line in `gui2/data/contrib_lines_merged.json`. |
 | `maintenance_window.py` | The orchestrator above. |
 | `generate_components_server.py` | LEAN rebuild — only the steps gui2 reads. No pytest. See `config_server.md`. |
+| `server_setup.sh` | Builds a server from a fresh clone. See "New server". |
+| `dpd-gui@.service` | systemd unit template, one gui2 instance per contributor. Filled and installed by `server_setup.sh`. |
 | `config_server.template` | Server `config.ini` template. Copy to `config.ini`; NEVER commit the result. |
 
 The delivered file kinds (additions, corrections, user dictionary, checked,

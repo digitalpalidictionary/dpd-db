@@ -38,6 +38,7 @@ def test_every_user_shares_one_flat_data_folder_the_sync_scripts_can_read(
     alice, bob = env_lines(tmp_path, "alice"), env_lines(tmp_path, "bob")
     assert alice["DPD_GUI2_DATA_DIR"] == bob["DPD_GUI2_DATA_DIR"]
     assert alice["DPD_GUI2_TABS"] == '"Bold Search,DB,√"'
+    assert alice["FLET_SERVER_IP"] == "127.0.0.1"
 
     # What the window globs is what the instances write: one folder, user in the
     # file name.

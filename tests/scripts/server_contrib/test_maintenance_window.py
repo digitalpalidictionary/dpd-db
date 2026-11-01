@@ -363,3 +363,52 @@ class TestRollbackWal:
         assert outcome is Outcome.FAILED
         assert not (setup.repo / "dpd.db-wal").exists()
         assert _db_marker(setup.config.db_path) == "original"
+
+
+def test_pull_and_rollback_never_init_new_submodules(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    from scripts.server_contrib import maintenance_window as mw
+
+    seen: list[list[str]] = []
+    monkeypatch.setattr(mw, "_run", lambda cmd, cwd: seen.append(cmd))
+    setup = _setup(tmp_path)
+    mw._default_pull(setup.config)
+    assert ["git", "submodule", "update", "--recursive"] in seen
+    assert not any("--init" in cmd for cmd in seen)
+
+    calls: list[list[str]] = []
+
+    def fake_run(cmd, **kwargs):
+        calls.append(cmd)
+        return subprocess.CompletedProcess(cmd, 0)
+
+    monkeypatch.setattr(mw.subprocess, "run", fake_run)
+    backup = tmp_path / "rollback_data"
+    backup.mkdir()
+    mw._restore_rollback(
+        setup.config,
+        mw.Rollback(db_backup=None, pre_commit="abc", data_backup=backup),
+        mw._make_logger(setup.config.log_dir),
+    )
+    submodule_calls = [c for c in calls if c[:2] == ["git", "submodule"]]
+    assert submodule_calls == [["git", "submodule", "update", "--recursive"]]
+
+
+@pytest.mark.parametrize(
+    ("outcome", "code"),
+    [(Outcome.FAILED, 1), (Outcome.SKIPPED, None), (Outcome.REBUILT, None)],
+)
+def test_main_exits_1_only_when_the_window_failed(
+    monkeypatch: pytest.MonkeyPatch, outcome: Outcome, code: int | None
+) -> None:
+    from scripts.server_contrib import maintenance_window as mw
+
+    monkeypatch.setattr(mw, "run_maintenance", lambda config: outcome)
+    monkeypatch.setattr("sys.argv", ["maintenance_window.py", "--no-systemd"])
+    if code is None:
+        mw.main()
+    else:
+        with pytest.raises(SystemExit) as exc:
+            mw.main()
+        assert exc.value.code == code

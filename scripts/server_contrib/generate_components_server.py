@@ -13,6 +13,7 @@ WHAT gui2 READS (verified 2026-07-19 against the gui2 source):
   - lookup.spelling                        (pass2pre filtering)
   - inflection_templates.pattern + dpd_headwords.inflections/inflections_html
   - family_root/word/compound name columns (dropdowns / validation)
+  - bold_definitions (Bold Search tab; db_rebuild_from_tsv deletes the db, so this refills it every build)
 
 DROPPED (maintainer-confirmed 2026-07-19 as unused by gui2 data entry):
   - transliterate_inflections / transliterate_lookup_table (no non-roman input)
@@ -36,6 +37,7 @@ from tools.script_runner import check_db_exists, run_script
 COMMANDS = [
     "tools/logo.py",
     "tools/version.py",
+    "db/bold_definitions/update_bold_definitions_db.py",
     "db/inflections/create_inflection_templates.py",
     "db/inflections/generate_inflection_tables.py",
     "scripts/build/root_has_verb_updater.py",

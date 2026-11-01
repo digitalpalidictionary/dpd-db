@@ -28,6 +28,7 @@ import os
 import shutil
 import sqlite3
 import subprocess
+import sys
 from collections.abc import Callable
 from dataclasses import dataclass, field
 from datetime import datetime
@@ -96,8 +97,10 @@ def _default_pull(config: WindowConfig) -> None:
         ["git", "pull", "--ff-only", config.remote, config.branch],
         config.project_root,
     )
+    # No --init: the server inits only the submodules it needs (server_setup.sh);
+    # --init would fetch all eleven.
     _run(
-        ["git", "submodule", "update", "--init", "--recursive"],
+        ["git", "submodule", "update", "--recursive"],
         config.project_root,
     )
 
@@ -272,7 +275,7 @@ def _restore_rollback(
             timeout=GIT_TIMEOUT,
         )
         submodule = subprocess.run(
-            ["git", "submodule", "update", "--init", "--recursive"],
+            ["git", "submodule", "update", "--recursive"],
             cwd=config.project_root,
             check=False,
             timeout=STEP_TIMEOUT,
@@ -437,6 +440,8 @@ def main() -> None:
 
     outcome = run_maintenance(_config_from_args(args))
     print(outcome.value)
+    if outcome is Outcome.FAILED:
+        sys.exit(1)
 
 
 if __name__ == "__main__":
