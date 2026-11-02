@@ -21,7 +21,6 @@ from gui2.toolkit import ToolKit
 from gui2.user import UsernameManager
 from gui2.variants import VariantReadingFileManager
 from tools.goldendict_tools import open_in_goldendict
-from tools.wordfinder_manager import WordFinderManager
 
 LABEL_WIDTH = 250
 BUTTON_WIDTH = 250
@@ -48,7 +47,6 @@ class Pass1AddController(SandhiOK, SnackBarMixin):
         self.gui2pth: Gui2Paths = toolkit.paths
         self.additions_manager: AdditionsManager = toolkit.additions_manager
         self.username_manager: UsernameManager = toolkit.username_manager
-        self.wordfinder_manager: WordFinderManager = toolkit.wordfinder_manager
         self.pass1_auto_controller = pass1_auto_controller
 
         self.pass1_books = sutta_central_books

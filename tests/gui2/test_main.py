@@ -416,6 +416,165 @@ def test_server_warmup_builds_only_visible_tabs(
     assert built == [2, 3, 13, 11]
 
 
+class _WordFinderAccessToolkit:
+    """A toolkit double that records every read of the word finder names."""
+
+    def __init__(self) -> None:
+        self.wordfinder_access: list[str] = []
+        self._mocks: dict[str, MagicMock] = {}
+
+    def __getattr__(self, name: str) -> MagicMock:
+        if name in ("wordfinder_manager", "wordfinder_popup"):
+            self.__dict__["wordfinder_access"].append(name)
+        mocks: dict[str, MagicMock] = self.__dict__.setdefault("_mocks", {})
+        return mocks.setdefault(name, MagicMock())
+
+
+def _give_server_app_pass2add(app: App) -> None:
+    """Put Pass2Add on a built server app, as if it had been allowed.
+
+    allowed_tabs can never list Pass2Add, so the tests set _visible by hand;
+    the tab bar is rebuilt to match, as build_ui would have."""
+    app._visible = sorted(set(app._visible) | {7})  # pyright: ignore[reportAttributeAccessIssue]
+    app._tab_bar.tabs = [  # pyright: ignore[reportAttributeAccessIssue]
+        ft.Tab(label=ft.Text(TAB_LABELS[index])) for index in app._visible
+    ]
+
+
+def test_server_warmup_skips_the_word_finder_without_pass2add(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    app = _server_app(monkeypatch, "DB")
+    toolkit = _WordFinderAccessToolkit()
+    app.toolkit = toolkit  # pyright: ignore[reportAttributeAccessIssue]
+
+    app._warmup_in_background()
+
+    assert toolkit.wordfinder_access == []
+
+
+def test_server_warmup_with_pass2add_still_touches_the_word_finder(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """The gate is Pass2Add, not the role: a server user with the tab
+    still gets the word finder warmed."""
+    app = _server_app(monkeypatch, "DB")
+    _give_server_app_pass2add(app)
+    toolkit = _WordFinderAccessToolkit()
+    app.toolkit = toolkit  # pyright: ignore[reportAttributeAccessIssue]
+
+    app._warmup_in_background()
+
+    assert toolkit.wordfinder_access == [
+        "wordfinder_manager",
+        "wordfinder_popup",
+    ]
+
+
+def test_desktop_warmup_still_touches_the_word_finder() -> None:
+    app = App.__new__(App)
+    toolkit = _WordFinderAccessToolkit()
+    app._ensure_tab_built = lambda index: None  # pyright: ignore[reportAttributeAccessIssue, reportAssignmentType]
+    app.toolkit = toolkit  # pyright: ignore[reportAttributeAccessIssue]
+    app.page = MagicMock()  # pyright: ignore[reportAttributeAccessIssue]
+
+    app._warmup_in_background()
+
+    assert toolkit.wordfinder_access == [
+        "wordfinder_manager",
+        "wordfinder_popup",
+    ]
+
+
+def test_server_ctrl_f_and_w_do_not_touch_the_word_finder_without_pass2add(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    app = _server_app(monkeypatch, "DB")
+    toolkit = _WordFinderAccessToolkit()
+    app.toolkit = toolkit  # pyright: ignore[reportAttributeAccessIssue]
+
+    asyncio.run(app.on_keyboard(_key("F", ctrl=True)))
+    asyncio.run(app.on_keyboard(_key("W", ctrl=True)))
+
+    assert toolkit.wordfinder_access == []
+
+
+def test_desktop_ctrl_f_opens_and_ctrl_w_closes_the_word_finder() -> None:
+    app = _app_on_tab(3, MagicMock(spec=Pass1AddView))
+    toolkit = _WordFinderAccessToolkit()
+    app.toolkit = toolkit  # pyright: ignore[reportAttributeAccessIssue]
+
+    asyncio.run(app.on_keyboard(_key("F", ctrl=True)))
+
+    assert toolkit.wordfinder_access == ["wordfinder_popup"]
+    toolkit.wordfinder_popup.open_popup.assert_called_once_with("")
+
+    asyncio.run(app.on_keyboard(_key("W", ctrl=True)))
+
+    toolkit.wordfinder_popup.is_dialog_open.assert_called_once_with()
+    toolkit.wordfinder_popup.close_dialog.assert_called_once_with()
+
+
+def test_server_with_pass2add_ctrl_f_opens_and_ctrl_w_closes(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    app = _server_app(monkeypatch, "DB")
+    _give_server_app_pass2add(app)
+    toolkit = _WordFinderAccessToolkit()
+    app.toolkit = toolkit  # pyright: ignore[reportAttributeAccessIssue]
+
+    asyncio.run(app.on_keyboard(_key("F", ctrl=True)))
+    asyncio.run(app.on_keyboard(_key("W", ctrl=True)))
+
+    assert toolkit.wordfinder_access == ["wordfinder_popup"] * 3
+    toolkit.wordfinder_popup.open_popup.assert_called_once_with("")
+    toolkit.wordfinder_popup.close_dialog.assert_called_once_with()
+
+
+def test_server_shortcut_list_drops_the_word_finder_rows_without_pass2add(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    app = _server_app(monkeypatch, "DB")
+    rows = dict(
+        (keys, action)
+        for _title, group in app._shortcut_groups()
+        for keys, action in group
+        if keys != "Ctrl+S"
+    )
+
+    assert "Ctrl+F" not in rows
+    assert "Ctrl+W" not in rows
+
+
+def test_desktop_shortcut_list_keeps_the_word_finder_rows() -> None:
+    app = _app_on_tab(0, MagicMock())
+    rows = dict(
+        (keys, action)
+        for _title, group in app._shortcut_groups()
+        for keys, action in group
+        if keys != "Ctrl+S"
+    )
+
+    assert "Ctrl+F" in rows
+    assert "Ctrl+W" in rows
+
+
+def test_server_with_pass2add_shortcut_list_keeps_the_word_finder_rows(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    app = _server_app(monkeypatch, "DB")
+    _give_server_app_pass2add(app)
+    rows = dict(
+        (keys, action)
+        for _title, group in app._shortcut_groups()
+        for keys, action in group
+        if keys != "Ctrl+S"
+    )
+
+    assert "Ctrl+F" in rows
+    assert "Ctrl+W" in rows
+
+
 @pytest.fixture
 def free_session(monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.setattr("gui2.main._session_page", None)

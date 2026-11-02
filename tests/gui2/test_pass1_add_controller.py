@@ -1,6 +1,7 @@
 """Pass1Add must offer AI output as `_add` suggestions, never fill the fields."""
 
 from types import SimpleNamespace
+from unittest.mock import MagicMock
 
 import pytest
 
@@ -90,3 +91,34 @@ def test_load_into_gui_survives_missing_clipboard(
 
     assert ctrl.ui.word_in_text.value == "narena"
     assert len(fake_fields.add_calls) == 1
+
+
+class _NoWordFinderToolkit:
+    """A toolkit whose word finder raises: the controller must never touch it."""
+
+    def __init__(self) -> None:
+        self.db_manager: MagicMock = MagicMock()
+        self.daily_log: MagicMock = MagicMock()
+        self.paths: MagicMock = MagicMock()
+        self.additions_manager: MagicMock = MagicMock()
+        self.username_manager: MagicMock = MagicMock()
+
+    @property
+    def wordfinder_manager(self) -> MagicMock:
+        raise AssertionError("Pass1AddController must not touch the word finder")
+
+
+def test_controller_builds_without_touching_the_word_finder(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.setattr(controller_module, "VariantReadingFileManager", MagicMock())
+    monkeypatch.setattr(controller_module, "SpellingMistakesFileManager", MagicMock())
+
+    ctrl = Pass1AddController(
+        ui=MagicMock(),
+        toolkit=_NoWordFinderToolkit(),  # pyright: ignore[reportArgumentType]
+        pass1_auto_controller=MagicMock(),
+    )
+
+    assert ctrl.toolkit.db_manager is not None
+    assert not hasattr(ctrl, "wordfinder_manager")

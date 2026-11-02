@@ -304,9 +304,12 @@ class App:
             await cancel_top_dialog(self.page)
         elif e.key == "A" and e.ctrl and e.shift:
             launch_ai_search_window()
-        elif e.key == "F" and e.ctrl:
+        elif e.key == "F" and e.ctrl and 7 in self._visible:
+            # 7 = Pass2Add: the tab the word finder is for. Without it the
+            # finder is never built and the key stays dead — on Pass1Add the
+            # lemma fill goes with it, deliberately.
             self.toolkit.wordfinder_popup.open_popup(self._get_current_lemma())
-        elif e.key == "W" and e.ctrl:
+        elif e.key == "W" and e.ctrl and 7 in self._visible:
             # Universal close key - close any open dialog
             if self.toolkit.wordfinder_popup.is_dialog_open():
                 self.toolkit.wordfinder_popup.close_dialog()
@@ -393,12 +396,24 @@ class App:
         clear_tabs = ", ".join(
             self._tab_label(i) for i in self._CLEAR_ACTIONS if i in self._visible
         )
+        # The word finder is Pass2Add's tool: without the tab, its keys do
+        # nothing, so their rows are left out.
+        wordfinder_open = (
+            [
+                ("Ctrl+F", "Open the word finder (with the lemma on the add tabs)"),
+            ]
+            if 7 in self._visible
+            else []
+        )
+        wordfinder_close = (
+            [("Ctrl+W", "Close the word finder")] if 7 in self._visible else []
+        )
         return [
             (
                 "App",
                 [
                     ("Alt+?", "Show this list of shortcuts"),
-                    ("Ctrl+F", "Open the word finder (with the lemma on the add tabs)"),
+                    *wordfinder_open,
                     ("Ctrl+Shift+A", "Open the AI search window"),
                     ("Ctrl+Q", "Quit the editor"),
                 ],
@@ -434,7 +449,7 @@ class App:
                 "Popups",
                 [
                     ("Escape", "Cancel or close the top popup"),
-                    ("Ctrl+W", "Close the word finder"),
+                    *wordfinder_close,
                     ("", "Ctrl+S and Alt+X do nothing while a popup is open"),
                 ],
             ),
@@ -569,8 +584,11 @@ class App:
             except Exception:
                 failed.append(self._tab_label(index))
         try:
-            self.toolkit.wordfinder_manager
-            self.toolkit.wordfinder_popup
+            # The word finder is Pass2Add's tool: without the tab nothing
+            # can open it, so building it would just cost its ~160 MB.
+            if 7 in self._visible:
+                self.toolkit.wordfinder_manager
+                self.toolkit.wordfinder_popup
             self.toolkit.ai_manager
             self.toolkit.bold_definitions_search_manager
             # Pre-build the synonym/phonetic detector (~0.8-0.9 s corpus
