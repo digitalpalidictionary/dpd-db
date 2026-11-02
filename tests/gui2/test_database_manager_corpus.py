@@ -7,13 +7,15 @@ import time
 from collections.abc import Generator
 
 import pytest
-from sqlalchemy import Engine, create_engine, event
+from sqlalchemy import Engine, create_engine, event, inspect
 from sqlalchemy.orm import Session, sessionmaker
 from sqlalchemy.pool import StaticPool
 
 import gui2.database_manager as database_manager_module
 from db.models import Base, DpdHeadword, Lookup
 from gui2.database_manager import DatabaseManager
+from tools.hashed_words import HashedWords
+from tools.synonym_variant import RelationshipDetector
 
 
 @pytest.fixture
@@ -195,12 +197,14 @@ def test_initialize_db_does_not_build_detector(
 
 def test_make_inflections_lists_derives_from_corpus(db_manager: DatabaseManager):
     db_manager.make_inflections_lists()
-    assert {"kata", "katā", "gata", "gatā", "dhamma", "dhammā"} <= (
-        db_manager.all_inflections
-    )
+    all_inflections = db_manager.all_inflections
+    missing_meaning = db_manager.all_inflections_missing_meaning
+    assert isinstance(all_inflections, set)
+    assert isinstance(missing_meaning, set)
+    assert {"kata", "katā", "gata", "gatā", "dhamma", "dhammā"} <= all_inflections
     # only the meaning-less headword contributes to missing_meaning
-    assert {"kata", "katā"} <= db_manager.all_inflections_missing_meaning
-    assert "gata" not in db_manager.all_inflections_missing_meaning
+    assert {"kata", "katā"} <= missing_meaning
+    assert "gata" not in missing_meaning
 
 
 def test_make_pass2_lists_derives_from_corpus(db_manager: DatabaseManager):
@@ -370,3 +374,131 @@ def test_invalidation_after_idle_rebuilds_again(rebuild_manager: DatabaseManager
     rebuild_manager.invalidate_relationship_detector()
     wait_until_idle(rebuild_manager)
     assert _CountingDetector.build_count == 2
+
+
+# ── contributor role: slim corpus and compact inflection sets ───────────────
+
+
+@pytest.fixture
+def contributor(monkeypatch: pytest.MonkeyPatch) -> None:
+    """Make the DatabaseManager behave as a contributor-server instance."""
+    monkeypatch.setattr(database_manager_module, "is_headless_server", lambda: True)
+
+
+def unloaded(row: DpdHeadword) -> set[str]:
+    """Columns not loaded on the row (relationships are always unloaded)."""
+    columns = {column.name for column in DpdHeadword.__table__.columns}
+    return set(inspect(row).unloaded) & columns
+
+
+def test_desktop_corpus_defers_only_the_five_big_columns(db_manager: DatabaseManager):
+    row = db_manager.load_corpus()[0]
+    assert unloaded(row) == {
+        "inflections_html",
+        "freq_html",
+        "inflections_sinhala",
+        "inflections_devanagari",
+        "inflections_thai",
+    }
+
+
+def test_contributor_corpus_loads_only_the_detector_columns(
+    db_manager: DatabaseManager, contributor: None
+):
+    corpus = db_manager.load_corpus()
+    for row in corpus:
+        assert {
+            "example_1",
+            "commentary",
+            "inflections",
+            "inflections_api_ca_eva_iti",
+        } <= (unloaded(row))
+        assert not {"lemma_1", "meaning_1", "pos", "grammar", "construction"} & (
+            unloaded(row)
+        )
+
+
+def test_contributor_corpus_loads_freq_data_only_without_a_meaning(
+    db_manager: DatabaseManager, contributor: None
+):
+    by_lemma = {row.lemma_1: row for row in db_manager.load_corpus()}
+    assert "freq_data" not in unloaded(by_lemma["kata 1"])  # meaning_1 is empty
+    assert "freq_data" in unloaded(by_lemma["gata 1"])  # has a meaning
+
+
+def test_contributor_corpus_keeps_every_row_in_id_order(
+    db_manager: DatabaseManager, contributor: None
+):
+    assert [row.id for row in db_manager.load_corpus()] == [1, 2, 3]
+
+
+def test_contributor_detector_answers_like_the_full_corpus(
+    db_manager: DatabaseManager,
+    engine_and_session: tuple[Engine, Session],
+    contributor: None,
+    monkeypatch: pytest.MonkeyPatch,
+):
+    _, session = engine_and_session
+
+    def answers(rows: list[DpdHeadword]) -> dict[int, tuple[list[str], list]]:
+        detector = RelationshipDetector(rows)
+        return {
+            row.id: (detector.find_synonyms(row), detector.find_phonetic_variants(row))
+            for row in rows
+        }
+
+    slim_rows = db_manager.load_corpus()
+    # detached rows raise on any column the slim load left out
+    session.expunge_all()
+    slim = answers(slim_rows)
+
+    monkeypatch.setattr(database_manager_module, "is_headless_server", lambda: False)
+    db_manager.mark_corpus_stale()
+    assert answers(db_manager.load_corpus()) == slim
+
+
+def test_contributor_inflection_sets_are_compact_and_leave_the_corpus_alone(
+    db_manager: DatabaseManager, contributor: None
+):
+    db_manager.make_inflections_lists()
+    assert isinstance(db_manager.all_inflections, HashedWords)
+    assert isinstance(db_manager.all_inflections_missing_meaning, HashedWords)
+    assert getattr(db_manager, "db", None) is None
+
+
+def test_contributor_inflection_sets_answer_like_the_desktop_sets(
+    db_manager: DatabaseManager, monkeypatch: pytest.MonkeyPatch
+):
+    db_manager.make_inflections_lists()
+    assert isinstance(db_manager.all_inflections, set)
+    assert isinstance(db_manager.all_inflections_missing_meaning, set)
+    desktop_all = set(db_manager.all_inflections)
+    desktop_missing = set(db_manager.all_inflections_missing_meaning)
+
+    monkeypatch.setattr(database_manager_module, "is_headless_server", lambda: True)
+    db_manager.mark_corpus_stale()
+    db_manager.make_inflections_lists()
+    for word in desktop_all | {"zzz", "katax", "gat"}:
+        assert (word in db_manager.all_inflections) == (word in desktop_all)
+    for word in desktop_missing | {"gata", "dhamma", "zzz"}:
+        assert (word in db_manager.all_inflections_missing_meaning) == (
+            word in desktop_missing
+        )
+
+
+def test_contributor_inflection_sets_rebuild_only_after_stale(
+    db_manager: DatabaseManager,
+    engine_and_session: tuple[Engine, Session],
+    contributor: None,
+):
+    _, session = engine_and_session
+    db_manager.make_inflections_lists()
+    session.add(DpdHeadword(id=4, lemma_1="magga 1", pos="masc", inflections="magga"))
+    session.commit()
+
+    db_manager.make_inflections_lists()
+    assert "magga" not in db_manager.all_inflections
+
+    db_manager.mark_corpus_stale()
+    db_manager.make_inflections_lists()
+    assert "magga" in db_manager.all_inflections

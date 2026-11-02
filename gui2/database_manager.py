@@ -2,13 +2,13 @@
 import re
 import threading
 import time
-from collections.abc import Callable
+from collections.abc import Callable, Container, Iterator
 from pathlib import Path
 
 from sqlalchemy import delete as sa_delete
 from sqlalchemy import desc, func
 from sqlalchemy import insert as sa_insert
-from sqlalchemy.orm import defer
+from sqlalchemy.orm import defer, load_only
 from sqlalchemy.orm.session import Session
 
 from db.db_helpers import get_db_session
@@ -32,8 +32,10 @@ from tools.cache_load import (
     load_decon_no_headwords_cache,
     save_decon_no_headwords_cache,
 )
+from tools.hashed_words import HashedWords
 from tools.pali_sort_key import pali_sort_key
 from tools.paths import ProjectPaths
+from tools.server_mode import is_headless_server
 from tools.synonym_variant import RelationshipDetector
 
 # Lets a burst of rapid saves coalesce into a single detector rebuild.
@@ -42,8 +44,32 @@ DETECTOR_REBUILD_DEBOUNCE_SECS = 1.0
 # First id of the range reserved for contributor additions.
 CONTRIB_ID_BASE = 10_000_000
 
+# The headword columns a contributor's instance reads: the synonym and phonetic
+# detector (tools/synonym_variant.py). freq_data is added only for a headword
+# with an empty meaning_1, the one case where the detector reads it.
+CONTRIBUTOR_CORPUS_COLUMNS = (
+    "construction",
+    "family_root",
+    "family_word",
+    "grammar",
+    "lemma_1",
+    "meaning_1",
+    "pos",
+    "root_base",
+    "root_key",
+    "root_sign",
+    "synonym",
+    "var_phonetic",
+    "var_text",
+    "variant",
+)
+
 
 class DatabaseManager:
+    # A contributor builds the inflection sets without the corpus, so the corpus
+    # generation counter cannot say when they need rebuilding.
+    _inflections_ready: bool = False
+
     def __init__(self, own_sandhi_checked: Path | None = None) -> None:
         self.pth: ProjectPaths = ProjectPaths()
 
@@ -71,8 +97,8 @@ class DatabaseManager:
         self._inflections_gen: int = -1
         self._pass2_gen: int = -1
 
-        self.all_inflections: set[str] = set()
-        self.all_inflections_missing_meaning: set[str] = set()
+        self.all_inflections: Container[str] = set()
+        self.all_inflections_missing_meaning: Container[str] = set()
 
         self.sandhi_ok_list: set[str] = set(
             self.pth.decon_checked.read_text(encoding="utf-8").splitlines()
@@ -188,25 +214,50 @@ class DatabaseManager:
         """
         with self._corpus_lock:
             if self._corpus_stale or getattr(self, "db", None) is None:
-                self.db = (
-                    self.db_session.query(DpdHeadword)
-                    .options(
-                        defer(DpdHeadword.inflections_html),
-                        defer(DpdHeadword.freq_html),
-                        defer(DpdHeadword.inflections_sinhala),
-                        defer(DpdHeadword.inflections_devanagari),
-                        defer(DpdHeadword.inflections_thai),
+                if is_headless_server():
+                    self.db = self._load_contributor_corpus()
+                else:
+                    self.db = (
+                        self.db_session.query(DpdHeadword)
+                        .options(
+                            defer(DpdHeadword.inflections_html),
+                            defer(DpdHeadword.freq_html),
+                            defer(DpdHeadword.inflections_sinhala),
+                            defer(DpdHeadword.inflections_devanagari),
+                            defer(DpdHeadword.inflections_thai),
+                        )
+                        .all()
                     )
-                    .all()
-                )
                 self._corpus_stale = False
                 self._corpus_gen += 1
             return self.db
+
+    def _load_contributor_corpus(self) -> list[DpdHeadword]:
+        """Every headword, but only the columns the detector reads, in id order.
+
+        A full row costs about 7.5 KB of Python objects for 59 attributes; this
+        keeps 14 (15 for a headword with no meaning). Only rows with no
+        meaning_1 carry freq_data, because `has_textual_occurrence` reads it
+        nowhere else. A contributor never opens the tabs that read the other
+        columns (gui2/contributor_tabs.py).
+        """
+        columns = [getattr(DpdHeadword, name) for name in CONTRIBUTOR_CORPUS_COLUMNS]
+        query = self.db_session.query(DpdHeadword)
+        with_meaning = (
+            query.filter(DpdHeadword.meaning_1 != "").options(load_only(*columns)).all()
+        )
+        without_meaning = (
+            query.filter(DpdHeadword.meaning_1 == "")
+            .options(load_only(*columns, DpdHeadword.freq_data))
+            .all()
+        )
+        return sorted(with_meaning + without_meaning, key=lambda hw: hw.id)
 
     def mark_corpus_stale(self) -> None:
         """Call after any write to dpd_headwords so the next load_corpus()
         (and the sets derived from it) sees fresh data."""
         self._corpus_stale = True
+        self._inflections_ready = False
 
     def get_all_roots(self) -> None:
         roots = self.db_session.query(DpdRoot.root).distinct().all()
@@ -348,6 +399,10 @@ class DatabaseManager:
 
         Rebuilds only when the corpus was reloaded since the last derive."""
 
+        if is_headless_server():
+            self._make_contributor_inflections_lists()
+            return
+
         corpus = self.load_corpus()
         if self._inflections_gen == self._corpus_gen:
             return
@@ -362,6 +417,29 @@ class DatabaseManager:
         self.all_inflections = all_inflections
         self.all_inflections_missing_meaning = all_inflections_missing_meaning
         self._inflections_gen = self._corpus_gen
+
+    def _make_contributor_inflections_lists(self) -> None:
+        """The same two sets, as compact hash arrays built from the columns
+        alone: the sets hold 1.6 million words (about 270 MB as Python
+        strings, 13 MB as hashes) and nothing reads more than `in`."""
+        if self._inflections_ready:
+            return
+
+        def words(meaning_empty_only: bool) -> Iterator[str]:
+            query = self.db_session.query(
+                DpdHeadword.inflections, DpdHeadword.inflections_api_ca_eva_iti
+            )
+            if meaning_empty_only:
+                query = query.filter(DpdHeadword.meaning_1 == "")
+            for inflections, api_ca_eva_iti in query:
+                yield from inflections.split(",")
+                yield from api_ca_eva_iti.split(",")
+
+        self.all_inflections = HashedWords(words(meaning_empty_only=False))
+        self.all_inflections_missing_meaning = HashedWords(
+            words(meaning_empty_only=True)
+        )
+        self._inflections_ready = True
 
     def get_related_dict_entries(self, word_in_text) -> list[str]:
         """Get all the possible lemma, pos meaning for a word."""
