@@ -9,21 +9,27 @@ three runs per point; `corpus` has deltas 300, 300, 400 (the only flagged spread
 - Staircase total 795, so the interaction gap = 795 − 830 = −35.
 - Books: 80, 70, 60, 50, so one book = median = 65. Four in one process: 375 − 130 = 245.
 - Server staircase total 700. Server warm RSS = the larger of 1000 and 40 = 1000.
-  Unbuilt remainder = 300, which is 30 % of 1000, so above 20 %.
+  Raw unbuilt remainder = 1000 − 700 = 300. The app warm-up does not build the
+  inflection lists (staircase step 510 − 475 = 35), so the adjusted remainder
+  = 1000 − (700 − 35) = 335, which is above 20 % of 1000.
+- Server book step = one_book 1100 − warm 1000 = 100. Four books on the server
+  = 100 + (245 − 65) = 280.
 - Read-only rows (bare, imports, corpus, inflections_lists, relationship_detector,
-  wordfinder, ai_manager) = 30 + 100 + 300 + 40 + 60 + 200 + 20 = 750.
+  wordfinder, ai_manager) = 30 + 100 + 300 + 40 + 60 + 200 + 20 = 750, of which
+  40 are the inflection lists, so 710 at warm-up.
   Per-user rows (db_manager, initialize_db, bold_search, spellchecker) = 10 + 50 + 5 + 15 = 80.
-- Today = 1066 + N × (1000 + books): N=8: 9586 (one book), 11026 (four).
-  N=16: 18106, 20986.
-- Option E = 1066 + 750 + books + N × (80 + 300): N=8: 4921, 5101. N=16: 7961, 8141.
+- Today = 1066 + N × (1000 + book step): N=8: 9866 (one book, step 100),
+  11306 (four, step 280). N=16: 18666, 21546.
+- Option E = 1066 + 710 + 40 + books + N × (80 + 335): N=8: 5201 (books 65),
+  5381 (books 245). N=16: 8521, 8701.
 - B = 200 + 20 + 5 + 60 = 285. C = 40. D = 200. E saves 750 × (N − 1): 5250 at 8, 11250 at 16.
 - Phase steps: db load 600 − 300 = 300; tabs and managers 1000 − 600 = 400; one book 100;
   reloads 80, 120, 30.
 
-KEY e_16_1=7961.0
-KEY e_16_4=8141.0
-KEY e_8_1=4921.0
-KEY e_8_4=5101.0
+KEY e_16_1=8521.0
+KEY e_16_4=8701.0
+KEY e_8_1=5201.0
+KEY e_8_4=5381.0
 KEY flag_ai_manager=no
 KEY flag_bare=no
 KEY flag_bold_search=no
@@ -66,9 +72,12 @@ KEY step_reload2=120.0
 KEY step_reload3=30.0
 KEY step_warmup_done=400.0
 KEY sum_isolated=830.0
-KEY today_16_1=18106.0
-KEY today_16_4=20986.0
-KEY today_8_1=9586.0
-KEY today_8_4=11026.0
+KEY today_16_1=18666.0
+KEY today_16_4=21546.0
+KEY today_8_1=9866.0
+KEY today_8_4=11306.0
 KEY unbuilt_over_20pct=yes
-KEY unbuilt_remainder=300.0
+KEY unbuilt_remainder=335.0
+KEY unbuilt_remainder_raw=300.0
+KEY server_book_step=100.0
+KEY four_books_server=280.0

@@ -200,7 +200,28 @@ def build(
     warm_rss = max(
         (r["vm_rss_mb"] for r in unit if r.get("label") == "warmup_done"), default=None
     )
-    remainder = warm_rss - srv_total if warm_rss and srv_total is not None else None
+    one_book_rss = max(
+        (r["vm_rss_mb"] for r in unit if r.get("label") == "one_book"), default=None
+    )
+    remainder_raw = warm_rss - srv_total if warm_rss and srv_total is not None else None
+    # The app warm-up never builds the inflection lists (gui2/main.py:558-583);
+    # Pass1 builds them on first use (gui2/pass1_auto_controller.py:120). The
+    # staircase builds them, so take them out before comparing with the app.
+    infl_stair = med(deltas(stair, "inflections_lists"))
+    remainder = (
+        warm_rss - (srv_total - infl_stair)
+        if warm_rss is not None and srv_total is not None and infl_stair is not None
+        else None
+    )
+    book_step = one_book_rss - warm_rss if one_book_rss and warm_rss else None
+    four_server = (
+        book_step + (four_books - one_book)
+        if book_step is not None and four_books is not None and one_book is not None
+        else None
+    )
+    keys["unbuilt_remainder_raw"] = fmt(remainder_raw)
+    keys["server_book_step"] = fmt(book_step)
+    keys["four_books_server"] = fmt(four_server)
     keys["laptop_staircase_total"] = fmt(lap_total)
     keys["sum_isolated"] = fmt(sum_iso)
     keys["interaction_gap"] = fmt(gap)
@@ -216,7 +237,9 @@ def build(
         f"| interaction gap | {fmt(gap)} | staircase total − sum of isolated deltas |",
         f"| server staircase total | {fmt(srv_total)} | median final RSS, server runs |",
         f"| server warm RSS | {fmt(warm_rss)} | `warmup_done` reading, before any book |",
-        f"| unbuilt remainder | {fmt(remainder)} | server warm RSS − server staircase total |",
+        f"| unbuilt remainder, raw | {fmt(remainder_raw)} | server warm RSS − server staircase total |",
+        f"| inflection lists, staircase delta | {fmt(infl_stair)} | built by the probe, not by the app warm-up |",
+        f"| unbuilt remainder | {fmt(remainder)} | server warm RSS − (server staircase total − inflection lists) |",
     ]
     over = remainder is not None and warm_rss and remainder > 0.2 * warm_rss
     keys["unbuilt_over_20pct"] = "yes" if over else "no"
@@ -236,17 +259,36 @@ def build(
     keys["per_user"] = fmt(per_user if iso_med else None)
     out += ["", "## Projection (MB; baseline 1066 MB with no gui2 running)", ""]
     out += ["| Users | Books each | Today | Option E |", "|---|---|---|---|"]
+    infl_iso = iso_med.get("inflections_lists", 0.0)
+    shared_at_warm = shared - infl_iso
     for n in USERS:
-        for label, books in (("1", one_book), ("4", four_books)):
+        for label, books, step in (
+            ("1", one_book, book_step),
+            ("4", four_books, four_server),
+        ):
             today = e_total = None
-            if warm_rss is not None and books is not None:
-                today = BASELINE_MB + n * (warm_rss + books)
+            if warm_rss is not None and step is not None:
+                today = BASELINE_MB + n * (warm_rss + step)
             if remainder is not None and books is not None and iso_med:
-                e_total = BASELINE_MB + shared + books + n * (per_user + remainder)
+                e_total = (
+                    BASELINE_MB
+                    + shared_at_warm
+                    + infl_iso
+                    + books
+                    + n * (per_user + remainder)
+                )
             keys[f"today_{n}_{label}"] = fmt(today)
             keys[f"e_{n}_{label}"] = fmt(e_total)
             out.append(f"| {n} | {label} | {fmt(today)} | {fmt(e_total)} |")
-    out += ["", "Option E counts the books once. Each figure is an upper bound.", ""]
+    out += [
+        "",
+        "Today: warm RSS plus the measured server step for opening books "
+        "(the first book also builds the inflection lists). Option E: the "
+        "read-only rows, the inflection lists and the books once, plus the "
+        "per-user rows and the unbuilt remainder for each user. Each figure "
+        "is an upper bound.",
+        "",
+    ]
 
     # ---- ranking
     def total(names_: list[str]) -> float | None:

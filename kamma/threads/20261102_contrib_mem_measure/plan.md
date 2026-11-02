@@ -111,50 +111,50 @@ Run every command from `/home/bodhirasa/MyFiles/3_Active/dpd-db`. Other sessions
 
 ## Phase 3 — Server readings — WHO: SERVER AGENT (with MAINTAINER)
 
-- [ ] 3.0 **WHO: MAINTAINER.** `ssh epitaka 'mkdir -p ~/mem && echo "# Results — contrib_mem_measure" > ~/mem/results.md'`, then `rsync --bwlimit=400 /home/bodhirasa/MyFiles/3_Active/dpd-db/kamma/threads/20261102_contrib_mem_measure/artifacts/mem_probe.py /home/bodhirasa/MyFiles/3_Active/dpd-db/kamma/threads/20261102_contrib_mem_measure/artifacts/mem_stats.py /home/bodhirasa/MyFiles/3_Active/dpd-db/kamma/threads/20261102_contrib_mem_measure/spec.md /home/bodhirasa/MyFiles/3_Active/dpd-db/kamma/threads/20261102_contrib_mem_measure/plan.md epitaka:~/mem/`. Start the agent in `~/mem`.
+- [x] 3.0 **WHO: MAINTAINER.** `ssh epitaka 'mkdir -p ~/mem && echo "# Results — contrib_mem_measure" > ~/mem/results.md'`, then `rsync --bwlimit=400 /home/bodhirasa/MyFiles/3_Active/dpd-db/kamma/threads/20261102_contrib_mem_measure/artifacts/mem_probe.py /home/bodhirasa/MyFiles/3_Active/dpd-db/kamma/threads/20261102_contrib_mem_measure/artifacts/mem_stats.py /home/bodhirasa/MyFiles/3_Active/dpd-db/kamma/threads/20261102_contrib_mem_measure/spec.md /home/bodhirasa/MyFiles/3_Active/dpd-db/kamma/threads/20261102_contrib_mem_measure/plan.md epitaka:~/mem/`. Start the agent in `~/mem`.
       → verify: `ssh epitaka 'ls ~/mem'` lists the five files.
-- [ ] 3.1 **WHO: SERVER AGENT.** Readings now:
+- [x] 3.1 **WHO: SERVER AGENT.** Readings now:
       `cd ~/dpd-db && PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=. ~/.local/bin/uv run --no-sync ~/mem/mem_probe.py --unit-readings dpd-gui@alice --label now >> ~/mem/readings.jsonl; tail -n 3 ~/mem/readings.jsonl`
       **EXPECT:** one JSON object per python process, with `label` `now` and numbers for VmRSS, VmHWM, VmSwap, Threads and Pss (no range check: the value depends on how long the unit has run). An `error` line: STOP. Append the line, with a heading `## 3.1 Now`, to `~/mem/results.md`.
-- [ ] 3.2 **WHO: SERVER AGENT.** The server's database, tools and inputs (read-only):
+- [x] 3.2 **WHO: SERVER AGENT.** The server's database, tools and inputs (read-only):
       `ls -l ~/dpd-db/dpd.db ~/dpd-db/shared_data/frequency/cst_file_freq.json`
       `cd ~/dpd-db && PYTHONDONTWRITEBYTECODE=1 ~/.local/bin/uv run --no-sync python -c "import sqlite3; c=sqlite3.connect('file:dpd.db?mode=ro', uri=True); print(c.execute('select count(*) from dpd_headwords').fetchone(), c.execute(\"select count(*) from dpd_headwords where freq_data is not null and freq_data != ''\").fetchone())"`
       `command -v agy || echo NO_AGY; command -v sqlite3 || echo NO_SQLITE3`
       and `ls` of the files `books.md` names for the server book.
       **EXPECT:** sizes, two counts (the laptop has 88,805 non-empty), the tool lines, and every file of the server book present. If a file of the server book is missing, STOP and ask the maintainer to name another of the four. Append under `## 3.2 Database and tools`.
-- [ ] 3.3 **WHO: SERVER AGENT, maintainer's yes.** Check the cap works as root, then copy the database with low I/O priority:
+- [x] 3.3 **WHO: SERVER AGENT, maintainer's yes.** Check the cap works as root, then copy the database with low I/O priority:
       `systemd-run --scope -q -p MemoryMax=100M -p MemorySwapMax=0 true; echo "exit=$?"`
       `ionice -c3 nice -n 19 sqlite3 /root/dpd-db/dpd.db ".backup /root/mem/dpd_copy.db"` (if 3.2 printed `NO_SQLITE3`: `cd ~/dpd-db && PYTHONDONTWRITEBYTECODE=1 ionice -c3 nice -n 19 ~/.local/bin/uv run --no-sync python -c "import sqlite3; s=sqlite3.connect('file:dpd.db?mode=ro', uri=True); d=sqlite3.connect('/root/mem/dpd_copy.db'); s.backup(d); d.close()"`)
       `ls -l ~/mem/dpd_copy.db; df -h ~ | tail -1`
       **EXPECT:** `exit=0`; the copy within 5 % of `dpd.db`'s size; at least 3 GB free. Otherwise STOP.
-- [ ] 3.4 **WHO: SERVER AGENT + MAINTAINER, maintainer's yes and chosen time.** Fresh start in phases. The maintainer confirms alice has no unsaved form input. One step at a time; each reading is the 3.1 command with the label shown, appended to `~/mem/readings.jsonl`:
+- [x] 3.4 **WHO: SERVER AGENT + MAINTAINER, maintainer's yes and chosen time.** Fresh start in phases. The maintainer confirms alice has no unsaved form input. One step at a time; each reading is the 3.1 command with the label shown, appended to `~/mem/readings.jsonl`:
       1. Agent: `sudo systemctl restart dpd-gui@alice; sleep 15`; reading with `--label plus15s`.
       2. Maintainer: opens `https://187-126-118-33.sslip.io/alice/` and tells the agent when "Database loaded." shows. Reading `--label db_loaded`.
       3. Maintainer tells the agent when "All tabs and tools ready." shows. Reading `--label warmup_done`.
       4. Maintainer opens Pass1Auto and the server book from `books.md` (Run, let one pass finish or press Stop) and tells the agent. Reading `--label one_book`.
       **EXPECT:** four readings, RSS rising at each step. If RSS falls or the unit restarts by itself: STOP. Append a summary of the four to `~/mem/results.md` under `## 3.4`.
-- [ ] 3.5 **WHO: SERVER AGENT + MAINTAINER, maintainer's yes.** Reload test. The maintainer reloads the page once and tells the agent; reading `--label reload1`; repeat for `reload2` and `reload3`. Wait at least 60 s after the restart in 3.4 before the first reload. Then the agent restarts the unit (`sudo systemctl restart dpd-gui@alice`) to drop stale copies. A rise of more than 100 MB per reload is a finding (a leak), not a stop.
+- [x] 3.5 **WHO: SERVER AGENT + MAINTAINER, maintainer's yes.** Reload test. The maintainer reloads the page once and tells the agent; reading `--label reload1`; repeat for `reload2` and `reload3`. Wait at least 60 s after the restart in 3.4 before the first reload. Then the agent restarts the unit (`sudo systemctl restart dpd-gui@alice`) to drop stale copies. A rise of more than 100 MB per reload is a finding (a leak), not a stop.
       **EXPECT:** three readings with labels `reload1`, `reload2`, `reload3`. Append a summary under `## 3.5`.
-- [ ] 3.6 **WHO: MAINTAINER.** Say "go" for the capped run when ready.
+- [x] 3.6 **WHO: MAINTAINER.** Say "go" for the capped run when ready.
       → verify: the maintainer says go.
-- [ ] 3.7 **WHO: SERVER AGENT, maintainer's yes.** The capped run, three times. First stop the unit: `sudo systemctl stop dpd-gui@alice; systemctl is-active dpd-gui@alice` (EXPECT `inactive`). Then, for run 1, 2 and 3 in turn, one command each time (launch and pid file are one line):
+- [x] 3.7 **WHO: SERVER AGENT, maintainer's yes.** The capped run, three times. First stop the unit: `sudo systemctl stop dpd-gui@alice; systemctl is-active dpd-gui@alice` (EXPECT `inactive`). Then, for run 1, 2 and 3 in turn, one command each time (launch and pid file are one line):
       `cd ~/dpd-db && (PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=. nohup systemd-run --scope -q -p MemoryMax=1500M -p MemorySwapMax=0 -- env MALLOC_ARENA_MAX=2 ~/.local/bin/uv run --no-sync ~/mem/mem_probe.py --point staircase --db /root/mem/dpd_copy.db --out ~/mem/server.jsonl >> ~/mem/server_run.log 2>&1 & echo $! > ~/mem/server_run.pid)`
       Wait: `kill -0 "$(cat ~/mem/server_run.pid)" 2>/dev/null && echo RUNNING || echo ENDED; tail -n 3 ~/mem/server_run.log` every 5 minutes, at most 15 minutes per run. After 15 minutes still `RUNNING`: `kill "$(cat ~/mem/server_run.pid)"`, then recovery below.
       Then: `sudo systemctl start dpd-gui@alice; systemctl is-active dpd-gui@alice`.
       **EXPECT:** `inactive` before; three rows in `~/mem/server.jsonl` (outcome `ok`, or `capped`, which is a result); `active` after; no stray python in `ps -eo pid,rss,cmd | grep "[m]em_probe"`. **Recovery on any STOP:** tell the maintainer, then with his yes `sudo systemctl start dpd-gui@alice`, then `systemctl is-active dpd-gui@alice` must print `active`.
-- [ ] 3.8 **WHO: SERVER AGENT. Phase check.** Write `## Phase 3 verdict` in `results.md`: which of 3.1–3.7 met EXPECT, any STOP, the number of server rows by outcome, and whether alice is `active`.
+- [x] 3.8 **WHO: SERVER AGENT. Phase check.** Write `## Phase 3 verdict` in `results.md`: which of 3.1–3.7 met EXPECT, any STOP, the number of server rows by outcome, and whether alice is `active`.
       → verify: the section exists and names every task 3.1–3.7.
 
 ## Phase 4 — Results — WHO: LOCAL AGENT
 
-- [ ] 4.1 **WHO: MAINTAINER.** Copy the server files back:
+- [x] 4.1 **WHO: MAINTAINER.** Copy the server files back:
       `cd /home/bodhirasa/MyFiles/3_Active/dpd-db && mkdir -p kamma/threads/20261102_contrib_mem_measure/artifacts/server && rsync --bwlimit=400 -r epitaka:mem/results.md epitaka:mem/server.jsonl epitaka:mem/readings.jsonl epitaka:mem/server_run.log kamma/threads/20261102_contrib_mem_measure/artifacts/server/`
       → verify (LOCAL AGENT): `ls artifacts/server/` lists the four files.
-- [ ] 4.2 **WHO: LOCAL AGENT.** Run `make_tables.py --laptop artifacts/laptop.jsonl --server artifacts/server/server.jsonl --readings artifacts/server/readings.jsonl --out artifacts/tables.md`. Write `artifacts/results.md` from it: the component table, the two reconciliation rows, the projection (one book and four), the B–F ranking table with sources and columns, the reload-test result, and a paragraph on the laptop-versus-server difference. Effort and risk columns are judgement; say so.
+- [x] 4.2 **WHO: LOCAL AGENT.** Run `make_tables.py --laptop artifacts/laptop.jsonl --server artifacts/server/server.jsonl --readings artifacts/server/readings.jsonl --out artifacts/tables.md`. Write `artifacts/results.md` from it: the component table, the two reconciliation rows, the projection (one book and four), the B–F ranking table with sources and columns, the reload-test result, and a paragraph on the laptop-versus-server difference. Effort and risk columns are judgement; say so.
       → verify: re-run `make_tables.py`; the table blocks in `results.md` equal `tables.md` (`diff` prints nothing). Every number outside the tables cites a row or a server log line.
-- [ ] 4.3 **WHO: LOCAL AGENT.** Corrections list in `results.md`: anything in `kamma/archive/20261101_contrib_6_e2e_server_test/` (for example the "Addendum B" figures, the 2.5 GB comment) or in `kamma/threads/20261030_contrib_x_problem_children/` that the numbers contradict, and the edits proposed for `kamma/threads/20261023_contrib_1_web_server/`. Do not edit those files.
+- [x] 4.3 **WHO: LOCAL AGENT.** Corrections list in `results.md`: anything in `kamma/archive/20261101_contrib_6_e2e_server_test/` (for example the "Addendum B" figures, the 2.5 GB comment) or in `kamma/threads/20261030_contrib_x_problem_children/` that the numbers contradict, and the edits proposed for `kamma/threads/20261023_contrib_1_web_server/`. Do not edit those files.
       → verify: the list exists; each item quotes the old claim and the new number.
-- [ ] 4.4 **WHO: LOCAL AGENT. Phase check.** Re-read `spec.md` "How we'll know it's done" items 1–5 and mark each met or not met in `results.md`.
+- [x] 4.4 **WHO: LOCAL AGENT. Phase check.** Re-read `spec.md` "How we'll know it's done" items 1–5 and mark each met or not met in `results.md`.
       → verify: five lines, each pointing to the file that proves it.
 - [ ] 4.5 **WHO: MAINTAINER.** Commit this thread's folder (the local agent suggests the message); decide which of the B–F options to plan next. Commit nothing outside this folder from this thread.
       → verify: `ls kamma/threads/20261102_contrib_mem_measure/artifacts` lists the probe, the tables, `results.md` and `server/`.
