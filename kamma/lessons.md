@@ -481,3 +481,7 @@
 - 2026-11-02 [CONFUSION] `coderabbit review --committed` refuses `--include-untracked`, so the global rule's flag set failed on the first run. For committed work use `--committed --base-commit <sha>~1`.
 - 2026-11-02 [POSITIVE] Breaking each fix on purpose and counting failing tests showed that one new test (freq_data value) stayed green because the session lazy-loads the column; it was removed.
 - 2026-11-02 [WORKFLOW] An empty result (mn: 0 words) read as a possible bug in the new code; the owner knew mn has no missing words. Ask a quick data question before building a check.
+- 2026-11-02 [WORKFLOW] Started Phase 3's parallel reviews while the Phase 2 memory probe still ran; the code diff was final and the probe only measured, so nothing was reviewed mid-edit and wall time shrank.
+- 2026-11-02 [CONFUSION] This plan's verify line said "five readings" while its own task named four labels — the line was copied from the earlier thread's plan. When a plan reuses an earlier thread's verify wording, recount against what the task itself names.
+- 2026-11-02 [BEHAVIOR] The server check leaned on a journal log string ("App initialized") observed in an earlier thread's run; the current build never logs it. Check log-string evidence against the build under test before the run that depends on it, and line up a fallback.
+- 2026-11-02 [POSITIVE] Owner amendments mid-run (book cp instead of mn, stop after ten words, pressing Stop himself) were folded into plan.md the moment they happened, so the archive matches what was actually measured.

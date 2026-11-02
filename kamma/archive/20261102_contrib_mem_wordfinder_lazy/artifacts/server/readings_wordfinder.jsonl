@@ -1,0 +1,4 @@
+{"label": "plus15s_wf", "pid": 2706254, "vm_rss_mb": 86.4, "vm_hwm_mb": 86.4, "vm_swap_mb": 0.0, "threads": 1, "smaps_rss_mb": 86.4, "smaps_pss_mb": 79.7, "smaps_private_mb": 75.9, "elapsed_s": 22}
+{"label": "warmup_done_wf", "pid": 2706254, "vm_rss_mb": 774.1, "vm_hwm_mb": 774.1, "vm_swap_mb": 0.0, "threads": 4, "smaps_rss_mb": 774.1, "smaps_pss_mb": 767.3, "smaps_private_mb": 763.4, "elapsed_s": 202}
+{"label": "one_book_wf", "pid": 2706254, "vm_rss_mb": 879.2, "vm_hwm_mb": 943.2, "vm_swap_mb": 0.0, "threads": 5, "smaps_rss_mb": 879.2, "smaps_pss_mb": 872.2, "smaps_private_mb": 868.3, "elapsed_s": 534}
+{"label": "after_ctrlf_wf", "pid": 2706254, "vm_rss_mb": 879.2, "vm_hwm_mb": 943.2, "vm_swap_mb": 0.0, "threads": 5, "smaps_rss_mb": 879.2, "smaps_pss_mb": 872.2, "smaps_private_mb": 868.3, "elapsed_s": 634}
