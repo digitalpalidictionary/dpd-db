@@ -1,0 +1,9 @@
+{"label": "now", "pid": 4242, "vm_rss_mb": 1250, "vm_hwm_mb": 1250, "vm_swap_mb": 0, "threads": 20, "smaps_rss_mb": 1250, "smaps_pss_mb": 1240, "smaps_private_mb": 1230, "elapsed_s": 100}
+{"label": "plus15s", "pid": 4242, "vm_rss_mb": 300, "vm_hwm_mb": 300, "vm_swap_mb": 0, "threads": 20, "smaps_rss_mb": 300, "smaps_pss_mb": 290, "smaps_private_mb": 280, "elapsed_s": 100}
+{"label": "db_loaded", "pid": 4242, "vm_rss_mb": 600, "vm_hwm_mb": 600, "vm_swap_mb": 0, "threads": 20, "smaps_rss_mb": 600, "smaps_pss_mb": 590, "smaps_private_mb": 580, "elapsed_s": 100}
+{"label": "warmup_done", "pid": 4242, "vm_rss_mb": 1000, "vm_hwm_mb": 1000, "vm_swap_mb": 0, "threads": 20, "smaps_rss_mb": 1000, "smaps_pss_mb": 990, "smaps_private_mb": 980, "elapsed_s": 100}
+{"label": "one_book", "pid": 4242, "vm_rss_mb": 1100, "vm_hwm_mb": 1100, "vm_swap_mb": 0, "threads": 20, "smaps_rss_mb": 1100, "smaps_pss_mb": 1090, "smaps_private_mb": 1080, "elapsed_s": 100}
+{"label": "reload1", "pid": 4242, "vm_rss_mb": 1180, "vm_hwm_mb": 1180, "vm_swap_mb": 0, "threads": 20, "smaps_rss_mb": 1180, "smaps_pss_mb": 1170, "smaps_private_mb": 1160, "elapsed_s": 100}
+{"label": "reload2", "pid": 4242, "vm_rss_mb": 1300, "vm_hwm_mb": 1300, "vm_swap_mb": 0, "threads": 20, "smaps_rss_mb": 1300, "smaps_pss_mb": 1290, "smaps_private_mb": 1280, "elapsed_s": 100}
+{"label": "reload3", "pid": 4242, "vm_rss_mb": 1330, "vm_hwm_mb": 1330, "vm_swap_mb": 0, "threads": 20, "smaps_rss_mb": 1330, "smaps_pss_mb": 1320, "smaps_private_mb": 1310, "elapsed_s": 100}
+{"label": "warmup_done", "pid": 4243, "vm_rss_mb": 40, "vm_hwm_mb": 40, "vm_swap_mb": 0, "threads": 20, "smaps_rss_mb": 40, "smaps_pss_mb": 30, "smaps_private_mb": 20, "elapsed_s": 100}
