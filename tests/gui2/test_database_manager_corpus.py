@@ -502,3 +502,69 @@ def test_contributor_inflection_sets_rebuild_only_after_stale(
     db_manager.mark_corpus_stale()
     db_manager.make_inflections_lists()
     assert "magga" in db_manager.all_inflections
+
+
+def test_contributor_inflection_sets_wait_for_the_corpus_lock(
+    db_manager: DatabaseManager, contributor: None
+):
+    finished = threading.Event()
+
+    def build() -> None:
+        db_manager.make_inflections_lists()
+        finished.set()
+
+    builder = threading.Thread(target=build)
+    with db_manager._corpus_lock:
+        builder.start()
+        assert not finished.wait(0.3)
+    assert finished.wait(5)
+    builder.join()
+
+
+def test_contributor_inflection_sets_notice_a_stale_mark_during_the_build(
+    db_manager: DatabaseManager,
+    engine_and_session: tuple[Engine, Session],
+    contributor: None,
+    monkeypatch: pytest.MonkeyPatch,
+):
+    _, session = engine_and_session
+    real_hashed_words = database_manager_module.HashedWords
+    marked: list[bool] = []
+
+    def hashed_words_with_a_refresh(words):
+        if not marked:
+            marked.append(True)
+            db_manager.mark_corpus_stale()
+        return real_hashed_words(words)
+
+    monkeypatch.setattr(
+        database_manager_module, "HashedWords", hashed_words_with_a_refresh
+    )
+    db_manager.make_inflections_lists()
+    session.add(DpdHeadword(id=4, lemma_1="magga 1", pos="masc", inflections="magga"))
+    session.commit()
+
+    db_manager.make_inflections_lists()
+    assert "magga" in db_manager.all_inflections
+
+
+def test_contributor_inflection_sets_include_the_api_ca_eva_iti_column(
+    db_manager: DatabaseManager,
+    engine_and_session: tuple[Engine, Session],
+    contributor: None,
+):
+    _, session = engine_and_session
+    session.add(
+        DpdHeadword(
+            id=4,
+            lemma_1="eva 1",
+            pos="ind",
+            meaning_1="",
+            inflections="eva",
+            inflections_api_ca_eva_iti="evaca",
+        )
+    )
+    session.commit()
+    db_manager.make_inflections_lists()
+    assert "evaca" in db_manager.all_inflections
+    assert "evaca" in db_manager.all_inflections_missing_meaning

@@ -140,29 +140,40 @@ Tasks 3.1 to 3.6 are written now for every lever and pruned at the gate. Each: w
 - [x] 3.8 **Confirm the real code matches the prototype.** Add the variant `contributor_real` to `lever_probe.py` (real `DatabaseManager` in contributor role plus real managers) and run it three times under the cap.
       → verify: its total is within 5 % of `contributor_levers` from Phase 2; if not, find which lever differs before Phase 4.
 
+> REVIEW 2026-11-02 (CodeRabbit `--committed` on 247a8429: 0 findings; pi DeepSeek `deepseek-v4-pro`, thinking max: 6 findings, validated against the code).
+> - FIXED: (1) the contributor inflection build now holds `_corpus_lock`, so it cannot share the session with the warm-up corpus load; (2) `mark_corpus_stale` bumps `_stale_epoch`, and a build that saw a refresh land does not mark its sets fresh; (4) the `_load_contributor_corpus` docstring now names the real reader (Tests tab) and says the DB tab queries its own rows; (6) a test row with an inflection only in `inflections_api_ca_eva_iti`.
+> - Tests added: lock, stale-during-build, api column. Mutation check: lock removed 1 fails; epoch check removed 1 fails; api column dropped 2 fail. A freq_data value test was written and removed: it stayed green when `freq_data` was not loaded (the session lazy-loads it).
+> - NOT REAL: (3) NULL `meaning_1`: the live db has 0 NULLs of 89,774 (25,632 empty, 64,142 filled) and the column is `Mapped[str]`, so NOT NULL.
+> - NOTICED — NOT TOUCHING: (5) `_detector_rebuild_worker` full-loads the corpus. Reachable only by a headless user who saves to the db (contributors save to JSON via `save_router.py`; the DB tab is read-only). A misconfigured primary-user server would lose the saving.
+> - After the fixes: `pytest tests/gui2 tests/tools/test_hashed_words.py` 626 pass; ruff, pyright (`--project /dev/null`) and `just typecheck` clean.
+
 ## Phase 4 — Confirm on the server — WHO: OWNER, LOCAL AGENT, SERVER AGENT
 
-- [ ] 4.1 **WHO: OWNER.** Commit the thread (the local agent suggests the message) and push. The server pulls from `origin`.
+> 4.2 result 2026-11-02: the server agent is the opencode pane `w2:p1` titled "OC | dpd contributor" (not `w1:p1`). The owner pulled; the agent reports commit 247a8429 (same as the laptop), clean tree, `~/mem/mem_probe.py` present, `dpd-gui@alice` active. Written under `## 4.2` in `~/mem/results_savings.md`.
+
+- [x] 4.1 **WHO: OWNER.** Commit the thread (the local agent suggests the message) and push. The server pulls from `origin`.
       → verify: `git log -1 --format=%h` on the laptop and the server show the same commit (the server agent reports its own in 4.2).
-- [ ] 4.2 **WHO: SERVER AGENT.** Via `herdr-remote`: confirm the pane (`herdr pane read w1:p1` through `ssh epitaka '/root/.local/bin/herdr pane read w1:p1'`; the agent must be idle), then send: "Run `cd ~/dpd-db && git pull` once, then `git log -1 --format=%h`. Append the output to `~/mem/results_savings.md`. No other git command."
+- [x] 4.2 **WHO: SERVER AGENT.** Via `herdr-remote`: confirm the pane (`herdr pane read w1:p1` through `ssh epitaka '/root/.local/bin/herdr pane read w1:p1'`; the agent must be idle), then send: "Run `cd ~/dpd-db && git pull` once, then `git log -1 --format=%h`. Append the output to `~/mem/results_savings.md`. No other git command."
       → verify: the agent's report shows the same commit as the laptop; `git status --porcelain` on the server is clean apart from `?? ` files it already had.
-- [ ] 4.3 **WHO: SERVER AGENT, owner's yes first.** Fresh start in phases, as task 3.4 of the earlier thread. The owner confirms alice has no unsaved input and says yes. One step at a time. Each reading is `cd ~/dpd-db && PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=. ~/.local/bin/uv run --no-sync ~/mem/mem_probe.py --unit-readings dpd-gui@alice --label <label> >> ~/mem/readings_savings.jsonl`:
+- [x] 4.3 **WHO: SERVER AGENT, owner's yes first.** Fresh start in phases, as task 3.4 of the earlier thread. The owner confirms alice has no unsaved input and says yes. One step at a time. Each reading is `cd ~/dpd-db && PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=. ~/.local/bin/uv run --no-sync ~/mem/mem_probe.py --unit-readings dpd-gui@alice --label <label> >> ~/mem/readings_savings.jsonl`:
       1. Agent: `sudo systemctl restart dpd-gui@alice; sleep 15`, reading `plus15s`.
       2. Owner opens `https://187-126-118-33.sslip.io/alice/`, tells the agent when "Database loaded." shows. Reading `db_loaded`.
       3. Owner tells the agent when "All tabs and tools ready." shows. Reading `warmup_done`.
       4. Owner opens Pass1Auto and the book `mn` (Run, let one pass finish or press Stop), tells the agent. Reading `one_book`.
       5. Owner opens Pass1Add (the word finder loads there) and tells the agent. Reading `pass1add`.
       **EXPECT:** five readings. If a reading is lower than the one before it, or the unit restarts by itself: STOP.
-- [ ] 4.4 **WHO: SERVER AGENT.** Append a table of the five readings to `~/mem/results_savings.md` under `## 4.3`, with the earlier thread's values beside them (86.5, 718.6, 1,165.9, 1,485.0).
+- [x] 4.4 **WHO: SERVER AGENT.** Append a table of the five readings to `~/mem/results_savings.md` under `## 4.3`, with the earlier thread's values beside them (86.5, 718.6, 1,165.9, 1,485.0).
       → verify: the section exists.
-- [ ] 4.5 **WHO: OWNER.** Copy back: `cd /home/bodhirasa/MyFiles/3_Active/dpd-db && mkdir -p kamma/threads/20261102_contrib_mem_savings/artifacts/server && rsync --bwlimit=400 -r epitaka:mem/results_savings.md epitaka:mem/readings_savings.jsonl kamma/threads/20261102_contrib_mem_savings/artifacts/server/`. (The local agent can run this when the owner says so.)
+- [x] 4.5 **WHO: OWNER.** Copy back: `cd /home/bodhirasa/MyFiles/3_Active/dpd-db && mkdir -p kamma/threads/20261102_contrib_mem_savings/artifacts/server && rsync --bwlimit=400 -r epitaka:mem/results_savings.md epitaka:mem/readings_savings.jsonl kamma/threads/20261102_contrib_mem_savings/artifacts/server/`. (The local agent can run this when the owner says so.)
       → verify: `ls artifacts/server/` lists the two files.
+
+> 4.3 DRIFT 2026-11-02: the agent ran the restart and readings. The local agent opened the page in the owner's Chrome (extension) and ran the `mn` book. `db_loaded` was not taken (9 s before warm-up end). Run1 invalid (extra sessions); labels `_run2` are the result. Table in `artifacts/results.md`.
 
 ## Phase 5 — Results — WHO: LOCAL AGENT
 
-- [ ] 5.1 **Write `artifacts/results.md`:** the lever table (saving per lever, equivalence, built or skipped), the before and after server readings, the new projection for 3, 8 and 16 contributors (baseline 1,066 MB plus N × the new per-instance figure), and what is left (option E when there are more than 8 contributors). Say what the new per-instance figure is for one book and for the Pass1Add case.
+- [x] 5.1 **Write `artifacts/results.md`:** the lever table (saving per lever, equivalence, built or skipped), the before and after server readings, the new projection for 3, 8 and 16 contributors (baseline 1,066 MB plus N × the new per-instance figure), and what is left (option E when there are more than 8 contributors). Say what the new per-instance figure is for one book and for the Pass1Add case.
       → verify: every number is quoted from `laptop.jsonl`, `equivalence.md`, or `artifacts/server/`; the before values equal those in the earlier thread's `results.md`.
-- [ ] 5.2 **Done check.** Re-read "How we'll know it's done" in `spec.md`; mark items 1 to 5 met or not met in `results.md`, each pointing to the file that proves it.
+- [x] 5.2 **Done check.** Re-read "How we'll know it's done" in `spec.md`; mark items 1 to 5 met or not met in `results.md`, each pointing to the file that proves it.
       → verify: five lines, each with a file path.
 - [ ] 5.3 **WHO: OWNER.** Commit the results. Run `/kamma:3-review`, then `/kamma:4-finalize`.
       → verify: `ls kamma/threads/20261102_contrib_mem_savings/artifacts` lists `results.md`, `lever_results.md`, `decision.md` and `server/`.

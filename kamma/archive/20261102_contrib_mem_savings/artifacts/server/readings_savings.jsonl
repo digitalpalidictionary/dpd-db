@@ -1,0 +1,6 @@
+{"label": "plus15s", "pid": 2432036, "vm_rss_mb": 86.5, "vm_hwm_mb": 86.5, "vm_swap_mb": 0.0, "threads": 1, "smaps_rss_mb": 86.5, "smaps_pss_mb": 79.8, "smaps_private_mb": 75.9, "elapsed_s": 18}
+{"label": "warmup_done", "pid": 2432036, "vm_rss_mb": 2059.4, "vm_hwm_mb": 2059.4, "vm_swap_mb": 0.0, "threads": 4, "smaps_rss_mb": 2059.4, "smaps_pss_mb": 2052.5, "smaps_private_mb": 2048.6, "elapsed_s": 182}
+{"label": "plus15s_run2", "pid": 2435317, "vm_rss_mb": 86.5, "vm_hwm_mb": 86.5, "vm_swap_mb": 0.0, "threads": 1, "smaps_rss_mb": 86.5, "smaps_pss_mb": 79.8, "smaps_private_mb": 75.9, "elapsed_s": 39}
+{"label": "warmup_done_run2", "pid": 2435317, "vm_rss_mb": 943.3, "vm_hwm_mb": 943.3, "vm_swap_mb": 0.0, "threads": 3, "smaps_rss_mb": 943.3, "smaps_pss_mb": 936.5, "smaps_private_mb": 932.6, "elapsed_s": 86}
+{"label": "one_book_run2", "pid": 2435317, "vm_rss_mb": 1045.7, "vm_hwm_mb": 1113.4, "vm_swap_mb": 0.0, "threads": 4, "smaps_rss_mb": 1045.7, "smaps_pss_mb": 1038.9, "smaps_private_mb": 1035.0, "elapsed_s": 239}
+{"label": "pass1add_run2", "pid": 2435317, "vm_rss_mb": 1045.7, "vm_hwm_mb": 1113.4, "vm_swap_mb": 0.0, "threads": 4, "smaps_rss_mb": 1045.7, "smaps_pss_mb": 1038.9, "smaps_private_mb": 1035.0, "elapsed_s": 283}

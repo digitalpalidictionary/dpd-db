@@ -63,6 +63,8 @@ Multiple kamma threads regularly run against this repo in the same working tree 
 - Key columns: `id`, `lemma_1` (unique), `pos`, `meaning_1`, `root_key`, `family_root`, `family_compound`, `stem`, `pattern`, `inflections`, `inflections_html`, `construction`
 - JSON pack/unpack: many string columns store JSON — access via `foo_pack(list)` / `foo_unpack` (e.g. `headwords_pack` on `Lookup`).
 - **Empty-string gotcha:** `DpdHeadword.inflections_list_all` yields `""` entries when either inflections column is empty — filter empty strings before using inflections as dict keys or set members.
+- **Contributor corpus is slim:** when `is_headless_server()` is true, `DatabaseManager.load_corpus()` loads only `CONTRIBUTOR_CORPUS_COLUMNS` (plus `freq_data` for headwords with an empty `meaning_1`), and the inflection sets are `HashedWords` (membership only). A new corpus consumer that reads another column must add it there, or it lazy-loads or raises on a contributor server.
+- Driving the live gui2 from the laptop: `playwright-cli attach --extension=chrome` (owner's Chrome, token in `PLAYWRIGHT_MCP_EXTENSION_TOKEN`), then `eval` a click on `flt-semantics-placeholder` so the Flutter page exposes text. Every open page adds a session and its memory, so keep one.
 - Full column docs: `docs/technical/dpd_headwords_table.md`.
 - Weekly, or whenever the model changes, check `db/models.py` matches `docs/technical/dpd_headwords_table.md`. Same cadence for the tree vs `docs/technical/project_folder_structure.md`.
 

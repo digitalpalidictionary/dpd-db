@@ -69,6 +69,9 @@ class DatabaseManager:
     # A contributor builds the inflection sets without the corpus, so the corpus
     # generation counter cannot say when they need rebuilding.
     _inflections_ready: bool = False
+    # Counts mark_corpus_stale() calls, so a build can tell that a refresh landed
+    # while it ran and must not mark its sets as fresh.
+    _stale_epoch: int = 0
 
     def __init__(self, own_sandhi_checked: Path | None = None) -> None:
         self.pth: ProjectPaths = ProjectPaths()
@@ -238,8 +241,10 @@ class DatabaseManager:
         A full row costs about 7.5 KB of Python objects for 59 attributes; this
         keeps 14 (15 for a headword with no meaning). Only rows with no
         meaning_1 carry freq_data, because `has_textual_occurrence` reads it
-        nowhere else. A contributor never opens the tabs that read the other
-        columns (gui2/contributor_tabs.py).
+        nowhere else. Outside this module only the Tests tab reads the corpus
+        (gui2/tests_tab_controller.py), and a contributor cannot open it
+        (gui2/contributor_tabs.py). The DB tab a contributor can open queries its
+        own rows.
         """
         columns = [getattr(DpdHeadword, name) for name in CONTRIBUTOR_CORPUS_COLUMNS]
         query = self.db_session.query(DpdHeadword)
@@ -258,6 +263,7 @@ class DatabaseManager:
         (and the sets derived from it) sees fresh data."""
         self._corpus_stale = True
         self._inflections_ready = False
+        self._stale_epoch += 1
 
     def get_all_roots(self) -> None:
         roots = self.db_session.query(DpdRoot.root).distinct().all()
@@ -422,8 +428,6 @@ class DatabaseManager:
         """The same two sets, as compact hash arrays built from the columns
         alone: the sets hold 1.6 million words (about 270 MB as Python
         strings, 13 MB as hashes) and nothing reads more than `in`."""
-        if self._inflections_ready:
-            return
 
         def words(meaning_empty_only: bool) -> Iterator[str]:
             query = self.db_session.query(
@@ -435,11 +439,17 @@ class DatabaseManager:
                 yield from inflections.split(",")
                 yield from api_ca_eva_iti.split(",")
 
-        self.all_inflections = HashedWords(words(meaning_empty_only=False))
-        self.all_inflections_missing_meaning = HashedWords(
-            words(meaning_empty_only=True)
-        )
-        self._inflections_ready = True
+        # The lock keeps these queries off the shared session while the warm-up
+        # thread loads the corpus on it.
+        with self._corpus_lock:
+            if self._inflections_ready:
+                return
+            epoch = self._stale_epoch
+            self.all_inflections = HashedWords(words(meaning_empty_only=False))
+            self.all_inflections_missing_meaning = HashedWords(
+                words(meaning_empty_only=True)
+            )
+            self._inflections_ready = epoch == self._stale_epoch
 
     def get_related_dict_entries(self, word_in_text) -> list[str]:
         """Get all the possible lemma, pos meaning for a word."""
