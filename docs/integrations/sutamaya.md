@@ -1,39 +1,36 @@
----
-search:
-  exclude: true
-robots: noindex
----
+# sutamaya
 
-# Sutamaya
+[sutamaya](https://sutamaya.org/){target="_blank"} is a study app for the Pāḷi suttas. It shows Bhikkhu Sujato's English translation from SuttaCentral, with the Pāḷi under each line. Tap any Pāḷi word and a cut-down version of DPD opens at the bottom of the screen.
 
-[Sutamaya](https://sutamaya.org/){target="_blank"} is a reader for the early Buddhist suttas that works offline. It shows Bhikkhu Sujato's English translation from SuttaCentral, with the Pāḷi under each line. Tap any Pāḷi word and a cut-down version of DPD opens at the bottom of the screen.
+If you like reading on SuttaCentral but want a quieter place to study, with your own lists, highlights and notes, this is worth a look. It works offline, needs no account and has no ads.
 
-If you like reading on SuttaCentral but want a different interface, with your own lists, highlights and notes, this is worth a look.
+## sutamaya has
 
-## Sutamaya has
-
-- the SuttaCentral texts, with Bhikkhu Sujato's English and the Pāḷi line by line
+- Bhikkhu Sujato's English, with the Pāḷi line by line
+- Bhikkhu Bodhi's and Ṭhānissaro Bhikkhu's translations as alternatives, where they exist
 - search by sutta number, title or Pāḷi
 - highlights in three colours, notes and tags
 - lists of suttas, which you can group into folders
 - a choice of themes, typefaces and text sizes
 
-![main view](../pics/sutamaya/main-view-light.png#only-light)
-![main view](../pics/sutamaya/main-view-dark.png#only-dark)
+![the library](../pics/sutamaya/library-phone-light.png#only-light){width="360"}
+![the library](../pics/sutamaya/library-phone-dark.png#only-dark){width="360"}
 
-## Use It
+## Install
 
-Sutamaya runs in your web browser, on a phone, a tablet or a computer. Open [app.sutamaya.org](https://app.sutamaya.org/){target="_blank"} and start reading. There is nothing to install and you do not need an account.
+sutamaya is available for
 
-<!-- iPhone / iPad / Android: no store link found yet. The code has native builds, but no store listing is public. -->
-
-Your browser may offer to install it on your device as an app. Use that option if you want an icon on your home screen.
+- **iPhone and iPad** from the [App Store](https://apps.apple.com/app/id6812033523){target="_blank"}
+- **Android** from the [Play Store](https://play.google.com/store/apps/details?id=org.sutamaya.app){target="_blank"}
+- **Any web browser** at [app.sutamaya.org](https://app.sutamaya.org/){target="_blank"}. There is nothing to install and you do not need an account.
 
 Signing in is optional. If you do, your lists, notes, highlights and reading history sync across your devices. You can sign in with Apple, Google or a code sent to your email.
 
 ## Reading Offline
 
-Sutamaya keeps the suttas you read on your device. To read without a connection, you can also download the whole canon and the dictionary. Open **Settings** to do this.
+The iPhone, iPad and Android apps carry the whole canon, the dictionary and search. They work offline from the first launch.
+
+In a browser, sutamaya keeps the suttas you open on your device. To read without a connection, open **Settings** and download all the suttas. This is about 16 MB, including the dictionary and search.
 
 ## Show the Pāḷi
 
@@ -57,21 +54,22 @@ The same tab sets the theme (light, dark or sepia), the text size, the line heig
 
 DPD is on by default. To look up a word, tap it in the Pāḷi line.
 
-![looking up a word](../pics/sutamaya/lookup-light.png#only-light)
-![looking up a word](../pics/sutamaya/lookup-dark.png#only-dark)
+![looking up a word](../pics/sutamaya/lookup-phone-light.png#only-light){width="360"}
+![looking up a word](../pics/sutamaya/lookup-phone-dark.png#only-dark){width="360"}
 
-A panel opens at the bottom of the screen. It lists each DPD entry for the word, with the part of speech, the meaning, the literal meaning, and the root and construction in brackets. When a word has several entries, they are numbered. Use the arrows to go to the previous or next word in the text.
+A panel opens at the bottom of the screen. It lists each DPD entry for the word, with the part of speech, the meaning, the literal meaning, and the construction in brackets. When a word has several entries, they are numbered. Use the arrows to go to the previous or next word in the text.
 
-On a phone, the panel takes the lower part of the screen.
+If DPD's deconstructor splits the word, sutamaya shows the split first, then the meanings of each part. If DPD points a variant spelling to another headword, the meanings of that headword show under its own name.
 
-![looking up a word on a phone](../pics/sutamaya/lookup-phone-light.png#only-light){width="360"}
-![looking up a word on a phone](../pics/sutamaya/lookup-phone-dark.png#only-dark){width="360"}
+## What Is Not in the Panel
 
-Sutamaya does not show the whole of DPD. Its dictionary has only the words that appear in these texts, and only the short lines you see in the panel. For the full entry, look the word up in DPD itself.
+sutamaya does not show the whole of DPD. Its dictionary has only the words that appear in its texts. It has no roots, inflection tables, examples, frequency or other scripts. For the full entry, look the word up in DPD itself.
 
 ## Get The Latest Version of DPD
 
-The dictionary in Sutamaya is built from a DPD release by the developer. It does not update by itself. A new DPD release reaches the app when the developer rebuilds the dictionary.
+The dictionary in sutamaya is built from a DPD release by the developer. It is not tied to each monthly release.
+
+When the developer imports a new release, it reaches the browser version on your next visit. The iPhone, iPad and Android apps get it in the background, without a store update.
 
 ## Walkthrough Videos
 
@@ -80,8 +78,8 @@ The dictionary in Sutamaya is built from a DPD release by the developer. It does
 
 ## More Info
 
-The Pāḷi and the English come from [SuttaCentral](https://suttacentral.net/){target="_blank"}. Sutamaya makes some editorial changes to the English, and [lists them on GitHub](https://github.com/gbbr/sutamaya.org/blob/main/docs/translation-changes.md){target="_blank"}.
+The Pāḷi and the English come from [SuttaCentral](https://suttacentral.net/){target="_blank"}. sutamaya makes some editorial changes to the English, and [lists them on GitHub](https://github.com/gbbr/sutamaya.org/blob/main/docs/translation-changes.md){target="_blank"}. Bhikkhu Bodhi's translations also come from SuttaCentral, and Ṭhānissaro Bhikkhu's from [dhammatalks.org](https://www.dhammatalks.org/){target="_blank"}.
 
-Sutamaya is freely available. The code is open source under the MIT licence, at [github.com/gbbr/sutamaya.org](https://github.com/gbbr/sutamaya.org){target="_blank"}. Go and give it a star ⭐.
+sutamaya is made and kept up by one developer, [Gabriel Aszalos](https://github.com/gbbr){target="_blank"}. The code is open source under the MIT licence, at [github.com/gbbr/sutamaya.org](https://github.com/gbbr/sutamaya.org){target="_blank"}. Go and give it a star ⭐.
 
-Please report bugs on [the issues page](https://github.com/gbbr/sutamaya.org/issues){target="_blank"}, or email [metta@sutamaya.org](mailto:metta@sutamaya.org).
+For help, see [the help page](https://app.sutamaya.org/help){target="_blank"}. Please report bugs on [the issues page](https://github.com/gbbr/sutamaya.org/issues){target="_blank"}, or email [namo@sutamaya.org](mailto:namo@sutamaya.org).

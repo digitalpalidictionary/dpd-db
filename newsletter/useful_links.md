@@ -21,6 +21,7 @@ DPD is integrated into these apps:
 [ePitaka](https://epitaka.org/): [Windows](https://apps.microsoft.com/detail/9nr3sjfr6cf9) | [Mac | Linux](https://github.com/dhammanana/epitaka_app/releases) | [Android](https://play.google.com/store/apps/details?id=com.dn.epitaka) | [Docs](https://digitalpalidictionary.github.io/integrations/epitaka/)
 [Pāli Practice](https://www.dhammabytes.org/pali-practice/): [Win | Mac | Linux](https://github.com/DhammaBytes/PaliPractice/releases) | [Android](https://play.google.com/store/apps/details?id=org.dhammabytes.palipractice) | [iOS](https://apps.apple.com/us/app/p%C4%81li-practice/id6742040410)
 [Simsapa Dhamma Reader](https://simsapa.github.io/) | [Docs](https://digitalpalidictionary.github.io/integrations/simsapa/)
+[sutamaya](https://sutamaya.org/): [Web](https://app.sutamaya.org/) | [iOS](https://apps.apple.com/app/id6812033523) | [Android](https://play.google.com/store/apps/details?id=org.sutamaya.app) | [Docs](https://digitalpalidictionary.github.io/integrations/sutamaya/)
 [Tipiṭaka Pali Reader](https://americanmonk.org/tipitaka-pali-reader/): [All Operating Systems](https://americanmonk.org/tipitaka-pali-reader/) | [Docs](https://digitalpalidictionary.github.io/integrations/tpr/)
 
 **Websites**
