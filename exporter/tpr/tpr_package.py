@@ -21,14 +21,21 @@ from zipfile import ZIP_DEFLATED, ZipFile
 
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword, FamilyCompound, FamilyRoot, Lookup
+from exporter.goldendict.helpers import TODAY
 from exporter.tpr import tpr_exporter as tpr
 from tools.headwords_clean_set import make_clean_headwords_set
 from tools.pali_sort_key import pali_list_sorter, pali_sort_key
 from tools.paths import ProjectPaths
+from tools.configger import config_test
 from tools.printer import printer as pr
+from tools.uposatha_day import UposathaManger
 
 PACKAGE_ID = "dpd"
 PACKAGE_FORMAT = 1
+
+# Where TPR downloads the package: the `dpd` release of tpr_downloads, to
+# which the release workflow uploads it (jsdelivr refuses files over 20 MB).
+RELEASE_URL = "https://github.com/bksubhuti/tpr_downloads/releases/download/dpd/dpd.pkg.zip"
 
 # The tables TPR has had since the .sql downloads, emptied and refilled.
 BASE_TABLES = {
@@ -335,14 +342,39 @@ def report(out: Path) -> None:
     print(json.dumps(counts, indent=2, ensure_ascii=False))
 
 
+def update_download_list(zip_path: Path) -> None:
+    """Point the TPR download list at today's package.
+
+    Only download_list_2.json: download_list.json is read by TPR versions too
+    old to install a package. The entry is found by its file name and moved
+    under the heading for the builds that can install it.
+    """
+    pr.green_tmr("updating the tpr download list")
+    list_path = ProjectPaths().tpr_download_list_2_path
+    if not list_path.exists():
+        pr.no("no tpr_downloads")
+        return
+    entry = {
+        "name": f"DPD {TODAY.strftime('%B')} {TODAY.year} All-in-One with Extras",
+        "release_date": f"{TODAY.day}.{TODAY.month}.{TODAY.year}",
+        "type": "package",
+        "category": "For build 129 and above",
+        "url": RELEASE_URL,
+        "filename": zip_path.name,
+        "size": f"{zip_path.stat().st_size / 1000 / 1000:.1f} MB",
+    }
+    tpr._update_download_list(list_path, entry, "/dpd/dpd.pkg.zip")
+    pr.yes("OK")
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--db", type=Path, default=ProjectPaths().dpd_db_path)
     parser.add_argument(
         "--version",
         type=int,
-        required=True,
-        help="package version, the DPD release date as yyyymmdd",
+        help="package version, yyyymmdd; by default today, for a release made "
+        "on an uposatha day by the workflow",
     )
     parser.add_argument(
         "--out", type=Path, default=Path("exporter/tpr/output/dpd.pkg.db")
@@ -351,6 +383,20 @@ def main() -> None:
 
     pr.tic()
     pr.yellow_title("building the tpr package")
+
+    # Run by hand with --version, it builds whenever asked. Run by the
+    # release workflow, as the tpr exporter is, only for a release: there is
+    # no beta package.
+    if args.version is None:
+        if not config_test("exporter", "make_tpr", "yes"):
+            pr.green_title("disabled in config.ini")
+            pr.toc()
+            return
+        if not UposathaManger.uposatha_today():
+            pr.green_title("no release today")
+            pr.toc()
+            return
+    version = args.version or int(TODAY.strftime("%Y%m%d"))
     args.out.parent.mkdir(parents=True, exist_ok=True)
 
     g = GlobalVars(args.db)
@@ -360,9 +406,11 @@ def main() -> None:
     make_i2h(g)
     make_grammar(g)
     make_extras(g)
-    write_package(g, args.out, args.version)
-    zip_package(args.out)
+    write_package(g, args.out, version)
+    zip_path = zip_package(args.out)
     report(args.out)
+    if args.version is None:
+        update_download_list(zip_path)
     pr.toc()
 
 

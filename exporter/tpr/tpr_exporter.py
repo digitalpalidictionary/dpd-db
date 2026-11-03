@@ -316,9 +316,9 @@ def tpr_updater(g: GlobalVars) -> None:
 
 
 def _tpr_download_url(filename: str) -> str:
-    # jsdelivr mirrors github raw content and is not blocked in Myanmar, unlike
-    # raw.githubusercontent.com / github.com/.../raw/...
-    return f"https://cdn.jsdelivr.net/gh/bksubhuti/tpr_downloads@master/release_zips/{filename}"
+    # The zips are over jsdelivr's 20 MB limit, so they are served from the
+    # `dpd` release of tpr_downloads; the workflow uploads them there.
+    return f"https://github.com/bksubhuti/tpr_downloads/releases/download/dpd/{filename}"
 
 
 def _update_download_list(
@@ -386,14 +386,15 @@ def copy_zip_to_tpr_downloads(g: GlobalVars, version: str) -> None:
             "name": f"DPD {month_str} {year} release",
             "release_date": f"{day}.{month}.{year}",
             "type": "dictionary",
-            "category": "Dictionaries",
+            # TPR build 129 on takes the package made by tpr_package.py
+            "category": "Legacy (build 128 or lower)",
             "url": _tpr_download_url("dpd.zip"),
             "filename": "dpd.zip",
             "size": f"{filesize} MB",
         }
 
         for list_path in download_lists:
-            _update_download_list(list_path, dpd_info, "release_zips/dpd.zip")
+            _update_download_list(list_path, dpd_info, "/dpd/dpd.zip")
 
     if version == "beta":
         output_file = g.pth.tpr_beta_path
@@ -404,14 +405,14 @@ def copy_zip_to_tpr_downloads(g: GlobalVars, version: str) -> None:
             "name": "DPD Beta",
             "release_date": f"{day}.{month}.{year}",
             "type": "dictionary",
-            "category": "Other Beta",
+            "category": "Legacy (build 128 or lower)",
             "url": _tpr_download_url("dpd_beta.zip"),
             "filename": "dpd.zip",
             "size": f"{filesize} MB",
         }
 
         for list_path in download_lists:
-            _update_download_list(list_path, dpd_beta_info, "release_zips/dpd_beta.zip")
+            _update_download_list(list_path, dpd_beta_info, "/dpd/dpd_beta.zip")
 
     pr.yes(version)
 

@@ -349,6 +349,38 @@ jobs:
       continue-on-error: true
       run: uv run python exporter/tpr/tpr_exporter.py
 
+    # The all-in-one package for TPR build 129 on (DPD with its extras), from
+    # the same dpd.db; made on release days only.
+    - name: Run TPR Package Exporter
+      id: tpr_package
+      if: steps.submodule_gate.outputs.run == 'true' && steps.sync_submodules.outcome == 'success'
+      continue-on-error: true
+      run: uv run python exporter/tpr/tpr_package.py
+
+    # TPR downloads the zips from the `dpd` release of tpr_downloads: they are
+    # over jsdelivr's 20 MB limit. Uploaded before the download list that points
+    # at them is pushed; not on a dry run.
+    - name: Upload TPR files to the tpr_downloads release
+      id: tpr_upload
+      if: steps.submodule_gate.outputs.run == 'true' && inputs.push_dry_run != true && steps.tpr.outcome == 'success'
+      continue-on-error: true
+      env:
+        GH_TOKEN: ${{ secrets.GH_PAT }}
+      run: |
+        set -euo pipefail
+        files=()
+        for f in resources/tpr_downloads/release_zips/dpd.zip \
+                 resources/tpr_downloads/release_zips/dpd_beta.zip \
+                 exporter/tpr/output/dpd.pkg.zip; do
+          # only what this run made
+          if [ -f "$f" ] && [ -n "$(find "$f" -mmin -180)" ]; then files+=("$f"); fi
+        done
+        if [ ${#files[@]} -eq 0 ]; then
+          echo "Nothing made for TPR today"
+          exit 0
+        fi
+        gh release upload dpd "${files[@]}" --clobber -R bksubhuti/tpr_downloads
+
     # Pack each submodule's changed files for the push-submodules job, which runs
     # after the release exists. Deletions cannot be carried in a tarball, so a leg
     # that staged one is refused.
@@ -361,7 +393,8 @@ jobs:
         SYNC_OUTCOME: ${{ steps.sync_submodules.outcome }}
         OUT_TBW: ${{ steps.tbw.outcome }}
         OUT_SC: ${{ steps.sc.outcome }}
-        OUT_TPR: ${{ steps.tpr.outcome }}
+        # the list is pushed only if the files it points at were uploaded
+        OUT_TPR: ${{ steps.tpr_upload.outcome == 'failure' && 'failure' || steps.tpr.outcome }}
       run: |
         mkdir -p "$GITHUB_WORKSPACE/submodule-out"
         # lets the push job tell "nothing to push" from "artifact missing"

@@ -16,4 +16,5 @@ This subsystem follows an "Aggregated Component Export" pattern:
 - **Artifacts:** Output files are stored in the `output/` subfolder before distribution.
 
 ## Interface
-- **Export All:** `uv run python exporter/tpr/tpr_exporter.py`
+- **Export All:** `uv run python exporter/tpr/tpr_exporter.py` (the legacy `dpd.zip` of SQL, for TPR build 128 or lower)
+- **All-in-One package:** `uv run python exporter/tpr/tpr_package.py` builds `dpd.pkg.zip` for TPR build 129 and above: the dictionary with its inflection, root and compound family, frequency and grammar tables, as one database that installs in a single step. On release days the workflow uploads both zips to the `dpd` release of tpr_downloads and updates the download list. By hand: `--version yyyymmdd`.
