@@ -1,0 +1,15 @@
+# The maintenance-window failure surface: /status on the contributor host.
+# Served behind the maintainer's own login, so the outcome of the last nightly
+# run is visible from a browser without a mail stack. Copied into the site
+# config by hand on the server; STATUS_FILE is written by
+# scripts/server_contrib/maintenance_window.py at the end of every run.
+
+location = /status {
+    # One login for the surface: the maintainer's own contributor account.
+    auth_basic "DPD maintenance status";
+    auth_basic_user_file /etc/nginx/dpd/@MAINTAINER@.htpasswd;
+
+    alias /var/lib/dpd/status.txt;
+    default_type text/plain;
+    add_header Cache-Control "no-store";
+}

@@ -191,6 +191,40 @@ class TestHappyPath:
         assert outcome is Outcome.REBUILT
         assert "rebuild" in calls.names
 
+    def test_status_file_reports_a_rebuild(self, tmp_path: Path):
+        setup = _setup(tmp_path)
+
+        run_maintenance(setup.config, _steps(Calls()))
+
+        status = (setup.config.log_dir / "status.txt").read_text(encoding="utf-8")
+        assert status.startswith("outcome: rebuilt\n")
+        assert f"commit: {setup.head()}" in status
+        assert "problems: 0" in status
+
+    def test_status_file_can_go_where_nginx_can_read_it(self, tmp_path: Path):
+        setup = _setup(tmp_path)
+        setup.config.status_file = tmp_path / "served" / "status.txt"
+        setup.config.status_file.parent.mkdir()
+
+        run_maintenance(setup.config, _steps(Calls()))
+
+        assert setup.config.status_file.read_text(encoding="utf-8").startswith(
+            "outcome: rebuilt\n"
+        )
+        assert not (setup.config.log_dir / "status.txt").exists()
+
+    def test_status_file_reports_a_failure_and_its_reason(self, tmp_path: Path):
+        setup = _setup(tmp_path)
+        steps = _steps(Calls(), rebuild=Calls().step("rebuild", RuntimeError("boom")))
+
+        outcome = run_maintenance(setup.config, steps)
+
+        assert outcome is Outcome.FAILED
+        status = (setup.config.log_dir / "status.txt").read_text(encoding="utf-8")
+        assert status.startswith("outcome: failed\n")
+        assert "problems: 1" in status
+        assert "boom" in status
+
     def test_processed_entries_are_dropped_after_the_pull(self, tmp_path: Path):
         setup = _setup(tmp_path)
         kept, done = _entry("kept"), _entry("done")

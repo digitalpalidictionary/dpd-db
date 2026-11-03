@@ -70,13 +70,13 @@ reconcile, push and rebuild. Every run logs to `logs/maintenance_YYYYMMDD.log`.
 
 ### Run it
 
-Production (cron on the server):
+Production (cron on the server, 01:00 IST on a host in IST):
 
 ```bash
-cd <server clone> && uv run scripts/server_contrib/maintenance_window.py \
-    --data-dir /var/lib/dpd/contrib_data \
-    --instance dpd-gui@alice --instance dpd-gui@bob
+0 1 * * * cd /root/dpd-db && /root/.local/bin/uv run --no-sync scripts/server_contrib/maintenance_window.py --data-dir /var/lib/dpd/contrib_data --instance dpd-gui@alice --status-file /var/lib/dpd/status.txt >> /root/mem/window_cron.log 2>&1
 ```
+
+Add one `--instance` per contributor unit.
 
 Local dry-run (no systemd, no push — safe against a scratch copy):
 
@@ -87,7 +87,29 @@ cd <scratch repo> && uv run scripts/server_contrib/maintenance_window.py --no-sy
 Flags: `--no-systemd`, `--no-push`, `--instance <unit>` (repeatable),
 `--db-path`, `--data-dir` (default: `DPD_GUI2_DATA_DIR`, else `gui2/data`),
 `--worktree` (default: `<project-root>_contrib_worktree`), `--log-dir`,
-`--remote`, `--branch`.
+`--status-file`, `--remote`, `--branch`.
+
+### The failure surface (`/status`)
+
+Every run rewrites `--status-file` (default `<log-dir>/status.txt`) with the
+outcome, the time, the commit and every ERROR/WARNING line of that day's log.
+On the server, point it at a path nginx can read and serve it behind the
+maintainer's own login, so a failed night is visible without a mail stack:
+
+```nginx
+location = /status {
+    auth_basic "DPD maintenance status";
+    auth_basic_user_file /etc/nginx/dpd/<maintainer>.htpasswd;
+    alias /var/lib/dpd/status.txt;
+    default_type text/plain;
+    add_header Cache-Control "no-store";
+}
+```
+
+The block is kept in `nginx_status.conf.template` in this folder. A run that
+cannot write the status file logs `could not write the status file` and still
+finishes normally: the status file never decides the window's outcome.
+
 
 ## The pieces
 

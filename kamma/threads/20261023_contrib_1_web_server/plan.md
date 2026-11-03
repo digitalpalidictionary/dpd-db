@@ -640,11 +640,15 @@ Hostinger India-or-Singapore / Hetzner Singapore — table in spec) and
 domain/subdomain. The user signs up and pays; agent proceeds once SSH access
 exists.
 
-- [ ] 3.1 Provision: Ubuntu 24.04 LTS, 16 GB. Minimal hardening: ssh keys
+- [x] 3.1 Provision: Ubuntu 24.04 LTS, 16 GB. Minimal hardening: ssh keys
       only, ufw (22/80/443), unattended-upgrades. Install git, Go, nginx,
       certbot, uv. Write every command into `scripts/server_contrib/SERVER_SETUP.md`
       as a copy-paste runbook (assume a future from-scratch rebuild).
       → verify: `ssh server 'uv --version && go version && nginx -v'`.
+      Done in practice (2026-10), verified 2026-11-02: Go 1.22.2, nginx 1.24.0,
+      uv at `~/.local/bin/uv` (not on non-login PATH; the unit uses the full
+      path), HTTPS live. The runbook file itself was not kept up — the
+      surviving record is this thread plus the memory threads' artifacts.
 - [ ] 3.2 Repo access: deploy key (read-write) on the server; branch
       protection on main (require PR) so the key cannot land on main; clone +
       init only `resources/sc-data` and `resources/dpd_submodules` (the
@@ -656,6 +660,9 @@ exists.
       resets it to main and uses `--force-with-lease` (contrib_5).
       → verify: from server, `git fetch` works; a force-with-lease push to a
       test branch works; push to main rejected by protection.
+      Status 2026-11-02: clone, deploy access and pulls verified in daily use;
+      branch protection and the contributions-push machinery are not set up —
+      they land with 3.6's window work.
 - [ ] 3.3 First db + THE MEASUREMENT: rsync the user's local dpd.db up (fast
       start), AND run one full server rebuild (`db_rebuild_from_tsv.py` +
       `generate_components.py`) to measure real wall-clock — this number fixes
@@ -665,7 +672,11 @@ exists.
       decision IN THIS FILE.
       → verify: measured time recorded; server dpd.db passes the 2.4 health
       check.
-- [ ] 3.4 systemd template unit `dpd-gui@.service` (reads
+      Status 2026-11-02: the first db is up (the app has served from it since
+      2026-10; 89,774 headwords verified against the live file). A full server
+      rebuild has never run — the wall-clock measurement and the
+      rebuild-vs-pushed-db decision move into 3.6's first manual window run.
+- [x] 3.4 systemd template unit `dpd-gui@.service` (reads
       `/etc/dpd/<user>.env`: username, role, `DPD_GUI2_DATA_DIR`,
       `DPD_GUI2_TABS`, port — the file `add_contributor.sh` writes) + nginx
       from contrib_5's `scripts/server_contrib/nginx_contrib.conf.template`,
@@ -675,11 +686,18 @@ exists.
       HTTPS after a password prompt; wrong password rejected; each password
       opens only its own URL; both sessions work simultaneously; RSS per
       instance recorded IN THIS FILE.
+      Done and re-verified 2026-11-02 (wordfinder thread, phase 4): alice
+      served over HTTPS with password and the right tabs; multi-session
+      behaviour and the per-instance RSS figures (warm 774.1, one book 879.2)
+      are recorded in `kamma/archive/20261102_contrib_mem_wordfinder_lazy/artifacts/`.
 - [ ] 3.5 Onboard a test user with contrib_5's
       `scripts/server_contrib/add_contributor.sh` (the "<10 minutes to onboard
       #3" script), then remove them with the documented removal steps.
       → verify: new URL live with the right tabs; after removal the URL refuses
       and no unit or env file is left.
+      Status 2026-11-02: onboarding proven with alice (URL, tabs and login
+      verified live). The removal drill has not been run — do it before
+      contributor #1, per the "test the removal path" rule.
 - [ ] 3.6 Cron the maintenance window at 01:00 IST + a failure surface the
       user will actually see: window script appends to a status file served at
       an authed nginx path (`/status`) — no mail stack.

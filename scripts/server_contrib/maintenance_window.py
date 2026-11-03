@@ -63,6 +63,9 @@ class WindowConfig:
     remote: str = "origin"
     branch: str = "main"
     push: bool = True
+    # Where the browser-readable outcome goes. Defaults to the log folder,
+    # which only root can read; nginx needs a path it can reach.
+    status_file: Path | None = None
 
 
 @dataclass
@@ -85,6 +88,12 @@ class Rollback:
 # call can't strand the window with instances stopped.
 STEP_TIMEOUT = 3600
 LAST_BUILT_FILE = "last_built_commit"
+
+# The browser-readable failure surface: one small text file the window rewrites
+# at the end of every run, served at /status behind the maintainer's login.
+# Written as a copy-and-replace so a reader never sees a half-written file.
+STATUS_FILE = "status.txt"
+STATUS_SECTIONS = ("error", "warning")
 GIT_TIMEOUT = 300
 
 
@@ -166,6 +175,37 @@ def _make_logger(log_dir: Path) -> logging.Logger:
     logger.addHandler(handler)
     logger.propagate = False
     return logger
+
+
+def _write_status(config: WindowConfig, outcome: Outcome, log: logging.Logger) -> None:
+    """Rewrite the status file with this run's outcome and its problems.
+
+    Read from the day's log rather than kept in memory, so the file cannot
+    disagree with what an operator greps. A failure to write it must never
+    fail the window: the run itself already succeeded or failed on its own.
+    """
+    try:
+        started = datetime.now()
+        log_path = config.log_dir / f"maintenance_{started.strftime('%Y%m%d')}.log"
+        problems = [
+            line.strip()
+            for line in log_path.read_text(encoding="utf-8").splitlines()
+            if any(f" {section.upper()} " in line for section in STATUS_SECTIONS)
+        ]
+        head = _git_head(config.project_root)
+        lines = [
+            f"outcome: {outcome.value}",
+            f"finished: {started.strftime('%Y-%m-%d %H:%M:%S')}",
+            f"commit: {head}",
+            f"problems: {len(problems)}",
+            *problems,
+        ]
+        target = config.status_file or (config.log_dir / STATUS_FILE)
+        temp = target.with_suffix(".tmp")
+        temp.write_text("\n".join(lines) + "\n", encoding="utf-8")
+        temp.replace(target)
+    except Exception as exc:  # never mask the window's own outcome
+        log.error(f"could not write the status file: {exc}")
 
 
 def _systemctl(
@@ -390,6 +430,7 @@ def run_maintenance(config: WindowConfig, steps: WindowSteps | None = None) -> O
     finally:
         _systemctl("start", config.instances, config, log)
         log.info(f"maintenance window end: {outcome.value}")
+        _write_status(config, outcome, log)
     return outcome
 
 
@@ -408,6 +449,7 @@ def _config_from_args(args: argparse.Namespace) -> WindowConfig:
         worktree=args.worktree
         or project_root.parent / f"{project_root.name}_contrib_worktree",
         log_dir=args.log_dir or project_root / "logs",
+        status_file=args.status_file,
         instances=args.instance or [],
         use_systemd=not args.no_systemd,
         remote=args.remote,
@@ -429,6 +471,12 @@ def main() -> None:
         "(default: <project-root>_contrib_worktree beside the clone).",
     )
     parser.add_argument("--log-dir", type=Path, default=None)
+    parser.add_argument(
+        "--status-file",
+        type=Path,
+        default=None,
+        help="Browser-readable outcome file (default: <log-dir>/status.txt)",
+    )
     parser.add_argument("--instance", action="append", help="systemd unit (repeatable)")
     parser.add_argument("--remote", default="origin")
     parser.add_argument("--branch", default="main")
