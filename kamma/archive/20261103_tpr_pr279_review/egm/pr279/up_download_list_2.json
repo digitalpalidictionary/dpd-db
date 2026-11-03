@@ -1,0 +1,380 @@
+[
+    {
+        "name": "DPD October 2026 All-in-One with Extras",
+        "release_date": "26.10.2026",
+        "type": "package",
+        "category": "For build 129 and above",
+        "url": "https://github.com/bksubhuti/tpr_downloads/releases/download/dpd/dpd.pkg.zip",
+        "filename": "dpd.pkg.zip",
+        "size": "61.5 MB"
+    },
+    {
+        "name": "IIT Chanting Book",
+        "release_date": "3.11.2026",
+        "type": "package",
+        "category": "For build 129 and above",
+        "url": "https://github.com/bksubhuti/tpr_downloads/releases/download/packages/chant_iit.pkg.zip",
+        "filename": "chant_iit.pkg.zip",
+        "size": "61 KB"
+    },
+    {
+        "name": "Safeguard Recitals Book, by Ānandajoti Bhikkhu",
+        "release_date": "3.11.2026",
+        "type": "package",
+        "category": "For build 129 and above",
+        "url": "https://github.com/bksubhuti/tpr_downloads/releases/download/packages/chant_safeguards.pkg.zip",
+        "filename": "chant_safeguards.pkg.zip",
+        "size": "126 KB"
+    },
+    {
+        "name": "Daily Chanting Book, by Ānandajoti Bhikkhu",
+        "release_date": "3.11.2026",
+        "type": "package",
+        "category": "For build 129 and above",
+        "url": "https://github.com/bksubhuti/tpr_downloads/releases/download/packages/chant_daily.pkg.zip",
+        "filename": "chant_daily.pkg.zip",
+        "size": "33 KB"
+    },
+    {
+        "name": "Chanting For Meditators Book, by Ānandajoti Bhikkhu",
+        "release_date": "3.11.2026",
+        "type": "package",
+        "category": "For build 129 and above",
+        "url": "https://github.com/bksubhuti/tpr_downloads/releases/download/packages/chant_meditators.pkg.zip",
+        "filename": "chant_meditators.pkg.zip",
+        "size": "39 KB"
+    },
+    {
+        "name": "SBS Chants",
+        "release_date": "3.11.2026",
+        "type": "package",
+        "category": "For build 129 and above",
+        "url": "https://github.com/bksubhuti/tpr_downloads/releases/download/packages/chant_sbs.pkg.zip",
+        "filename": "chant_sbs.pkg.zip",
+        "size": "69 KB"
+    },
+    {
+        "name": "DPD October 2026 release",
+        "release_date": "26.10.2026",
+        "type": "dictionary",
+        "category": "Legacy (build 128 or lower)",
+        "url": "https://github.com/bksubhuti/tpr_downloads/releases/download/dpd/dpd.zip",
+        "filename": "dpd.zip",
+        "size": "23.5 MB"
+    },
+    {
+        "name": "DPD Extras",
+        "release_date": "5.10.2024",
+        "type": "dictionary",
+        "category": "Legacy (build 128 or lower)",
+        "url": "https://cdn.jsdelivr.net/gh/bksubhuti/tpr_downloads@master/release_zips/dpd__extras.zip",
+        "filename": "dpd__extras.zip",
+        "size": "11.4 MB"
+    },
+    {
+        "name": "DPD Beta",
+        "release_date": "25.9.2026",
+        "type": "dictionary",
+        "category": "Legacy (build 128 or lower)",
+        "url": "https://github.com/bksubhuti/tpr_downloads/releases/download/dpd/dpd_beta.zip",
+        "filename": "dpd.zip",
+        "size": "23.5 MB"
+    },
+    {
+        "name": "IIT Chanting Book",
+        "release_date": "18.6.2023",
+        "type": "books",
+        "category": "Legacy (build 128 or lower)",
+        "url": "https://cdn.jsdelivr.net/gh/bksubhuti/tpr_downloads@master/release_zips/iit_chantingbook.zip",
+        "filename": "iit_chantingbook.zip",
+        "size": "1 MB"
+    },
+    {
+        "name": "Safeguard Recitals Book, by Ānandajoti Bhikkhu",
+        "release_date": "25.6.2023",
+        "type": "books",
+        "category": "Legacy (build 128 or lower)",
+        "url": "https://cdn.jsdelivr.net/gh/bksubhuti/tpr_downloads@master/release_zips/Safeguard-Recitals.zip",
+        "filename": "Safeguard-Recitals.zip",
+        "size": "114 KB"
+    },
+    {
+        "name": "Daily Chanting Book, by Ānandajoti Bhikkhu",
+        "release_date": "27.6.2023",
+        "type": "books",
+        "category": "Legacy (build 128 or lower)",
+        "url": "https://cdn.jsdelivr.net/gh/bksubhuti/tpr_downloads@master/release_zips/Daily_Chanting.zip",
+        "filename": "Daily_Chanting.zip",
+        "size": "29 KB"
+    },
+    {
+        "name": "Chanting For Meditators Book, by Ānandajoti Bhikkhu",
+        "release_date": "27.6.2023",
+        "type": "books",
+        "category": "Legacy (build 128 or lower)",
+        "url": "https://cdn.jsdelivr.net/gh/bksubhuti/tpr_downloads@master/release_zips/Chanting_for_Meditators.zip",
+        "filename": "Chanting_for_Meditators.zip",
+        "size": "34 KB"
+    },
+    {
+        "name": "SBS Chants",
+        "release_date": "29.8.2024",
+        "type": "books",
+        "category": "Legacy (build 128 or lower)",
+        "url": "https://cdn.jsdelivr.net/gh/bksubhuti/tpr_downloads@master/release_zips/sbs_pali_recitation.zip.zip",
+        "filename": "sbs_pali_recitation.zip",
+        "size": "58 KB"
+    },
+    {
+        "name": "ePitaka.org English (Full replacement of core texts with Pāḷi / English texts)",
+        "release_date": "24.2.2026",
+        "type": "books index",
+        "category": "Full Translations",
+        "url": "https://github.com/bksubhuti/tpr_downloads/releases/download/ext_122/epitaka_full_en.zip",
+        "filename": "epitaka_full_en.zip",
+        "size": "80.8 MB"
+    },
+    {
+        "name": "ePitaka.org Tiếng Việt (Thay thế toàn bộ các văn bản cốt lõi bằng các văn bản Pāḷi / tiếng Việt)",
+        "release_date": "26.2.2026",
+        "type": "books index",
+        "category": "Full Translations",
+        "url": "https://github.com/bksubhuti/tpr_downloads/releases/download/ext_122/epitaka_viet_full.zip",
+        "filename": "epitaka_full_vn.zip",
+        "size": "91 MB"
+    },
+    {
+        "name": "ePitaka.org සිංහල (මූලික ත්‍රිපිටක ග්‍රන්ථ, පාලි / සිංහල ග්‍රන්ථ මගින් සම්පූර්ණයෙන්ම ප්‍රතිස්ථාපනය කිරීම)",
+        "release_date": "30.8.2026",
+        "type": "books index",
+        "category": "Full Translations",
+        "url": "https://github.com/bksubhuti/tpr_downloads/releases/download/ext_122/epitaka_full_si.zip",
+        "filename": "epitaka_full_si.zip",
+        "size": "85 MB"
+    },
+    {
+        "name": "ePitaka.org မြန်မာ (မူရင်း ပိဋကတ်တော် ကျမ်းစာများကို ပါဠိ / မြန်မာ ကျမ်းစာများဖြင့် အပြည့်အဝ အစားထိုးခြင်း)",
+        "release_date": "30.8.2026",
+        "type": "books index",
+        "category": "Full Translations",
+        "url": "https://github.com/bksubhuti/tpr_downloads/releases/download/ext_122/epitaka_full_my.zip",
+        "filename": "epitaka_full_my.zip",
+        "size": "81 MB"
+    },
+    {
+        "name": "ePitaka.org ภาษาไทย (แทนที่คัมภีร์หลักทั้งหมดด้วยพระคัมภีร์ภาษาบาลี / ไทย)",
+        "release_date": "30.8.2026",
+        "type": "books index",
+        "category": "Full Translations",
+        "url": "https://github.com/bksubhuti/tpr_downloads/releases/download/ext_122/epitaka_full_th.zip",
+        "filename": "epitaka_full_th.zip",
+        "size": "86 MB"
+    },
+    {
+        "name": "ePitaka.org ខ្មែរ (ជំនួសគម្ពីរគោលទាំងស្រុងដោយគម្ពីរបាលី / ខ្មែរ)",
+        "release_date": "30.8.2026",
+        "type": "books index",
+        "category": "Full Translations",
+        "url": "https://www.dropbox.com/scl/fi/61w3zaqltzmk4zyl93nn4/epitaka_full_km.zip?rlkey=q9ldyu139ea4r598yv2iplvv2&st=rygvuw9r&dl=1",
+        "filename": "epitaka_full_km.zip",
+        "size": "51 MB"
+    },
+    {
+        "name": "ePitaka.org 中文（用巴利文 / 中文经文完全替换核心经典）",
+        "release_date": "30.8.2026",
+        "type": "books index",
+        "category": "Full Translations",
+        "url": "https://github.com/bksubhuti/tpr_downloads/releases/download/ext_122/epitaka_full_zh.zip",
+        "filename": "epitaka_full_zh.zip",
+        "size": "72 MB"
+    },
+    {
+        "name": "PEU October 23, 2024 release",
+        "release_date": "23.10.2024",
+        "type": "dictionary",
+        "category": "Dictionaries",
+        "url": "https://cdn.jsdelivr.net/gh/bksubhuti/tpr_downloads@master/release_zips/peu1.zip",
+        "filename": "peu1.zip",
+        "size": "6.9 MB"
+    },
+    {
+        "name": "Worldnet English to English Dictionary",
+        "release_date": "5.12.2022",
+        "type": "dictionary",
+        "category": "Dictionaries",
+        "url": "https://cdn.jsdelivr.net/gh/bksubhuti/tpr_downloads@master/release_zips/worldnet.zip",
+        "filename": "worldnet.zip",
+        "size": "5.8 MB"
+    },
+    {
+        "name": "German Pali English Dictionary",
+        "release_date": "5.12.2022",
+        "type": "dictionary",
+        "category": "Dictionaries",
+        "url": "https://cdn.jsdelivr.net/gh/bksubhuti/tpr_downloads@master/release_zips/g1.zip",
+        "filename": "g1.zip",
+        "size": "0.5 MB"
+    },
+    {
+        "name": "Hindi Pali English Dictionary",
+        "release_date": "5.12.2022",
+        "type": "dictionary",
+        "category": "Dictionaries",
+        "url": "https://cdn.jsdelivr.net/gh/bksubhuti/tpr_downloads@master/release_zips/h1.zip",
+        "filename": "h1.zip",
+        "size": "0.3 MB"
+    },
+    {
+        "name": "Chinese Pali English Dictionary",
+        "release_date": "5.12.2022",
+        "type": "dictionary",
+        "category": "Dictionaries",
+        "url": "https://cdn.jsdelivr.net/gh/bksubhuti/tpr_downloads@master/release_zips/pc1.zip",
+        "filename": "pc1.zip",
+        "size": "0.244 MB"
+    },
+    {
+        "name": "Chinese 2 Pali English Dictionary",
+        "release_date": "5.12.2022",
+        "type": "dictionary",
+        "category": "Dictionaries",
+        "url": "https://cdn.jsdelivr.net/gh/bksubhuti/tpr_downloads@master/release_zips/pc2.zip",
+        "filename": "pc2.zip",
+        "size": "2.0 MB"
+    },
+    {
+        "name": "Vietnamese Pali English Dictionary",
+        "release_date": "5.12.2022",
+        "type": "dictionary",
+        "category": "Dictionaries",
+        "url": "https://cdn.jsdelivr.net/gh/bksubhuti/tpr_downloads@master/release_zips/vn1.zip",
+        "filename": "vn1.zip",
+        "size": "0.300 MB"
+    },
+    {
+        "name": "Vietnamese 2 Pali English Dictionary",
+        "release_date": "5.12.2022",
+        "type": "dictionary",
+        "category": "Dictionaries",
+        "url": "https://cdn.jsdelivr.net/gh/bksubhuti/tpr_downloads@master/release_zips/vn2.zip",
+        "filename": "vn2.zip",
+        "size": "0.07 MB"
+    },
+    {
+        "name": "Visuddhimagga (beta)",
+        "release_date": "21.7.2024",
+        "type": "books",
+        "category": "Beta Extra CST Books",
+        "url": "https://cdn.jsdelivr.net/gh/bksubhuti/tpr_downloads@master/release_zips/annya_visuddhimagga.zip",
+        "filename": "annya_visuddhimagga.zip",
+        "size": "4.8 MB"
+    },
+    {
+        "name": "Leḍī sayāḍo gantha-saṅgaho (beta)",
+        "release_date": "21.7.2024",
+        "type": "books",
+        "category": "Beta Extra CST Books",
+        "url": "https://cdn.jsdelivr.net/gh/bksubhuti/tpr_downloads@master/release_zips/annya_ledi_sayadaw.zip",
+        "filename": "annya_ledi_sayadaw.zip",
+        "size": "0.94 MB"
+    },
+    {
+        "name": "Buddha-vandanā gantha-saṅgaho (beta)",
+        "release_date": "21.7.2024",
+        "type": "books",
+        "category": "Beta Extra CST Books",
+        "url": "https://cdn.jsdelivr.net/gh/bksubhuti/tpr_downloads@master/release_zips/annya_buddha_vandana_gantha_sangaho.zip",
+        "filename": "annya_buddha_vandana_gantha_sangaho.zip",
+        "size": "0.26 MB"
+    },
+    {
+        "name": "Jataka Abhinavatika (beta)",
+        "release_date": "13.9.2025",
+        "type": "books",
+        "category": "Beta Extra CST Books",
+        "url": "https://cdn.jsdelivr.net/gh/bksubhuti/tpr_downloads@master/release_zips/jataka-abhinavatika.zip",
+        "filename": "jataka_01.zip",
+        "size": "1.1 MB"
+    },
+    {
+        "name": "Saṅgāyana-puccha vissajjanā (beta)",
+        "release_date": "21.7.2024",
+        "type": "books",
+        "category": "Beta Extra CST Books",
+        "url": "https://cdn.jsdelivr.net/gh/bksubhuti/tpr_downloads@master/release_zips/annya_sangayana_puccha_vissajjana.zip",
+        "filename": "annya_sangayana_puccha_vissajjana.zip",
+        "size": "1.5 MB"
+    },
+    {
+        "name": "Vaṃsa-gantha-saṅgaho (beta)",
+        "release_date": "21.7.2024",
+        "type": "books",
+        "category": "Beta Extra CST Books",
+        "url": "https://cdn.jsdelivr.net/gh/bksubhuti/tpr_downloads@master/release_zips/annya_vamsa_gantha_sangaho.zip",
+        "filename": "annya_vamsa_gantha_sangaho.zip",
+        "size": "2.1 MB"
+    },
+    {
+        "name": "Byākaraṇa gantha-saṅgaho (beta)",
+        "release_date": "21.7.2024",
+        "type": "books",
+        "category": "Beta Extra CST Books",
+        "url": "https://cdn.jsdelivr.net/gh/bksubhuti/tpr_downloads@master/release_zips/annya_byakarana_gantha_sangaho.zip",
+        "filename": "annya_byakarana_gantha_sangaho.zip",
+        "size": "8.0 MB"
+    },
+    {
+        "name": "Nīti-gantha-saṅgaho (beta)",
+        "release_date": "21.7.2024",
+        "type": "books",
+        "category": "Beta Extra CST Books",
+        "url": "https://cdn.jsdelivr.net/gh/bksubhuti/tpr_downloads@master/release_zips/annya_niti_gantha_sangaho.zip",
+        "filename": "annya_niti_gantha_sangaho.zip",
+        "size": "1.1 MB"
+    },
+    {
+        "name": "Pakiṇṇaka-gantha-saṅgaho (beta)",
+        "release_date": "21.7.2024",
+        "type": "books",
+        "category": "Beta Extra CST Books",
+        "url": "https://cdn.jsdelivr.net/gh/bksubhuti/tpr_downloads@master/release_zips/annya_pakinaka_gantha_sangaho.zip",
+        "filename": "annya_pakinaka_gantha_sangaho.zip",
+        "size": "982K"
+    },
+    {
+        "name": "Sihaḷa-gantha-saṅgaho (beta)",
+        "release_date": "21.7.2024",
+        "type": "books",
+        "category": "Beta Extra CST Books",
+        "url": "https://cdn.jsdelivr.net/gh/bksubhuti/tpr_downloads@master/release_zips/annya_sihala_gantha_sangaho.zip",
+        "filename": "annya_sihala_gantha_sangaho.zip",
+        "size": "2.6 MB"
+    },
+    {
+        "name": "Pācittiya Page 133 fix",
+        "release_date": "11.10.2024",
+        "type": "dictionary",
+        "category": "Other Beta",
+        "url": "https://cdn.jsdelivr.net/gh/bksubhuti/tpr_downloads@master/release_zips/pac_p_133_fix.zip",
+        "filename": "pac_p_133_fix.zip",
+        "size": "1 kb"
+    },
+    {
+        "name": "Tet multiple file zips",
+        "release_date": "06.04.2025",
+        "type": "dictionary",
+        "category": "Other Beta",
+        "url": "https://cdn.jsdelivr.net/gh/bksubhuti/tpr_downloads@master/release_zips/test_sql_files.zip",
+        "filename": "test_sql_files.zip",
+        "size": "26.8 MB"
+    },
+    {
+        "name": "DPD with Russian",
+        "release_date": "11.7.2026",
+        "type": "dictionary",
+        "category": "Other Beta",
+        "url": "https://cdn.jsdelivr.net/gh/bksubhuti/tpr_downloads@master/release_zips/dpd_with_rus.zip",
+        "filename": "dpd.sql",
+        "size": "25.4 MB"
+    }
+]
