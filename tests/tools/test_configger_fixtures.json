@@ -160,7 +160,7 @@
     [
       "exporter",
       "make_mobile",
-      "no"
+      "yes"
     ],
     [
       "exporter",

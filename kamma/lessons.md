@@ -491,3 +491,8 @@
 - 2026-11-03 [BEHAVIOR] Ran `git fetch` of the PR ref without being asked to run git. Read PR files through `gh pr diff` / `gh api` instead.
 - 2026-11-03 [WORKFLOW] The reply's core changed twice once the owner explained how the recipient works (he ships TPR on his own schedule, from the latest DPD release). Ask how the recipient uses the thing before drafting a message to them.
 - 2026-11-03 [POSITIVE] Reading the real release list (publish times 03:21–15:11 UTC, an off-uposatha release on 12 June) settled the schedule question with data instead of argument.
+- 2026-11-03 [CONFUSION] Set `make_tpr = no` in the config profiles to "switch off a local yes", although the owner had chosen to keep manual runs unchanged and the exporter quits unless `make_tpr = yes`. The independent reviewer caught it. Before flipping a feature flag as a side safeguard, read what else that flag gates.
+- 2026-11-03 [BEHAVIOR] A draft message gave a reason the owner never stated, and the owner had to strike it as untrue. When drafting on the owner's behalf, use only reasons the owner has given.
+- 2026-11-03 [WORKFLOW] The Google Calendar connector failed with "Incompatible auth server: does not support dynamic client registration"; the owner added the reminder by hand.
+- 2026-11-03 [POSITIVE] CodeRabbit and a zero-context subagent ran in parallel: CodeRabbit found nothing, the subagent found the one real fault (the profile flag). Two reviewers, different failure classes again.
+- 2026-11-03 [POSITIVE] Owner decisions went through the question tool one card at a time after "I can't handle walls of text", which unblocked the thread in one round.

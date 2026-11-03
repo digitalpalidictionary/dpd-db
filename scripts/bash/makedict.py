@@ -17,7 +17,6 @@ COMMANDS: list[str] = [
     "exporter/variants/variants_exporter.py",
     # Additional exporters
     "exporter/mobile/mobile_exporter.py --cone",
-    "exporter/tpr/tpr_exporter.py",
     "exporter/epitaka/epitaka_exporter.py",
     "exporter/kindle/kindle_exporter.py",
     "exporter/tbw/tbw_exporter.py",

@@ -4,7 +4,7 @@ on:
  workflow_dispatch:
   inputs:
     push_submodules:
-      description: "Run exporters and push to fdg_dpd, bw2, sc-data, tpr_downloads (uposatha days only)"
+      description: "Run exporters and push to fdg_dpd, bw2, sc-data (uposatha days only)"
       type: boolean
       required: false
       default: false
@@ -100,7 +100,7 @@ jobs:
       continue-on-error: true
       shell: bash
       run: |
-        for entry in resources/fdg_dpd:main resources/bw2:main resources/sc-data:main resources/tpr_downloads:master; do
+        for entry in resources/fdg_dpd:main resources/bw2:main resources/sc-data:main; do
           path="${entry%%:*}"
           branch="${entry##*:}"
           echo "Syncing $path to origin/$branch"
@@ -343,12 +343,6 @@ jobs:
       continue-on-error: true
       run: uv run python exporter/sutta_central/sutta_central_exporter.py
 
-    - name: Run TPR Exporter
-      id: tpr
-      if: steps.submodule_gate.outputs.run == 'true' && steps.sync_submodules.outcome == 'success'
-      continue-on-error: true
-      run: uv run python exporter/tpr/tpr_exporter.py
-
     # Pack each submodule's changed files for the push-submodules job, which runs
     # after the release exists. Deletions cannot be carried in a tarball, so a leg
     # that staged one is refused.
@@ -361,7 +355,6 @@ jobs:
         SYNC_OUTCOME: ${{ steps.sync_submodules.outcome }}
         OUT_TBW: ${{ steps.tbw.outcome }}
         OUT_SC: ${{ steps.sc.outcome }}
-        OUT_TPR: ${{ steps.tpr.outcome }}
       run: |
         mkdir -p "$GITHUB_WORKSPACE/submodule-out"
         # lets the push job tell "nothing to push" from "artifact missing"
@@ -395,8 +388,7 @@ jobs:
         for entry in \
           "resources/fdg_dpd:.:OUT_TBW" \
           "resources/bw2:.:OUT_TBW" \
-          "resources/sc-data:dictionaries/simple/en/pli2en_dpd.json:OUT_SC" \
-          "resources/tpr_downloads:.:OUT_TPR"; do
+          "resources/sc-data:dictionaries/simple/en/pli2en_dpd.json:OUT_SC"; do
           IFS=: read -r path stage outcome_var <<< "$entry"
           echo "=== $path ==="
           if [ "$SYNC_OUTCOME" != "success" ] || [ "${!outcome_var}" != "success" ]; then
@@ -721,8 +713,7 @@ jobs:
           for entry in \
             "resources/fdg_dpd:main" \
             "resources/bw2:main" \
-            "resources/sc-data:main" \
-            "resources/tpr_downloads:master"; do
+            "resources/sc-data:main"; do
             IFS=: read -r path branch <<< "$entry"
             (push_one "$path" "$branch") || { echo "::error::$path failed"; failed=1; }
           done
