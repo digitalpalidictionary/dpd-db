@@ -1,5 +1,14 @@
 # Plan: test gui2 on a borrowed server — no domain, a few weeks of access
 
+> **CLOSED 2026-11-02 — SUPERSEDED.** The borrowed temp server is gone. The
+> survey ran (see `results.md`) and its findings fed the permanent server
+> setup (`20261023_contrib_1_web_server`, now the live roadmap). The
+> unticked tasks below described a workflow for a machine that no longer
+> exists; the server-agent rules here were superseded by the permanent
+> server's own rules. Closed by the owner without a review pass — nothing
+> here was code, and the one artifact (results.md) is preserved in this
+> archived folder.
+
 **Thread:** 20261023_contrib_4_temp_server_test · **Spec:** `spec.md` (read first)
 **GitHub issue:** #215 · **Rewritten:** 2026-10-31 for a smaller server agent
 

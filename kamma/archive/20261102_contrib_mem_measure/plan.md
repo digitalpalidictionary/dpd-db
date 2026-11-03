@@ -1,5 +1,23 @@
 # Plan: measure where a contributor gui2 instance spends its memory
 
+> **CLOSED 2026-11-02.** Measurement complete; most of its options were
+> implemented by the two threads that followed:
+>
+> - **D (wordfinder, est. 172.1 MB)** — implemented in `267740fc` (the
+>   Pass2Add gate); measured −170.0 MB laptop, −169.2 MB server warm.
+> - **Slim contributor corpus + compact inflection sets** (L1/L7b/L8, taken
+>   up from this measurement instead of option C's lookup-query form) —
+>   implemented in `247a8429`; −222.6 MB warm, −439.3 MB after a book.
+> - **B (lazy managers, est. 223.1 MB)** — only its wordfinder part is done
+>   (that is D): ai_manager, bold_search and the relationship detector
+>   still build for every role in the warm-up.
+> - **Deferred: E** (one process for all users; 8 users ≈ 12.9 GB → ≈ 3.5 GB)
+>   **and F** (concurrency limit) — plus B's manager part and C's original
+>   lookup-query form. Revisit when the contributor count demands it.
+>
+> Task 4.5: the folder was already committed to git (tracked as of closure).
+> All figures this thread produced are preserved in this archived folder.
+
 **Thread:** 20261102_contrib_mem_measure · **Spec:** `spec.md` in this folder (read it first)
 **GitHub issue:** #215 · never write to the issue · commits reference `#215`
 **Scope:** measurement only. No change to `gui2/` or `tools/`. Everything this thread writes lives in this folder.
@@ -156,5 +174,6 @@ Run every command from `/home/bodhirasa/MyFiles/3_Active/dpd-db`. Other sessions
       → verify: the list exists; each item quotes the old claim and the new number.
 - [x] 4.4 **WHO: LOCAL AGENT. Phase check.** Re-read `spec.md` "How we'll know it's done" items 1–5 and mark each met or not met in `results.md`.
       → verify: five lines, each pointing to the file that proves it.
-- [ ] 4.5 **WHO: MAINTAINER.** Commit this thread's folder (the local agent suggests the message); decide which of the B–F options to plan next. Commit nothing outside this folder from this thread.
+- [x] 4.5 **WHO: MAINTAINER.** Commit this thread's folder (the local agent suggests the message); decide which of the B–F options to plan next. Commit nothing outside this folder from this thread.
+        Closed 2026-11-02: the folder is tracked in git (verified with `git ls-files`). Of B–F: D implemented in `267740fc`; the corpus/set levers implemented in `247a8429` (see the closure note above); the remainder — E, F, B's manager part, C's original form — deferred by the owner.
       → verify: `ls kamma/threads/20261102_contrib_mem_measure/artifacts` lists the probe, the tables, `results.md` and `server/`.
