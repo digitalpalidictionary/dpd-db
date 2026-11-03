@@ -76,6 +76,23 @@ fi
 htpasswd "${htpasswd_flags[@]}" "$htpasswd_file" "$user"
 chmod 640 "$htpasswd_file"
 
+# The nginx worker runs as another user, so 640 root:root locks it out of the
+# hash and every request to the new URL answers 500 until someone chgrps the
+# file by hand. Give it to nginx's group. HTPASSWD_GROUP overrides detection.
+htpasswd_group="${HTPASSWD_GROUP:-}"
+if [[ -z "$htpasswd_group" ]] && command -v nginx >/dev/null 2>&1; then
+    htpasswd_group="$(nginx -T 2>/dev/null | sed -n 's/^user[[:space:]]\{1,\}\([^ ;]*\).*/\1/p' | head -1)"
+fi
+# Never fatal: a chgrp can fail for a non-root caller, and the runbook on a
+# real server is root anyway. A warning is enough — the URL just answers 500.
+if [[ -n "$htpasswd_group" ]] && getent group "$htpasswd_group" >/dev/null 2>&1; then
+    chgrp "$htpasswd_group" "$htpasswd_file" 2>/dev/null \
+        || echo "WARNING: chgrp $htpasswd_group $htpasswd_file failed" >&2
+else
+    echo "WARNING: could not give $htpasswd_file to nginx's group." >&2
+    echo "WARNING: run chgrp <nginx group> $htpasswd_file or the URL answers 500." >&2
+fi
+
 cat > "$env_file" <<ENV
 DPD_GUI2_USERNAME=$user
 DPD_GUI2_ROLE=contributor-server

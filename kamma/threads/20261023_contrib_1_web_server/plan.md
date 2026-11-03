@@ -660,11 +660,27 @@ exists.
       resets it to main and uses `--force-with-lease` (contrib_5).
       → verify: from server, `git fetch` works; a force-with-lease push to a
       test branch works; push to main rejected by protection.
-      Status 2026-11-02: clone, deploy access and pulls verified in daily use;
-      the contributions push is proven working (2026-11-03, branch 1490f742).
-      Still missing: main is NOT protected (`gh api .../branches/main/protection`
-      returns 404, checked 2026-11-03) — the deploy key can land on main, which
-      is the one guard 3.2 asked for. Set it before real contributors.
+      ⚠️ FINDING 2026-11-03 — the deploy key bypasses branch protection.
+      Verified on the server: `core.sshCommand = -i ~/.ssh/dpd_deploy`, and that
+      key IS the repo write deploy key (`dpd contrib6 temp server`, id
+      168360647, `read_only=false`). A test push from a throwaway clone landed
+      on main with exit 0 while "Changes must be made through a pull request"
+      was enabled. GitHub deploy keys are not subject to branch protection, so
+      protection alone does NOT stop the server key as 3.2 intended. The test
+      commit was removed and main restored to 8af6e887 by the maintainer.
+      Fix available: the server must push with a credential branch protection
+      applies to (a non-admin account's key or PAT). **Owner decision
+      2026-11-03: accept the risk for now** — protection still guards against
+      every other actor, and the server key stays able to write main. Revisit
+      if the server's trust model changes or on the next security pass.
+      Status 2026-11-03: clone, deploy access and pulls verified in daily use;
+      the contributions push is proven working (branch 1490f742). Main is now
+      protected: PRs required with 0 approvals, `enforce_admins=False` so the
+      maintainers keep direct push, force-pushes and deletions off. Effect on
+      people: only Devamitta has push without admin, so only he moves to PRs
+      (or gets admin if that is preferred later); the other outside
+      contributors are read-only and already arrive by PR. `contributions`
+      stays unprotected, as the nightly `--force-with-lease` push requires.
 - [x] 3.3 First db + THE MEASUREMENT: rsync the user's local dpd.db up (fast
       start), AND run one full server rebuild (`db_rebuild_from_tsv.py` +
       `generate_components.py`) to measure real wall-clock — this number fixes
@@ -684,7 +700,7 @@ exists.
       2026-10; 89,774 headwords verified against the live file). A full server
       rebuild has never run — the wall-clock measurement and the
       rebuild-vs-pushed-db decision move into 3.6's first manual window run.
-- [x] 3.4 systemd template unit `dpd-gui@.service` (reads
+- [ ] 3.4 systemd template unit `dpd-gui@.service` (reads
       `/etc/dpd/<user>.env`: username, role, `DPD_GUI2_DATA_DIR`,
       `DPD_GUI2_TABS`, port — the file `add_contributor.sh` writes) + nginx
       from contrib_5's `scripts/server_contrib/nginx_contrib.conf.template`,
@@ -694,18 +710,45 @@ exists.
       HTTPS after a password prompt; wrong password rejected; each password
       opens only its own URL; both sessions work simultaneously; RSS per
       instance recorded IN THIS FILE.
-      Done and re-verified 2026-11-02 (wordfinder thread, phase 4): alice
-      served over HTTPS with password and the right tabs; multi-session
-      behaviour and the per-instance RSS figures (warm 774.1, one book 879.2)
-      are recorded in `kamma/archive/20261102_contrib_mem_wordfinder_lazy/artifacts/`.
+      PARTLY DONE — single user only. Alice serves over HTTPS with password
+      and the right tabs, and her RSS figures (warm 774.1, one book 879.2) are
+      in `kamma/archive/20261102_contrib_mem_wordfinder_lazy/artifacts/`.
+      ⚠️ BLOCKER FOUND 2026-11-03 (3.5 drill): **two contributors cannot work
+      at once behind path prefixes.** Flet 1.0.1 serves its web shell with
+      ABSOLUTE asset paths (`/python.js`, `/flutter_bootstrap.js`,
+      `/main.dart.wasm`, `/ws`, `/assets/`, …). The temporary shim
+      `/etc/nginx/dpd/zz_root_asset_shim.conf` maps every one of those root
+      paths to a HARD-CODED alice realm and alice port 8551 (its own comment:
+      "while this shim exists, root-level asset paths always answer as ALICE;
+      multi-user prefixes need the native fix (ASGI root_path)"). A second
+      user's page therefore 401s on `/python.js` and never boots — reproduced
+      with `drilltest`: authenticated HTML returned 200, then the console
+      showed `401 @ /python.js`, `401 @ /manifest.json`, and the app stayed at
+      74 MB with no db load. So the earlier "both sessions work simultaneously"
+      claim was never true: only alice was ever verified. Real fixes, owner to
+      choose: (a) native `root_path` support in gui2 so each instance serves
+      prefixed assets — the shim's recorded plan; (b) a subdomain per
+      contributor, so root paths are per-host (needs wildcard DNS + cert).
+      Until one lands, the server is a ONE-contributor server.
 - [ ] 3.5 Onboard a test user with contrib_5's
       `scripts/server_contrib/add_contributor.sh` (the "<10 minutes to onboard
       #3" script), then remove them with the documented removal steps.
       → verify: new URL live with the right tabs; after removal the URL refuses
       and no unit or env file is left.
-      Status 2026-11-02: onboarding proven with alice (URL, tabs and login
-      verified live). The removal drill has not been run — do it before
-      contributor #1, per the "test the removal path" rule.
+      DRILL RUN 2026-11-03 with a throwaway account `drilltest` (port 8555,
+      tabs `Transl,DB`, throwaway password). Onboarding exposed TWO real bugs:
+      (1) **`add_contributor.sh` writes the htpasswd mode 640 but leaves it
+      root:root**, so the nginx worker cannot read it and the new URL returns
+      500 until someone runs `chown root:www-data` by hand (alice's file was
+      fixed that way at some point; the README admits it "is not checked
+      locally"). Reproduced: 500 → `chown root:www-data` → 200. The script
+      should set nginx's group itself.
+      (2) The multi-user blocker recorded at 3.4: even with correct auth the
+      second user's app cannot boot.
+      Verified during the drill: unauthenticated 401, authenticated 200, right
+      tabs in the env file, service active, wrong password 401. Removal path
+      (the actual point of 3.5) tested per README steps — outcome recorded
+      below.
 - [x] 3.6 Cron the maintenance window at 01:00 IST + a failure surface the
       user will actually see: window script appends to a status file served at
       an authed nginx path (`/status`) — no mail stack.
