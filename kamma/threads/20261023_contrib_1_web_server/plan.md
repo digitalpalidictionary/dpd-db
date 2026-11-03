@@ -661,9 +661,11 @@ exists.
       → verify: from server, `git fetch` works; a force-with-lease push to a
       test branch works; push to main rejected by protection.
       Status 2026-11-02: clone, deploy access and pulls verified in daily use;
-      branch protection and the contributions-push machinery are not set up —
-      they land with 3.6's window work.
-- [ ] 3.3 First db + THE MEASUREMENT: rsync the user's local dpd.db up (fast
+      the contributions push is proven working (2026-11-03, branch 1490f742).
+      Still missing: main is NOT protected (`gh api .../branches/main/protection`
+      returns 404, checked 2026-11-03) — the deploy key can land on main, which
+      is the one guard 3.2 asked for. Set it before real contributors.
+- [x] 3.3 First db + THE MEASUREMENT: rsync the user's local dpd.db up (fast
       start), AND run one full server rebuild (`db_rebuild_from_tsv.py` +
       `generate_components.py`) to measure real wall-clock — this number fixes
       the window schedule. Decision rule (from spec): if > ~3 h, windows use a
@@ -672,6 +674,12 @@ exists.
       decision IN THIS FILE.
       → verify: measured time recorded; server dpd.db passes the 2.4 health
       check.
+      MEASURED 2026-11-03: db rebuilt from tsv + lean components =
+      **49 min** (07:06→07:55) and **55 min** (11:28→12:23) on the 2-core
+      server, health check passing both times. Decision: comfortably under the
+      ~3 h limit, so the windows keep rebuilding on the server — no
+      maintainer-pushed db, no `just contrib-push-db` recipe. The first db was
+      the window's own rebuild; headwords 89,774, lookup 1,179,891, db 883 MB.
       Status 2026-11-02: the first db is up (the app has served from it since
       2026-10; 89,774 headwords verified against the live file). A full server
       rebuild has never run — the wall-clock measurement and the
@@ -698,12 +706,35 @@ exists.
       Status 2026-11-02: onboarding proven with alice (URL, tabs and login
       verified live). The removal drill has not been run — do it before
       contributor #1, per the "test the removal path" rule.
-- [ ] 3.6 Cron the maintenance window at 01:00 IST + a failure surface the
+- [x] 3.6 Cron the maintenance window at 01:00 IST + a failure surface the
       user will actually see: window script appends to a status file served at
       an authed nginx path (`/status`) — no mail stack.
       → verify: force one run of each path ON THE SERVER: happy (main moved →
       rebuild), main unchanged (no rebuild), dirty tree (pull refused),
       rollback (deliberately break the rebuild); `/status` reflects each.
+      DONE 2026-11-03. Cron installed (`0 1 * * *`, server clock is IST):
+      `cd /root/dpd-db && uv run --no-sync scripts/server_contrib/maintenance_window.py
+      --data-dir /var/lib/dpd/contrib_data --instance dpd-gui@alice
+      --status-file /var/lib/dpd/status.txt >> /root/mem/window_cron.log`.
+      Failure surface: the window rewrites the status file at the end of every
+      run (outcome, time, commit, that run's ERROR/WARNING lines) and nginx
+      serves it at `/status` behind alice's login (block kept in
+      `scripts/server_contrib/nginx_status.conf.template`).
+      All four paths run on the server, each confirmed in `/status` from a
+      browser:
+      - happy: `rebuilt` twice (07:06–07:55, 49 min; 11:28–12:23, 55 min), health
+        check passed both times, WAL re-applied, alice restarted.
+      - main unchanged: `skipped` in 9 s (12:24), problems 0.
+      - dirty tree: `failed` with `working tree is dirty, window refused:
+        ['scripts/server_contrib/README.md']`; alice stayed up; file restored.
+      - rollback: corrupt contributor JSON in a scratch data dir with
+        `--no-systemd --no-push` and a copied db: `failed` with the JSON error,
+        then `restored db from dpd_test.db.prev`, `restored working tree`,
+        `restored contributor files`; live db and alice untouched.
+      The push path also works: `contrib: submit data 2026-11-03` reached the
+      `contributions` branch (1490f742) carrying alice's 2 entries.
+      Found and fixed during the drill: the status file listed an earlier run's
+      error (commit 1befe821).
 
 ## Phase 3B — Security check before real users — *Opus*
 ⚠️ MODEL SWITCH REQUIRED (Opus): analysis only.
