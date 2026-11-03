@@ -180,16 +180,23 @@ def _make_logger(log_dir: Path) -> logging.Logger:
 def _write_status(config: WindowConfig, outcome: Outcome, log: logging.Logger) -> None:
     """Rewrite the status file with this run's outcome and its problems.
 
-    Read from the day's log rather than kept in memory, so the file cannot
-    disagree with what an operator greps. A failure to write it must never
-    fail the window: the run itself already succeeded or failed on its own.
+    Read from the log rather than kept in memory, so the file cannot disagree
+    with what an operator greps — but only from THIS run: the day's log also
+    holds earlier runs, and their errors must not make a clean run look dirty.
+    A failure to write the file must never fail the window: the run itself
+    already succeeded or failed on its own.
     """
     try:
         started = datetime.now()
         log_path = config.log_dir / f"maintenance_{started.strftime('%Y%m%d')}.log"
+        lines_in_log = log_path.read_text(encoding="utf-8").splitlines()
+        start = 0
+        for index, line in enumerate(lines_in_log):
+            if line.endswith("INFO maintenance window start"):
+                start = index
         problems = [
             line.strip()
-            for line in log_path.read_text(encoding="utf-8").splitlines()
+            for line in lines_in_log[start:]
             if any(f" {section.upper()} " in line for section in STATUS_SECTIONS)
         ]
         head = _git_head(config.project_root)

@@ -213,6 +213,20 @@ class TestHappyPath:
         )
         assert not (setup.config.log_dir / "status.txt").exists()
 
+    def test_status_file_ignores_an_earlier_runs_failure(self, tmp_path: Path):
+        """A clean run after a failed one in the same day must not inherit its
+        error: the operator reads this file to decide the night was fine."""
+        setup = _setup(tmp_path)
+        broken = _steps(Calls(), rebuild=Calls().step("rebuild", RuntimeError("boom")))
+        assert run_maintenance(setup.config, broken) is Outcome.FAILED
+
+        run_maintenance(setup.config, _steps(Calls()))
+
+        status = (setup.config.log_dir / "status.txt").read_text(encoding="utf-8")
+        assert status.startswith("outcome: rebuilt\n")
+        assert "problems: 0" in status
+        assert "boom" not in status
+
     def test_status_file_reports_a_failure_and_its_reason(self, tmp_path: Path):
         setup = _setup(tmp_path)
         steps = _steps(Calls(), rebuild=Calls().step("rebuild", RuntimeError("boom")))
