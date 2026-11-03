@@ -355,7 +355,14 @@ jobs:
       id: tpr_package
       if: steps.submodule_gate.outputs.run == 'true' && steps.sync_submodules.outcome == 'success'
       continue-on-error: true
-      run: uv run python exporter/tpr/tpr_package.py
+      # A dry run is not on an uposatha day: it builds the package all the
+      # same (--version), but leaves the download list alone.
+      run: |
+        if [ "${{ inputs.push_dry_run }}" = "true" ]; then
+          uv run python exporter/tpr/tpr_package.py --version "$(date +%Y%m%d)"
+        else
+          uv run python exporter/tpr/tpr_package.py
+        fi
 
     # TPR downloads the zips from the `dpd` release of tpr_downloads: they are
     # over jsdelivr's 20 MB limit. Uploaded before the download list that points
