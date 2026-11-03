@@ -65,8 +65,13 @@ reconcile, push and rebuild. Every run logs to `logs/maintenance_YYYYMMDD.log`.
   someone fixes the file. This is deliberate: it never guesses.
 - The push overwrites whatever is on the remote `contributions` branch. Do not
   commit to it by hand.
-- `htpasswd` files are written mode 640. The nginx worker must be able to read
-  them: give the file to nginx's group on the server (not checked locally).
+- `htpasswd` files are written mode 640 and given to nginx's group (found with
+  `nginx -T`, or set `HTPASSWD_GROUP`). If the script warns that it could not,
+  run the `chgrp` by hand, or the URL answers 500.
+- Each instance is mounted under `/<user>/` (`FLET_WEB_APP_PATH=%i` in the unit),
+  and nginx passes the prefix on (no trailing slash on `proxy_pass`). Mounted at
+  the root, every user's page asks the domain root for its engine files, and only
+  one instance can answer there.
 
 ### Run it
 

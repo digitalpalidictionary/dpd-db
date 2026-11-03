@@ -119,3 +119,17 @@ def test_each_user_gets_their_own_login_realm(tmp_path: Path) -> None:
 
     conf = (tmp_path / "etc" / "nginx" / "dpd" / "alice.conf").read_text()
     assert 'auth_basic "DPD contributor alice";' in conf
+
+
+def test_each_instance_lives_under_its_own_prefix(tmp_path: Path) -> None:
+    """Flet asks for its engine files at the mount path. Mounted at the root,
+    every user's page asks the domain root, which only one instance can serve,
+    so a second user got a blank page (seen live 2026-11-03)."""
+    add(tmp_path, "bob", "8552")
+
+    unit = Path("scripts/server_contrib/dpd-gui@.service").read_text(encoding="utf-8")
+    assert "Environment=FLET_WEB_APP_PATH=%i" in unit.splitlines()
+    # A trailing slash on proxy_pass strips /bob/, and the instance mounted at
+    # /bob answers 404 to what is left.
+    conf = (tmp_path / "etc" / "nginx" / "dpd" / "bob.conf").read_text()
+    assert "proxy_pass http://127.0.0.1:8552;" in conf

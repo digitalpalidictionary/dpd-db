@@ -12,6 +12,10 @@ StartLimitBurst=5
 Type=simple
 User=@USER@
 Environment=HOME=@HOME@
+# Mounts the app under /<user>/, where nginx sends that user. Mounted at the
+# root, every user's page asks the domain root for its engine files, which only
+# one instance can answer, so a second user gets a blank page.
+Environment=FLET_WEB_APP_PATH=%i
 EnvironmentFile=/etc/dpd/%i.env
 WorkingDirectory=@CLONE@
 ExecStart=@UV@ run --no-sync python gui2/main.py

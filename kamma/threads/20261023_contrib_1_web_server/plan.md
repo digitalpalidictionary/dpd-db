@@ -700,7 +700,7 @@ exists.
       2026-10; 89,774 headwords verified against the live file). A full server
       rebuild has never run — the wall-clock measurement and the
       rebuild-vs-pushed-db decision move into 3.6's first manual window run.
-- [ ] 3.4 systemd template unit `dpd-gui@.service` (reads
+- [x] 3.4 systemd template unit `dpd-gui@.service` (reads
       `/etc/dpd/<user>.env`: username, role, `DPD_GUI2_DATA_DIR`,
       `DPD_GUI2_TABS`, port — the file `add_contributor.sh` writes) + nginx
       from contrib_5's `scripts/server_contrib/nginx_contrib.conf.template`,
@@ -730,7 +730,36 @@ exists.
       prefixed assets — the shim's recorded plan; (b) a subdomain per
       contributor, so root paths are per-host (needs wildcard DNS + cert).
       Until one lands, the server is a ONE-contributor server.
-- [ ] 3.5 Onboard a test user with contrib_5's
+      FIXED 2026-11-03 (option a, no gui2 code change). Flet 1.0.1 already
+      mounts the app under `FLET_WEB_APP_PATH` and rewrites the shell to match
+      (`<base href="/<user>/">`, `webSocketEndpoint="/<user>/ws"`;
+      `flet/app.py` `__get_page_name`, `flet_web/fastapi/flet_static_files.py`).
+      Changes: `Environment=FLET_WEB_APP_PATH=%i` in `dpd-gui@.service`, and
+      `proxy_pass http://127.0.0.1:@PORT@;` (no trailing slash, so the prefix
+      reaches the instance) in `nginx_contrib_user.conf.template`; test
+      `test_each_instance_lives_under_its_own_prefix` fails with either change
+      reverted. Proved first with two throwaway Flet apps on the laptop.
+      On the server: unit reinstalled + daemon-reload, `alice.conf` proxy_pass
+      changed, `zz_root_asset_shim.conf` moved out of the include dir (backups
+      of all three in `/root/mem/prefix_fix_20261103/`), nginx reloaded, alice
+      restarted. alice: `/alice/`, `/alice/python.js`, `/alice/main.dart.wasm`
+      200 locally; root `/python.js`, `/assets/`, `/preview/x` now 404 publicly.
+      Two throwaway users `probe2` (8556) and `probe3` (8557) added with the NEW
+      `add_contributor.sh` (htpasswd came out `root:www-data 640` with no hand
+      fix). Over public HTTPS: no login 401, wrong password 401, own path 200,
+      the other user's path and `/alice/` and `/status` 401. Two headless
+      browsers logged in at the same time: each loaded 29 files from the host,
+      none outside its own prefix, 0 console errors, one live websocket per
+      instance, both rendered the full Pass1Auto/Pass1Add screen.
+      RSS with a session open: 792,000 KB and 791,800 KB (db loaded; the failed
+      drilltest stopped at 74 MB); alice idle with no session 89,276 KB.
+      The server has 7.9 GB RAM (not 16 GB), so three loaded instances use
+      about 2.4 GB. Both probes removed afterwards.
+      Not yet checked behind the prefix: the web preview page (its URL is
+      relative to `<base href>`, so it should resolve to `/<user>/preview/`).
+      Check it in 4.1. alice herself was not opened in a browser (her password
+      is the owner's); the owner confirms on next login.
+- [x] 3.5 Onboard a test user with contrib_5's
       `scripts/server_contrib/add_contributor.sh` (the "<10 minutes to onboard
       #3" script), then remove them with the documented removal steps.
       → verify: new URL live with the right tabs; after removal the URL refuses
@@ -749,6 +778,15 @@ exists.
       tabs in the env file, service active, wrong password 401. Removal path
       (the actual point of 3.5) tested per README steps — outcome recorded
       below.
+      REMOVAL DONE 2026-11-03: `systemctl disable --now dpd-gui@drilltest`, its
+      env, htpasswd and nginx files deleted, nginx reloaded. `/etc/dpd/` and
+      `/etc/nginx/dpd/` hold only alice's files; no drilltest data file. The
+      same removal ran for `probe2`/`probe3` (3.4): the URL answers 404 once
+      the nginx reload finishes (a check in the first seconds can still see
+      the old workers' 401/403). Bug (1) fixed in commit 081d27ca; its test
+      fails with the `chgrp` removed (checked 2026-11-03).
+      Onboarding reminder: add each new user's `--instance dpd-gui@<user>` to
+      the cron line, or the window never stops that instance.
 - [x] 3.6 Cron the maintenance window at 01:00 IST + a failure surface the
       user will actually see: window script appends to a status file served at
       an authed nginx path (`/status`) — no mail stack.
@@ -781,7 +819,7 @@ exists.
 
 ## Phase 3B — Security check before real users — *Opus*
 ⚠️ MODEL SWITCH REQUIRED (Opus): analysis only.
-- [ ] 3B.1 Review the live server, read-only: `nginx -T` output, each
+- [x] 3B.1 Review the live server, read-only: `nginx -T` output, each
       htpasswd file's owner and mode, the env files, `ufw status`, listening
       ports (`ss -tlnp`: gui2 instances on 127.0.0.1 only), certbot renewal,
       the deploy key's scope, and that no secret is in the clone
@@ -789,6 +827,59 @@ exists.
       open another user's path, and that no hidden tab is reachable.
       → verify: findings written here; every real issue fixed (Sonnet) before
       Phase 4.
+      REVIEW RUN 2026-11-03 (Opus, read-only, after the 3.4 prefix fix).
+      Real issues, none fixed yet (owner to approve):
+      1. **Root can log in over ssh with a password.** `sshd -T`:
+         `passwordauthentication yes`, `permitrootlogin yes`; root has a
+         password set (`passwd -S` = P). `50-cloud-init.conf` says `yes` and
+         sorts before `60-cloudimg-settings.conf` (`no`); sshd keeps the
+         first value. 3.1 wanted keys only. Fix: `PasswordAuthentication no`
+         in `50-cloud-init.conf`, `sshd -t`, reload ssh, then prove key login
+         still works from the laptop before closing the session.
+      2. **The firewall is off** (`ufw status`: inactive; 3.1 wanted
+         22/80/443). Exposure today is small: only nginx :443 and sshd :22
+         bind publicly. But any later service on 0.0.0.0 would be public.
+         Fix: `ufw allow 22,80,443/tcp`, then `ufw enable`.
+      3. **Certificate renewal may fail.** Renewal uses `authenticator =
+         nginx` (an http-01 challenge on port 80), and nginx listens only on
+         443. Not proved either way. The cert is valid to 2027-01-29 and
+         renewal starts ~30 days before. Check: `certbot renew --dry-run`
+         (staging server, edits nginx for the challenge for a moment).
+      4. `config.ini` (holds the API keys) is mode 644. Only root can log in,
+         so the risk is low. Fix: `chmod 600`.
+      Passed: gui2 instances bind 127.0.0.1 only (8551; probes 8556/8557
+      when up); htpasswd `root:www-data 640`, env and nginx user files 600;
+      each password opens only its own path, `/status` only with alice's
+      (tested with probe2/probe3); no hidden tab is reachable: hidden tabs are
+      not in the tab bar, Alt+jump keys check `_visible`, and the read-only
+      tabs (DB, √, Infl) refuse in the save method itself, so Ctrl+S is
+      refused too; Ask AI is a no-op on the server; `config.ini` is
+      gitignored and the clone is clean apart from the window's
+      `_contrib_worktree/` and `dpd.db.prev`; unattended-upgrades on;
+      opencode listens on 127.0.0.1 only. Deploy key: accepted risk (3.2).
+      FIXES APPLIED 2026-11-03 (owner approved; backups in
+      `/root/mem/security_fix_20261103/`; a second ssh connection was held
+      open as a safety line throughout; alice never restarted):
+      1. New `/etc/ssh/sshd_config.d/01-dpd-keys-only.conf`
+         (`PasswordAuthentication no`, `KbdInteractiveAuthentication no`,
+         `PermitRootLogin prohibit-password`); sorts first, so it beats
+         `50-cloud-init.conf` and survives cloud-init rewriting that file.
+         `sshd -t` ok, ssh reloaded. `sshd -T`: passwordauthentication no,
+         permitrootlogin without-password. Fresh key login (no control
+         socket): ok. Password-only login: `Permission denied (publickey)`.
+         The provider's web console still takes the root password.
+      2. `ufw allow 22/tcp, 80/tcp, 443/tcp`, `ufw --force enable`, with a
+         5-minute `systemd-run` timer to `ufw disable` as a dead-man switch,
+         stopped once checks passed. Active, default deny incoming, v4+v6.
+         Fresh ssh login ok, public `/alice/` 401, local alice 200, outbound
+         `git ls-remote` to GitHub ok, port 8551 closed from outside.
+      3. `certbot renew --dry-run`: "all simulated renewals succeeded". The
+         nginx authenticator opens port 80 for the challenge by itself, so
+         the worry was wrong; no nginx change needed. Port 80 must stay
+         allowed in ufw for this. Site config unchanged afterwards.
+      4. `chmod 600 /root/dpd-db/config.ini`.
+      3B.1 is complete; no real issue left open except the accepted deploy
+      key risk.
 
 ## Phase 4 — End-to-end cycle proof & real onboarding — *Sonnet*
 ⚠️ MODEL SWITCH REQUIRED (Sonnet): mechanical execution resumes.

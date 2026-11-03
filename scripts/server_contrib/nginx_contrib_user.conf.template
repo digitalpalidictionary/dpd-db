@@ -4,7 +4,9 @@ location /@USER@/ {
     auth_basic "DPD contributor @USER@";
     auth_basic_user_file /etc/nginx/dpd/@USER@.htpasswd;
 
-    proxy_pass http://127.0.0.1:@PORT@/;
+    # No trailing slash: the /@USER@/ prefix is passed on, because the instance
+    # is mounted there (FLET_WEB_APP_PATH) and answers nothing at its root.
+    proxy_pass http://127.0.0.1:@PORT@;
     proxy_http_version 1.1;
     proxy_set_header Upgrade $http_upgrade;
     proxy_set_header Connection "upgrade";

@@ -1,5 +1,10 @@
 # Handoff — 20261023_contrib_1_web_server (2026-11-03, evening IST)
 
+> **SUPERSEDED 2026-11-03, later the same evening.** The rebuild finished and
+> passed; drilltest is removed (§1); the two-user blocker (§2) is fixed and
+> proved live with two users at once; the htpasswd test (§4) is proven by a
+> revert. See plan.md 3.4 and 3.5 for the evidence. §3 and §8 still hold.
+
 Resume with `/kamma:2-do 20261023_contrib_1_web_server`. Read `spec.md` and
 `plan.md` first: the plan was updated today with dated findings and is the
 source of truth for what is done and what is not.
