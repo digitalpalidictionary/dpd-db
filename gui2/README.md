@@ -15,6 +15,7 @@ This subsystem follows a modern "Model-View-Controller (MVC)" or "Component-Base
 - **Preview before save:** The Pass1Add and Pass2Add save buttons first open the unsaved word as the webapp shows it (`preview.py`, a dark page in a browser tab). A dialog then offers Save or Cancel, and the form stays filled until Save. The page is written to `gui2/assets/preview/` (gitignored).
 - **Validation:** Integrates deeply with **db_tests/** to ensure data quality at the point of entry.
 - **Support:** Relies on **tools/** for project-wide paths and Pāḷi-specific logic.
+- **Field help:** the hover tooltip on each field name in the editor form comes from `field_help.json` (one text per field, hand-edited, in the words of a Pāḷi scholar). `field_help.py` loads it, and `tests/gui2/test_field_help.py` fails if its keys and the field list differ.
 
 ## Interface
 To start the modern GUI:

@@ -28,6 +28,7 @@ from gui2.dpd_fields_functions import (
 )
 from gui2.dpd_fields_meaning import DpdMeaningField
 from gui2.dpd_fields_notes import DpdNotesField
+from gui2.field_help import get_field_help
 from gui2.mixins import PopUpMixin
 from gui2.toolkit import ToolKit
 from gui2.ui_utils import is_mounted, request_focus
@@ -465,6 +466,13 @@ class DpdFields(PopUpMixin):
             width=150,
             selectable=True,
         )
+        help_text = get_field_help(field_name)
+        if help_text is not None:
+            label.tooltip = ft.Tooltip(
+                message=help_text,
+                wait_duration=500,
+                size_constraints=ft.BoxConstraints(max_width=360),
+            )
         main_field = self.fields[field_name]
         row_controls = [label, main_field]  # Add label first
 
