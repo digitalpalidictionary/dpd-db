@@ -3,6 +3,7 @@
 **Thread:** 20261023_contrib_1_web_server
 **Spec:** `spec.md` in this folder — read it first; it contains the full context,
 all decisions, and all known unknowns.
+**Part 2 spec (Phases 4–7):** `pull_spec.md` in this folder; its reviews are in `egm_pull/`.
 **GitHub issue:** [#215](https://github.com/digitalpalidictionary/dpd-db/issues/215)
 — commits reference `#215`.
 
@@ -53,7 +54,8 @@ before Phase 3:**
 | 1, 2 (done) | Sonnet | Done |
 | 3 Server provisioning | Sonnet | Runbook commands, using contrib_5's scripts |
 | 3B Security check | **Opus** | Analysis only: review the live nginx, auth and firewall setup before real users |
-| 4 Cycle proof and onboarding | Sonnet | Rehearsal, drills, docs, onboarding calls |
+| 4–7 Pull script, key, timer, runbook | Sonnet | Planned 2026-11-04 from `pull_spec.md`; design done, execution is mechanical |
+| 8 Cycle proof, onboarding, wrap | Sonnet | Rehearsal, drills, docs, onboarding calls |
 
 ## Phase 1 — Local groundwork in gui2 (no server required) — *Sonnet*
 
@@ -554,7 +556,7 @@ unit-tested against tmp dirs / scratch git repos in `tests/scripts/server_contri
       standalone invocations, the `last_pushed/` snapshot explanation, and a note
       that the pre-existing `update-dpd.sh` belongs to the separate dpdict.net
       webapp server, NOT this system. (Phase 3.1 `SERVER_SETUP.md` provisioning
-      runbook and Phase 4.3 contributor-facing docs are still separate.)
+      runbook and Phase 8.3 contributor-facing docs are still separate.)
 ### Phase 2 review (2026-07-19) — parallel sonnet passes: correctness + spec-conformance (CodeRabbit stalled on free tier, re-run pending)
 
 - **R1 (SEVERE — branch left on `contributions`, root cause NOT yet fixed):**
@@ -757,7 +759,7 @@ exists.
       about 2.4 GB. Both probes removed afterwards.
       Not yet checked behind the prefix: the web preview page (its URL is
       relative to `<base href>`, so it should resolve to `/<user>/preview/`).
-      Check it in 4.1. alice herself was not opened in a browser (her password
+      Check it in 8.1. alice herself was not opened in a browser (her password
       is the owner's); the owner confirms on next login.
 - [x] 3.5 Onboard a test user with contrib_5's
       `scripts/server_contrib/add_contributor.sh` (the "<10 minutes to onboard
@@ -881,39 +883,287 @@ exists.
       3B.1 is complete; no real issue left open except the accepted deploy
       key risk.
 
-## Phase 4 — End-to-end cycle proof & real onboarding — *Sonnet*
+## Phases 4–7 — the daily pull and the new-server runbook (merged from thread `20261104_contrib_pull`, 2026-11-04)
+
+The design and its reasons are in `pull_spec.md` in this folder. Its three review gates are in `egm_pull/` (brief, gate1, gate2, gate3). These phases were planned after Phase 3B and finish the product: contributors add words, and the words reach the maintainer's laptop by themselves.
+
+### Decisions and executor rules for Phases 4 to 8
+
+#### Architecture decisions
+
+- **New code is one script**, `scripts/server_contrib/contrib_pull.py`. It imports `reconcile_all` from `contrib_reconcile.py` and `merge_all` + `SharedFiles` from `merge_contrib_files.py`, and `DELIVERED_KINDS` from `tools/contrib_entry.py`. It writes no filter of its own. (Gate 1, R1.2 and R3.1.)
+- **No class, no framework.** Plain functions, one `main()`. The unit and the justfile call it with no arguments, so it needs no flags except `--dry-run`.
+- **The remote source is one string** (`user@host:<path>/` or a local folder). Tests pass a local folder as the source and `rsync` copies from it the same way; no mock of rsync is needed. The ssh options travel in one `-e` argument, added only for a remote source.
+- **All times are the laptop's local time.** The last run of the day is the one that starts at or after 22:30.
+- **Status file and lock live in `logs/`** (gitignored). Never in the home folder.
+- **Left out on purpose:** a lock in the editor, a registered-contributor list, staging of shared-file changes, a backup before each merge (git tracks the shared files), sanitising dictionary fields. See spec "What's not included" and `egm_pull/gate1.md`.
+
+#### Executor rules (apply to every task in Phases 4 to 8)
+
+- Run from the repo root `/home/bodhirasa/MyFiles/3_Active/dpd-db`. WHO is named per task: `AGENT` runs it; `OWNER` only where it says so.
+- **Never** open or print `config.ini` or any `.ini`/`.env` file, and never edit them. Read the one setting only through `tools.configger.config_read("epitaka_server", "ssh")`.
+- **Never** run `git add`, `git commit`, `git stash`, `git restore`, `git checkout --`, or `git reset`. The owner commits.
+- Never `pkill`. Stop a process by its number, found with `ps -eo pid,args | grep "[p]attern"`.
+- Any command that can take over 60 s runs in the background with a bounded wait (`timeout 600 bash -c 'until ...; do sleep 10; done'`).
+- After every edit of a Python file under `scripts/`, run `uv run ruff check --fix <file>`, `uv run ruff format <file>`, `uv run pyright <file>`. For files under `tests/` use `uv run pyright --project /dev/null <file>`. Do not run `ruff format` on `.json` fixtures.
+- Before editing the server's `authorized_keys`, back it up. Append a line; never rewrite the file.
+- Judge a server service by what the page or command returns, not by its log (the log lags by minutes: Python's output is buffered under systemd).
+- If a `→ verify:` result differs from what the task says, stop, write the real output into this file under the task, and tell the owner. Do not improvise.
+- The server is `epitaka`: `ssh -o BatchMode=yes epitaka '<command>'`. Never print its environment or htpasswd files. Never touch alice's data.
+
+
+## Phase 4 — The pull script, tested with no server — *Sonnet*
+
+- [x] 4.0 **Document the tools first** (workflow rule 2). In `kamma/tech.md` add a short section "Contributor pull": rsync over ssh with a restricted key, `systemd --user` timer, `contrib_pull.py`, status file in `logs/`. Date it 2026-11-04.
+  → verify: `rg -n "Contributor pull" kamma/tech.md` returns one line.
+
+- [x] 4.1 **Discover the rsync listing format.** AGENT. Run `rsync -r --list-only gui2/data/ | head -5` on the laptop and `ssh -o BatchMode=yes epitaka 'rsync -r --list-only /var/lib/dpd/contrib_data/ | head -8'`. Write both outputs, exactly, into this file under this task. Note whether sizes carry thousands separators and what the first column looks like for a link and for a regular file.
+  → verify: the two outputs are pasted below this task and the parser rule (how to read size and type) is written in one sentence.
+  **Result (2026-11-04):**
+  Laptop `gui2/data/`:
+  ```
+  drwxrwxr-x          4,096 2026/11/01 17:41:01 .
+  -rw-rw-r--          1,598 2025/12/21 19:55:12 README.md
+  -rw-rw-r--        159,806 2026/11/01 17:41:01 additions_added.json
+  -rw-rw-r--          2,733 2026/11/01 17:41:01 additions_alice.json
+  -rw-rw-r--              2 2026/07/02 19:18:12 additions_deva.json
+  ```
+  Server `/var/lib/dpd/contrib_data/` (via `ssh epitaka`):
+  ```
+  drwxr-xr-x          4,096 2026/11/03 21:04:57 .
+  -rw-r--r--         13,876 2026/11/03 21:04:57 additions_alice.json
+  -rw-------             59 2026/11/03 21:01:28 checked_alice.csv
+  -rw-r--r--            286 2026/11/03 21:04:57 daily_log_alice.json
+  -rw-r--r--             82 2026/11/03 20:42:41 db_test_exceptions_alice.tsv
+  -rw-r--r--            814 2026/11/03 21:04:57 history_alice.json
+  -rw-------             26 2026/11/03 21:01:28 manual_corrections_alice.tsv
+  ```
+  Local test with a symlink, a name with a space and a sub-folder (`rsync -r --list-only`, no `-l`): the symlink IS listed, as `lrwxrwxrwx             13 2026/11/04 06:20:44 link.json` (no `-> target`); the sub-folder is listed as `drwxrwxr-x ... sub` and its file as `sub/b.json`; `evil name.json` is listed with its space.
+  **Parser rule:** split each line on whitespace into at most 5 parts (mode, size, date, time, name); remove the commas from the size; the entry is a regular file only if the mode starts with `-`; skip the line whose name is `.`.
+
+- [x] 4.2 **Make `write_merged_log` atomic.** In `scripts/server_contrib/merge_contrib_files.py`, change `write_merged_log` to write a temp file in the same folder and `os.replace` it onto `path`, removing the temp file if the write raises. Same pattern as `_write_atomic` in `scripts/server_contrib/contrib_reconcile.py`. Do not change the output format or sort order. Add a test to `tests/scripts/server_contrib/test_merge_contrib_files.py` (it exists): patch `json.dump` to raise, call `write_merged_log` on an existing log, assert the old file is unchanged and no `*.tmp` file is left.
+  → verify: `uv run pytest tests/scripts/server_contrib/test_merge_contrib_files.py -q` passes. Then revert the change to `write_merged_log` only (copy the file to the scratchpad first, restore it in the same command) and confirm the new test fails; report the count of failures.
+
+- [x] 4.3 **Write the checks as functions, test first.** Create `tests/scripts/server_contrib/test_contrib_pull.py` and `scripts/server_contrib/contrib_pull.py` with these functions (type hints, `Path`, `icecream` not `print`):
+  - `kind_of(name: str) -> str | None`: returns the kind from `DELIVERED_KINDS` whose glob matches `name`, only if the user part (the text between the first `_` after the kind prefix and the extension) matches `^[a-z][a-z0-9_]{0,31}$` and `added` is not in the name; else `None`. Derive the user part by removing the kind's literal prefix and extension, not by a second regex over the whole name.
+  - `user_of(name: str) -> str`: the user part, same rule.
+  - `check_content(path: Path, kind: str) -> str | None`: returns a reason string or `None`. JSON kinds (`additions`, `corrections`): UTF-8, `json.loads`, catches `RecursionError`, top level is a dict and every value is a dict. Line kinds: UTF-8, no character below U+0020 except tab, CR, LF, each line at most 500 characters, file is empty or ends with `\n`; `variant_readings` and `spelling_mistakes` have exactly 2 tab-separated columns on every line; `db_test_exceptions` is `<name><TAB><digits>` on every line.
+  - Tests (each one name = one behaviour): wrong extension for a kind (`checked_alice.json`) is refused; a name with `added` is refused; a user part with a capital, a leading digit, or 33 characters is refused; invalid JSON, a JSON list, a nested 100,000 deep `[` string, a value that is not a dict are each refused; a flag file with no final newline is refused; a 501-character line is refused; a NUL byte is refused; a good file of each kind passes. Build the passing cases by copying a few real lines/entries from `gui2/data/additions_alice.json`, `gui2/data/checked_alice.csv`, `gui2/data/manual_corrections_alice.tsv` and `gui2/data/db_test_exceptions_alice.tsv` (if that file does not exist locally, use the real format shown in `merge_contrib_files.py` `merge_test_exceptions`).
+  → verify: `uv run pytest tests/scripts/server_contrib/test_contrib_pull.py -q` passes; with `kind_of` changed to ignore the extension the extension test fails (report the count).
+
+- [x] 4.4 **Listing and copy.** In `contrib_pull.py` add:
+  - `list_source(source: str, ssh: list[str]) -> list[tuple[str, int, bool]]`: runs `rsync -r --list-only [-e "<ssh>"] <source>` and parses `(name, size, is_regular_file)` using the rule from 1.1. A name that has a `/` in it (a sub-folder entry) is returned as-is and fails `kind_of`.
+  - `copy_names(source: str, names: list[str], scratch: Path, ssh: list[str]) -> None`: writes the names to a temp file and runs `rsync --files-from=<tempfile> --no-links --no-perms --no-owner --no-group --timeout=60 [-e ...] <source> <scratch>/`. No `-a`.
+  - `SSH_OPTIONS`: `["ssh", "-i", "<home>/.ssh/dpd_contrib_pull", "-o", "BatchMode=yes", "-o", "StrictHostKeyChecking=accept-new", "-o", "IdentitiesOnly=yes", "-o", "ForwardAgent=no"]` built with `Path.home()`.
+  - Tests with a local folder as source (no ssh): a folder with 3 good files, 1 symlink pointing to `/etc/hostname`, 1 file of 5 MB + 1 byte, 1 file named `evil name.json`: the symlink either does not appear in the `list_source` result or is marked not regular (record which in task 4.1; without `-l`, `rsync -r --list-only` may skip links with a message), and either way `select_names` does not return it; the listing reports sizes; `copy_names` called with only the accepted names copies exactly those and no symlink lands in scratch.
+  → verify: `uv run pytest tests/scripts/server_contrib/test_contrib_pull.py -q` passes.
+
+- [x] 4.5 **Per-contributor checking and the drop steps.** In `contrib_pull.py` add:
+  - `select_names(listing: list[tuple[str, int, bool]]) -> tuple[list[str], dict[str, str]]`: returns the names to copy and a map `user -> reason` for every contributor with at least one bad name (not regular, over 5 MB, or `kind_of` is `None` but the name matches a delivered glob and a user part can be read from it). A name from which no user can be read (a `/` in it, a user part that fails the pattern) is never copied and is counted in the status as `ignored_names: N`; the first 80 characters of each go to `logs/contrib_pull.log`, never to the status file. If the listing has more than 200 entries raise `PullError("too many files")`. `PullError` is a small `Exception` subclass defined in the module.
+  - `check_scratch(scratch: Path, bad: dict[str, str]) -> dict[str, str]`: runs `check_content` on every file in `scratch`; adds `user -> reason` to `bad` for the first failing file of each contributor; returns the new map.
+  - `remove_users(scratch: Path, bad: dict[str, str]) -> None`: deletes every file in `scratch` whose `user_of` is in `bad`.
+  - `drop_foreign_exceptions(scratch: Path) -> int`: for every `db_test_exceptions_*.tsv` in `scratch`, drops every line whose id is below `CONTRIB_ID_BASE` (import it from `gui2.database_manager`, as `contrib_reconcile.py` does), keeps line endings, rewrites atomically; returns how many lines it dropped.
+  - Step order inside the run (written as a function `prepare(scratch: Path, repo: Path, bad: dict[str, str]) -> tuple[dict[str, str], int]`): `check_scratch` → `remove_users` → `contrib_reconcile.reconcile_all(repo, scratch)` → `drop_foreign_exceptions`; returns `(bad, dropped_count)`.
+  - Tests (copy real snippets as in 4.3): (a) a processed word: put the list `[{"_source_key": "alice_1", "_source_hash": entry_hash(entry)}]` (a JSON list: `load_processed` raises on an object) in a temp repo's `gui2/data/additions_added.json`, put `entry` under key `alice_1` in the scratch `additions_alice.json` and a second entry under `alice_2`; after `prepare` only `alice_2` remains. (b) an entry edited after review (same key, different content so a different hash) stays. (c) one bad file for alice (broken JSON in `additions_alice.json`) removes all of alice's scratch files and leaves bob's untouched, and `bad` names alice. (d) a non-reserved exception line (`<real test name>\t123`) is dropped and counted; a reserved one (`\t10000005`) that a held addition holds survives. (e) 201 names raise `PullError`.
+  → verify: `uv run pytest tests/scripts/server_contrib/test_contrib_pull.py -q` passes. Then change `prepare` to skip `reconcile_all` and confirm test (a) fails; restore in the same command.
+
+- [x] 4.6 **Copy in, merge, gate, status.** In `contrib_pull.py` add:
+  - `editor_running() -> bool`: uses `psutil.process_iter(["pid", "cmdline"])`, true if any process other than the current one has an argument in `cmdline` that ends with `gui2/main.py`.
+  - `copy_in(scratch: Path, data_dir: Path) -> list[str]`: for every file in `scratch`, writes `<name>.tmp` in `data_dir` and `os.replace`s it onto `<name>`; returns the names.
+  - `Status` dataclass and `read_status(path: Path) -> Status`, `write_status(path: Path, status: Status) -> None`: plain `key: value` lines (outcome, finished, last_success, then one line per contributor `user: <files> files, <entries> entries` or `user: skipped, <reason>`, then `lines_added: N`, `test_lines_dropped: N`). A missing or unreadable file gives a `Status` with no `last_success`. Writing is atomic (temp + replace). Never write the ssh target or the key path.
+  - `run(source: str, repo: Path, shared: SharedFiles, status_path: Path, lock_path: Path, now: datetime, dry_run: bool) -> Status`: implements spec steps 1 to 7 in order, using the functions above and `merge_all(repo / "gui2" / "data", shared, Gui2Paths(repo).contrib_lines_merged_path)`. `run` never calls `SharedFiles.default()`: that method reads the real shared files from the current folder (`Gui2Paths()` and `DbTestManager()` are cwd-relative), so a test with a temp repo would change real data. `main` passes `SharedFiles.default()`; every test passes a `SharedFiles` whose six paths are files under `tmp_path` (copy how `tests/scripts/server_contrib/test_merge_contrib_files.py` builds one). Outcomes: `pulled`, `pulled with problems` (some contributor skipped), `skipped: <reason>`, `partial` (editor appeared before the merge), `failed: <reason>`. `last_success` is set to `now.date().isoformat()` only for `pulled` and `pulled with problems`, and carried forward otherwise. With `dry_run`, it does steps 1 to 4 against a scratch folder, writes nothing to `gui2/data`, and returns a status listing what it would copy; it does not touch `last_success`. The lock is `fcntl.flock(fd, LOCK_EX | LOCK_NB)` on `lock_path`; if it is held the outcome is `skipped: another run`.
+  - `main() -> int`: reads the ssh target with `config_read("epitaka_server", "ssh")`; if empty returns 1 after logging `[epitaka_server] ssh is not set in config.ini`. Builds the source from the target plus the remote path constant `REMOTE_SOURCE_SUFFIX` (a placeholder `":"` until task 5.3 finds the form that works with the restricted key; its path is relative to the folder `rrsync` serves, so it must not hold `/var/lib/dpd/contrib_data`). Parses `--dry-run`. Calls `run`, then prints the status text (also for `--dry-run`, where it lists what would be copied, per contributor, and the counts dropped). Appends one line to `logs/contrib_pull.log`. If the outcome is not a success or skip, and `now` is at or after 22:30, runs `notify-send "DPD contributor pull" "<outcome>"` (a failure to notify is ignored and noted in the status). Returns 0 for success and skip, 1 otherwise.
+  - After writing the tests, run `git status --porcelain shared_data db_tests gui2/data > <scratchpad>/before.txt` before and after the test run and compare: a test run must change nothing in those folders.
+  - Tests: (a) a full run against a local source folder and a temp repo puts the expected files in the temp `gui2/data` and writes `last_success` = today; (b) a second run the same day returns `skipped: already done today` and changes no file; (c) with `editor_running` patched to true the run is `skipped: editor open`, nothing changes; (d) with a bad contributor, bob's files arrive and alice's local files are byte-identical to before, outcome `pulled with problems`; (e) a crash simulated by making `copy_in` raise after one file leaves `last_success` unchanged; (f) `--dry-run` changes no file in the temp `gui2/data` and leaves `last_success` alone; (g) the lock held by another file descriptor gives `skipped: another run`; (h) `now` at 22:30 with a failed run calls the notifier, at 21:59 it does not; (i) a missing status file does not stop the run; (j) a flag line the merge logged earlier is not merged twice (run twice on two days).
+  → verify: `uv run pytest tests/scripts/server_contrib/test_contrib_pull.py -q` passes with no skips. Revert check: make `editor_running` always return false and confirm test (c) fails.
+
+- [x] 4.7 **Phase gate.** `uv run ruff check --fix` and `uv run ruff format` on `scripts/server_contrib/contrib_pull.py`, `scripts/server_contrib/merge_contrib_files.py`, `tests/scripts/server_contrib/test_contrib_pull.py`, `tests/scripts/server_contrib/test_merge_contrib_files.py`; `uv run pyright scripts/server_contrib/contrib_pull.py scripts/server_contrib/merge_contrib_files.py`; `uv run pyright --project /dev/null tests/scripts/server_contrib/test_contrib_pull.py tests/scripts/server_contrib/test_merge_contrib_files.py`; `uv run pytest tests/scripts/server_contrib -q`; `just typecheck`.
+  → verify: all five report no errors and the pytest line shows zero failures.
+  **Phase 4 result (2026-11-04):** all five clean; `uv run pytest tests/scripts/server_contrib -q` = 165 passed; `just typecheck` = 0 errors. Revert checks: 4.2 reverted write = 1 failure; 4.3 ignore-extension = 1; 4.5 skip `reconcile_all` = 2; 4.6 each of the three editor checks removed in turn = 3, 2 and 1 failures.
+  **Where the build differs from the plan text (Drift Gate):**
+  - 4.4: the `select_names` test (symlink never selected) sits with 4.5 tests, because `select_names` belongs to 4.5.
+  - 4.5: added `ignored_names(listing)`, because `select_names` has a fixed return type and the count of unreadable names needs its own function. `check_scratch` reasons start with the file name.
+  - 4.6: a skipped run (already done today, editor open, another run) returns its reason and writes NEITHER the status file NOR the log line. Reason: the timer runs 30 times a day, and a skip would overwrite the last real result and add 29 log lines. A dry run writes nothing either and ignores the "already done today" and editor gates. `partial` and `failed` are written.
+  - 4.6: the notice also goes out for `pulled with problems` (spec step 7), not only for failed and partial. The status gains an `ignored_names:` line and an optional `notice_error:` line.
+  - 4.6: the plan's revert check ("make `editor_running` always false, test (c) fails") cannot work as written, since test (c) replaces `editor_running` with a stub. Real-function guard: the test that starts a process with a `gui2/main.py` argument (1 failure on revert). Gate guards: three timing tests added.
+  - 4.6: "a test run must change nothing in shared_data, db_tests, gui2/data": checked with a timestamp marker and `find -newer` (no git command run); zero files changed.
+  - `merge_all` report items that start with `skipped` are not counted in `lines_added`.
+
+## Phase 5 — The restricted key and the first real pull — *Sonnet*
+
+- [x] 5.1 **Make the key.** AGENT. On the laptop: `ssh-keygen -t ed25519 -N "" -C "dpd-contrib-pull" -f ~/.ssh/dpd_contrib_pull` (stop if the file exists). Do not print the private key. Print only the public key line.
+  → verify: `stat -c '%a' ~/.ssh/dpd_contrib_pull` prints `600`; `cat ~/.ssh/dpd_contrib_pull.pub | wc -w` prints `3`.
+
+- [x] 5.2 **Add the key to the server, restricted.** AGENT, with a safety line. Open a second ssh connection first and leave it open (`ssh -o ControlMaster=yes -o ControlPath=/tmp/claude-1000/cm-ep -o ControlPersist=30m -fN epitaka`). Back up: `cp -a /root/.ssh/authorized_keys /root/mem/authorized_keys.before_pull_20261104`. Append one line: `restrict,command="/usr/bin/rrsync -ro /var/lib/dpd/contrib_data" <the public key line>`. Never rewrite the file.
+  → verify: `ssh -o BatchMode=yes epitaka 'wc -l < /root/.ssh/authorized_keys'` prints one more than before; a fresh login with the owner's normal key still works (`ssh -o ControlPath=none -o BatchMode=yes epitaka 'echo OK'` prints `OK`). Then close the safety line (`ssh -o ControlPath=/tmp/claude-1000/cm-ep -O exit epitaka`).
+
+- [x] 5.3 **Prove the key can only read, and find the path form.** AGENT. From the laptop, with `-i ~/.ssh/dpd_contrib_pull -o IdentitiesOnly=yes -o BatchMode=yes -o StrictHostKeyChecking=accept-new`:
+  - `rsync -r --list-only -e "<those ssh options>" root@<host>:/ ` and `...:.` and `...:` — find which source form lists the folder. Write which form works into this file and set `REMOTE_SOURCE_SUFFIX` in `contrib_pull.py` to the form that works (with the trailing slash if needed).
+  - `ssh <options> root@<host> 'id'` must be refused (no output, not `uid=`).
+  - an rsync that tries to push a file (`rsync -e "<ssh>" /etc/hostname root@<host>:/`) must fail.
+  - the host is read from `ssh -G epitaka`; do not print the config file.
+  → verify: the listing form shows `additions_alice.json`; the `id` command prints no `uid=`; the push fails with an error. Paste all three results below this task.
+  **Result (2026-11-04):** the three source forms `root@host:/`, `root@host:.` and `root@host:` all list the folder (first row `additions_alice.json 13,876`). `REMOTE_SOURCE_SUFFIX` stays `":"`, so no code change. `ssh ... 'id'` printed `/usr/bin/rrsync error: SSH_ORIGINAL_COMMAND does not run rsync` (no `uid=`). The push printed `/usr/bin/rrsync error: sending to read-only server is not allowed` then `rsync error: error in rsync protocol data stream (code 12)`. 5.2: `authorized_keys` went from 1 to 2 lines; backup at `/root/mem/authorized_keys.before_pull_20261104`; a fresh login with the normal key printed `OK`.
+
+- [x] 5.4 **Dry run on the real files.** AGENT. First save a copy of the contributor files now in `gui2/data` to the scratchpad (outside the repo): `mkdir -p <scratchpad>/pull_backup && cp -p gui2/data/{additions,corrections,checked,manual_corrections,db_test_exceptions,variant_readings,spelling_mistakes}_*.* <scratchpad>/pull_backup/ 2>/dev/null; cp -p gui2/data/contrib_lines_merged.json <scratchpad>/pull_backup/; cp -p --parents shared_data/user_dictionary.txt shared_data/deconstructor/checked.csv shared_data/deconstructor/manual_corrections.tsv shared_data/deconstructor/variant_readings.tsv shared_data/deconstructor/spelling_mistakes.tsv db_tests/db_tests_columns.tsv <scratchpad>/pull_backup/`. Ask the owner to make sure the editor is closed. Run `uv run scripts/server_contrib/contrib_pull.py --dry-run`. It prints what it would copy, per contributor, and the counts dropped.
+  → verify: the output lists alice's files; no file in `gui2/data` changed (`git status --porcelain gui2/data` is the same before and after; compare with a saved copy); the entries kept for alice equal the number of entries in the server's `additions_alice.json` minus the ones whose `(key, hash)` is in the local `additions_added.json` (check by reading both with a short Python one-off). If a processed word would come back, stop and report it.
+
+- [x] 5.5 **First real pull.** AGENT, editor closed. Run `uv run scripts/server_contrib/contrib_pull.py`.
+  → verify: exit code 0; `logs/contrib_pull_status.txt` says `outcome: pulled` and `last_success:` is today; `gui2/data/additions_alice.json` equals the server's file minus processed words; `git diff --stat gui2/data shared_data db_tests` lists only expected files; `uv run python -c "import json;json.load(open('gui2/data/contrib_lines_merged.json'))"` succeeds. Run it a second time: the outcome is `skipped: already done today`.
+  **Result (2026-11-04):** dry run listed alice's 4 files and 10 entries, changed nothing (hash of the data folders before and after equal); an independent Python check of the server file minus processed `(key, hash)` pairs gave 10 kept, 0 processed. The 2 local alice entries were identical on the server. Real pull: exit 0, `outcome: pulled`, `lines_added: 5`; alice's additions equal the server file byte for byte; the second run said `skipped: already done today`; the merged-lines log loads. Changed files (compared with the backup in the scratchpad): alice's additions, checked and manual corrections files, the merged-lines log, and the shared `checked.csv` (+4 lines) and `manual_corrections.tsv` (+1 line). The review logs and the deva files are untouched. Backup: `<scratchpad>/pull_backup_real/`.
+  Undo if wrong: copy the files from `<scratchpad>/pull_backup/` back by name, including the six shared files under their paths. The agent never uses a git restore command.
+
+- [x] 5.6 **Phase gate.** `uv run pytest tests/scripts/server_contrib -q` and `just typecheck`.
+  → verify: zero failures, zero type errors.
+
+## Phase 6 — The timer, the recipes, the docs — *Sonnet*
+
+- [x] 6.1 **Unit templates.** Create `scripts/server_contrib/dpd-contrib-pull.service` and `scripts/server_contrib/dpd-contrib-pull.timer`.
+  - Service: `Type=oneshot`; `WorkingDirectory=@REPO@`; `Environment=PATH=@HOME@/.local/bin:/usr/local/bin:/usr/bin:/bin`; `Environment=DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/%U/bus`; `ExecStart=@UV@ run --no-sync scripts/server_contrib/contrib_pull.py`. No other lines.
+  - Timer: `OnCalendar=*-*-* 08..22:00,30:00`; `Persistent=true`; `WantedBy=timers.target`.
+  → verify: `systemd-analyze verify` on both files after filling the placeholders with the real values prints nothing; `systemd-analyze calendar '*-*-* 08..22:00,30:00'` lists the next elapse times and the first one is at :00 or :30.
+
+- [x] 6.2 **Recipes.** In `justfile` add above `contrib-merge` the comment `# Replaced by contrib-pull (the daily timer). Do not run both.`; add recipe `contrib-pull` (`uv run scripts/server_contrib/contrib_pull.py`) and recipe `contrib-pull-install`: fills `@REPO@` (the repo root), `@HOME@`, `@UV@` (output of `command -v uv`) into the two templates, writes them to `~/.config/systemd/user/`, runs `systemctl --user daemon-reload` and `systemctl --user enable --now dpd-contrib-pull.timer`. Keep each recipe to a few lines.
+  → verify: `just --list | rg contrib-pull` shows both; `just --dry-run contrib-pull-install` prints the steps without running them.
+
+- [x] 6.3 **Install and prove it with the unit's own environment.** AGENT. Run `just contrib-pull-install`. Then `systemctl --user list-timers dpd-contrib-pull.timer --no-pager` and `systemd-run --user --wait --collect --property=WorkingDirectory=<repo> --property=Environment="PATH=$HOME/.local/bin:/usr/local/bin:/usr/bin:/bin" $(command -v uv) run --no-sync scripts/server_contrib/contrib_pull.py --dry-run`. Do not run the real pull here; the `systemd-run` command passes `--dry-run` as its last argument so it adds no state.
+  → verify: the timer is listed with a `NEXT` time; the `systemd-run` command exits 0 and its output (shown with `journalctl --user -u run-*.service -n 20 --no-pager`) shows the script found `uv` and read the setting; `systemctl --user show dpd-contrib-pull.timer -p NextElapseUSecRealtime --no-pager` prints a time. The service `dpd-contrib-pull.service` first runs at the next scheduled time; it is proved in 8.5.
+
+- [x] 6.4 **Notice test.** AGENT. From inside `systemd-run --user --wait` with the unit's `DBUS_SESSION_BUS_ADDRESS`, run `notify-send "DPD contributor pull" "test notice"`.
+  → verify: exit code 0. Ask the owner only if no notice can be confirmed by exit code: ask "did a notice appear on screen". If it fails, record that the status file is the only signal.
+
+- [x] 6.5 **README.** In `scripts/server_contrib/README.md` add a section "The daily pull" with: what it does in 6 lines, where the status file and log are, the manual command (`just contrib-pull`), how to read `outcome:`, how to undo a bad run (the OWNER can `git restore <file>` a named shared file; the contributor files can be pulled again), and a link to `NEW_SERVER_RUNBOOK.md`. Add the new files to the file table at the end of the README.
+  → verify: `rg -n "The daily pull|NEW_SERVER_RUNBOOK" scripts/server_contrib/README.md` returns both.
+
+- [x] 6.6 **Phase gate.** `uv run pytest tests/scripts/server_contrib -q`; `just typecheck`; `git status --porcelain` shows only files this thread touched plus the previously uncommitted ones from the server thread (list them).
+  → verify: tests pass and the file list is written under this task.
+  **Results 6.1 to 6.4 (2026-11-04):** `systemd-analyze verify --user` on the filled units prints nothing; the calendar gives 08:00, 08:30 ... 22:30 then 08:00 next day. `just --list` shows `contrib-pull` and `contrib-pull-install`. Installed: next run 08:00 IST today (it will skip, today is done). The `systemd-run` dry run exited 0 and the journal shows the script's output (`alice: would copy 4 files, 10 entries`). The installed `dpd-contrib-pull.service` was started once by hand: exit 0, `outcome: skipped: already done today`, no file written. Notice test: `notify-send` in a user unit with the bus address exits 0; the owner confirmed the notice popped up on screen.
+  **6.6 Files touched by this thread's Phases 4 to 6 (listed by hand, no git command run):** `kamma/tech.md`, `kamma/threads/20261023_contrib_1_web_server/plan.md` and `handoff.md`, `scripts/server_contrib/contrib_pull.py` (new), `scripts/server_contrib/merge_contrib_files.py`, `scripts/server_contrib/dpd-contrib-pull.service` (new), `scripts/server_contrib/dpd-contrib-pull.timer` (new), `scripts/server_contrib/README.md`, `justfile`, `tests/scripts/server_contrib/test_contrib_pull.py` (new), `tests/scripts/server_contrib/test_merge_contrib_files.py`. Data changed by the first real pull: `gui2/data/additions_alice.json`, `checked_alice.csv`, `manual_corrections_alice.tsv`, `contrib_lines_merged.json`, `shared_data/deconstructor/checked.csv`, `shared_data/deconstructor/manual_corrections.tsv`; new `logs/` files are ignored. Previously uncommitted from the server thread: spec.md, plan.md, handoff.md, `scripts/server_contrib/README.md`, `artifacts/`, `egm_pull/`, `pull_spec.md`.
+
+## Phase 7 — The new-server runbook — *Sonnet*
+
+Read first: `scripts/server_contrib/README.md`, `scripts/server_contrib/server_setup.sh`, `scripts/server_contrib/nginx_contrib.conf.template`, `scripts/server_contrib/nginx_contrib_user.conf.template`, `scripts/server_contrib/nginx_status.conf.template`, `scripts/server_contrib/add_contributor.sh`, `scripts/server_contrib/dpd-gui@.service`, `scripts/server_contrib/config_server.md`, and the plans `kamma/threads/20261101_contrib_6_e2e_server_test/plan.md` and `kamma/threads/20261023_contrib_1_web_server/plan.md` (the 2026-11-03 notes hold the fixes that older text lacks). The document is `scripts/server_contrib/NEW_SERVER_RUNBOOK.md`.
+
+- [x] 7.1 **Skeleton.** Write the top of the file: purpose in 3 lines; the audience rule ("assume you know nothing about this project"); the executor rules from the spec (never print a secret file or environment; detach anything over 60 s with `setsid nohup ... &` and a bounded wait; never `pkill`; one change then its check; back up a system file before editing; on any mismatch stop and report the exact error); a table of placeholders (`NEW_IP`, `DOMAIN` = `<NEW_IP with dots as dashes>.sslip.io`, `SSH_TARGET` = `root@NEW_IP`, the contributor list) with how to obtain each; a legend of WHO values (`OWNER`, `AGENT`); the 12-step list as a table of contents. Mark the whole file's status line: `Not rehearsed end to end on a fresh machine; steps marked UNTESTED were not run.`
+  → verify: the headings for steps 1 to 12 exist (`rg -c "^## Step" scripts/server_contrib/NEW_SERVER_RUNBOOK.md` prints `12`).
+
+- [x] 7.2 **Steps 1 to 5** (order, ssh, firewall, packages, config, first build). For every step write: `WHO`, the exact command lines, `CHECK` (a command) and `EXPECT` (exact output). Take every command from a script or from the 2026-11-03 notes in the server thread: the keys-only drop-in file (`01-dpd-keys-only.conf` with its three lines and why it must sort first), the safety timer for the firewall (`systemd-run --on-active=5min --unit=dpd-ufw-deadman /usr/sbin/ufw disable`, cancelled only after a fresh login works), `timedatectl set-timezone Asia/Colombo`, swap (read the size from the README and `server_setup.sh`), `scripts/server_contrib/server_setup.sh`, `config.ini` entered by the OWNER (mode 600, the agent never reads or prints it; list which sections the server config template needs from `config_server.md`), and the first database build run detached with a bounded wait.
+  → verify: each step has the four labels (`rg -c "^\*\*WHO" scripts/server_contrib/NEW_SERVER_RUNBOOK.md` is at least 12); every command that names a script or file path exists (`ls` each one); every EXPECT that can be read on the live server (for example `sshd -T` values, `ufw status`, the zone) was checked read-only against `epitaka` and the result noted next to it. Steps not checkable that way are marked `UNTESTED`.
+
+- [x] 7.3 **Steps 6 to 9** (service, nginx, certificate, contributors, deploy key, cron, restricted key). Cover: the unit (`FLET_WEB_APP_PATH=%i` already in the template), the site file and the per-user files made by `add_contributor.sh` (path prefix, no trailing slash on `proxy_pass`), the sslip.io name needing no DNS, certbot with port 80 open and the `certbot renew --dry-run` check, the status block and the maintainer's own login (the file `/status` uses), moving the old server's `/var/lib/dpd/contrib_data`, htpasswd files and env files with `rsync` before it closes, running `add_contributor.sh` for each new one (the htpasswd group is set by the script), the deploy key with both `git remote set-url --push` and `core.sshCommand`, the full cron line with `--data-dir`, `--status-file`, one `--instance dpd-gui@<user>` per contributor and the `PATH=` line above it, and the restricted pull key line (`restrict,command="/usr/bin/rrsync -ro /var/lib/dpd/contrib_data" <pub key>`) with the key fetched from the laptop's `~/.ssh/dpd_contrib_pull.pub`.
+  → verify: same three checks as 4.2. Also confirm by reading the live server that the cron line, the unit, the site file and one user file match what the runbook says (`crontab -l`, `systemctl cat dpd-gui@alice`, `nginx -T` lines for the status block and the user block).
+
+- [x] 7.4 **Steps 10 to 12** (laptop side, outside check, cutover and retirement). Step 10: the OWNER changes `[epitaka_server] ssh` in `config.ini` to the new `user@host` (the agent must not edit it); the agent then runs `just contrib-pull` once. Step 11: the page of each contributor loads at the new address, `/status` says `rebuilt`, the first pull brings a test word; give the exact `curl -u` commands using a password read from a file the agent does not print. Step 12: tell contributors the new address; on the OLD server stop the cron job first (so two servers never push the `contributions` branch), keep a backup of the old data folder, then decommission.
+  → verify: same three checks as 4.2.
+
+- [x] 7.5 **Link and folder docs.** Add a one-line link to the runbook at the top of `scripts/server_contrib/README.md` ("Setting up a new server: see `NEW_SERVER_RUNBOOK.md`"). If `docs/technical/project_folder_structure.md` lists `scripts/server_contrib/` files, add the new files there.
+  → verify: `rg -n "NEW_SERVER_RUNBOOK" scripts/server_contrib/README.md` returns a line; `rg -n "contrib_pull" docs/technical/project_folder_structure.md` returns a line if that file lists the folder, else the task notes "file does not list this folder".
+
+- [x] 7.6 **Phase gate.** Re-read the runbook from the top as if you knew nothing. Write under this task every place that needed a guess and fix each one.
+  → verify: the list is written under this task, each item names the edit that fixed it, and a second read-through finds no new item.
+  **Results Phase 7 (2026-11-04):** `NEW_SERVER_RUNBOOK.md` written (12 `## Step` headings, 12 `**WHO` lines, status line as specified); linked at the top of the README and in its file table; `project_folder_structure.md` lists only folders (`server_contrib` is there), so it needs no change. Every script, template and path the runbook names exists (`ls`). Read-only checks on `epitaka`: time zone, `sshd -T` values, `ufw status`, swap, cron line, git push URL and `core.sshCommand`, nginx site and status block, file modes and groups, `certbot` timer and certificate, status page text, public 401 on `/alice/` and `/status`, `rrsync` restriction proved in 5.3. Run locally: the nginx name fill and the `/status` insertion script on a scratch copy (output equals the live site's block), and the detached launch plus wait-loop quoting with a fake `ssh`.
+  **UNTESTED (marked in the file):** swap creation, the web package install, unattended-upgrades install, the first certificate (standalone with stop/start hooks; the live server uses the nginx authenticator and how it was first issued is not recorded), deploy key creation and its GitHub write access, and everything on a truly fresh machine.
+  **Places that needed a guess, and the fix:** (1) the heading count was 13 because of a `## Steps` heading: renamed to `## The 12 steps`. (2) The site file said the server name appears three times; it appears four: corrected. (3) Step 3c EXPECT had a confusing second sentence: rewritten. (4) The cron step and the old server's cron could both push `contributions`: 8d now says to do it after 12c while the old cron runs. (5) Step 11 used password files with no way to make them: command added. A second read of Steps 1 to 4 found nothing new.
+
+## Phase 8 — End-to-end cycle proof, real onboarding and wrap — *Sonnet*
 ⚠️ MODEL SWITCH REQUIRED (Sonnet): mechanical execution resumes.
 
-- [ ] 4.1 Full-cycle rehearsal, maintainer playing contributor: add 2–3 real
-      words via the web GUI → nightly push lands in the contributions PR →
-      maintainer merges + processes the queue in desktop gui2 → data-update
+- [x] 8.1 Full-cycle rehearsal, maintainer playing contributor: add 2–3 real
+      words via the web GUI → the next morning's pull (Phase 6) copies them to the
+      laptop, no merge → maintainer processes the queue in desktop gui2 → data-update
       commit to main → next window rebuilds → words present in server db,
       contributor JSONs emptied by reconcile, nothing lost.
-      → verify: every arrow evidenced (PR diff, `additions_added.json` entry,
+      → verify: every arrow evidenced (pull status file, `additions_added.json` entry,
       server db query for the new lemma, empty contributor JSON).
-- [ ] 4.2 Failure drills: (a) browser closed mid-edit + laptop-sleep
+      **8.1 evidence so far, 2026-11-04:** (1) the owner added 10 words as alice on 2026-11-03 (server file last written 21:04); the first real pull at 06:30 brought all 10. (2) At 07:48 the owner saved one NEW word on the web page (`anekasataṭhāna`, key `alice_10000012`, id 10000012, with an exception line `construction: needs na` / 10000012); the pull at 07:49 (status file moved aside, editor closed) brought it: `outcome: pulled`, `alice: pulled 4 files, 11 entries`; alice's additions file equals the server's byte for byte; the reserved-id exception line was kept and not merged into the shared tests file (`lines_added: 0`, no shared file changed against the backup). This also proves a real word saves on the web page (problem 25 in the problem children thread). (3) 2026-11-04 ~08:30 the owner processed alice's words in Pass2Add: `additions_added.json` now has 52 rows, the last three `alice_10000010`, `alice_10000011`, `alice_10000012`, all with a hash; `anekasataṭhāna` is in the local db as id 90386; the exception for it was added to the real test as 90386 (the editor printed `Added exception 90386 to test 'construction: needs na'`); alice's local file keeps only `alice_10000002` and `alice_10000003`, the two words that were already headwords (problem 12). Seen in the owner's start-up output, not caused by this thread: `[Errno 98]` on 127.1.1.1:8080 (an older `exporter.webapp` uvicorn from Nov 1 holds the port, harmless) and Chromium zygote "Broken pipe" lines when links open in the existing browser. (4) The owner clicked Reject on the two leftovers (Reject was there; it shows only right after the queue button loads a word): review log 54 rows, the last two `rejected` with hashes; alice's local file empty. (5) Commit pushed; GitHub `main` = 6df9a1b6 with the 54-row log. (6) Manual window run on the server 2026-11-04 13:47 to 14:22 (35 min, started detached with cron's PATH, `setsid nohup`, pid file, bounded wait): stop alice, pull (HEAD 34ee153f to 6df9a1b6), `reconciled: {additions_alice: 0, checked_alice: 0, manual_corrections_alice: 0, db_test_exceptions_alice: 0}`, `contrib_push: pushed 1 changed files`, db rebuilt from tsv 13:48, components generated 14:22:31, health check passed, WAL re-applied, alice restarted. `/var/lib/dpd/status.txt`: `outcome: rebuilt`, commit 6df9a1b6, `problems: 0`. `last_built_commit` = HEAD = 6df9a1b6. Server db: 89,783 headwords, `anekasataṭhāna` present as id 90386, 0 rows with a reserved id (10000000 and up), file 925,519,872 bytes. Alice's files on the server: `additions_alice.json` is `{}` (2 bytes), the flag files are 0 bytes. A copy of the data folder taken before the run: `/root/mem/contrib_data.before_manual_window_20261104`. ALL ARROWS EVIDENCED.
+- [~] 8.2 Failure drills: (a) browser closed mid-edit + laptop-sleep
       reconnect; (b) a second tab for the same user (must be refused) and how
       long a closed tab blocks a new one; (c) a night where main did not move
       (no rebuild) and a night with an unmerged PR (nothing dropped). Document observed behavior + the contributor guidance ("if the
-      page goes grey, reload") IN THIS FILE and in 4.3's doc.
+      page goes grey, reload") IN THIS FILE and in 8.3's doc.
       → verify: written results for all three drills; no data loss in any.
-- [ ] 4.3 Contributor-facing instructions: ONE paragraph + screenshots at
+      RUN 2026-11-03 with throwaway user `probe4` (port 8558), headless
+      browsers, removed afterwards (no probe file left in contrib_data):
+      (a) browser closed: the websocket count drops to 0 at once; a new tab
+      loads the app fine. The unsaved form is gone (a new session starts at
+      Pass1Auto). Network off for 25 s, then on: the page comes back as a
+      NEW session (element refs changed), one websocket, again the empty
+      Pass1Auto screen. So an unsaved word is lost on any reconnect.
+      A real laptop sleep was not tried.
+      (b) second tab: the plan's "must be refused" is wrong. The NEWEST tab
+      takes the session and works; the OLD tab is retired and shows "This app
+      is already open in another tab or window." A closed tab never blocks a
+      new one (the new tab always takes over).
+      (c) FIRST CRON RUN 2026-11-04 01:00: outcome `failed`, 48 s. The push
+      worked (contributions branch commit 78d9dcc9, 4 gui2/data files for
+      alice) but the rebuild died with `No such file or directory: 'uv'`:
+      cron's default PATH has no `/root/.local/bin`, and `maintenance_window.py`
+      runs `uv` by name (lines 125 and 133). Rollback worked (db, tree and
+      contributor files restored, alice restarted, active). Fixed on the
+      server by a `PATH=/root/.local/bin:...` line at the top of the root
+      crontab (old crontab in `/root/mem/security_fix_20261103/crontab.before`);
+      README cron line updated. PROVED 2026-11-04 04:11 by a manual run under
+      `env -i` with cron's PATH and shell: `rebuilt` in 30 min (04:11→04:41),
+      health check passed, problems 0, last_built_commit 34ee153f, alice
+      active, contributions branch pushed again (4 files). Not yet proved:
+      the real 01:00 cron run itself (due 2026-11-05). 3.6's "happy path verified" ran by hand, so it never met
+      cron's environment.
+      Not run: a real word saved from Pass1Add. Typing into Flutter fields
+      through the browser tool did not take (`fill` on the lemma field left
+      "buddha 1"), so the cloned word was refused as a duplicate ("buddha 1
+      already in db", shown under lemma_1). That refusal itself works.
+      Preview behind the prefix: `/probe4/preview/preview_alice.html` returned
+      200 (60 KB), root `/preview/preview_alice.html` 404. The page URL is
+      relative, so it should resolve to `/<user>/preview/…`; the click path
+      itself (button → new window) is NOT proved. A missing preview file under
+      the prefix answers 200 with the app shell (3.8 KB), not 404.
+      ⚠️ CONFIRMED GAP: all instances share `gui2/assets/preview/`, and the
+      files are named `preview_<user>.html`, so `probe4` could fetch
+      `preview_alice.html` through its own prefix. Content is a dictionary
+      entry not yet saved; low risk. Not fixed (needs a gui2 change, owner to
+      decide): a per-user assets folder or an unguessable file name.
+      Noticed, not investigated: each fresh session logs `decon cache refresh
+      failed: attempt to write a readonly database` (INSERT into db_info). The
+      contributor server opens the db read-only on purpose, so this is
+      probably expected, but nobody has said so. Also, the service log lags
+      by minutes (Python stdout is buffered under systemd), so judge a session
+      by the screen, not by the log.
+- [x] 8.3 DROPPED 2026-11-04 (owner): no written contributor page and nothing in the docs or in `scripts/onboarding/README.md`. The owner makes an onboarding video that guides each contributor through everything. The draft stays in `artifacts/web_gui_draft.md`, marked archived. Original task text follows. Contributor-facing instructions (DRAFT in `artifacts/web_gui_draft.md`, not published; two TODOs for the maintainer): ONE paragraph + screenshots at
       `docs/contributing/web_gui.md`, written for the real audience: the URL,
       the password, "bookmark it", who to call. Add banner to
       `scripts/onboarding/README.md`: non-technical contributors use the web
       version (legacy flow stays documented below it).
       → verify: user approves the text; ideally one non-technical reader test.
-- [ ] 4.4 Onboard contributor #1 (real person, India or Singapore) over a
+      **CHANGED 2026-11-04 (owner):** the page is NOT public and does NOT go into the docs. It holds a private address and login, so it is sent privately to each contributor. `docs/contributing/web_gui.md` and the banner in `scripts/onboarding/README.md` are dropped. The draft in `artifacts/web_gui_draft.md` stays as the working text and keeps being updated. The two TODOs in it are the owner's to fill.
+- [ ] 8.4 **Changed 2026-11-04:** onboarding is the owner's video, not a text page; the address will move to a new domain (planned `contrib.dpdict.net`; the runbook already covers another domain: its A record must point at the server before the certificate step, and Step 12 tells contributors the new address). The tabs each contributor sees are set per user in their env file (`DPD_GUI2_TABS`), so the video covers them. Onboard contributor #1 (real person, India or Singapore) over a
       call; watch, note friction, fix. Then contributor #2 without watching.
       → verify: #1 completes a real Pass1 word unaided after the call;
       #2 onboards with zero live help.
-- [ ] 4.5 Thread wrap: update `kamma/tech.md` (+ `conductor/tech-stack.md` if
+- [ ] 8.5 **The first scheduled pull** (from the pull work). AGENT, the morning after Phase 6 is installed, after 08:00: read `logs/contrib_pull_status.txt` and `logs/contrib_pull.log`; check `systemctl --user list-timers dpd-contrib-pull.timer --no-pager`.
+      → verify: the status shows `outcome: pulled` or `skipped: already done today` with `last_success:` of that day, with no step taken by the owner. If the laptop was off at 08:00, the log shows the run at wake-up. Also run 8.1's loop with the pull: the words reach the editor's queue with no manual merge.
+- [x] 8.6 **Review.** Read `egm_pull/gate3.md` and confirm each Blocker and Major is fixed in Phases 4 to 7 (its disposition table has no `Accept` row with an empty "Where fixed"). Ask the owner whether to run `coderabbit review --agent` (`--uncommitted --include-untracked --dir scripts/server_contrib`, and a second pass on the tests folder). Run it and a from-scratch audit of the plan as parallel reviewers, with no edits to the tree meanwhile. Apply only findings checked against the code.
+      → verify: each finding is recorded here with its decision.
+      **8.6 part 1 done 2026-11-04 (Gate 3 check):** G3.1 `run` takes a `SharedFiles` argument and every test builds one from copies under `tmp_path`; a full `tests/scripts/server_contrib` run changed no file in `shared_data`, `db_tests`, `gui2/data` or `logs` (timestamp check). G3.2 undo is by copying back from the scratchpad backup (made in 5.4, six shared files included); no git restore was run. G3.3 test (a) uses a JSON list and passes. G3.4 `main` prints the status, also for `--dry-run` (seen in 5.4). G3.5 verified on the transient `run-*.service` unit and on the real service started once by hand (6.3). G3.6 `ignored_names` counts them. G3.7 `REMOTE_SOURCE_SUFFIX` was a placeholder; 5.3 proved `":"` works. G3.9 symlinks are listed with an `l` mode (4.1) and refused. G3.11 the listing is unfiltered and `select_names` filters; the spec text was left as is. **8.6 part 2, 2026-11-04 (owner said yes):** CodeRabbit (`--uncommitted --include-untracked --dir scripts/server_contrib`, free CLI allowance, 6 findings, not reused) and a pi DeepSeek review (`deepseek-v4-pro`, thinking max, read-only, smoke-tested first: PONG in 2 s; the review took about 5 min, no hang) ran in parallel with no edits meanwhile. The pi input was the source files read directly, no git. Decisions, each checked against the code:
+  - FIXED: header-less variant/spelling file silently lost its first row (merge slices line 1 unconditionally): `check_content` now requires the header (DeepSeek M1). Empty field in a two-column line refused (m8).
+  - FIXED: `ValueError` (a JSON error from the merged-lines log) escaped `run` as a traceback: now a recorded `failed` (M2).
+  - FIXED: no deadline on the listing: listing gets `--timeout=60`, every rsync call has a 300 s limit, ssh gets `ConnectTimeout=30` (CodeRabbit major, m9). Copy gets `--max-size` (m5).
+  - FIXED: a day pulled with problems never got its notice (the 22:30 run is skipped as already done): `pulled with problems` now notifies at once; `failed`/`partial` still at 22:30 (CodeRabbit major, reworded). Spec step 7 and README updated.
+  - FIXED: the ignored-name log line is redacted (m4) and not written in a dry run (m10).
+  - FIXED in the runbook: the old deploy key is no longer deleted before the old cron stops (it is deleted in 12f); the wait loop waits for a fresh PID file (`rm -f` first, then `test -s`); step 11c warns that 12c wipes a test word; README maintainer section marked as replaced.
+  - New tests: header missing, empty field, problem notice at once, failed run before 22:30 silent, remote command carries the fixed ssh options and the deadline, local source has no `-e`, hanging rsync = failed, merge JSON error = failed, corrupt merged log = failed, dry run writes no log, deleted shared line does not come back (guards the log wiring). Revert checks: header check removed = 2 failures; `ValueError` removed = 1; problem notice made late = 1; deadline removed = 1.
+  - REJECTED: DeepSeek m3 (non-UTF-8 names crash the run): wrong. rsync prints odd bytes as `\#377`, so decoding never fails; the name is ignored and counted (test added). n2 (DEL character): the spec says below U+0020. n1 (fsync): same pattern as the existing atomic writers, laptop power cut on a tiny log; not worth the extra code.
+  - NOTICED, NOT TOUCHING (existing code, not this thread's change): `merge_user_dictionary` and `merge_two_column` rewrite the shared files in place, so a kill mid-write can truncate them (git holds the old copy; the merged-lines log would then call the lost lines handled) (m6). `DbTestManager.save_tests` prints an `OSError` and returns, so a failed write of the tests file looks like success (m7). Both are worth a small follow-up thread; the pull makes them more exposed because the merge now runs daily.
+  - Not done from n3: a test that `main()` writes `notice_error` back to the status file.
+- [ ] 8.7 Thread wrap: update `kamma/tech.md` (+ `conductor/tech-stack.md` if
       needed) with server facts (provider, IP, ports, window time, runbook
-      location); `docs/technical/project_folder_structure.md` if
-      `scripts/server_contrib/` description changed; final lint/type/test sweep.
+      location, the pull: script, timer, key, status file); `docs/technical/project_folder_structure.md` if
+      `scripts/server_contrib/` description changed; final lint/type/test sweep;
+      list here the uncommitted files for the owner's commit.
       The spec's two-week success criterion starts counting; thread finalize
-      per `/kamma:4-finalize` when review passes.
-      → verify: docs updated; `uv run pytest tests/` clean.
+      per `/kamma:4-finalize` when review passes (skip the GitHub step: never comment on or close issue #215).
+      → verify: docs updated; `uv run pytest tests/` clean; `just typecheck` clean.
+      **8.7 progress 2026-11-04:** `kamma/tech.md` has the pull note and a server-facts note (provider left out: not recorded anywhere I could read). Full sweep: `uv run pytest tests/ -q` = 2840 passed, 12 deselected, 1 FAILED: `tests/scripts/server_contrib/test_maintenance_window.py::TestHappyPath::test_status_file_reports_a_failure_and_its_reason` (`problems: 0`, expected `problems: 1`). Not reproduced: the same file passed 3 times alone and `tests/scripts` passed 2 times together (327 tests); neither the test nor `maintenance_window.py` was touched by this thread. Unexplained, recorded as problem 27; do not call it environment noise without more runs. `just typecheck` 0 errors. Still open for 8.7: the final uncommitted-file list (after 8.1, 8.4 and 8.5) and finalize.
+      **Blind read of the runbook 2026-11-04** (a fresh agent with no context, read-only; 20 points; verdict "not ready"). Checked against the files and the live server; all applied: (1) the new server never got its cron job (8d was skipped, nothing came back to it): new Step 12c2. (2) the certificate hook starts nginx with no site, so `systemctl start` in 7d did nothing: now `restart`. (3) Step 10 pointed the daily pull at the new server before cutover, so an older copy could overwrite newer laptop files: Step 10 now says do it after 12c, or stop the timer first. (4) 12c copied over data that live new instances held: instances stopped, the new data moved aside (not deleted), then copied. (5) copied users have passwords the owner never typed: 11a checks only the 401 for them; new users use the same password in the file. (6) long waits are killed by the tool shell: sliced waits of 110 s with `JOB_ENDED`/`STILL_RUNNING`. (7) swap step had no fstab backup and no re-run guard. (8) recovery text for `authorized_keys` was garbled: restore the backup copy. (9) STEP 6A EXPECT WAS WRONG: I had written "checked on epitaka" without running it; `systemctl cat` prints `%i` unexpanded. Fixed after running it on the server. (10) placeholders must be replaced: one line added. (11) 7a or 7b, never both. (12) config template: placeholder text, `umask 077`, `shred`. (13) apt lock timeout. (14) owner confirms the scripts are on `main`. (15) `grep -c` exit status. (16) newline check on `authorized_keys` (live: `0a`). (17) keep the entry count before the test. (18) `mkdir -p ~/backups` and the server count. (19) password reaches `curl` through stdin; rule 10 names the one allowed read. (20) restart cron after the zone change. Tested locally: the curl stdin form, and the sliced wait for a finished and a running job.
 
 ## Explicitly deferred (do NOT do in this thread)
 

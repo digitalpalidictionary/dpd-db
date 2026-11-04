@@ -166,6 +166,8 @@ The maintainer processed the others; reconcile kept these two (their hash is not
 on save when the lemma already exists as a headword, and a way for reconcile or the
 maintainer to clear such entries (reject, or flag lemma collisions).
 
+**Owner's observation 2026-11-04:** the two leftovers (`alice_10000002`, `alice_10000003`) are already headwords (ids 90368 and 90369). In Pass2Add the owner loaded one from alice's list and clicked Delete, expecting it to leave alice's list. It did not: Delete is the database delete (`_click_delete_from_db` in `gui2/pass2_add_view.py`) and never touches the contributor file. The Reject button (`_click_reject`, calls `additions_manager.reject`, which logs the entry with its hash and removes it from alice's file) does that, and is shown only for an entry loaded from a contributor file. Idea: when the form holds a contributor entry, make Delete also reject it (or hide Delete and show only Reject), or warn on Add that the lemma already exists (the second half of this item). UPDATE 2026-11-04: the owner found the Reject button (it was there; it shows only right after the queue button loads a word) and used it on both leftovers. Reject works as designed. Not built: owner to decide. Check first that Delete on a loaded contributor entry cannot delete a real headword that has the same lemma.
+
 ### 13. A contributor cannot change their password
 The login is nginx basic auth. Only the maintainer can change it, by re-running
 `add_contributor.sh` or `htpasswd`. Decide whether that is enough.
@@ -190,3 +192,39 @@ attempt to write a readonly database` (`gui2/database_manager.py`, the
 start pays the live scan, and the warning reads like an error. Either skip the save
 when the db is read-only, or let the build write the cache.
 
+
+## Added 2026-11-04 from thread `20261023_contrib_1_web_server` (Phases 4 to 8, the daily pull and its review)
+
+### 17. The merge rewrites two shared files in place (found by review, verified in code)
+`merge_user_dictionary` and `merge_two_column` in `scripts/server_contrib/merge_contrib_files.py` open the shared file with `"w"` (truncate, then write). A kill or power cut mid-write truncates `shared_data/user_dictionary.txt` or `variant_readings.tsv`. The merged-lines log would then call the lost lines handled, so they never return. Git holds the old copy (undo is `git restore`, by the owner). The merge now runs by itself every day through `contrib_pull.py`, so the exposure grew. Fix: write a temp file and `os.replace`, as `write_merged_log` now does. FIXED 2026-11-04 in the contrib_1 review (`review.md`): the merge writes a temp file and renames it, and keeps the file mode.
+
+### 18. A failed save of the tests file looks like success (found by review, verified in code)
+`DbTestManager.save_tests` (`db_tests/db_tests_manager.py`, ~line 379) catches `OSError` and only prints it. `merge_test_exceptions` then reports the exception lines as merged, and the merge logs them. The pull says `pulled`, the shared tests file was never written, and the server's reconcile drops those lines for good. Fix: let `save_tests` raise, or return a success flag. FIXED 2026-11-04 in the contrib_1 review, in the merge only: it reads the file back after `save_tests` and raises if the id is missing, so the line is not logged as handled. `save_tests` itself is unchanged (gui2's tests tab calls it too), so the silent print is still there for other callers.
+
+### 19. All instances share one preview folder, with guessable file names (confirmed 2026-11-03, drill 8.2)
+`gui2/assets/preview/preview_<user>.html` sits in one folder for every instance. User `probe4` fetched `preview_alice.html` through its own prefix. The content is a dictionary entry not yet saved, so the risk is low. Fix needs a gui2 change: a per-user assets folder or an unguessable file name. Also from 8.2: a missing preview file under the prefix answers 200 with the app shell (3.8 KB), not 404 (see item 15). The click path from button to new window behind the prefix was not proved.
+
+### 20. The server's deploy key can write `main` past branch protection (accepted by the owner 2026-11-03)
+Details in `20261023_contrib_1_web_server/plan.md` task 3.2. Listed here so the next security pass finds it. A non-admin account key or a fine-grained token would fix it. The new-server runbook (Step 8) repeats the warning.
+
+### 21. The nightly window leaves a copy of the database and a worktree on the server
+After a successful run the clone holds `dpd.db.prev` (883 MB) and `_contrib_worktree/`. Harmless on 65 GB free; an old `dpd.db.prev` is also not a safe fallback after a failed run (it was captured mid-rebuild once). Decide: clean up after a good run, or leave.
+
+### 22. A contributor with a bad file waits until tomorrow (accepted trade-off, from the pull review)
+The pull skips all the files of a contributor with one bad file. The day still counts as done, so a file corrected the same day is not retried until the next day. The desktop notice now goes out at once for this outcome. If same-day retry matters, `pulled with problems` would have to leave `last_success` unset, at the cost of a retry every 30 minutes all day for a contributor who stays bad.
+
+### 23. Long server commands die in the herdr agent's shell (seen 2026-11-03)
+The server agent's shell times out at 120 s and kills the process group, which killed a database rebuild twice. Always detach (`setsid nohup ... &`) and wait from the laptop. Written into the new-server runbook rules. It is a tooling limit, not a code bug.
+
+### 24. A history rewrite on `main` forces one full rebuild (seen 2026-11-03)
+A force-restore of `main` changed HEAD against `logs/last_built_commit` and turned the next "skip" night into a 55-minute rebuild with the instances down. Expected behaviour, worth knowing before any force-push.
+
+### 25. A real word saved from Pass1Add on the server is not proved
+In drill 8.2 typing into Flutter fields through the browser tool did not take, so only the duplicate refusal was seen. Part of 8.1 (the owner adds real words) will settle this.
+SETTLED 2026-11-04: the owner saved a real new word on the web page (`anekasataṭhāna`) and the pull brought it to the laptop intact.
+
+### 26. `contrib_pull.py` imports two private helpers (minor)
+`_read_lines` and `_write_atomic` come from `contrib_reconcile.py`. Fine for two users; make them public if a third module needs them.
+
+### 27. One unexplained failure in the full test run (2026-11-04)
+`tests/scripts/server_contrib/test_maintenance_window.py::TestHappyPath::test_status_file_reports_a_failure_and_its_reason` failed once in `uv run pytest tests/` (2840 passed): the status file said `problems: 0`, the test expects `problems: 1`. It passed 3 times alone and 2 times with all of `tests/scripts`. The status lists the ERROR and WARNING lines of that day's log, so a dependency on log state or on the clock (the run was at 07:14) is a guess, not proved. Run the whole suite a few times, and read how the status writer picks the day's log lines.

@@ -1,5 +1,8 @@
 # Spec: Contributor Web Server — zero-install onboarding for data-entry contributors
 
+> **Part 2 (2026-11-04):** the daily pull of contributor words to the maintainer's laptop and the new-server runbook are specified in `pull_spec.md` in this folder (reviews in `egm_pull/`). They are Phases 4 to 7 of `plan.md`; the old Phase 4 is now Phase 8. Where this spec says the maintainer merges the `contributions` branch by hand, `pull_spec.md` replaces that step.
+
+
 **Thread:** 20261023_contrib_1_web_server
 **Date:** 2026-07-19
 **GitHub issue:** [#215 — Contributor Onboarding: Easy GUI Setup & Data Submission](https://github.com/digitalpalidictionary/dpd-db/issues/215)
