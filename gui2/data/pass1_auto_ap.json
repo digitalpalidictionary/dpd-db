@@ -1,22 +1,4 @@
 {
-    "susaṇṭhahitvā": {
-        "lemma_1": "susaṇṭṭhahitvā",
-        "lemma_2": "susaṇṭṭhahitvā",
-        "pos": "abs",
-        "grammar": "abs of susaṇṭṭhahati",
-        "meaning_2": "having established well; having firmly fixed; having well settled",
-        "root_key": "√ṭhā",
-        "root_sign": "a",
-        "root_base": "√ṭhā + a > ṭhaha (irreg)",
-        "family_root": "su saṃ √ṭhā",
-        "family_compound": "",
-        "construction": "su + saṃ + ṭhaha + itvā",
-        "stem": "-",
-        "pattern": "",
-        "comment": "[deepseek: deepseek-v4-flash] Variant reading susaṇṭhahitvā (= su + saṇṭhahitvā); in the text it describes saddhā: the faith was well established in the good Dhamma. Absolutive of susaṇṭṭhahati, cp. saṇṭhahitvā.",
-        "example_1": "Saddahitvāna [susaṇṭhahitvā (sī.)] saddhamme, ujudiṭṭhi ahosahaṃ.",
-        "translation_1": "I had faith in the good Dhamma and held upright views."
-    },
     "abhibbhavitvā": {
         "lemma_1": "abhibbhavitvā",
         "lemma_2": "abhibbhavitvā",
