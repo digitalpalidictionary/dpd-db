@@ -296,6 +296,20 @@ css:
 backup:
     uv run python db/backup_tsv/backup_dpd_headwords_and_roots.py
 
+# Pull the contributors' files from the server now (the daily timer runs the same command)
+contrib-pull:
+    uv run scripts/server_contrib/contrib_pull.py
+
+# Install the daily contributor pull as a systemd user timer
+contrib-pull-install:
+    test -n "$(command -v uv)" || { echo 'uv not found on PATH'; exit 1; }
+    mkdir -p ~/.config/systemd/user
+    sed "s|@REPO@|{{justfile_directory()}}|; s|@HOME@|$HOME|; s|@UV@|$(command -v uv)|" scripts/server_contrib/dpd-contrib-pull.service > ~/.config/systemd/user/dpd-contrib-pull.service
+    cp scripts/server_contrib/dpd-contrib-pull.timer ~/.config/systemd/user/dpd-contrib-pull.timer
+    systemctl --user daemon-reload
+    systemctl --user enable --now dpd-contrib-pull.timer
+
+# Replaced by contrib-pull (the daily timer). Do not run both.
 # Merge the server's contributions branch into main, then fold the flag files into the shared files
 contrib-merge:
     git fetch origin contributions

@@ -1,5 +1,6 @@
 """merge_contrib_files on copies of the real shared files."""
 
+import os
 import shutil
 from pathlib import Path
 
@@ -220,6 +221,91 @@ def test_the_log_is_written_in_sorted_order(tmp_path: Path) -> None:
         ("a.csv", ["x"]),
         ("b.csv", ["aa", "zz"]),
     ]
+
+
+def test_a_failed_log_write_keeps_the_old_log_and_leaves_no_temp_file(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    log_path = tmp_path / "contrib_lines_merged.json"
+    write_merged_log(log_path, {"a.csv": ["x"]})
+    before = log_path.read_bytes()
+
+    def boom(*args: object, **kwargs: object) -> None:
+        raise OSError("disk full")
+
+    monkeypatch.setattr("scripts.server_contrib.merge_contrib_files.json.dump", boom)
+    with pytest.raises(OSError):
+        write_merged_log(log_path, {"a.csv": ["x", "y"]})
+
+    assert log_path.read_bytes() == before
+    assert list(tmp_path.glob("*.tmp")) == []
+
+
+def test_a_failed_user_dictionary_write_leaves_the_old_file_and_no_temp_file(
+    shared: SharedFiles, data_dir: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    (data_dir / "user_dictionary_alice.txt").write_text("zzzqword\n", encoding="utf-8")
+    before = _bytes(shared.user_dictionary)
+    real_replace = os.replace
+
+    def broken_replace(src, dst, *args, **kwargs):  # noqa: ANN001, ANN002, ANN003
+        raise OSError("disk full")
+
+    monkeypatch.setattr(os, "replace", broken_replace)
+    with pytest.raises(OSError):
+        merge_all(data_dir, shared)
+    monkeypatch.setattr(os, "replace", real_replace)
+
+    assert _bytes(shared.user_dictionary) == before
+    assert list(shared.user_dictionary.parent.glob("*.tmp")) == []
+
+
+def test_a_failed_variant_write_leaves_the_old_file_and_no_temp_file(
+    shared: SharedFiles, data_dir: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    (data_dir / "variant_readings_alice.tsv").write_text(
+        "variant\tmain\r\nzzzvar\tzzzmain\r\n", encoding="utf-8", newline=""
+    )
+    before = _bytes(shared.variant_readings)
+
+    def broken_replace(src, dst, *args, **kwargs):  # noqa: ANN001, ANN002, ANN003
+        raise OSError("disk full")
+
+    monkeypatch.setattr(os, "replace", broken_replace)
+    with pytest.raises(OSError):
+        merge_all(data_dir, shared)
+
+    assert _bytes(shared.variant_readings) == before
+    assert list(shared.variant_readings.parent.glob("*.tmp")) == []
+
+
+def test_a_rewritten_shared_file_keeps_its_file_mode(
+    shared: SharedFiles, data_dir: Path
+) -> None:
+    shared.user_dictionary.chmod(0o664)
+    (data_dir / "user_dictionary_alice.txt").write_text("zzzqword\n", encoding="utf-8")
+    merge_all(data_dir, shared)
+    assert shared.user_dictionary.stat().st_mode & 0o777 == 0o664
+
+
+def test_a_test_exception_that_did_not_reach_the_file_fails_the_merge_and_is_not_logged(
+    shared: SharedFiles, data_dir: Path, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    manager = DbTestManager()
+    manager.tests_path = shared.tests_columns
+    target = manager.load_tests()[3]
+    new_id = max(target.exceptions, default=0) + 1
+    (data_dir / "db_test_exceptions_alice.tsv").write_text(
+        f"{target.test_name}\t{new_id}\n", encoding="utf-8"
+    )
+    log_path = tmp_path / "contrib_lines_merged.json"
+    # save_tests prints a write error and returns: the same as doing nothing.
+    monkeypatch.setattr(DbTestManager, "save_tests", lambda self: None)
+
+    with pytest.raises(RuntimeError, match="was not saved"):
+        merge_all(data_dir, shared, log_path)
+
+    assert not log_path.exists()
 
 
 def test_no_contributor_files_means_an_empty_report(

@@ -7,6 +7,8 @@ in `DPD_GUI2_DATA_DIR` (outside the repo). A nightly window pulls `main`,
 drops what the maintainer has handled, pushes the rest to the `contributions`
 branch, and rebuilds the scratch db when `main` has moved.
 
+Setting up a new server: see `NEW_SERVER_RUNBOOK.md`.
+
 See also: `config_server.md` (the lean rebuild — kept/dropped step rationale),
 `spec.md`/`plan.md` in `kamma/threads/20261030_contrib_5_hardening/`.
 
@@ -77,7 +79,12 @@ reconcile, push and rebuild. Every run logs to `logs/maintenance_YYYYMMDD.log`.
 
 Production (cron on the server, 01:00 IST on a host in IST):
 
+The `PATH` line is required. Cron's short default path has no `uv`, and the
+window runs `uv` by name for the rebuild. Without it the first night fails at
+the rebuild (2026-11-04: `No such file or directory: 'uv'`; the rollback worked).
+
 ```bash
+PATH=/root/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 0 1 * * * cd /root/dpd-db && /root/.local/bin/uv run --no-sync scripts/server_contrib/maintenance_window.py --data-dir /var/lib/dpd/contrib_data --instance dpd-gui@alice --status-file /var/lib/dpd/status.txt >> /root/mem/window_cron.log 2>&1
 ```
 
@@ -128,13 +135,37 @@ finishes normally: the status file never decides the window's outcome.
 | `server_setup.sh` | Builds a server from a fresh clone. See "New server". |
 | `dpd-gui@.service` | systemd unit template, one gui2 instance per contributor. Filled and installed by `server_setup.sh`. |
 | `config_server.template` | Server `config.ini` template. Copy to `config.ini`; NEVER commit the result. |
+| `contrib_pull.py` | Laptop side. Copies the contributors' files from the server once a day, checks them, drops what you already handled, and merges the flag files. See "The daily pull". |
+| `dpd-contrib-pull.service`, `dpd-contrib-pull.timer` | systemd user unit templates for the daily pull. `just contrib-pull-install` fills and installs them. |
+| `NEW_SERVER_RUNBOOK.md` | Step by step set-up of a new server, written for an agent with no context. |
 
 The delivered file kinds (additions, corrections, user dictionary, checked,
 manual corrections, variants, spelling, test exceptions) come from one list in
 `tools/contrib_entry.py`. History, daily log, presets and stash files are
 never delivered.
 
+## The daily pull
+
+Runs on the maintainer's laptop, by itself. A systemd user timer starts it every
+30 minutes from 08:00 to 22:30. The run that finds today already done stops at once.
+
+1. It lists the server folder with `rsync` over ssh (read-only key `~/.ssh/dpd_contrib_pull`).
+2. It checks every name and size, copies the accepted files to a scratch folder, and checks their content.
+3. One bad file drops all the files of that contributor for today. The others go on.
+4. It drops what you already processed (`contrib_reconcile.py`) and any test exception whose id is not a reserved id.
+5. It copies the rest into `gui2/data`, then runs `merge_contrib_files.py` for the flag files.
+6. It does nothing while the editor (gui2) is open.
+
+- **Status:** `logs/contrib_pull_status.txt`. **Log:** `logs/contrib_pull.log`. A skipped run writes neither, so the status keeps the last real result.
+- **By hand:** `cd ~/MyFiles/3_Active/dpd-db && just contrib-pull` (to see what it would do without changing anything, run `uv run scripts/server_contrib/contrib_pull.py --dry-run`).
+- **Reading `outcome:`:** `pulled` is good. `pulled with problems` means a contributor was skipped; the line below names the file and the reason. `partial` means the editor opened mid-run; the next run repeats it. `failed: ...` gives the error. `pulled with problems` sends a desktop notice at once. A `failed` or `partial` run sends one only on the last run of the day (22:30), because a later run may repair it.
+- **Undo a bad run:** restore a named shared file with `git restore <file>` (you, not an agent). The contributor files in `gui2/data` are copies; the next pull brings them back.
+- **Do not run `just contrib-merge` as well.** The pull replaces it.
+- A new server: see `NEW_SERVER_RUNBOOK.md`.
+
 ## Maintainer: taking in contributions
+
+> **Replaced by the daily pull** (see "The daily pull" above). This route is the fallback if the pull is not set up. Do not run both.
 
 There are no pull requests. From the repo root:
 

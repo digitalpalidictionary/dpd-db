@@ -57,7 +57,10 @@ db_tests_columns.tsv (`db_tests/`; writer `DbTestManager.save_tests`)
 """
 
 import json
+import os
+import shutil
 import sys
+import tempfile
 from collections.abc import Callable
 from dataclasses import dataclass
 from pathlib import Path
@@ -106,6 +109,23 @@ def _lines(path: Path) -> list[str]:
         return [line.rstrip("\r") for line in f.read().split("\n") if line.strip()]
 
 
+def _write_atomically(path: Path, write: Callable[[Path], None]) -> None:
+    """Fill a temp file beside `path`, then swap it in. A kill during an
+    in-place rewrite truncates the shared file, and the merged-lines log would
+    then call the lost lines handled, so they would never come back."""
+    fd, tmp_name = tempfile.mkstemp(dir=path.parent, suffix=".tmp")
+    os.close(fd)
+    tmp = Path(tmp_name)
+    try:
+        if path.exists():
+            shutil.copymode(path, tmp)
+        write(tmp)
+        os.replace(tmp, path)
+    except BaseException:
+        tmp.unlink(missing_ok=True)
+        raise
+
+
 def read_merged_log(path: Path) -> MergedLog:
     if not path.exists():
         return {}
@@ -121,8 +141,16 @@ def write_merged_log(path: Path, log: MergedLog) -> None:
         for name in sorted(log, key=pali_sort_key)
     }
     path.parent.mkdir(parents=True, exist_ok=True)
-    with open(path, "w", encoding="utf-8") as f:
-        json.dump(ordered, f, ensure_ascii=False, indent=4)
+    # A kill during an in-place rewrite leaves a half-written log that breaks
+    # every later read, so write a temp file and swap it in.
+    fd, tmp_name = tempfile.mkstemp(dir=path.parent, suffix=".tmp")
+    try:
+        with os.fdopen(fd, "w", encoding="utf-8") as f:
+            json.dump(ordered, f, ensure_ascii=False, indent=4)
+        os.replace(tmp_name, path)
+    except BaseException:
+        Path(tmp_name).unlink(missing_ok=True)
+        raise
 
 
 def merge_user_dictionary(lines: list[str], shared: Path) -> list[str]:
@@ -132,8 +160,12 @@ def merge_user_dictionary(lines: list[str], shared: Path) -> list[str]:
     if not new:
         return []
     merged = sorted(known | set(new), key=lambda w: (w.lower(), w))
-    with open(shared, "w", encoding="utf-8", newline="") as f:
-        f.write("\n".join(merged) + "\n")
+
+    def write(target: Path) -> None:
+        with open(target, "w", encoding="utf-8", newline="") as f:
+            f.write("\n".join(merged) + "\n")
+
+    _write_atomically(shared, write)
     return new
 
 
@@ -171,13 +203,35 @@ def merge_two_column(lines: list[str], shared: Path) -> list[str]:
             continue
         shared_data[key] = value
     if report:
-        write_tsv_2col_from_dict(shared, shared_data, headers or None)
+        _write_atomically(
+            shared,
+            lambda target: write_tsv_2col_from_dict(
+                target, shared_data, headers or None
+            ),
+        )
     return report
 
 
 def is_reserved_exception(line: str) -> bool:
     _, _, raw_id = line.partition("\t")
     return raw_id.strip().isdigit() and int(raw_id) >= CONTRIB_ID_BASE
+
+
+def _check_tests_saved(manager: DbTestManager, added: list[tuple[str, int]]) -> None:
+    """`save_tests` prints a write error and returns, so a failed save looks
+    like success, and the lines would be logged as handled and never merged
+    again. Read the file back, and fail the merge if an id is missing."""
+    try:
+        saved = {test.test_name: test for test in manager.load_tests()}
+    except Exception as exc:  # noqa: BLE001
+        raise RuntimeError(f"tests file unreadable after save: {exc}") from exc
+    for test_name, exception_id in added:
+        test = saved.get(test_name)
+        if test is None or exception_id not in test.exceptions:
+            raise RuntimeError(
+                f"tests file {manager.tests_path} was not saved; "
+                "restore it from git before the next run"
+            )
 
 
 def merge_test_exceptions(lines: list[str], tests_path: Path) -> list[str]:
@@ -187,6 +241,7 @@ def merge_test_exceptions(lines: list[str], tests_path: Path) -> list[str]:
     by_name = {test.test_name: test for test in manager.internal_tests_list}
     report: list[str] = []
     changed = False
+    added: list[tuple[str, int]] = []
     for line in lines:
         test_name, _, raw_id = line.partition("\t")
         test = by_name.get(test_name)
@@ -202,9 +257,11 @@ def merge_test_exceptions(lines: list[str], tests_path: Path) -> list[str]:
         test.exceptions.append(exception_id)
         test.exceptions.sort()
         changed = True
+        added.append((test_name, exception_id))
         report.append(f"{test_name}\t{exception_id}")
     if changed:
         manager.save_tests()
+        _check_tests_saved(manager, added)
     return report
 
 
