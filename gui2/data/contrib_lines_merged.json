@@ -1,8 +1,14 @@
 {
     "checked_alice.csv": [
-        "dasahupāgato"
+        "kopāhanā",
+        "chattamādeti",
+        "dajjamattano",
+        "dasahupāgato",
+        "yācakamanuppatte"
     ],
+    "db_test_exceptions_alice.tsv": [],
     "manual_corrections_alice.tsv": [
+        "kopāhanā\tko + upāhanā",
         "dasahupāgato\tdasahi + upāgato"
     ]
 }
