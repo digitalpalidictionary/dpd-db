@@ -5431,5 +5431,19 @@
         "_contributor": "alice",
         "_source_key": "alice_10000012",
         "_source_hash": "f37eb4937b3bcdebb329ee8a2b9d7a18be14c8ee"
+    },
+    {
+        "_source_key": "alice_10000002",
+        "_source_hash": "3774292dcbc42b0af58e274bb0921e24a62b214d",
+        "_contributor": "alice",
+        "lemma_1": "saṅkhasavhaya",
+        "_rejected": true
+    },
+    {
+        "_source_key": "alice_10000003",
+        "_source_hash": "f9d5fbfda9e41e36e196f9da2993820b9098c997",
+        "_contributor": "alice",
+        "lemma_1": "kaṭhinabhūmi",
+        "_rejected": true
     }
 ]
