@@ -8,7 +8,9 @@ from types import SimpleNamespace
 import pytest
 
 import gui2.pass1_auto_controller as controller_module
+from gui2.books import SuttaCentralSegment
 from gui2.pass1_auto_controller import Pass1AutoController
+from gui2.pass1_context import AllowedValues
 
 WORDS = ["narena", "naro", "nara"]
 AI_DELAY = 0.15
@@ -40,7 +42,10 @@ def make_controller(monkeypatch: pytest.MonkeyPatch, tmp_path) -> Any:
     ctrl.initial_auto_processed = 0
     ctrl.current_book_processed = 0
     ctrl.missing_words_dict = {}
-    ctrl.related_entries_list = []
+    ctrl.chosen_sentences = []
+    ctrl.epitaka_dict = {}
+    ctrl.allowed = AllowedValues([], [], [], [])
+    ctrl.sentence_data = []
     ctrl.response = None
     ctrl.ai_status_message = ""
 
@@ -50,7 +55,8 @@ def make_controller(monkeypatch: pytest.MonkeyPatch, tmp_path) -> Any:
 
     ctrl.db = SimpleNamespace(
         make_inflections_lists=lambda: None,
-        get_related_dict_entries=lambda w: [],
+        new_db_session=lambda: None,
+        db_session=None,
         all_inflections=set(),
         sandhi_ok_list=set(),
         pth=SimpleNamespace(temp_dir=tmp_path),
@@ -63,7 +69,91 @@ def make_controller(monkeypatch: pytest.MonkeyPatch, tmp_path) -> Any:
         {word: data}
     )
     monkeypatch.setattr(controller_module, "clean_machine", lambda t: t)
+    monkeypatch.setattr(controller_module, "related_headwords", lambda db, w: [])
+    monkeypatch.setattr(controller_module, "peu_entries", lambda w: [])
+    monkeypatch.setattr(
+        controller_module,
+        "load_allowed_values",
+        lambda db: AllowedValues([], [], [], []),
+    )
     return ctrl
+
+
+def compile_for(
+    ctrl: Any, word: str, sc: list[tuple[str, str]], epitaka: list[tuple[str, str]]
+) -> None:
+    ctrl.book = "vv"
+    ctrl.word_in_text = word
+    ctrl.sentence_data = [
+        SuttaCentralSegment(f"seg{i}", pali, english)
+        for i, (pali, english) in enumerate(sc)
+    ]
+    ctrl.epitaka_dict = {word: epitaka}
+    ctrl.compile_prompt()
+
+
+def test_sc_sentences_come_before_epitaka(
+    monkeypatch: pytest.MonkeyPatch, tmp_path
+) -> None:
+    ctrl = make_controller(monkeypatch, tmp_path)
+    compile_for(
+        ctrl,
+        "nara",
+        [("sc pali one", "sc english")],
+        [("epitaka pali two", "ep english")],
+    )
+
+    assert ctrl.chosen_sentences == [
+        ("sc pali one", "sc english"),
+        ("epitaka pali two", "ep english"),
+    ]
+    assert ctrl.prompt.index("sc pali one") < ctrl.prompt.index("epitaka pali two")
+
+
+def test_never_more_than_three_sentences(
+    monkeypatch: pytest.MonkeyPatch, tmp_path
+) -> None:
+    ctrl = make_controller(monkeypatch, tmp_path)
+    sc = [("sentence_a", "1"), ("sentence_b", "2")]
+    epitaka = [("sentence_c", "3"), ("sentence_d", "4"), ("sentence_e", "5")]
+    compile_for(ctrl, "nara", sc, epitaka)
+
+    assert len(ctrl.chosen_sentences) == 3
+    assert "sentence_d" not in ctrl.prompt
+
+
+def test_no_epitaka_uses_sc_only(monkeypatch: pytest.MonkeyPatch, tmp_path) -> None:
+    ctrl = make_controller(monkeypatch, tmp_path)
+    compile_for(ctrl, "nara", [("sc pali", "sc english")], [])
+
+    assert ctrl.chosen_sentences == [("sc pali", "sc english")]
+
+
+def test_no_peu_means_no_peu_block(monkeypatch: pytest.MonkeyPatch, tmp_path) -> None:
+    ctrl = make_controller(monkeypatch, tmp_path)
+    compile_for(ctrl, "nara", [], [])
+    assert "Pali English Ultimate" not in ctrl.prompt
+
+    monkeypatch.setattr(controller_module, "peu_entries", lambda w: ["nara: man"])
+    compile_for(ctrl, "nara", [], [])
+    assert "Pali English Ultimate" in ctrl.prompt
+    assert "- nara: man" in ctrl.prompt
+
+
+def test_example_1_is_the_first_chosen_sentence(
+    monkeypatch: pytest.MonkeyPatch, tmp_path
+) -> None:
+    ctrl = make_controller(monkeypatch, tmp_path)
+    compile_for(
+        ctrl, "nara", [("sc pali", "sc english")], [("epitaka pali", "ep english")]
+    )
+    ctrl.response = GOOD_JSON
+    ctrl.update_auto_processed(None, None)
+
+    saved = ctrl.auto_processed_dict["nara"]
+    assert saved["example_1"] == "sc pali"
+    assert saved["translation_1"] == "sc english"
+    assert saved["example_2"] == "epitaka pali"
 
 
 def test_loop_lets_the_screen_run_during_ai_calls(

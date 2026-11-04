@@ -65,6 +65,9 @@ class Gui2Paths:
         self.find_words_exceptions_path: Path = (
             self.gui2_dir / "data/find_words_with_examples_no.json"
         )
+        # Set for contributors only: the tracked pass1_auto files are read-only
+        # on the server, so their finished words are listed here instead.
+        self.pass1_auto_removed_path: Path | None = None
 
     @staticmethod
     def for_user(username: str, base_dir: Path | None = None) -> "Gui2Paths":
@@ -104,4 +107,5 @@ class Gui2Paths:
             paths.variant_readings_path = data / f"variant_readings_{username}.tsv"
             paths.spelling_mistakes_path = data / f"spelling_mistakes_{username}.tsv"
             paths.db_test_exceptions_path = data / f"db_test_exceptions_{username}.tsv"
+            paths.pass1_auto_removed_path = data / f"pass1_auto_removed_{username}.json"
         return paths

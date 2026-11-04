@@ -588,6 +588,16 @@ class ProjectPaths:
             base_dir
             / "resources/other-dictionaries/dictionaries/peu/source/peu_dump.js"
         )
+        self.peu_source_json_path = (
+            base_dir
+            / "resources/other-dictionaries/dictionaries/peu/source/peu_dump.json"
+        )
+
+        # ePitaka app data. It lives outside the repo and is absent on the
+        # contributor server, so every reader treats it as optional.
+        self.epitaka_data_dir = Path.home() / ".local/share/com.dn.epitaka"
+        self.epitaka_db_path = self.epitaka_data_dir / "epitaka.db"
+        self.epitaka_en_db_path = self.epitaka_data_dir / "epitaka_en.db"
 
         # resources/other-dictionaries/dictionaries/sin_eng_sin/source
         self.eng_sin_source_path = (

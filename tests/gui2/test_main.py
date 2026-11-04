@@ -2,6 +2,7 @@
 
 import asyncio
 import threading
+from typing import Any
 from types import SimpleNamespace
 from unittest.mock import AsyncMock, MagicMock, call
 
@@ -294,8 +295,8 @@ def _server_app(monkeypatch: pytest.MonkeyPatch, tabs: str) -> App:
     monkeypatch.setenv("DPD_GUI2_TABS", tabs)
     app = App.__new__(App)
     app._visible, app._read_only = tab_selection()  # pyright: ignore[reportAttributeAccessIssue]
-    app._start_index = 2  # pyright: ignore[reportAttributeAccessIssue]
-    app._focused_tab_index = 2  # pyright: ignore[reportAttributeAccessIssue]
+    app._start_index = 3  # pyright: ignore[reportAttributeAccessIssue]
+    app._focused_tab_index = 3  # pyright: ignore[reportAttributeAccessIssue]
     app._build_lock = threading.RLock()  # pyright: ignore[reportAttributeAccessIssue]
     app._mounted_tabs = set()  # pyright: ignore[reportAttributeAccessIssue]
     app._views = {}  # pyright: ignore[reportAttributeAccessIssue]
@@ -334,10 +335,30 @@ def test_server_shows_base_and_listed_tabs_only(
 ) -> None:
     app = _server_app(monkeypatch, "Bold Search,DB")
 
-    assert _tab_bar_labels(app) == ["Pass1Auto", "Pass1Add", "DB", "Bold Search"]
-    assert len(app._tab_bodies.controls) == 4
+    assert _tab_bar_labels(app) == ["Pass1Add", "DB", "Bold Search"]
+    assert len(app._tab_bodies.controls) == 3
     assert app.tabs.selected_index == 0
-    assert app._current_index() == 2
+    assert app._current_index() == 3
+
+
+def test_server_pass1_add_still_gets_the_hidden_pass1_auto_controller(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    app: Any = _server_app(monkeypatch, "DB")
+    controller = object()
+    # build_ui already built the start tab with the stand-in builders
+    app._views.clear()
+    app._mounted_tabs.clear()
+    app._view_builders[2] = lambda: SimpleNamespace(controller=controller)
+    app._view_builders[3] = lambda: SimpleNamespace(
+        auto_controller=app._view(2).controller
+    )
+
+    pass1_add_view = app._view(3)
+
+    assert 2 not in app._visible
+    assert pass1_add_view.auto_controller is controller
+    assert 2 not in app._mounted_tabs
 
 
 def test_server_alt_jump_to_a_hidden_tab_does_nothing(
@@ -347,7 +368,7 @@ def test_server_alt_jump_to_a_hidden_tab_does_nothing(
 
     asyncio.run(app.on_keyboard(_key("P", alt=True)))
 
-    assert app._current_index() == 2
+    assert app._current_index() == 3
 
 
 def test_server_alt_jump_selects_a_listed_tab(
@@ -358,7 +379,7 @@ def test_server_alt_jump_selects_a_listed_tab(
     asyncio.run(app.on_keyboard(_key("D", alt=True)))
 
     assert app._current_index() == 11
-    assert app.tabs.selected_index == 2
+    assert app.tabs.selected_index == 1
     assert 11 in app._mounted_tabs
 
 
@@ -373,7 +394,7 @@ def test_server_marks_read_tabs_read_only_and_ctrl_s_reaches_the_handler(
     db_view = app._views[11]
     assert db_view.read_only is True  # pyright: ignore[reportAttributeAccessIssue]
     db_view._save_changes_clicked.assert_called_once_with(None)  # pyright: ignore[reportAttributeAccessIssue]
-    assert not hasattr(app._views[2], "read_only")
+    assert not hasattr(app._views[3], "read_only")
 
 
 def test_server_alt_arrows_stay_inside_the_visible_tabs(
@@ -382,7 +403,7 @@ def test_server_alt_arrows_stay_inside_the_visible_tabs(
     app = _server_app(monkeypatch, "DB")
 
     asyncio.run(app.on_keyboard(_key("Arrow Left", alt=True)))
-    assert app._current_index() == 2
+    assert app._current_index() == 3
     for _ in range(5):
         asyncio.run(app.on_keyboard(_key("Arrow Right", alt=True)))
     assert app._current_index() == 11
@@ -413,7 +434,7 @@ def test_server_warmup_builds_only_visible_tabs(
 
     app._warmup_in_background()
 
-    assert built == [2, 3, 13, 11]
+    assert built == [3, 13, 11]
 
 
 class _WordFinderAccessToolkit:

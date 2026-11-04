@@ -6,7 +6,7 @@ setting is the list of extra tabs in DPD_GUI2_TABS."""
 import logging
 import os
 
-BASE_TABS = ("Pass1Auto", "Pass1Add")
+BASE_TABS = ("Pass1Add",)
 SAFE_TABS = ("Transl", "Bold Search")
 READ_TABS = ("DB", "√", "Infl")
 

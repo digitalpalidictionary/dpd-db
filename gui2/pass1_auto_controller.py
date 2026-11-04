@@ -8,6 +8,17 @@ from gui2.books import (
     SuttaCentralSource,
     sutta_central_books,
 )
+from gui2.pass1_context import (
+    SYSTEM_PROMPT,
+    AllowedValues,
+    Sentence,
+    book_name,
+    build_new_prompt,
+    choose_sentences,
+    load_allowed_values,
+    related_entry_dict,
+    related_headwords,
+)
 from gui2.pass1_file_manager import Pass1FileManager
 from gui2.spelling import SpellingMistakesFileManager
 from gui2.toolkit import ToolKit
@@ -15,7 +26,9 @@ from gui2.variants import VariantReadingFileManager
 from tools.ai_manager import AIResponse
 from tools.clean_machine import clean_machine
 from tools.cst_sc_text_sets import make_cst_text_list
+from tools.epitaka_sentences import epitaka_word_dict, peu_entries
 from tools.goldendict_tools import open_in_goldendict
+from tools.pali_text_files import cst_texts
 from tools.printer import printer as pr
 
 
@@ -43,7 +56,9 @@ class Pass1AutoController:
         self.all_cst_words: list[str] = []
         self.word_in_text: str
         self.sentence_data: list[SuttaCentralSegment]
-        self.related_entries_list: list[str] = []
+        self.chosen_sentences: list[Sentence] = []
+        self.epitaka_dict: dict[str, list[Sentence]] = {}
+        self.allowed: AllowedValues | None = None
 
         self.stop_flag = False
         # The loops are async, so their buttons stay clickable during a run.
@@ -76,12 +91,7 @@ class Pass1AutoController:
             return self.auto_processed_dict.copy()
 
     def remove_word(self, book: str, word: str):
-        def update_func(data):
-            if word in data:
-                del data[word]
-            return data
-
-        updated = self.file_manager.update(book, update_func)
+        updated = self.file_manager.remove(book, word)
         if hasattr(self, "book") and self.book == book:
             self.auto_processed_dict = updated
 
@@ -125,6 +135,7 @@ class Pass1AutoController:
         self.current_book_processed = 0
         await asyncio.to_thread(self.find_missing_words_in_cst)
         await asyncio.to_thread(self.find_missing_words_in_sutta_central)
+        await asyncio.to_thread(self.load_prompt_context)
         self.initial_auto_processed = len(self.auto_processed_dict)
         self.total_missing = len(self.missing_words_dict)
         self.unbroken_loop = True
@@ -138,9 +149,6 @@ class Pass1AutoController:
                 break
             self.ui.update_message(f"Processing {self.word_in_text}")
 
-            self.related_entries_list = self.db.get_related_dict_entries(
-                self.word_in_text
-            )
             self.compile_prompt()
 
             selected_model_str = self.ui.ai_model_dropdown.value
@@ -210,6 +218,7 @@ class Pass1AutoController:
                 if self.is_missing(word):
                     self.missing_words_dict[word] = []
 
+        await asyncio.to_thread(self.load_prompt_context)
         self.initial_auto_processed = len(self.auto_processed_dict)
         self.total_missing = len(self.missing_words_dict)
         self.unbroken_loop = True
@@ -225,9 +234,6 @@ class Pass1AutoController:
                 break
             self.ui.update_message(f"Processing {self.word_in_text}")
 
-            self.related_entries_list = self.db.get_related_dict_entries(
-                self.word_in_text
-            )
             self.compile_prompt()
 
             selected_model_str = self.ui.ai_model_dropdown.value
@@ -302,137 +308,49 @@ class Pass1AutoController:
             if self.is_missing(word):
                 self.missing_words_dict[word] = segments
 
+    def load_prompt_context(self) -> None:
+        """Load what every prompt of this run shares: the real dictionary
+        values and the ePitaka sentences of the book. Pasted text has no book."""
+
+        self.ui.update_message("Loading prompt context")
+        self.allowed = load_allowed_values(self.db.db_session)
+        if self.book == "text":
+            self.epitaka_dict = {}
+            return
+        cst_files = [
+            name.removesuffix(".txt")
+            for cst_book in self.cst_books
+            for name in cst_texts.get(cst_book, [])
+        ]
+        self.epitaka_dict = epitaka_word_dict(cst_files)
+
     def compile_prompt(self):
-        """
-        Compile a text prompt of
-        1. word
-        2. pali sentences
-        3. english sentences
-        4. related dpd entries
-        """
+        """Compile the prompt for the word and save it to the temp folder."""
 
         self.ui.update_message(f"compiling prompt for {self.word_in_text}")
 
-        self.prompt = f"""
-## Word in the text
-{self.word_in_text}
+        if self.allowed is None:
+            self.allowed = load_allowed_values(self.db.db_session)
 
-## Sentences: 
-{"\n".join([f"{count}. Pāḷi : {v.pali}\n{count}. English: {v.english}\n" for count, v in enumerate(self.sentence_data)])}
+        self.chosen_sentences = choose_sentences(
+            [(s.pali, s.english) for s in self.sentence_data],
+            self.epitaka_dict.get(self.word_in_text, []),
+        )
+        # a fresh session, so the related entries see the latest edits
+        self.db.new_db_session()
+        related = [
+            related_entry_dict(headword)
+            for headword in related_headwords(self.db.db_session, self.word_in_text)
+        ]
+        self.prompt = build_new_prompt(
+            self.word_in_text,
+            book_name(self.book),
+            self.chosen_sentences,
+            related,
+            peu_entries(self.word_in_text),
+            self.allowed,
+        )
 
-## Related dictionary entries:
-{"\n".join([f"- {entry}" for entry in self.related_entries_list])}
----        
-You are an expert in Pāḷi grammar.
-Based on the information above, please provide your very best suggestion of the word's:
-
-1. lemma_1
-2. lemma_2
-3. pos
-4. grammar
-5. meaning_2
-6. root_key
-7. root_sign
-8. root_base
-9. family_root
-10. family_compound
-11. construction
-12. stem
-13. pattern
-14. comment
-
-## lemma_1 field
-- This must be word in the text, without case endings. 
-- Inflected verbs must be in 3rd singular, e.g. gacchanti = `gacchati`
-- Declined nouns, adjectives and participles in vocative singular, e.g. narena = `nara`
-- Sandhi compounds should be left example as they are, and pos marked as sandhi e.g. `chahaṅgehi`
-
-## lemma_2 field
-- For verbs, participles, adjectives, adverbs, etc. it is the same as lemma_1
-- For nouns, it is the nominitve singular, e.g. buddha = `buddho`
-
-
-## pos field
-- For adverbs, and all indecliables, the pos is `ind`. The grammar is `ind, adv`.
-- In general, words ending in `ādi` are `masc`. 
-- The only parts of speech to be added are these:
-abbrev: abbreviation
-abs: absolutive
-adj: adjective
-aor: aorist
-card: cardinal number
-cond: conditional verb
-cs: conjugational sign
-fem: feminine noun
-fut: future verb
-ger: gerund
-idiom: idiomatic expression
-imp: imperative verb
-imperf: imperfect verb
-ind: indeclinable
-inf: infinitive
-letter: letter of the alphabet
-masc: masculine noun
-nt: neuter noun
-opt: optative verb
-ordin: ordinal number
-perf: perfect verb
-pp: past participle
-pr: present tense verb
-prefix: prefix
-pron: pronoun
-prp: present participle
-ptp: potential participle
-root: root
-sandhi: sandhi compound
-suffix: suffix
-ve: verbal ending
-
-## grammar field
-- If the word is a compound, include part of speech, comma, comp e.g. dhammavinaya = `masc, comp`
-- If the word is a noun derived from a root, show the word it is derived from e.g. vinaya = `masc, from vineti`
-- If the word is a verbal form display it like this: avitaranta = `prp of na vitarati`
-- if the word is a sandhi compound, grammar is sandhi and parts of speech, e.g. `sandhi, masc + pron`
-
-## meaning_2 field
-- Compare the Pāḷi sentence with the English sentence to understand how the word is being used in context. If possible provide multiple meanings, separated by semicolons. e.g. nara = man; person; human being
-- In vinaya, words ending in vatthu mean 'case of ...'
-
-## construction field
-- Construction must be pure Pāḷi construction, no English. e.g. anupassati = `anu + passa + ti`, māra = `√mar > mār + *a`
-
-## root_key, root_sign, root_base, family_root
-- These fields only apply to words with a root, not to compounds. 
-- Unless the word is derived from a root, leave them empty. 
-
-## family root field
-- The family_root is all the verbal prefixes and the root separated by spaces, e.g. samūhantabba = saṃ ud √han, anukamma = anu √kar
-
-## family_compound
-- The field only applies to words that are compounds. 
-- Items are space separated, no plus signs +
-- Taddhita should be reduced to kita, e.g. pannarasaka = `pannarasa`
-- Negatives should just show the positive components, e.g. nadhammagaruka = `dhamma garu`
-- Inflected forms should be vocative sg, e.g. mūlāya = `mūla`
-
-## stem and pattern
-- For sandhi stem is `-`, pattern is empty
-- For all indeclinables, infinitives, absolutes adverbs, stem is `-`, pattern is empty
-- Carefully analyse the provided stems and patterns, and don't make anything up.
-
-## all other fields
-- Analyse the related dictionary entries above and use the same style and pattern. Only add the required data, no commentary.
-
-## comment
-- Add your own commentary to this field, not to any other field.
-- Only mention anything relevant or interesting, nothing that is already in other fields. 
-- Explain the meaning according to the contextual sentence. 
-
-## Return
-- Return your results as a pure JSON, without any preceding or following text. Pure JSON only. 
----
-
-"""
         temp_dir = self.db.pth.temp_dir / "prompts" / "pass1"
         temp_dir.mkdir(parents=True, exist_ok=True)
         temp_file = temp_dir / f"{self.word_in_text}_prompt"
@@ -446,6 +364,7 @@ ve: verbal ending
 
         max_retries: int = 3
         retry_delay: float = 1.0  # Seconds between retries
+        last_error = "Unknown"
 
         for attempt in range(max_retries):
             self.ui.update_message(
@@ -455,7 +374,7 @@ ve: verbal ending
             try:
                 ai_response = self.ai_manager.request(
                     prompt=self.prompt,
-                    prompt_sys="Follow the instructions very carefully.",
+                    prompt_sys=SYSTEM_PROMPT,
                     provider_preference=provider_preference,
                     model=model,
                 )
@@ -463,6 +382,7 @@ ve: verbal ending
                 if ai_response.content is not None:
                     return ai_response  # Success, no need for more retries
 
+                last_error = ai_response.status_message
                 # Log failure for this attempt
                 pr.amber(
                     f"AI request failed for {self.word_in_text} on attempt {attempt + 1}: {ai_response.status_message}"
@@ -481,7 +401,7 @@ ve: verbal ending
         # All retries failed
         return AIResponse(
             content=None,
-            status_message=f"Failed after {max_retries} attempts for {self.word_in_text}. Last error: {ai_response.status_message if 'ai_response' in locals() else 'Unknown'}",
+            status_message=f"Failed after {max_retries} attempts for {self.word_in_text}. Last error: {last_error}",
         )
 
     def update_auto_processed(self, provider: str | None, model: str | None) -> bool:
@@ -514,15 +434,15 @@ ve: verbal ending
                 dump(parsed_json, f, ensure_ascii=False, indent=4)
 
             # add examples and translations
-            if len(self.sentence_data) > 0:
-                first_sentence = self.sentence_data[0]
-                parsed_json["example_1"] = first_sentence.pali
-                parsed_json["translation_1"] = first_sentence.english
+            if len(self.chosen_sentences) > 0:
+                first_pali, first_english = self.chosen_sentences[0]
+                parsed_json["example_1"] = first_pali
+                parsed_json["translation_1"] = first_english
 
-            if len(self.sentence_data) > 1:
-                second_sentence = self.sentence_data[1]
-                parsed_json["example_2"] = second_sentence.pali
-                parsed_json["translation_2"] = second_sentence.english
+            if len(self.chosen_sentences) > 1:
+                second_pali, second_english = self.chosen_sentences[1]
+                parsed_json["example_2"] = second_pali
+                parsed_json["translation_2"] = second_english
 
             self.add_word(self.book, self.word_in_text, parsed_json)
 

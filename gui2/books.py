@@ -181,6 +181,10 @@ sutta_central_books: dict[str, SuttaCentralSource] = {
         "resources/sc-data/sc_bilara_data/translation/en/sujato/sutta/kn/thig",
         is_commentary=False,
     ),
+    "vv": SuttaCentralSource("vv", ["kn6"], None, None, is_commentary=False),
+    "pv": SuttaCentralSource("pv", ["kn7"], None, None, is_commentary=False),
+    "ap": SuttaCentralSource("ap", ["kn10", "kn11"], None, None, is_commentary=False),
+    "bv": SuttaCentralSource("bv", ["kn12"], None, None, is_commentary=False),
     "cp": SuttaCentralSource(
         "cp",
         ["kn13"],

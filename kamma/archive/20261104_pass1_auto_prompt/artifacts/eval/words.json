@@ -1,0 +1,810 @@
+{
+ "G": [
+  {
+   "word": "vīraka",
+   "book": "ja",
+   "had_sentence": false,
+   "gold_ids": [
+    85335
+   ]
+  },
+  {
+   "word": "jhāpaye",
+   "book": "cp",
+   "had_sentence": false,
+   "gold_ids": [
+    89981
+   ]
+  },
+  {
+   "word": "nillāleti",
+   "book": "ja",
+   "had_sentence": false,
+   "gold_ids": [
+    88033
+   ]
+  },
+  {
+   "word": "candavatī",
+   "book": "ja",
+   "had_sentence": false,
+   "gold_ids": [
+    85009
+   ]
+  },
+  {
+   "word": "pamādino",
+   "book": "ja",
+   "had_sentence": false,
+   "gold_ids": [
+    85818
+   ]
+  },
+  {
+   "word": "vivaradassino",
+   "book": "ja",
+   "had_sentence": false,
+   "gold_ids": [
+    85313
+   ]
+  },
+  {
+   "word": "puṇṇamukha",
+   "book": "ja",
+   "had_sentence": false,
+   "gold_ids": [
+    86290,
+    86291
+   ]
+  },
+  {
+   "word": "sūriyasantāpe",
+   "book": "cp",
+   "had_sentence": false,
+   "gold_ids": [
+    84512
+   ]
+  },
+  {
+   "word": "yassicchasi",
+   "book": "ja",
+   "had_sentence": false,
+   "gold_ids": [
+    84737
+   ]
+  },
+  {
+   "word": "sirasaṃ",
+   "book": "ja",
+   "had_sentence": false,
+   "gold_ids": [
+    90119
+   ]
+  },
+  {
+   "word": "suvihīnaṃva",
+   "book": "ja",
+   "had_sentence": false,
+   "gold_ids": [
+    85275
+   ]
+  },
+  {
+   "word": "āmakamacchabhojino",
+   "book": "ja",
+   "had_sentence": false,
+   "gold_ids": [
+    85279
+   ]
+  },
+  {
+   "word": "candasūriyā",
+   "book": "ja",
+   "had_sentence": false,
+   "gold_ids": [
+    84429
+   ]
+  },
+  {
+   "word": "pāpamakāsi",
+   "book": "ja",
+   "had_sentence": false,
+   "gold_ids": [
+    87519
+   ]
+  },
+  {
+   "word": "māretukāmā",
+   "book": "ja",
+   "had_sentence": false,
+   "gold_ids": [
+    85150
+   ]
+  },
+  {
+   "word": "parisaṅkamāno",
+   "book": "ja",
+   "had_sentence": false,
+   "gold_ids": [
+    84508
+   ]
+  },
+  {
+   "word": "paridahessati",
+   "book": "ja",
+   "had_sentence": false,
+   "gold_ids": [
+    89860
+   ]
+  },
+  {
+   "word": "bālyataro",
+   "book": "ja",
+   "had_sentence": false,
+   "gold_ids": [
+    84434
+   ]
+  },
+  {
+   "word": "dassayiṃsu",
+   "book": "cp",
+   "had_sentence": false,
+   "gold_ids": [
+    84990
+   ]
+  },
+  {
+   "word": "maṭṭhakuṇḍalī",
+   "book": "ja",
+   "had_sentence": false,
+   "gold_ids": [
+    84380
+   ]
+  },
+  {
+   "word": "dinnadānassa",
+   "book": "cp",
+   "had_sentence": false,
+   "gold_ids": [
+    86340
+   ]
+  },
+  {
+   "word": "somadatto",
+   "book": "ja",
+   "had_sentence": false,
+   "gold_ids": [
+    86629
+   ]
+  },
+  {
+   "word": "guṇasampanno",
+   "book": "cp",
+   "had_sentence": false,
+   "gold_ids": [
+    86856
+   ]
+  },
+  {
+   "word": "bhuñjāpeti",
+   "book": "ja",
+   "had_sentence": false,
+   "gold_ids": [
+    90286
+   ]
+  },
+  {
+   "word": "kesavo",
+   "book": "ja",
+   "had_sentence": false,
+   "gold_ids": [
+    86049
+   ]
+  },
+  {
+   "word": "bāliyaṃ",
+   "book": "ja",
+   "had_sentence": true,
+   "gold_ids": [
+    90266
+   ]
+  },
+  {
+   "word": "dharaṇīruhaṃ",
+   "book": "cp",
+   "had_sentence": true,
+   "gold_ids": [
+    87005,
+    87006
+   ]
+  },
+  {
+   "word": "sarīradhārino",
+   "book": "ja",
+   "had_sentence": true,
+   "gold_ids": [
+    89537
+   ]
+  },
+  {
+   "word": "lehati",
+   "book": "ja",
+   "had_sentence": true,
+   "gold_ids": [
+    89987
+   ]
+  },
+  {
+   "word": "uppari",
+   "book": "ja",
+   "had_sentence": true,
+   "gold_ids": [
+    89026
+   ]
+  },
+  {
+   "word": "janayitvāna",
+   "book": "cp",
+   "had_sentence": true,
+   "gold_ids": [
+    87133
+   ]
+  },
+  {
+   "word": "khettavaruttamaṃ",
+   "book": "cp",
+   "had_sentence": true,
+   "gold_ids": [
+    90371
+   ]
+  },
+  {
+   "word": "sivirājā",
+   "book": "cp",
+   "had_sentence": true,
+   "gold_ids": [
+    87015
+   ]
+  },
+  {
+   "word": "nidhetave",
+   "book": "ja",
+   "had_sentence": true,
+   "gold_ids": [
+    87799
+   ]
+  },
+  {
+   "word": "atītakappe",
+   "book": "cp",
+   "had_sentence": true,
+   "gold_ids": [
+    84215
+   ]
+  },
+  {
+   "word": "kusāvatimhi",
+   "book": "cp",
+   "had_sentence": true,
+   "gold_ids": [
+    22677
+   ]
+  },
+  {
+   "word": "punesanaṃ",
+   "book": "cp",
+   "had_sentence": true,
+   "gold_ids": [
+    84222
+   ]
+  },
+  {
+   "word": "mamantikaṃ",
+   "book": "cp",
+   "had_sentence": true,
+   "gold_ids": [
+    84224
+   ]
+  },
+  {
+   "word": "indasamāna",
+   "book": "ja",
+   "had_sentence": true,
+   "gold_ids": [
+    90238
+   ]
+  },
+  {
+   "word": "giridugge",
+   "book": "cp",
+   "had_sentence": true,
+   "gold_ids": [
+    86798
+   ]
+  },
+  {
+   "word": "pāpamupalimpatīti",
+   "book": "ja",
+   "had_sentence": true,
+   "gold_ids": [
+    87523
+   ]
+  },
+  {
+   "word": "jaggato",
+   "book": "ja",
+   "had_sentence": true,
+   "gold_ids": [
+    83864,
+    87053,
+    87054
+   ]
+  },
+  {
+   "word": "duddubhanti",
+   "book": "ja",
+   "had_sentence": true,
+   "gold_ids": [
+    87595
+   ]
+  },
+  {
+   "word": "bodhipācanaṃ",
+   "book": "cp",
+   "had_sentence": true,
+   "gold_ids": [
+    84214
+   ]
+  },
+  {
+   "word": "sutasomo",
+   "book": "cp",
+   "had_sentence": true,
+   "gold_ids": [
+    86309
+   ]
+  },
+  {
+   "word": "mānanissito",
+   "book": "cp",
+   "had_sentence": true,
+   "gold_ids": [
+    85233
+   ]
+  },
+  {
+   "word": "ghaṃsituṃ",
+   "book": "ja",
+   "had_sentence": true,
+   "gold_ids": [
+    89507
+   ]
+  },
+  {
+   "word": "pothayissatīti",
+   "book": "ja",
+   "had_sentence": true,
+   "gold_ids": [
+    90062
+   ]
+  },
+  {
+   "word": "ohadāmase",
+   "book": "ja",
+   "had_sentence": true,
+   "gold_ids": [
+    86893
+   ]
+  },
+  {
+   "word": "apābhataṃ",
+   "book": "ja",
+   "had_sentence": true,
+   "gold_ids": [
+    86910
+   ]
+  }
+ ],
+ "K": [
+  {
+   "word": "revatīvimānaṃ",
+   "book": "Vv",
+   "book_key": "vv",
+   "cst_books": [
+    "kn6"
+   ]
+  },
+  {
+   "word": "khīṇāyukañca",
+   "book": "Vv",
+   "book_key": "vv",
+   "cst_books": [
+    "kn6"
+   ]
+  },
+  {
+   "word": "pañcettha",
+   "book": "Vv",
+   "book_key": "vv",
+   "cst_books": [
+    "kn6"
+   ]
+  },
+  {
+   "word": "ucchāgāraṃ",
+   "book": "Vv",
+   "book_key": "vv",
+   "cst_books": [
+    "kn6"
+   ]
+  },
+  {
+   "word": "bhāgaḍḍhabhāgaṃ",
+   "book": "Vv",
+   "book_key": "vv",
+   "cst_books": [
+    "kn6"
+   ]
+  },
+  {
+   "word": "accharāgaṇaghosito",
+   "book": "Vv",
+   "book_key": "vv",
+   "cst_books": [
+    "kn6"
+   ]
+  },
+  {
+   "word": "idhāgatosi",
+   "book": "Vv",
+   "book_key": "vv",
+   "cst_books": [
+    "kn6"
+   ]
+  },
+  {
+   "word": "sumedhanāmassa",
+   "book": "Vv",
+   "book_key": "vv",
+   "cst_books": [
+    "kn6"
+   ]
+  },
+  {
+   "word": "duṭṭhavāco",
+   "book": "Pv",
+   "book_key": "pv",
+   "cst_books": [
+    "kn7"
+   ]
+  },
+  {
+   "word": "gedhitamano",
+   "book": "Pv",
+   "book_key": "pv",
+   "cst_books": [
+    "kn7"
+   ]
+  },
+  {
+   "word": "ummattarūpova",
+   "book": "Pv",
+   "book_key": "pv",
+   "cst_books": [
+    "kn7"
+   ]
+  },
+  {
+   "word": "bhojanatthike",
+   "book": "Pv",
+   "book_key": "pv",
+   "cst_books": [
+    "kn7"
+   ]
+  },
+  {
+   "word": "ramitomhi",
+   "book": "Pv",
+   "book_key": "pv",
+   "cst_books": [
+    "kn7"
+   ]
+  },
+  {
+   "word": "vimānamāruyha",
+   "book": "Pv",
+   "book_key": "pv",
+   "cst_books": [
+    "kn7"
+   ]
+  },
+  {
+   "word": "saṃsavako",
+   "book": "Pv",
+   "book_key": "pv",
+   "cst_books": [
+    "kn7"
+   ]
+  },
+  {
+   "word": "morahatthehi",
+   "book": "Pv",
+   "book_key": "pv",
+   "cst_books": [
+    "kn7"
+   ]
+  },
+  {
+   "word": "pañcapaññāsake",
+   "book": "Ap-i",
+   "book_key": "ap",
+   "cst_books": [
+    "kn10"
+   ]
+  },
+  {
+   "word": "sovaṇṇarūpā",
+   "book": "Ap-i",
+   "book_key": "ap",
+   "cst_books": [
+    "kn10"
+   ]
+  },
+  {
+   "word": "nāgadānaṃ",
+   "book": "Ap-i",
+   "book_key": "ap",
+   "cst_books": [
+    "kn10"
+   ]
+  },
+  {
+   "word": "abhāsahaṃ",
+   "book": "Ap-i",
+   "book_key": "ap",
+   "cst_books": [
+    "kn10"
+   ]
+  },
+  {
+   "word": "pabhinnamātaṅgā",
+   "book": "Ap-i",
+   "book_key": "ap",
+   "cst_books": [
+    "kn10"
+   ]
+  },
+  {
+   "word": "vimuttichattapattiyā",
+   "book": "Ap-i",
+   "book_key": "ap",
+   "cst_books": [
+    "kn10"
+   ]
+  },
+  {
+   "word": "susaṇṭhahitvā",
+   "book": "Ap-i",
+   "book_key": "ap",
+   "cst_books": [
+    "kn10"
+   ]
+  },
+  {
+   "word": "abhibbhavitvā",
+   "book": "Ap-i",
+   "book_key": "ap",
+   "cst_books": [
+    "kn10"
+   ]
+  },
+  {
+   "word": "kusaṭṭhakadāyakattherassāpadānaṃ",
+   "book": "Ap-ii",
+   "book_key": "ap",
+   "cst_books": [
+    "kn11"
+   ]
+  },
+  {
+   "word": "jhānaparāyanā",
+   "book": "Ap-ii",
+   "book_key": "ap",
+   "cst_books": [
+    "kn11"
+   ]
+  },
+  {
+   "word": "vadanañcāpi",
+   "book": "Ap-ii",
+   "book_key": "ap",
+   "cst_books": [
+    "kn11"
+   ]
+  },
+  {
+   "word": "tadānugo",
+   "book": "Ap-ii",
+   "book_key": "ap",
+   "cst_books": [
+    "kn11"
+   ]
+  },
+  {
+   "word": "ticīvaraṃdāsiṃ",
+   "book": "Ap-ii",
+   "book_key": "ap",
+   "cst_books": [
+    "kn11"
+   ]
+  },
+  {
+   "word": "vappitaṃ",
+   "book": "Ap-ii",
+   "book_key": "ap",
+   "cst_books": [
+    "kn11"
+   ]
+  },
+  {
+   "word": "madhurenāhaṃ",
+   "book": "Ap-ii",
+   "book_key": "ap",
+   "cst_books": [
+    "kn11"
+   ]
+  },
+  {
+   "word": "adhigayha",
+   "book": "Ap-ii",
+   "book_key": "ap",
+   "cst_books": [
+    "kn11"
+   ]
+  },
+  {
+   "word": "dhammavimalamādāsaṃ",
+   "book": "Bv",
+   "book_key": "bv",
+   "cst_books": [
+    "kn12"
+   ]
+  },
+  {
+   "word": "nidassayi",
+   "book": "Bv",
+   "book_key": "bv",
+   "cst_books": [
+    "kn12"
+   ]
+  },
+  {
+   "word": "laḷanto",
+   "book": "Bv",
+   "book_key": "bv",
+   "cst_books": [
+    "kn12"
+   ]
+  },
+  {
+   "word": "assattharukkhamūlamhi",
+   "book": "Bv",
+   "book_key": "bv",
+   "cst_books": [
+    "kn12"
+   ]
+  },
+  {
+   "word": "bhavantvantarāyā",
+   "book": "Bv",
+   "book_key": "bv",
+   "cst_books": [
+    "kn12"
+   ]
+  },
+  {
+   "word": "virajjhiya",
+   "book": "Bv",
+   "book_key": "bv",
+   "cst_books": [
+    "kn12"
+   ]
+  },
+  {
+   "word": "jinapabhuttamaṃ",
+   "book": "Bv",
+   "book_key": "bv",
+   "cst_books": [
+    "kn12"
+   ]
+  },
+  {
+   "word": "upanissā",
+   "book": "Bv",
+   "book_key": "bv",
+   "cst_books": [
+    "kn12"
+   ]
+  },
+  {
+   "word": "arahasī",
+   "book": "Bv",
+   "book_key": "bv",
+   "cst_books": [
+    "kn12"
+   ]
+  },
+  {
+   "word": "sanigamaṃ",
+   "book": "Cp",
+   "book_key": "cp",
+   "cst_books": [
+    "kn13"
+   ]
+  },
+  {
+   "word": "kapirājacariyā",
+   "book": "Cp",
+   "book_key": "cp",
+   "cst_books": [
+    "kn13"
+   ]
+  },
+  {
+   "word": "saṅkhacariyā",
+   "book": "Cp",
+   "book_key": "cp",
+   "cst_books": [
+    "kn13"
+   ]
+  },
+  {
+   "word": "jātettha",
+   "book": "Cp",
+   "book_key": "cp",
+   "cst_books": [
+    "kn13"
+   ]
+  },
+  {
+   "word": "kapimāgantvā",
+   "book": "Cp",
+   "book_key": "cp",
+   "cst_books": [
+    "kn13"
+   ]
+  },
+  {
+   "word": "jinasevitaṃ",
+   "book": "Cp",
+   "book_key": "cp",
+   "cst_books": [
+    "kn13"
+   ]
+  },
+  {
+   "word": "mātaṅgacariyaṃ",
+   "book": "Cp",
+   "book_key": "cp",
+   "cst_books": [
+    "kn13"
+   ]
+  },
+  {
+   "word": "sapabbataṃ",
+   "book": "Cp",
+   "book_key": "cp",
+   "cst_books": [
+    "kn13"
+   ]
+  },
+  {
+   "word": "paññāsasamādhikāni",
+   "book": "Cp",
+   "book_key": "cp",
+   "cst_books": [
+    "kn13"
+   ]
+  }
+ ]
+}

@@ -94,6 +94,25 @@ class TestForUser:
         assert paths.additions_path == tmp_path / "gui2" / "data" / "additions.json"
 
 
+class TestPass1AutoRemovedPath:
+    def test_primary_has_no_removals_list(self, tmp_path: Path):
+        paths = Gui2Paths.for_user("1", base_dir=tmp_path)
+        assert paths.pass1_auto_removed_path is None
+
+    def test_contributor_list_is_per_user_under_the_server_data_dir(
+        self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+    ):
+        server_dir = tmp_path / "server_data"
+        monkeypatch.setenv("DPD_GUI2_DATA_DIR", str(server_dir))
+        alice = Gui2Paths.for_user("alice", base_dir=tmp_path)
+        bob = Gui2Paths.for_user("bob", base_dir=tmp_path)
+        assert (
+            alice.pass1_auto_removed_path
+            == server_dir / "pass1_auto_removed_alice.json"
+        )
+        assert bob.pass1_auto_removed_path == server_dir / "pass1_auto_removed_bob.json"
+
+
 class TestUserDictionaryPath:
     def test_primary_uses_shared_dictionary(self, tmp_path: Path):
         paths = Gui2Paths.for_user("1", base_dir=tmp_path)

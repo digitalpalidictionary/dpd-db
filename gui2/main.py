@@ -165,13 +165,13 @@ class App:
         # builds it on demand (see _view / _on_tab_activated). Each builder
         # is a thunk keyed by tab index; the Pass1Add view reuses the
         # Pass1Auto view's controller, so building it transparently builds
-        # Pass1Auto first via _view(2).
+        # Pass1Auto first via _view(2), even where its tab is hidden.
         self._views: dict[int, ft.Control] = {}
         self._mounted_tabs: set[int] = set()
         self._visible, self._read_only = tab_selection()
-        # The server opens on Pass1Auto, never on a safe tab that sorts before
+        # The server opens on Pass1Add, never on a safe tab that sorts before
         # it; the desktop opens on its first tab, Global.
-        self._start_index: int = 2 if is_headless_server() else self._visible[0]
+        self._start_index: int = 3 if is_headless_server() else self._visible[0]
         self._focused_tab_index: int = self._start_index
         self._view_builders: dict[int, Callable[[], ft.Control]] = {
             0: lambda: GlobalTabView(self.page, self.toolkit),

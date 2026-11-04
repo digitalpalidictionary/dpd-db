@@ -103,7 +103,9 @@ gui2/data/find_words_with_examples_dump.json
 gui2/data/find_words_with_examples_no.json
 gui2/data/headword_stash.json
 gui2/data/history.json
-gui2/data/pass1_auto_*.json
+gui2/data/pass1_auto_removed_*.json
+gui2/data/pass1_auto_retired/
+gui2/data/pass1_auto_text.json
 gui2/data/user_dictionary_*.txt
 gui2/data/checked_*.csv
 gui2/data/manual_corrections_*.tsv

@@ -16,23 +16,80 @@ class Pass1FileManager:
     # concurrent same-book editing ever actually happens.
     def __init__(self, paths: Gui2Paths):
         self.gui2_data_path = paths.gui2_data_path
+        # Set for a contributor: the pass1_auto files are tracked by git, so the
+        # server must never edit them. Finished words go to this list instead.
+        self.removed_path = paths.pass1_auto_removed_path
         self._lock = threading.Lock()
 
     def _get_filepath(self, book: str) -> Path:
         return self.gui2_data_path / f"pass1_auto_{book}.json"
 
+    def _read_removed(self) -> dict[str, list[str]]:
+        if self.removed_path is None or not self.removed_path.exists():
+            return {}
+        try:
+            with self.removed_path.open("r", encoding="utf-8") as f:
+                removed = json.load(f)
+        except json.JSONDecodeError:
+            return {}
+        return removed if isinstance(removed, dict) else {}
+
+    def _read_file(self, book: str) -> Dict[str, Any]:
+        filepath = self._get_filepath(book)
+        if filepath.exists():
+            with filepath.open("r", encoding="utf-8") as f:
+                try:
+                    return json.load(f)
+                except json.JSONDecodeError:
+                    return {}
+        return {}
+
+    def _read_view(self, book: str) -> Dict[str, Any]:
+        data = self._read_file(book)
+        if self.removed_path is not None:
+            removed = set(self._read_removed().get(book, []))
+            data = {word: v for word, v in data.items() if word not in removed}
+        return data
+
     def read(self, book: str) -> Dict[str, Any]:
         with self._lock:
-            filepath = self._get_filepath(book)
-            if filepath.exists():
-                with filepath.open("r", encoding="utf-8") as f:
-                    try:
-                        return json.load(f)
-                    except json.JSONDecodeError:
-                        return {}
-            return {}
+            return self._read_view(book)
+
+    def remove(self, book: str, word: str) -> Dict[str, Any]:
+        """Remove a finished word and return the book's remaining words.
+
+        The laptop deletes it from the file. A contributor lists it as removed
+        and leaves the tracked file as it is."""
+
+        if self.removed_path is None:
+
+            def delete_word(data: Dict[str, Any]) -> Dict[str, Any]:
+                data.pop(word, None)
+                return data
+
+            return self.update(book, delete_word)
+
+        with self._lock:
+            removed = self._read_removed()
+            if word not in removed.setdefault(book, []):
+                removed[book].append(word)
+                self.removed_path.parent.mkdir(parents=True, exist_ok=True)
+                # A crash mid-write must not truncate the list: every removed
+                # word would then reappear for the contributor.
+                tmp_path = self.removed_path.with_name(self.removed_path.name + ".tmp")
+                with tmp_path.open("w", encoding="utf-8") as f:
+                    json.dump(removed, f, ensure_ascii=False, indent=4, sort_keys=True)
+                tmp_path.replace(self.removed_path)
+            return self._read_view(book)
+
+    def _refuse_tracked_write(self) -> None:
+        if self.removed_path is not None:
+            raise PermissionError(
+                "The Pass1 Auto files are read-only on the server. Use remove()."
+            )
 
     def write(self, book: str, data: Dict[str, Any]):
+        self._refuse_tracked_write()
         with self._lock:
             filepath = self._get_filepath(book)
             with filepath.open("w", encoding="utf-8") as f:
@@ -41,6 +98,7 @@ class Pass1FileManager:
     def update(
         self, book: str, update_function: Callable[[Dict[str, Any]], Any]
     ) -> Any:
+        self._refuse_tracked_write()
         with self._lock:
             filepath = self._get_filepath(book)
             data = {}
