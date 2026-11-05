@@ -734,3 +734,12 @@ a.dpd-button.play.small:hover svg {
   margin-right: 5px;
   vertical-align: -0.15em;
 }
+
+.error {
+  color: #b00020;
+  padding: 10px 0;
+}
+
+.dark-mode .error {
+  color: #ff8a80;
+}
