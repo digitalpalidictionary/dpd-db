@@ -208,7 +208,7 @@ when the db is read-only, or let the build write the cache.
 Details in `20261023_contrib_1_web_server/plan.md` task 3.2. Listed here so the next security pass finds it. A non-admin account key or a fine-grained token would fix it. The new-server runbook (Step 8) repeats the warning.
 
 ### 21. The nightly window leaves a copy of the database and a worktree on the server
-After a successful run the clone holds `dpd.db.prev` (883 MB) and `_contrib_worktree/`. Harmless on 65 GB free; an old `dpd.db.prev` is also not a safe fallback after a failed run (it was captured mid-rebuild once). Decide: clean up after a good run, or leave.
+After a successful run the clone holds `dpd.db.prev` (883 MB) and `_contrib_worktree/`. Harmless on 65 GB free; an old `dpd.db.prev` is also not a safe fallback after a failed run (it was captured mid-rebuild once). Decide: clean up after a good run, or leave. Also on 2026-11-04 the server's `/root/mem` got safety copies that nothing removes: `contrib_data.before_manual_window_20261104`, `authorized_keys.before_pull_20261104`, `fstab`/`sshd_config.d` copies from the runbook rehearsal notes, and the old `window_*.log` files.
 
 ### 22. A contributor with a bad file waits until tomorrow (accepted trade-off, from the pull review)
 The pull skips all the files of a contributor with one bad file. The day still counts as done, so a file corrected the same day is not retried until the next day. The desktop notice now goes out at once for this outcome. If same-day retry matters, `pulled with problems` would have to leave `last_success` unset, at the cost of a retry every 30 minutes all day for a contributor who stays bad.
@@ -228,3 +228,12 @@ SETTLED 2026-11-04: the owner saved a real new word on the web page (`anekasataá
 
 ### 27. One unexplained failure in the full test run (2026-11-04)
 `tests/scripts/server_contrib/test_maintenance_window.py::TestHappyPath::test_status_file_reports_a_failure_and_its_reason` failed once in `uv run pytest tests/` (2840 passed): the status file said `problems: 0`, the test expects `problems: 1`. It passed 3 times alone and 2 times with all of `tests/scripts`. The status lists the ERROR and WARNING lines of that day's log, so a dependency on log state or on the clock (the run was at 07:14) is a guess, not proved. Run the whole suite a few times, and read how the status writer picks the day's log lines.
+
+### 28. Every gui2 start leaves a helper web server running (seen 2026-11-05)
+gui2 starts `uvicorn exporter.webapp.main:app` on 127.1.1.1:8080 and it survives the editor closing (and Ctrl+C). The next start prints `[Errno 98] ... address already in use`. Harmless, since the old helper answers, but it looks like an error and a stale helper can serve old code. Fix: stop the helper on exit, or reuse a running one without the error. Desktop only, not the contributor server.
+
+### 29. A contributor's Pass1 removals never reach the maintainer
+`pass1_auto_removed_<user>.json` (the words a contributor took off the Pass1 Auto queue; 3 entries on 2026-11-05) is not in `DELIVERED_KINDS`, so the pull and the nightly push ignore it. Decide whether the maintainer needs those removals on the laptop (the shared queue files are committed, so a removal made on the server is lost at the next queue replacement).
+
+### 30. A day with the editor open brings no words and no signal (seen 2026-11-05)
+The pull skips while gui2 is open, writes no status, and sends no notice for a skip. On 2026-11-05 it skipped 7 times from 08:00 to 11:00 and the owner learned of it only when asked. Options: a notice after N skips in a row, or a `skipped` line in the status file with the count. The skip is deliberate (it never touches files under the editor), so the question is only whether to say so.
