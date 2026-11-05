@@ -602,10 +602,13 @@ function clearSearch() {
   if (typeof appState !== "undefined") {
     cancelRequests(["dpd"]);
     appState.dpd.searchTerm = "";
+    appState.dpd.resultsHTML = "";
     appState.dpd.needsRefetch = false;
     appState.dpd.error = "";
   }
-  window.history.pushState({}, "", window.location.pathname);
+  // A bare {} entry would wipe the other tabs when Back and Forward return to it.
+  const state = typeof appState !== "undefined" ? navigationState() : {};
+  window.history.pushState(state, "", window.location.pathname);
   searchBox.focus();
 }
 

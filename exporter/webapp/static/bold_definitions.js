@@ -23,6 +23,9 @@ const bdClearButton = document.querySelector(".bd-search-option-clear");
 function clearBdResults() {
   if (typeof appState !== "undefined") {
     cancelRequests(["bd"]);
+    appState.bd.searchTerm1 = "";
+    appState.bd.searchTerm2 = "";
+    appState.bd.resultsHTML = "";
     appState.bd.needsRefetch = false;
     appState.bd.error = "";
   }

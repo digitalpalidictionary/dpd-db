@@ -215,7 +215,8 @@ function startRequest(tab, query) {
 // Perform a search operation
 async function performSearch(addHistory = true, syncTerms = true) {
   let activeBtnId = "";
-  let isStale;
+  // Only a search on the dpd or bd tab starts a request; others never reach it.
+  let isStale = () => false;
   // The active tab can change while the request runs.
   const requestTab = appState.activeTab;
   if (appState.activeTab === "dpd") {
@@ -387,7 +388,9 @@ async function responseError(response) {
   if (response.status === 503 && response.headers.get("Retry-After")) {
     const body = await response.text();
     const page = body.startsWith("{") ? JSON.parse(body).dpd_html : body;
-    error.busyMessage = page.match(/^<p class="dpd">([^<]*)<\/p>$/)?.[1];
+    if (typeof page === "string") {
+      error.busyMessage = page.match(/^<p class="dpd">([^<]*)<\/p>$/)?.[1];
+    }
   }
   return error;
 }
@@ -528,6 +531,7 @@ function render(keepForm = false) {
     if (appState[tabName].error) {
       const error = document.createElement("div");
       error.className = "error";
+      error.setAttribute("role", "alert");
       error.textContent = appState[tabName].error;
       document.getElementById(`${tabName}-results`).appendChild(error);
     }
