@@ -513,3 +513,6 @@
 - 2026-11-05 [POSITIVE] Testing the detached-launch and wait-loop quoting locally with a fake ssh caught quoting faults before the owner ran them.
 - 2026-11-05 [WORKFLOW] Closing the loop through a manual nightly window (setsid, pid file, bounded wait) worked first time; the 120 s agent shell limit never bit.
 - 2026-11-05 [BEHAVIOR] Staged 24 files, then ran `git commit` as a separate call. Another session's `git commit` ran in between and took my staged files into its #277 commit. Stage and commit in one call with explicit paths.
+- 2026-11-05 [CONFUSION] Chased the flaky-test failure into tmp-log forensics; the owner called it a rabbit hole. The cause was an import side effect (pyglossary swaps the process logger class), invisible to formatter greps. When only-full-suite tests fail on global state, grep for heavyweight imports first, not for the symptom's code.
+- 2026-11-05 [WORKFLOW] Delegating a review to a herdr agent: say explicitly that it must message back to my pane id, or it answers in its own pane and the owner has to relay it.
+- 2026-11-05 [POSITIVE] Test-first with a paste-the-failing-line rule held for 16 tasks across two agents; every fix landed green first run except one import-scope nit the plan's own quote caused.
