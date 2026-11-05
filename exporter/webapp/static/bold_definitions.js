@@ -21,6 +21,11 @@ const bdFuzzyButton = document.getElementById("option3");
 const bdClearButton = document.querySelector(".bd-search-option-clear");
 
 function clearBdResults() {
+  if (typeof appState !== "undefined") {
+    cancelRequests(["bd"]);
+    appState.bd.needsRefetch = false;
+    appState.bd.error = "";
+  }
   bdResults.innerHTML = "";
   bdSearchBox1.value = "";
   bdSearchBox2.value = "";

@@ -142,7 +142,7 @@ if (ttFilterBox) {
   });
 }
 
-async function performTTSearch(addHistory = true) {
+async function performTTSearch(addHistory = true, syncTerms = true) {
   const buttonId = "tt-search-button";
   if (typeof window.showLoading === "function") {
     window.showLoading(buttonId);
@@ -161,13 +161,20 @@ async function performTTSearch(addHistory = true) {
     return;
   }
 
+  const isStale = startRequest("tt", JSON.stringify([q, lang, bookParam]));
+  if (!isStale) return;
+  // A new search replaces a restored one, so its failure does not retry.
+  if (addHistory) appState.tt.needsRefetch = false;
+
   if (typeof appState !== "undefined") {
     appState.tt.searchTerm = q;
     appState.tt.language = lang;
     appState.tt.books = books;
 
-    appState.dpd.searchTerm = q;
-    appState.bd.searchTerm1 = q;
+    if (syncTerms) {
+      appState.dpd.searchTerm = q;
+      appState.bd.searchTerm1 = q;
+    }
   }
 
   if (ttResults) {
@@ -178,7 +185,9 @@ async function performTTSearch(addHistory = true) {
     const response = await fetch(
       `/tt_search?q=${encodeURIComponent(q)}&book=${encodeURIComponent(bookParam)}&lang=${encodeURIComponent(lang)}`
     );
+    if (!response.ok) throw await responseError(response);
     const data = await response.json();
+    if (isStale()) return;
 
     let html = "";
     if (data.error) {
@@ -251,6 +260,7 @@ async function performTTSearch(addHistory = true) {
     // Update appState results
     if (typeof appState !== "undefined") {
       appState.tt.resultsHTML = html;
+      appState.tt.needsRefetch = false;
 
       if (addHistory) {
         addToHistory();
@@ -274,13 +284,12 @@ async function performTTSearch(addHistory = true) {
       }
     }
   } catch (error) {
+    if (isStale()) return;
     console.error("Error fetching TT results:", error);
-    if (ttResults) {
-      ttResults.innerHTML = "<div class='error'>Error fetching results.</div>";
-    }
+    showSearchError("tt", error.busyMessage);
   } finally {
-    if (typeof window.hideLoading === "function") {
-      window.hideLoading(buttonId);
+    if (!isStale()) {
+      endRequest("tt");
     }
   }
 }
@@ -304,8 +313,11 @@ function clearTTSearch() {
   }
 
   if (typeof appState !== "undefined") {
+    cancelRequests(["tt"]);
     appState.tt.searchTerm = "";
     appState.tt.resultsHTML = "";
+    appState.tt.needsRefetch = false;
+    appState.tt.error = "";
     appState.tt.books = ["all"];
     updateURL();
   }
