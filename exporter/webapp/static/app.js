@@ -395,16 +395,12 @@ async function responseError(response) {
   return error;
 }
 
-// Show a failed search in its tab, which is left empty. A restored tab stays
-// marked, so opening it again retries. The message stays out of resultsHTML,
-// which means results.
+// Show a failed search in its tab above the results already there: a failed
+// search must not take away what the user was reading. A restored tab has no
+// results and stays marked, so opening it again retries. The message stays out
+// of resultsHTML, which means results.
 function showSearchError(tabName, message) {
   const tab = appState[tabName];
-  tab.resultsHTML = "";
-  if (tabName === "dpd") {
-    const summaryResults = document.getElementById("summary-results");
-    if (summaryResults) summaryResults.innerHTML = "";
-  }
 
   const language = document.documentElement.lang || "en";
   if (language === "en") {
@@ -533,7 +529,8 @@ function render(keepForm = false) {
       error.className = "error";
       error.setAttribute("role", "alert");
       error.textContent = appState[tabName].error;
-      document.getElementById(`${tabName}-results`).appendChild(error);
+      // First, so it is seen above a long list of results.
+      document.getElementById(`${tabName}-results`).prepend(error);
     }
   }
 
