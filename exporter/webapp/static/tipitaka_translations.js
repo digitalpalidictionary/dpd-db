@@ -144,9 +144,6 @@ if (ttFilterBox) {
 
 async function performTTSearch(addHistory = true, syncTerms = true) {
   const buttonId = "tt-search-button";
-  if (typeof window.showLoading === "function") {
-    window.showLoading(buttonId);
-  }
 
   const q = ttSearchBox
     ? ttSearchBox.value.trim()
@@ -165,6 +162,12 @@ async function performTTSearch(addHistory = true, syncTerms = true) {
   if (!isStale) return;
   // A new search replaces a restored one, so its failure does not retry.
   if (addHistory) appState.tt.needsRefetch = false;
+
+  // Only a search that sends a request may disable the button: the empty and
+  // repeat-submit returns above have no request whose end would enable it.
+  if (typeof window.showLoading === "function") {
+    window.showLoading(buttonId);
+  }
 
   if (typeof appState !== "undefined") {
     appState.tt.searchTerm = q;
