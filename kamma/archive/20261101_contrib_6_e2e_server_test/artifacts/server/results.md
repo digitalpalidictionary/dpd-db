@@ -13,8 +13,8 @@ Owner note 2026-11-01: everything on this server is temporary. Overwrite it free
 
 ## Values
 
-- SSH login: root@187.126.118.33
-- Server name: 187-126-118-33.sslip.io
+- SSH login: root@<server-ip>
+- Server name: <server-ip>.sslip.io
 - word 1: saṅkhacariyā (contributor id alice_10000001)
 - word 2: saṅkhasavhaya (contributor id alice_10000002)
 - word 3: kaṭhinabhūmi (contributor id alice_10000003)
@@ -46,7 +46,7 @@ lrwxrwxrwx 1 root root   38 Nov  1 05:48 dpd-contrib -> /etc/nginx/sites-availab
 ### `ls /etc/letsencrypt/live`
 
 ```
-187-126-118-33.sslip.io
+<server-ip>.sslip.io
 README
 ```
 
@@ -581,7 +581,7 @@ fixes the maintainer will push; the server retest waits for them.
   - The preview page IS written (`gui2/assets/preview/preview_alice.html`,
     50 KB, 14:46) and the flet origin serves it with 200
     (`curl -sI http://127.0.0.1:8551/preview/preview_alice.html`).
-  - The browser opened `https://187-126-118-33.sslip.io/preview/preview_alice.html?t=…`
+  - The browser opened `https://<server-ip>.sslip.io/preview/preview_alice.html?t=…`
     → nginx 404. Root cause: `preview_url()` (`gui2/preview.py:161`) returns a
     web url relative *to the domain root*; its comment claims "relative to the
     page, so it works behind a path prefix", but the `/alice/` prefix is lost.
@@ -1040,7 +1040,7 @@ contributions one commit ahead of main, alice active on 127.0.0.1:8551.
 EXPECT: met — only the two alice flag files change, removing the merged
 lines; `additions_alice.json` is not in the diff.
 
-7.4: maintainer reloads `https://187-126-118-33.sslip.io/alice/` — Bold
+7.4: maintainer reloads `https://<server-ip>.sslip.io/alice/` — Bold
 Search returns results: **yes**; DB-tab search for `saṅkhacariyā` shows it as
 a normal headword: **yes**.
 

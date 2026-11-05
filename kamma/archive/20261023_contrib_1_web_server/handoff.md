@@ -1,5 +1,8 @@
 # Handoff — 20261023_contrib_1_web_server (2026-11-03, evening IST)
 
+> **2026-11-05 11:31: 8.5 DONE (first unattended timer pull proved, see `plan.md`). Morning check below is finished.** Open: 8.4 (the owner's onboarding video), 8.7 (final uncommitted-file list and `/kamma:4-finalize`). Uncommitted: `plan.md`, `handoff.md`, `shared_data/deconstructor/checked.csv` (+8 words from the 11:30 pull).
+> **MORNING CHECK 2026-11-05 (after 08:00; the owner will ask for it):** the owner added new words as alice on 2026-11-04 evening (after the 17:25 restart, server HEAD c54f942e, db built at 6df9a1b6, new Pass1 Auto files pulled). Check, in this order, read-only: (1) server `/var/lib/dpd/status.txt`: `outcome: rebuilt`, commit = GitHub `main`, `problems: 0`; the 01:00 cron log `/root/mem/window_cron.log` has no `No such file or directory: 'uv'`. (2) `systemctl is-active dpd-gui@alice` = active. (3) the server db holds the new words (query `dpd_headwords` by lemma through `sqlite3 -readonly`; get the lemmas from alice's file on the laptop after the pull, since the window empties the server file). (4) alice's server files are empty after reconcile only for words already processed on main; new unprocessed words stay in her file. (5) laptop: `logs/contrib_pull.log` and `journalctl --user -u dpd-contrib-pull.service --since 07:55` show the 08:00 run as a REAL pull (`outcome: pulled`, new entries for alice), not a skip: this is task 8.5. (6) the editor queue shows the words. Then: tick 8.5 in `plan.md`, tell the owner to run `/kamma:4-finalize`.
+
 > **2026-11-04 update:** thread `20261104_contrib_pull` was merged into this one. New Phases 4 to 7 (pull script, restricted key, timer, new-server runbook) and Phase 8 (the old Phase 4: rehearsal, drills, guide, first contributor, wrap). Specs: `spec.md` (server) and `pull_spec.md` (pull). Review records: `egm_pull/`. Next task: 4.0, then 4.1. Not committed yet.
 
 > **2026-11-04, later:** Phase 4 is DONE (4.0 to 4.7, all ticked, drift notes under 4.7 in `plan.md`). `scripts/server_contrib/contrib_pull.py` and `tests/scripts/server_contrib/test_contrib_pull.py` are new; `merge_contrib_files.py` (atomic log write), its test file, `kamma/tech.md` and `plan.md` are edited. 165 tests pass, `just typecheck` clean. Nothing is committed. NEXT was Phase 5.
@@ -75,7 +78,7 @@ systemctl disable --now dpd-gui@drilltest          # already disabled, re-run is
 rm -f /etc/dpd/drilltest.env /etc/nginx/dpd/drilltest.htpasswd /etc/nginx/dpd/drilltest.conf
 nginx -t && systemctl reload nginx
 curl -s -o /dev/null -w '%{http_code}\n' -u drilltest:drillpass2026xyz \
-  https://187-126-118-33.sslip.io/drilltest/      # expect 404
+  https://<server-ip>.sslip.io/drilltest/      # expect 404
 ls /etc/dpd/ /etc/nginx/dpd/                       # drilltest gone
 ls /var/lib/dpd/contrib_data/ | grep drilltest ; echo NO_DRILLTEST_FILES
 ```

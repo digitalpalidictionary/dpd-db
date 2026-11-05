@@ -21,6 +21,7 @@ Multiple kamma threads regularly run against this repo in the same working tree 
 - Before staging, snapshot `git status --porcelain` and cross-reference every entry against "did this thread touch this file". Stage by explicit file list — never `git add <dir>` or `git add -A`.
 - **NEVER run `git stash`, `git checkout -- <path>`, `git restore`, or `git reset --hard` here.** They operate on the whole tree and silently destroy other sessions' uncommitted work. This has happened: during the pyrefly thread (2026-07-27) another session's sweep wiped a completed phase three times — the third removed a `[tool.pyrefly]` config block, a justfile recipe, a dependency, twelve verified fixes, and resurrected three deliberately deleted files.
 - Damage is worst mid-thread, because it reverts unevenly — some files come back, others don't, and the result looks like a working tree, not a broken one. If a tool reports a file "was modified, either by the user or by a linter" and the content is your pre-edit version, treat it as a rollback and **audit every file you have touched** before continuing.
+- Commit in the same command that stages, with explicit paths: `git add <files> && git commit -m "..." -- <files>`. A plain `git commit` from another session takes everything staged, and it took 24 staged files into a #277 commit on 2026-11-05.
 - To test against a clean tree, use `git worktree add <path>`.
 - To discard your own changes, revert the specific files by name, never a whole-tree command.
 
@@ -40,6 +41,7 @@ Multiple kamma threads regularly run against this repo in the same working tree 
 - For questions about actual dictionary data (which source codes exist, how a field is populated, row counts), query the live `dpd.db` directly. `db/backup_tsv/` files are regenerated backups, not the source of truth. Don't infer data shape from TSVs or downstream exporter code.
 - `db_tests` failures on freshly imported draft entries are the editor's per-word checklist, not import defects. Pre-fix only what zero-exception evidence in the live db demands (closed vocabularies like `verb`, absolutes like "`source_1` never without `example_1`", `lemma_2` = nominative singular, `(gram)` rows always carry `family_set grammatical terms`). Leave per-word lexicographic judgement (`compound_type`, `construction`, `derived_from`, `neg`) to the human.
 - gui2's tests tab rewrites the whole of `db_tests/db_tests_columns.tsv` (CRLF endings, any new exceptions) whenever an exception is added. Git's `text=auto` restores LF on commit. Re-check that file's diff just before listing it in a commit.
+- The daily contributor pull (timer, or `just contrib-pull`) skips while gui2 is open, and a skip writes no status or log line. To force a second pull on the same day, close gui2 and move `logs/contrib_pull_status.txt` aside.
 - Any git-tracked data file written by code (e.g. `tools/speech_marks.json`) must be saved in canonical sort order — `pali_sort_key` for Pāḷi strings, applied to both keys and value lists. Insertion order turns every regeneration into a full-file reorder diff.
 
 ## Database Model (`db/models.py`)

@@ -1,10 +1,18 @@
 {
     "checked_alice.csv": [
+        "abbhāgatānāsanakaṃ",
         "kopāhanā",
         "chattamādeti",
         "dajjamattano",
         "dasahupāgato",
-        "yācakamanuppatte"
+        "pañcettha",
+        "buddhattamabhipatthayiṃ",
+        "madhurenāhaṃ",
+        "yācakamanuppatte",
+        "ramitomhi",
+        "vadanañcāpi",
+        "vijjurivabbhakūṭaṃ",
+        "sabbamāhariṃ"
     ],
     "db_test_exceptions_alice.tsv": [],
     "manual_corrections_alice.tsv": [

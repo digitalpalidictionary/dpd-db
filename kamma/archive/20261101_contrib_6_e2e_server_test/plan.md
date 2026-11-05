@@ -295,8 +295,8 @@ tree: touch only the files a task names.
 - [x] 2.2 On the server (`ssh epitaka`), create
       `~/dpd-contrib/handoff/20261101_contrib_6_e2e_server_test/results.md` with
       `# Results — contrib_6 end-to-end server test`, an empty `## Decisions` section,
-      and `## Values`: SSH login `root@187.126.118.33`, server name
-      `187-126-118-33.sslip.io`.
+      and `## Values`: SSH login `root@<server-ip>`, server name
+      `<server-ip>.sslip.io`.
       → verify: the file exists with the three headings.
 - [x] 2.3 Read spec "Decisions made while the owner was away". Write each of the six
       under `## Decisions` in that file as "confirmed" or the change. A changed
@@ -453,7 +453,7 @@ tree: touch only the files a task names.
       ```
       **EXPECT:** `syntax is ok` and `test is successful`; `active`; exactly one
       line `127.0.0.1:8551`; Traceback count `0`.
-- [x] 4.4 **WHO: MAINTAINER, browser.** Open `https://187-126-118-33.sslip.io/alice/`,
+- [x] 4.4 **WHO: MAINTAINER, browser.** Open `https://<server-ip>.sslip.io/alice/`,
       sign in with the new password. The AGENT asks one at a time and records each
       answer under `## 4.4`:
       1. Does gui2 load and show "Database loaded."?
@@ -637,7 +637,7 @@ read-only checks; the MAINTAINER runs every git write and gui2.
       merged in 6.2; `additions_alice.json` is not in the diff (already `{}` on both
       sides). This is the next night's normal "nothing new" state; merging it later is
       harmless. Record it in the server's `results.md` via the maintainer.
-- [x] 7.4 **WHO: MAINTAINER, browser.** At `https://187-126-118-33.sslip.io/alice/`
+- [x] 7.4 **WHO: MAINTAINER, browser.** At `https://<server-ip>.sslip.io/alice/`
       (reload): Bold Search returns results; searching the DB tab for `<word 1>` shows
       it as a normal headword. The AGENT records both answers.
 - [x] 7.5 **Phase check.** `## Phase 7 verdict`: PASS if 7.2–7.4 and 7.3b met EXPECT.

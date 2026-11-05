@@ -3,8 +3,8 @@
 ## Values
 | Name | Value |
 |---|---|
-| SSH login | root@187.126.118.33 |
-| Server IP | 187.126.118.33 |
+| SSH login | root@<server-ip> |
+| Server IP | <server-ip> |
 
 ## 1.1 Survey
 
@@ -228,7 +228,7 @@ Phase 4 sudo authorization (nginx) is untouched by this.
   Output: `(0, 0, 0)` — matches EXPECT, first number 0, nothing had the db
   open. WAL folded into the main db. Safe to copy.
 - Still his side, results to be reported to the agent:
-  1. `cd /home/bodhirasa/MyFiles/3_Active/dpd-db && rsync --bwlimit=400 --partial --progress dpd.db root@187.126.118.33:~/dpd-db/` (~1.5 h)
+  1. `cd /home/bodhirasa/MyFiles/3_Active/dpd-db && rsync --bwlimit=400 --partial --progress dpd.db root@<server-ip>:~/dpd-db/` (~1.5 h)
   2. `cd /home/bodhirasa/MyFiles/3_Active/dpd-db && sha256sum dpd.db`
 - The agent runs nothing for 2.3. Task 2.4 starts when the maintainer
   reports the copy done and sends the hash.
@@ -698,7 +698,7 @@ Read-only diagnostics that shaped the list: `nginx`, `htpasswd`,
 `certbot` are NOT installed; `ufw` IS installed (state to be checked live
 before any firewall command).
 
-Server name: `187-126-118-33.sslip.io` (IP 187.126.118.33).
+Server name: `<server-ip>.sslip.io` (IP <server-ip>).
 
 ### The commands (4.2 runs them one at a time, maintainer watching)
 
@@ -708,7 +708,7 @@ Server name: `187-126-118-33.sslip.io` (IP 187.126.118.33).
 3. `sudo rm /etc/nginx/sites-enabled/default`
    (clear port 80 of stock content; certbot's --nginx plugin can still
    place its temporary challenge blocks)
-4. `sudo certbot certonly --nginx -d 187-126-118-33.sslip.io --agree-tos -m <maintainer email> --no-eff-email`
+4. `sudo certbot certonly --nginx -d <server-ip>.sslip.io --agree-tos -m <maintainer email> --no-eff-email`
    CHANGE: <maintainer email> is typed by the maintainer. If certbot fails
    (rate limit / unreachable), STOP: record error, skip to Phase 5
    (plan 4.3's certbot-escape clause).
@@ -737,12 +737,12 @@ production layout this thread excludes. Tonight: instances keep running via
 created. Step 7's reload is the same effect as the script's last line.
 Cleanup reverses everything (results.md 5.3 list): rm the site + enabled
 link + /etc/nginx/dpd/*alice* + /etc/dpd/alice.env +
-/var/lib/dpd/contrib_data, `certbot delete --cert-name 187-126-118-33.sslip.io`,
+/var/lib/dpd/contrib_data, `certbot delete --cert-name <server-ip>.sslip.io`,
 purge the four packages + autoremove, drop the ufw allows, close 80/443.
 
 ### What happens after the yes (4.3)
 
-Maintainer opens `https://187-126-118-33.sslip.io/alice/` and I record:
+Maintainer opens `https://<server-ip>.sslip.io/alice/` and I record:
 password asked? wrong password rejected? loads gui2 with the right one?
 stays connected 5 minutes? preview under `/alice/preview/...`?
 The audio index gap persists tonight, so the preview leg is expected to
@@ -760,10 +760,10 @@ results.md: that answer decides contrib_1 Phase 3.
 - Command 3 OK: `sudo rm /etc/nginx/sites-enabled/default` → no output.
 - Command 4 OK with ONE recorded substitution: the approved list had
   `-m <maintainer email>`; no email was given, so the agent ran
-  `sudo certbot certonly --nginx -d 187-126-118-33.sslip.io --agree-tos
+  `sudo certbot certonly --nginx -d <server-ip>.sslip.io --agree-tos
   --register-unsafely-without-email`. Result: certificate ISSUED on the
   first attempt, saved to
-  `/etc/letsencrypt/live/187-126-118-33.sslip.io/fullchain.pem` (+ privkey),
+  `/etc/letsencrypt/live/<server-ip>.sslip.io/fullchain.pem` (+ privkey),
   expiry 2027-01-29, auto-renew timer active. The spec's rate-limit worry
   did not materialize.
 - Command 5, first attempt — FAILED, maintainer's paste verbatim:
@@ -789,7 +789,7 @@ results.md: that answer decides contrib_1 Phase 3.
 - Command 5b — the numbered 4.1 draft omitted the site-enable step (it
   lived only in the prose above the list); agent owns that mistake and ran
   the docs' own step now:
-  `sudo sh -c "sed -e 's|@SERVER_NAME@|187-126-118-33.sslip.io|g' /root/dpd-db/scripts/server_contrib/nginx_contrib.conf.template > /etc/nginx/sites-available/dpd-contrib && ln -sf /etc/nginx/sites-available/dpd-contrib /etc/nginx/sites-enabled/dpd-contrib && echo SITE_ENABLED"`
+  `sudo sh -c "sed -e 's|@SERVER_NAME@|<server-ip>.sslip.io|g' /root/dpd-db/scripts/server_contrib/nginx_contrib.conf.template > /etc/nginx/sites-available/dpd-contrib && ln -sf /etc/nginx/sites-available/dpd-contrib /etc/nginx/sites-enabled/dpd-contrib && echo SITE_ENABLED"`
   Output: `SITE_ENABLED`.
 - Pending: 6 (nginx -t), 7 (reload), 8 (ufw).
 - Command 6 — `sudo nginx -t` →
@@ -811,12 +811,12 @@ results.md: that answer decides contrib_1 Phase 3.
 
 ## 4.3 — browser checks, item by item (2026-11-01)
 
-URL under test: `https://187-126-118-33.sslip.io/alice/` (direct HTTPS, no
+URL under test: `https://<server-ip>.sslip.io/alice/` (direct HTTPS, no
 tunnel involved).
 
 **Item 1 — does it ask for a password?**
 Maintainer's screenshot: browser-native "Sign in" dialog on
-https://187-126-118-33.sslip.io, Username pre-filled `alice`, Password
+https://<server-ip>.sslip.io, Username pre-filled `alice`, Password
 field filled (masked), Cancel / Sign in buttons. CONFIRMED — basic auth
 challenge appears as expected.
 
@@ -834,7 +834,7 @@ Labeled read-only diagnostics (no secret content printed):
 - `sudo tail -n 8 /var/log/nginx/error.log`:
   `2026/11/01 05:49:38 [crit] 1595542#1595542: *9 open()
   "/etc/nginx/dpd/alice.htpasswd" failed (13: Permission denied), client:
-  223.186.215.106, server: 187-126-118-33.sslip.io, request: "GET /alice/
+  223.186.215.106, server: <server-ip>.sslip.io, request: "GET /alice/
   HTTP/1.1"` — plus a cosmetic favicon 404.
 Root cause: the README's one limit ("give the file to nginx's group on
 the server (not checked locally)"). The htpasswd was created root-owned;
@@ -857,7 +857,7 @@ loop now behaves as designed. Item 2 PASS.
 
 **Item 3 — loads gui2 with the right one? (in progress)**
 Maintainer: "Now I'm signed in but I've just got a blank screen" —
-screenshot: browser at `187-126-118-33.sslip.io/alice/`, auth passed,
+screenshot: browser at `<server-ip>.sslip.io/alice/`, auth passed,
 viewport all black, nothing rendered. If the app fails behind the prefix,
 plan 4.3 says: record exactly what fails — this answer decides contrib_1
 Phase 3. Server-side evidence gathering next (read-only).
@@ -866,7 +866,7 @@ Phase 3. Server-side evidence gathering next (read-only).
 ```
 223.186.215.106 - alice ... "GET /alice/ HTTP/1.1" 401 ...   (wrong pw, x3)
 223.186.215.106 - alice ... "GET /alice/ HTTP/1.1" 200 1849 ...  (auth OK, shell)
-223.186.215.106 ...  "GET /python.js HTTP/1.1" 404 196 "https://187-126-118-33.sslip.io/alice/"
+223.186.215.106 ...  "GET /python.js HTTP/1.1" 404 196 "https://<server-ip>.sslip.io/alice/"
 223.186.215.106 ...  "GET /icons/loading-animation.png HTTP/1.1" 404 196
 223.186.215.106 ...  "GET /flutter_bootstrap.js HTTP/1.1" 404 196
 223.186.215.106 ...  "GET /favicon.png HTTP/1.1" 404 196
@@ -1002,7 +1002,7 @@ outputs. Everything below lives in ONE reversible file
 ### 4.3 verdicts after the terminal set (2026-11-01, ~06:06–06:2x)
 
 **Iteration 4 outcome — SUCCESS.** Maintainer's screenshot: full app
-rendered at 187-126-118-33.sslip.io/alice/ — "dpd gui" header, tabs
+rendered at <server-ip>.sslip.io/alice/ — "dpd gui" header, tabs
 Pass1Auto | Pass1Add | DB | Bold Search, Pass1Auto tab open (Book
 dropdown, AutoProcess Book, AI Model dropdown, Word-in-text, Results).
 Access log confirms deep asset loads through the shimmed root paths:
@@ -1090,14 +1090,14 @@ today) will reuse them. Consequences, on record:
   - Final verification (labeled): ps → NO_GUI2_RUNNING; ss →
     NO_LISTENERS_855X (nothing on 127.0.0.1:8551/8552); free → used
     3.5 Gi → 1.0 Gi, available 4.3 Gi → 6.7 Gi (~2.5 GiB reclaimed).
-  - Known post-5.1 state: https://187-126-118-33.sslip.io/alice/ now
+  - Known post-5.1 state: https://<server-ip>.sslip.io/alice/ now
     answers 502 (proxy target down) — expected; nginx itself stays up.
 - **5.3/5.4 removals: CANCELLED by maintainer instruction ("keep all the
   files")** — a maintainer-approved deviation from the plan. Everything
   stays in place: /etc/nginx/sites-{available,enabled}/dpd-contrib,
   /etc/nginx/dpd/{alice.conf, alice.htpasswd, zz_root_asset_shim.conf},
   /etc/dpd/alice.env, /var/lib/dpd/contrib_data/, the LE cert
-  (187-126-118-33.sslip.io, exp 2027-01-29), installed packages (nginx,
+  (<server-ip>.sslip.io, exp 2027-01-29), installed packages (nginx,
   apache2-utils, certbot + plugin), the repo clone + .venv, ~/dpd-db
   scratch db, ~/start_gui2.sh + ~/stop_gui2.sh, ~/logs/.
 - **5.2 copy-back: offered to the maintainer, optional in timing** (no

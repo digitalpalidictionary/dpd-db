@@ -147,7 +147,7 @@ Run every command from `/home/bodhirasa/MyFiles/3_Active/dpd-db`. Other sessions
       **EXPECT:** `exit=0`; the copy within 5 % of `dpd.db`'s size; at least 3 GB free. Otherwise STOP.
 - [x] 3.4 **WHO: SERVER AGENT + MAINTAINER, maintainer's yes and chosen time.** Fresh start in phases. The maintainer confirms alice has no unsaved form input. One step at a time; each reading is the 3.1 command with the label shown, appended to `~/mem/readings.jsonl`:
       1. Agent: `sudo systemctl restart dpd-gui@alice; sleep 15`; reading with `--label plus15s`.
-      2. Maintainer: opens `https://187-126-118-33.sslip.io/alice/` and tells the agent when "Database loaded." shows. Reading `--label db_loaded`.
+      2. Maintainer: opens `https://<server-ip>.sslip.io/alice/` and tells the agent when "Database loaded." shows. Reading `--label db_loaded`.
       3. Maintainer tells the agent when "All tabs and tools ready." shows. Reading `--label warmup_done`.
       4. Maintainer opens Pass1Auto and the server book from `books.md` (Run, let one pass finish or press Stop) and tells the agent. Reading `--label one_book`.
       **EXPECT:** four readings, RSS rising at each step. If RSS falls or the unit restarts by itself: STOP. Append a summary of the four to `~/mem/results.md` under `## 3.4`.

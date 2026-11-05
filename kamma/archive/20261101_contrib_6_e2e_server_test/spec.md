@@ -52,12 +52,12 @@ Read from the repo or the server, not assumed:
 
 - **Server.** Ubuntu 24.04, 2 CPUs, 8 GB RAM, no swap, about 80 GB free, root login,
   sudo works. SSH alias on the maintainer's machine: `epitaka`
-  (`root@187.126.118.33`). The box also hosts an unrelated project,
+  (`root@<server-ip>`). The box also hosts an unrelated project,
   `~/epitaka-translator`, which this thread must not touch. Go is not installed.
 - **Left over from contrib_4 (kept on purpose):** the old clone `~/dpd-db` (with the
   copied db and a filled `config.ini`), `~/contrib_data/` (alice's test entries
   `testa 1` / `testa 2`), `~/start_gui2.sh` and `~/stop_gui2.sh`, nginx 1.24 with the
-  site `dpd-contrib`, the Let's Encrypt certificate for `187-126-118-33.sslip.io`
+  site `dpd-contrib`, the Let's Encrypt certificate for `<server-ip>.sslip.io`
   (expires 2027-01-29), `/etc/nginx/dpd/alice.conf`, `alice.htpasswd` (group
   `www-data`), the alice-only root asset shim `/etc/nginx/dpd/zz_root_asset_shim.conf`,
   `/etc/dpd/alice.env`, and the empty `/var/lib/dpd/contrib_data/`. No gui2 process
@@ -262,7 +262,7 @@ by the agent only when the task says so and the maintainer has said yes.
    `nginx -t`, reload. The root asset shim stays; it points at the same htpasswd path.
    Then `systemctl enable --now dpd-gui@alice`. Check: `ss -ltn` shows 8551 on
    127.0.0.1 only; `journalctl -u dpd-gui@alice` has no `Traceback`; the page loads at
-   `https://187-126-118-33.sslip.io/alice/`.
+   `https://<server-ip>.sslip.io/alice/`.
 6. As alice, the maintainer adds 2 real words in Pass1Add (words he wants in the
    dictionary anyway), one sandhi split, one spelling word and one variant reading.
    He checks that Bold Search returns results, that Preview opens, and that Pass1Auto
@@ -460,7 +460,7 @@ Rejected Gate 1 findings (owner may overrule):
 
 1. The server was built from a fresh clone by `server_setup.sh` with no file copied
    from the laptop except `config.ini`; the setup log shows every step's time.
-2. alice's page loads at `https://187-126-118-33.sslip.io/alice/`; Pass1Auto,
+2. alice's page loads at `https://<server-ip>.sslip.io/alice/`; Pass1Auto,
    Pass1Add, Bold Search (with results) and Preview all work.
 3. Window #1 ends `skipped` (or `rebuilt` if `main` moved since the first build), its
    log has `contrib_push: pushed` and no `FAILED`, and GitHub's `contributions`

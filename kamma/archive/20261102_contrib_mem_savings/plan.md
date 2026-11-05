@@ -157,7 +157,7 @@ Tasks 3.1 to 3.6 are written now for every lever and pruned at the gate. Each: w
       → verify: the agent's report shows the same commit as the laptop; `git status --porcelain` on the server is clean apart from `?? ` files it already had.
 - [x] 4.3 **WHO: SERVER AGENT, owner's yes first.** Fresh start in phases, as task 3.4 of the earlier thread. The owner confirms alice has no unsaved input and says yes. One step at a time. Each reading is `cd ~/dpd-db && PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=. ~/.local/bin/uv run --no-sync ~/mem/mem_probe.py --unit-readings dpd-gui@alice --label <label> >> ~/mem/readings_savings.jsonl`:
       1. Agent: `sudo systemctl restart dpd-gui@alice; sleep 15`, reading `plus15s`.
-      2. Owner opens `https://187-126-118-33.sslip.io/alice/`, tells the agent when "Database loaded." shows. Reading `db_loaded`.
+      2. Owner opens `https://<server-ip>.sslip.io/alice/`, tells the agent when "Database loaded." shows. Reading `db_loaded`.
       3. Owner tells the agent when "All tabs and tools ready." shows. Reading `warmup_done`.
       4. Owner opens Pass1Auto and the book `mn` (Run, let one pass finish or press Stop), tells the agent. Reading `one_book`.
       5. Owner opens Pass1Add (the word finder loads there) and tells the agent. Reading `pass1add`.

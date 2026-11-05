@@ -505,3 +505,11 @@
 - 2026-11-04 [WORKFLOW] DeepSeek flash through pi timed out four times at reasoning "max", "high" and "medium", on inputs of 5 KB to 111 KB. At reasoning "off" a 5 KB piece answered in 12 s. The cause was the reasoning level, not the size, and I blamed the size first. Probe with a tiny request at each level before a long run.
 - 2026-11-04 [WORKFLOW] A review finding that "X deadlocks" was false: the call sat outside the lock, and the passing test would have hung. Run the existing test for the claimed path before accepting a concurrency finding.
 - 2026-11-04 [POSITIVE] Validating every reviewer finding against the code first cut about 25 claims to 3 real fixes, and a revert run proved the new test guards the fix.
+- 2026-11-05 [BEHAVIOR] Wrote "(checked on epitaka)" beside a runbook EXPECT that I never ran there; a blind reader caught it (`systemctl cat` prints `%i` unexpanded). Run every command you mark as checked.
+- 2026-11-05 [WORKFLOW] A privacy scan ran with `2>/dev/null` and printed "nothing found" because this `rg` has no PCRE2 and `-P` failed. Test any scan on a known match first, and never hide its errors.
+- 2026-11-05 [CONFUSION] Read "I added loads of words" as today; the owner meant yesterday. Check file times before acting on an unclear time reference.
+- 2026-11-05 [REPEATED] A long finalize finding was rejected as "a literal page of text". Give decisions in short form: one line each, with a recommendation.
+- 2026-11-05 [POSITIVE] Four reviewers in parallel (independent agent, CodeRabbit, pi DeepSeek, a blind runbook reader) each found different real bugs; three agreed on the manual_corrections column check. Every finding was checked against code before a fix.
+- 2026-11-05 [POSITIVE] Testing the detached-launch and wait-loop quoting locally with a fake ssh caught quoting faults before the owner ran them.
+- 2026-11-05 [WORKFLOW] Closing the loop through a manual nightly window (setsid, pid file, bounded wait) worked first time; the 120 s agent shell limit never bit.
+- 2026-11-05 [BEHAVIOR] Staged 24 files, then ran `git commit` as a separate call. Another session's `git commit` ran in between and took my staged files into its #277 commit. Stage and commit in one call with explicit paths.

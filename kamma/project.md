@@ -3,6 +3,8 @@
 ## What It Is And Why
 This project is an ongoing system for entering dictionary data through a GUI, testing that data, generating the database, and exporting it into multiple formats. Its purpose is to give contributors a reliable workflow for maintaining and releasing the Digital Pāḷi Dictionary.
 
+The project also runs a contributor web server where outside contributors add words in a browser, and a daily pull that brings their files to the maintainer's laptop.
+
 ## Who It Is For
 This project is for internal contributors and editors who maintain the dictionary data and release pipeline.
 
