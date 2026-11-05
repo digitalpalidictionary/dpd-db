@@ -420,10 +420,13 @@ class InflectionTemplatesTabView(ft.Column):
         self._words_button = ft.Button(
             "Show words", on_click=self._toggle_words, width=BUTTON_WIDTH
         )
+        self.save_button = ft.Button(
+            "Save", on_click=self._save_template, width=BUTTON_WIDTH
+        )
         return ft.Container(
             content=ft.Row(
                 controls=[
-                    ft.Button("Save", on_click=self._save_template, width=BUTTON_WIDTH),
+                    self.save_button,
                     ft.Button(
                         "Delete",
                         on_click=self._delete_template,

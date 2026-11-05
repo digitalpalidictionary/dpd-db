@@ -311,6 +311,18 @@ def test_update_word_in_db_marks_corpus_stale(db_manager: DatabaseManager):
     assert db_manager._corpus_stale is True
 
 
+def test_rename_pattern_in_headwords_marks_corpus_stale(db_manager: DatabaseManager):
+    db_manager.db_session.query(DpdHeadword).filter_by(id=2).update({"pattern": "old"})
+    db_manager.db_session.commit()
+    db_manager.load_corpus()
+    assert db_manager._corpus_stale is False
+
+    count = db_manager.rename_pattern_in_headwords("old", "new")
+
+    assert count == 1
+    assert db_manager._corpus_stale is True
+
+
 # ── detector rebuild worker (single, coalescing) ─────────────────────────────
 
 

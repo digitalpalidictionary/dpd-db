@@ -130,3 +130,23 @@ def test_filter_tab_hands_read_only_to_its_components(
     view._apply_filters_clicked(None)  # pyright: ignore[reportArgumentType,reportAttributeAccessIssue]
 
     assert created and created[0]["read_only"] is True
+
+
+@pytest.mark.parametrize("read_only", [True, False])
+def test_filter_component_save_button_is_disabled_when_read_only(
+    monkeypatch: pytest.MonkeyPatch, read_only: bool
+) -> None:
+    _stub_page(monkeypatch, FilterComponent)
+
+    component = FilterComponent(MagicMock(), MagicMock(), read_only=read_only)
+
+    assert component.save_button.disabled is read_only
+
+
+def test_roots_and_infl_keep_their_save_button(monkeypatch: pytest.MonkeyPatch) -> None:
+    _stub_page(monkeypatch, RootsTabView)
+    roots = RootsTabView(MagicMock(), MagicMock())
+    infl = InflectionTemplatesTabView(MagicMock(), MagicMock())
+
+    assert roots.save_button.on_click == roots._save_root
+    assert infl.save_button.on_click == infl._save_template

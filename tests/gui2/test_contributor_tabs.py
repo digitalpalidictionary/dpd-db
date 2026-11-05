@@ -31,7 +31,7 @@ def labels(indices: list[int]) -> list[str]:
 
 def test_base_only() -> None:
     visible, read_only = allowed_tabs(ALL_LABELS, [])
-    assert labels(visible) == ["Pass1Add"]
+    assert labels(visible) == ["Transl", "Pass1Add"]
     assert read_only == set()
 
 
@@ -43,7 +43,7 @@ def test_base_safe_and_read() -> None:
 
 def test_indices_are_original_positions() -> None:
     visible, read_only = allowed_tabs(ALL_LABELS, ["Infl", "√"])
-    assert visible == [3, 14, 16]
+    assert visible == [1, 3, 14, 16]
     assert read_only == {14, 16}
 
 
@@ -52,7 +52,7 @@ def test_hidden_and_unknown_labels_dropped_with_warning(
 ) -> None:
     with caplog.at_level(logging.WARNING):
         visible, read_only = allowed_tabs(ALL_LABELS, ["Pass2Add", "Typo", "DB"])
-    assert labels(visible) == ["Pass1Add", "DB"]
+    assert labels(visible) == ["Transl", "Pass1Add", "DB"]
     assert read_only == {11}
     assert "Pass2Add" in caplog.text
     assert "Typo" in caplog.text
@@ -68,3 +68,9 @@ def test_resolve_empty_env(monkeypatch: pytest.MonkeyPatch) -> None:
 def test_resolve_strips_blanks(monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.setenv("DPD_GUI2_TABS", " Bold Search , DB ,,")
     assert resolve_extra_tabs() == ["Bold Search", "DB"]
+
+
+def test_transl_is_always_visible_and_never_read_only() -> None:
+    visible, read_only = allowed_tabs(ALL_LABELS, [])
+    assert 1 in visible
+    assert 1 not in read_only

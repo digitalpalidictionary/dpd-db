@@ -46,8 +46,8 @@ When `DPD_GUI2_ROLE=contributor-server`, the tab bar shows only the tabs a contr
 
 | Kind | Tabs | Rule |
 |------|------|------|
-| Base (always) | Pass1Auto, Pass1Add | Saves go to the contributor's own JSON files |
-| Safe (extra, by env) | Transl, Bold Search | Write nothing shared |
+| Base (always) | Pass1Add, Transl | Pass1Add saves to the contributor's own JSON files; Transl searches only |
+| Safe (extra, by env) | Bold Search | Writes nothing shared |
 | Read (extra, by env) | DB, √ (Roots), Infl | Read only: every save handler returns at once |
 | Hidden | everything else | Never shown, whatever the env says |
 

@@ -6,8 +6,8 @@ setting is the list of extra tabs in DPD_GUI2_TABS."""
 import logging
 import os
 
-BASE_TABS = ("Pass1Add",)
-SAFE_TABS = ("Transl", "Bold Search")
+BASE_TABS = ("Pass1Add", "Transl")
+SAFE_TABS = ("Bold Search",)
 READ_TABS = ("DB", "√", "Infl")
 
 READ_ONLY_MESSAGE = "Read only: you can look but not save here."

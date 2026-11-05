@@ -1,12 +1,14 @@
 """run_maintenance with stub heavy steps, real git, and a bare origin."""
 
 import json
+import logging
 import sqlite3
 import subprocess
 from pathlib import Path
 
 import pytest
 
+from scripts.server_contrib import maintenance_window
 from scripts.server_contrib.contrib_reconcile import load_json_dict, write_json_dict
 from scripts.server_contrib.maintenance_window import (
     Outcome,
@@ -79,6 +81,7 @@ def _steps(calls: Calls, **overrides) -> WindowSteps:
         rebuild=calls.step("rebuild"),
         generate=calls.step("generate"),
         health_check=calls.step("health_check"),
+        translation_db=lambda config: None,
     )
     for name, value in overrides.items():
         setattr(steps, name, value)
@@ -460,3 +463,109 @@ def test_main_exits_1_only_when_the_window_failed(
         with pytest.raises(SystemExit) as exc:
             mw.main()
         assert exc.value.code == code
+
+
+def _prev(setup: Setup) -> Path:
+    return setup.config.db_path.with_name("dpd.db.prev")
+
+
+class TestDatabaseCopyCleanup:
+    def test_a_rebuilt_run_removes_the_copy(self, tmp_path: Path):
+        setup = _setup(tmp_path)
+
+        assert run_maintenance(setup.config, _steps(Calls())) is Outcome.REBUILT
+
+        assert not _prev(setup).exists()
+
+    def test_a_skipped_run_removes_the_copy(self, tmp_path: Path):
+        setup = _setup(tmp_path)
+        run_maintenance(setup.config, _steps(Calls()))
+
+        assert run_maintenance(setup.config, _steps(Calls())) is Outcome.SKIPPED
+
+        assert not _prev(setup).exists()
+
+    def test_a_failed_run_keeps_the_copy(self, tmp_path: Path):
+        setup = _setup(tmp_path)
+        broken = _steps(Calls(), rebuild=Calls().step("rebuild", RuntimeError("boom")))
+
+        assert run_maintenance(setup.config, broken) is Outcome.FAILED
+
+        assert _prev(setup).exists()
+
+    def test_a_refused_run_deletes_nothing(self, tmp_path: Path):
+        setup = _setup(tmp_path)
+        _prev(setup).write_bytes(b"older copy")
+        (setup.repo / "tracked.tsv").write_text("hand edit\n")
+
+        assert run_maintenance(setup.config, _steps(Calls())) is Outcome.FAILED
+
+        assert _prev(setup).read_bytes() == b"older copy"
+
+    def test_the_log_names_the_deleted_copy(self, tmp_path: Path):
+        setup = _setup(tmp_path)
+
+        run_maintenance(setup.config, _steps(Calls()))
+
+        assert "removed dpd.db.prev" in setup.log_text()
+
+
+class TestTranslationDb:
+    def test_the_step_runs_every_window_and_is_logged(self, tmp_path: Path):
+        setup = _setup(tmp_path)
+        calls = Calls()
+        steps = _steps(calls, translation_db=calls.step("translation_db"))
+
+        run_maintenance(setup.config, steps)
+        run_maintenance(
+            setup.config,
+            _steps(Calls(), translation_db=calls.step("translation_db")),
+        )
+
+        assert calls.names.count("translation_db") == 2
+        assert "translation db present" in setup.log_text()
+
+    def test_a_failure_is_logged_and_the_window_goes_on(self, tmp_path: Path):
+        setup = _setup(tmp_path)
+        calls = Calls()
+        steps = _steps(
+            calls,
+            translation_db=Calls().step("translation_db", RuntimeError("no network")),
+        )
+
+        outcome = run_maintenance(setup.config, steps)
+
+        assert outcome is Outcome.REBUILT
+        assert "rebuild" in calls.names
+        assert "translation db missing (window goes on): no network" in setup.log_text()
+        status = (setup.config.log_dir / "status.txt").read_text(encoding="utf-8")
+        assert "problems: 1" in status
+        assert "translation db missing" in status
+
+
+class _FormatSwappingLogger(logging.Logger):
+    """Behaves like pyglossary's logger class: adding a handler replaces its
+    formatter."""
+
+    def addHandler(self, hdlr: logging.Handler) -> None:
+        super().addHandler(hdlr)
+        hdlr.setFormatter(logging.Formatter("[%(levelname)s] %(message)s"))
+
+
+class TestLogFormat:
+    def test_the_format_survives_a_logger_class_that_swaps_formatters(
+        self, tmp_path: Path
+    ):
+        previous = logging.getLoggerClass()
+        logging.setLoggerClass(_FormatSwappingLogger)
+        try:
+            log = maintenance_window._make_logger(tmp_path / "logs")
+            log.error("boom")
+        finally:
+            logging.setLoggerClass(previous)
+
+        text = next((tmp_path / "logs").glob("maintenance_*.log")).read_text(
+            encoding="utf-8"
+        )
+
+        assert " ERROR boom" in text

@@ -13,6 +13,16 @@ LABEL_COLOUR = ft.Colors.GREY_500
 
 DEFAULT_LIMIT = 0
 
+CONTRIBUTOR_DATA_FILTERS: list[tuple[str, str]] = [("lemma_1", "")]
+CONTRIBUTOR_DISPLAY_FILTERS: list[str] = [
+    "id",
+    "pos",
+    "grammar",
+    "meaning_1",
+    "meaning_2",
+    "meaning_lit",
+]
+
 
 class FilterTabView(ft.Column):
     """Filter tab for database filtering functionality."""
@@ -35,6 +45,9 @@ class FilterTabView(ft.Column):
         super().__init__(expand=True, spacing=0, controls=[])
         self.toolkit: ToolKit = toolkit
         self.read_only: bool = False
+        # Reset to Default must give back the starter this tab was opened with.
+        self._default_data_filters = data_filters
+        self._default_display_filters = display_filters
 
         self.dpd_headword_columns = [c.name for c in DpdHeadword.__table__.columns]
 
@@ -801,26 +814,10 @@ class FilterTabView(ft.Column):
                 self.limit_input.value = str(limit)
         else:
             # Fallback to original hardwired values if no presets exist
-            default_data_filters = [("root_key", ""), ("family_root", "")]
-
-            # Reset display filters to default values
-            default_display_filters = [
-                "id",
-                "lemma_1",
-                "meaning_1",
-                "meaning_lit",
-                "root_key",
-                "family_root",
-            ]
-
-            # Reset limit to default
-            default_limit = DEFAULT_LIMIT
-
-            # Re-initialize filters with default values
             self._initialize_filters(
-                data_filters=default_data_filters,
-                display_filters=default_display_filters,
-                limit=default_limit,
+                data_filters=self._default_data_filters,
+                display_filters=self._default_display_filters,
+                limit=DEFAULT_LIMIT,
             )
 
         # Clear the filter component container

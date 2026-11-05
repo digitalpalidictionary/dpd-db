@@ -5,7 +5,6 @@ import pyperclip
 from rich import print
 
 from db.models import DpdHeadword
-from gui2.additions_manager import AdditionsManager
 from gui2.books import sutta_central_books
 from gui2.daily_log import DailyLog
 from gui2.database_manager import DatabaseManager
@@ -45,7 +44,6 @@ class Pass1AddController(SandhiOK, SnackBarMixin):
         self.db: DatabaseManager = toolkit.db_manager
         self.daily_log: DailyLog = toolkit.daily_log
         self.gui2pth: Gui2Paths = toolkit.paths
-        self.additions_manager: AdditionsManager = toolkit.additions_manager
         self.username_manager: UsernameManager = toolkit.username_manager
         self.pass1_auto_controller = pass1_auto_controller
 

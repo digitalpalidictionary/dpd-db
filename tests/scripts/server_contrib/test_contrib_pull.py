@@ -642,6 +642,65 @@ def test_a_notice_that_cannot_be_sent_is_noted_in_the_status(
     assert status.notice_error is not None
 
 
+def test_the_editor_open_skip_sends_a_notice(monkeypatch: pytest.MonkeyPatch) -> None:
+    sent: list[str] = []
+    monkeypatch.setattr(contrib_pull, "notify", sent.append)
+
+    contrib_pull.notify_editor_open(Status(outcome=contrib_pull.EDITOR_OPEN))
+
+    assert sent == ["skipped: editor open"]
+
+
+def test_a_failed_editor_open_notice_is_swallowed(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    def broken(message: str) -> None:
+        raise FileNotFoundError("notify-send")
+
+    monkeypatch.setattr(contrib_pull, "notify", broken)
+
+    contrib_pull.notify_editor_open(Status(outcome=contrib_pull.EDITOR_OPEN))
+
+
+def _run_main(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path, outcome: str, *argv: str
+) -> list[str]:
+    sent: list[str] = []
+    monkeypatch.chdir(tmp_path)
+    monkeypatch.setattr(sys, "argv", ["contrib_pull", *argv])
+    monkeypatch.setattr(contrib_pull, "config_read", lambda *_: "user@host")
+    monkeypatch.setattr(contrib_pull.SharedFiles, "default", lambda: None)
+    monkeypatch.setattr(
+        contrib_pull, "run", lambda *args, **kwargs: Status(outcome=outcome)
+    )
+    monkeypatch.setattr(contrib_pull, "notify", sent.append)
+    contrib_pull.main()
+    return sent
+
+
+def test_main_sends_one_notice_for_an_editor_open_skip(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
+    sent = _run_main(monkeypatch, tmp_path, "skipped: editor open")
+
+    assert sent == ["skipped: editor open"]
+
+
+@pytest.mark.parametrize(
+    "outcome", ["skipped: already done today", "skipped: another run"]
+)
+def test_main_stays_silent_for_the_other_skips(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path, outcome: str
+) -> None:
+    assert _run_main(monkeypatch, tmp_path, outcome) == []
+
+
+def test_main_sends_no_notice_on_a_dry_run(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
+    assert _run_main(monkeypatch, tmp_path, "skipped: editor open", "--dry-run") == []
+
+
 def test_a_missing_or_unreadable_status_file_means_no_earlier_success(
     tmp_path: Path,
 ) -> None:

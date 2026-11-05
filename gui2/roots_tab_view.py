@@ -170,14 +170,16 @@ class RootsTabView(ft.Column):
             on_hover=self._on_delete_hover,
         )
 
+        self.save_button = ft.Button(
+            "Save to DB",
+            on_click=self._save_root,
+            width=BUTTON_WIDTH,
+        )
+
         return ft.Container(
             content=ft.Row(
                 controls=[
-                    ft.Button(
-                        "Save to DB",
-                        on_click=self._save_root,
-                        width=BUTTON_WIDTH,
-                    ),
+                    self.save_button,
                     self._delete_button,
                 ],
                 spacing=10,

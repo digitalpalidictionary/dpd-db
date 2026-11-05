@@ -8,6 +8,7 @@ Flow (each branch logged to `logs/maintenance_YYYYMMDD.log`):
       → git pull --ff-only + submodule update
       → reconcile (drop what main has processed or merged)
       → push the contributions branch (a failure is logged, the window goes on)
+      → make sure the translation db is on disk (a failure is logged, the window goes on)
       → rebuild the db only if HEAD differs from `logs/last_built_commit`
            rebuild → generate → health check → re-apply WAL
            then restore the tracked files the build rewrote
@@ -75,6 +76,7 @@ class WindowSteps:
     rebuild: Callable[[WindowConfig], None]
     generate: Callable[[WindowConfig], None]
     health_check: Callable[[WindowConfig], None]
+    translation_db: Callable[[WindowConfig], None]
 
 
 @dataclass
@@ -154,6 +156,13 @@ def _default_health_check(config: WindowConfig) -> None:
         raise RuntimeError(f"health check failed: {lookups} lookup rows < {MIN_LOOKUP}")
 
 
+def _default_translation_db(config: WindowConfig) -> None:
+    _run(
+        ["uv", "run", "scripts/server_contrib/ensure_translation_db.py"],
+        config.project_root,
+    )
+
+
 def default_steps() -> WindowSteps:
     return WindowSteps(
         pull=_default_pull,
@@ -161,6 +170,7 @@ def default_steps() -> WindowSteps:
         rebuild=_default_rebuild,
         generate=_default_generate,
         health_check=_default_health_check,
+        translation_db=_default_translation_db,
     )
 
 
@@ -171,8 +181,10 @@ def _make_logger(log_dir: Path) -> logging.Logger:
     logger.setLevel(logging.INFO)
     logger.handlers.clear()
     handler = logging.FileHandler(log_path, encoding="utf-8")
-    handler.setFormatter(logging.Formatter("%(asctime)s %(levelname)s %(message)s"))
     logger.addHandler(handler)
+    # After addHandler, not before: pyglossary (imported by some tests) installs
+    # a logger class whose addHandler replaces the handler's formatter.
+    handler.setFormatter(logging.Formatter("%(asctime)s %(levelname)s %(message)s"))
     logger.propagate = False
     return logger
 
@@ -370,6 +382,21 @@ def _apply_wal(db_path: Path) -> None:
         con.close()
 
 
+def _remove_database_copy(config: WindowConfig, log: logging.Logger) -> None:
+    """Delete the rollback copy once the run cannot need it. It is built from
+    config, not from the Rollback object, which does not exist when the run
+    returned early. This runs in a `finally`, so a failure is logged, never
+    raised."""
+    copy = config.db_path.with_name(config.db_path.name + ".prev")
+    try:
+        if copy.exists():
+            size = copy.stat().st_size
+            copy.unlink()
+            log.info(f"removed {copy.name} ({size} bytes)")
+    except OSError as exc:
+        log.warning(f"could not remove {copy.name}: {exc}")
+
+
 def run_maintenance(config: WindowConfig, steps: WindowSteps | None = None) -> Outcome:
     steps = steps or default_steps()
     log = _make_logger(config.log_dir)
@@ -408,6 +435,12 @@ def run_maintenance(config: WindowConfig, steps: WindowSteps | None = None) -> O
                 except Exception as exc:
                     log.error(f"contrib_push FAILED (window goes on): {exc}")
 
+            try:
+                steps.translation_db(config)
+                log.info("translation db present")
+            except Exception as exc:
+                log.error(f"translation db missing (window goes on): {exc}")
+
             head = _git_head(config.project_root)
             if last_built.exists() and last_built.read_text().strip() == head:
                 log.info(f"rebuild SKIPPED — main unchanged since {head}")
@@ -436,6 +469,8 @@ def run_maintenance(config: WindowConfig, steps: WindowSteps | None = None) -> O
         outcome = Outcome.FAILED
     finally:
         _systemctl("start", config.instances, config, log)
+        if outcome is not Outcome.FAILED:
+            _remove_database_copy(config, log)
         log.info(f"maintenance window end: {outcome.value}")
         _write_status(config, outcome, log)
     return outcome

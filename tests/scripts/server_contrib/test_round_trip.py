@@ -58,6 +58,7 @@ def _stub_steps() -> WindowSteps:
         rebuild=lambda c: None,
         generate=lambda c: None,
         health_check=lambda c: None,
+        translation_db=lambda c: None,
     )
 
 

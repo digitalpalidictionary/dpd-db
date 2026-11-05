@@ -393,7 +393,9 @@ class DatabaseManager:
             # The cache is a pure optimisation — a failed refresh (db write
             # lock held by the build pipeline, concurrent self-heal race)
             # must never gate db_loaded. The set is already in memory.
-            print(f"decon cache refresh failed: {exc}")
+            # A read-only database (the contributor server) can never take the cache.
+            if "readonly database" not in str(exc).lower():
+                print(f"decon cache refresh failed: {exc}")
             # The failed write leaves the session in a rolled-back-pending
             # state; later queries on it would raise until it is rolled back.
             self.db_session.rollback()
@@ -800,6 +802,7 @@ class DatabaseManager:
             .update({"pattern": new}, synchronize_session=False)
         )
         self.db_session.commit()
+        self.mark_corpus_stale()
         return count
 
     def sync_inflection_templates(self) -> list[str]:

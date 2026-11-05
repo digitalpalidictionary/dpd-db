@@ -18,8 +18,9 @@ See also: `config_server.md` (the lean rebuild — kept/dropped step rationale),
 clone. It is safe to re-run; each step is skipped when its result exists.
 
 - Packages, uv and the clone: apt (`pkg-config`, `libicu-dev`, `golang-go`), uv, `git clone`.
-- Three submodules: `sc-data`, `dpd_submodules` and `tipitaka.rte`. The frequency
-  setup reads the SYA corpus from `tipitaka.rte`.
+- Four submodules: `sc-data`, `dpd_submodules`, `tipitaka.rte` and `tipitaka_translation_db`. The frequency
+  setup reads the SYA corpus from `tipitaka.rte`. `tipitaka_translation_db` holds the script that downloads
+  the translation database (807 MB) the Transl tab searches; the nightly window downloads it when it is missing.
 - Setup runs: `uv sync --all-groups`, `initial_setup_run_once.py`, the audio index download.
 - It stops until `config.ini` is in the clone. Copy it, then run the script again.
 - The first build is the maintenance window itself (`--no-systemd --no-push`).
@@ -35,7 +36,7 @@ certificate, `add_contributor.sh` (asks for a password), the deploy key,
 `kamma/threads/20261101_contrib_6_e2e_server_test/plan.md`.
 
 - The window no longer runs `git submodule update --init`. If `main` ever needs a
-  new submodule, init it once by hand on the server.
+  new submodule, init it once by hand on the server. An existing server loads `resources/tipitaka_translation_db` this way once.
 - The deploy key is for pushes only: `git remote set-url --push` plus
   `core.sshCommand`. It needs write access. Delete it when the server goes away.
 
@@ -50,6 +51,7 @@ stop instances
   → git pull --ff-only + submodule update
   → contrib_reconcile    (drop what main has processed or merged)
   → contrib_push         (contributions branch; a failure is logged, not fatal)
+  → translation db       (downloaded when missing; a failure is logged, not fatal)
   → rebuild only if HEAD differs from logs/last_built_commit
        db_rebuild_from_tsv.py → generate_components_server.py → health check
        → re-apply WAL → restore the tracked files the build rewrote

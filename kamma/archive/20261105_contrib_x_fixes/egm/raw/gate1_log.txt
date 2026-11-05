@@ -1,0 +1,13 @@
+start contrarian 14:48:55
+end contrarian exit=0 14:49:20
+start cost 14:49:20
+end cost exit=0 14:49:50
+start ux 14:49:50
+end ux exit=0 14:50:21
+start migration 14:50:21
+end migration exit=0 14:50:48
+start observability 14:50:48
+end observability exit=0 14:51:23
+start debt 14:51:23
+end debt exit=0 14:51:48
+ALL DONE 14:51:48

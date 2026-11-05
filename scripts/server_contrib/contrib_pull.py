@@ -45,6 +45,7 @@ MAX_LISTING = 200
 REMOTE_SOURCE_SUFFIX = ":"
 KEY_PATH = Path.home() / ".ssh" / "dpd_contrib_pull"
 NOTICE_FROM = time(22, 30)
+EDITOR_OPEN = "skipped: editor open"
 JSON_KINDS = ("additions", "corrections")
 # The merge step drops line 1 of these files as the header, so a file without
 # the header would lose its first pair without a word.
@@ -473,7 +474,7 @@ def _pull(
         status.outcome = "dry run, nothing copied"
         return
     if editor_running():
-        status.outcome = "skipped: editor open"
+        status.outcome = EDITOR_OPEN
         return
     data_dir = Gui2Paths(repo).gui2_data_path
     copy_in(scratch, data_dir)
@@ -523,7 +524,7 @@ def run(
                 status.outcome = "skipped: already done today"
                 return status
             if editor_running():
-                status.outcome = "skipped: editor open"
+                status.outcome = EDITOR_OPEN
                 return status
         log_path = status_path.with_name("contrib_pull.log")
         try:
@@ -572,6 +573,16 @@ def maybe_notify(status: Status, now: datetime) -> None:
         status.notice_error = str(exc)[:200]
 
 
+def notify_editor_open(status: Status) -> None:
+    """Tell the maintainer the pull skipped because gui2 is open. A skip writes
+    no status file, so the notice is the only sign of it. A failed notice is
+    ignored: the next run tries again."""
+    try:
+        notify(status.outcome)
+    except (OSError, subprocess.SubprocessError):
+        pass
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--dry-run", action="store_true")
@@ -593,10 +604,13 @@ def main() -> int:
         now,
         args.dry_run,
     )
-    if not args.dry_run and not status.outcome.startswith("skipped"):
-        maybe_notify(status, now)
-        if status.notice_error:
-            write_status(status_path, status)
+    if not args.dry_run:
+        if status.outcome == EDITOR_OPEN:
+            notify_editor_open(status)
+        elif not status.outcome.startswith("skipped"):
+            maybe_notify(status, now)
+            if status.notice_error:
+                write_status(status_path, status)
     sys.stdout.write(status.text())
     return 0 if status.outcome.startswith(("pulled", "skipped", "dry run")) else 1
 

@@ -13,7 +13,7 @@
 #   - webapp search index OFF      [generate] search_index = no (no webapp here)
 #
 # username / role / ports are overridden per instance by env vars in each
-# systemd unit (DPD_GUI2_USERNAME, DPD_GUI2_ROLE, DPD_API_PORT); the values
+# systemd unit (DPD_GUI2_USERNAME, DPD_GUI2_ROLE); the values
 # below are the primary/desktop-equivalent fallbacks.
 
 [version]

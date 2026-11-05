@@ -485,6 +485,15 @@ class Pass2AddView(ft.Column, PopUpMixin):
         self._message_field.value = message
         self.page.update()
 
+    async def _copy_lemma(self, lemma_1: str) -> bool:
+        """Copy lemma_1 to the clipboard. A browser can refuse the copy, and
+        that must never cut off the rest of a save."""
+        try:
+            await ft.Clipboard().set(lemma_1)
+        except Exception:
+            return False
+        return True
+
     def add_headword_to_examples_and_commentary(self) -> None:
         # add headword to example_1 example_2 and commentary
         # if self.headword:
@@ -1063,13 +1072,17 @@ class Pass2AddView(ft.Column, PopUpMixin):
                         self.current_correction,
                     )
 
-            await ft.Clipboard().set(word_to_save.lemma_1)
+            copied = await self._copy_lemma(word_to_save.lemma_1)
 
             self._update_history_dropdown()
             self.page.update()
             # clear_all_fields keeps the sutta filter; a finished add should not
             self._filter_radios.value = "all"
             self.clear_all_fields()
+            if not copied:
+                self.update_message(
+                    "Saved, but lemma_1 was not copied (clipboard blocked)"
+                )
             self._show_missing_words_dialog(word_to_save)
         else:
             self.update_message(f"Commit failed: {message}")
@@ -1341,13 +1354,16 @@ class Pass2AddView(ft.Column, PopUpMixin):
                 self.add_headword_to_examples_and_commentary()
 
             lemma_1 = headword.lemma_1 if headword else values.get("lemma_1", word)
-            await ft.Clipboard().set(lemma_1)
+            copied = await self._copy_lemma(lemma_1)
 
             remaining = self._x_manager.remaining_count()
+            note = (
+                "lemma_1 copied" if copied else "lemma_1 NOT copied: clipboard blocked"
+            )
             self.update_message(
-                f"[{remaining}] {word}: {comment} (lemma_1 copied)"
+                f"[{remaining}] {word}: {comment} ({note})"
                 if comment
-                else f"[{remaining}] {word} (lemma_1 copied)"
+                else f"[{remaining}] {word} ({note})"
             )
         except Exception as ex:  # noqa: BLE001
             self._x_manager.requeue(word, data)

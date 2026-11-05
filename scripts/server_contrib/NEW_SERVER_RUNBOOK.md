@@ -213,7 +213,7 @@ If you see `Could not get lock`, wait 5 minutes and run the command again. If th
 
 EXPECT: five paths, such as `/usr/sbin/nginx`, `/usr/bin/certbot`, `/usr/bin/htpasswd`, `/usr/bin/rsync`, `/usr/bin/git`.
 
-**3c. First run of the setup script.** The script installs its own packages (`pkg-config`, `libicu-dev`, `golang-go`), installs `uv`, clones the repository, loads three submodules and runs `uv sync`. It then stops because `config.ini` is not there yet. This takes more than 60 seconds, so run it detached.
+**3c. First run of the setup script.** The script installs its own packages (`pkg-config`, `libicu-dev`, `golang-go`), installs `uv`, clones the repository, loads four submodules and runs `uv sync`. It then stops because `config.ini` is not there yet. This takes more than 60 seconds, so run it detached.
 
 The script is `scripts/server_contrib/server_setup.sh` in the repository. It is not on the machine yet, so fetch it from GitHub:
 

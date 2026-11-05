@@ -14,7 +14,9 @@ repo_url="https://github.com/digitalpalidictionary/dpd-db"
 uv="$HOME/.local/bin/uv"
 data_dir="/var/lib/dpd/contrib_data"
 # tipitaka.rte: the frequency setup reads the SYA corpus from it.
-submodules=(resources/sc-data resources/dpd_submodules resources/tipitaka.rte)
+# tipitaka_translation_db: holds the script that downloads the translation
+# database the Transl tab searches.
+submodules=(resources/sc-data resources/dpd_submodules resources/tipitaka.rte resources/tipitaka_translation_db)
 
 step() { echo; echo "=== $1 | start $(date '+%F %T')"; step_start=$SECONDS; }
 step_done() { echo "=== done in $((SECONDS - step_start)) s"; }

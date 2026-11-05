@@ -5,7 +5,7 @@ import threading
 import time
 from collections.abc import Callable
 from pathlib import Path
-from typing import Any
+from typing import TYPE_CHECKING, Any
 
 import flet as ft
 
@@ -19,9 +19,11 @@ from gui2.shortcuts_dialog import ShortcutGroup, build_shortcuts_dialog
 from gui2.spelling_find_replace_view import SpellingFindReplaceView
 from gui2.toolkit import ToolKit
 from gui2.ui_utils import cancel_top_dialog, is_dialog_open, show_global_snackbar
-from tools.fast_api_utils import start_dpd_server
 from tools.printer import printer as pr
 from tools.server_mode import is_headless_server
+
+if TYPE_CHECKING:
+    from gui2.filter_tab_view import FilterTabView
 
 # Tab order must match the App._view_builders index keys.
 TAB_LABELS: list[str] = [
@@ -81,7 +83,6 @@ class App:
     )
 
     def __init__(self, page: ft.Page) -> None:
-        from gui2.filter_tab_view import FilterTabView
         from gui2.global_tab_view import GlobalTabView
         from gui2.inflection_templates_tab_view import InflectionTemplatesTabView
         from gui2.pass1_add_view import Pass1AddView
@@ -185,7 +186,7 @@ class App:
             8: lambda: SandhiFindReplaceView(self.page, self.toolkit),
             9: lambda: SpellingFindReplaceView(self.page, self.toolkit),
             10: lambda: SandhiView(self.page, self.toolkit),
-            11: lambda: FilterTabView(self.page, self.toolkit),
+            11: self._make_filter_tab,
             12: lambda: TestsTabView(self.page, self.toolkit),
             13: lambda: BoldSearchView(self.page, self.toolkit),
             14: lambda: RootsTabView(self.page, self.toolkit),
@@ -196,6 +197,22 @@ class App:
         self.build_ui()
 
         self.toolkit.username_manager.get_username()
+
+    def _make_filter_tab(self) -> "FilterTabView":
+        from gui2.filter_tab_view import (
+            CONTRIBUTOR_DATA_FILTERS,
+            CONTRIBUTOR_DISPLAY_FILTERS,
+            FilterTabView,
+        )
+
+        if self.toolkit.username_manager.is_not_primary():
+            return FilterTabView(
+                self.page,
+                self.toolkit,
+                data_filters=CONTRIBUTOR_DATA_FILTERS,
+                display_filters=CONTRIBUTOR_DISPLAY_FILTERS,
+            )
+        return FilterTabView(self.page, self.toolkit)
 
     def _on_submit_data(self, e: ft.ControlEvent) -> None:
         """Handle Submit Data button click."""
@@ -298,6 +315,8 @@ class App:
 
     async def on_keyboard(self, e: ft.KeyboardEvent) -> None:
         """Handles global keyboard events."""
+        # Some Alt keys clash with the browser's own, so they are off in the web.
+        alt = e.alt and not self.page.web
         if e.key == "Q" and e.ctrl:
             await self.page.window.close()
         elif e.key == "Escape":
@@ -341,22 +360,22 @@ class App:
                 await view.test_and_add_to_db()
             elif hasattr(view, "_click_backup_quit"):
                 await view._click_backup_quit(None)
-        elif e.key == "Arrow Left" and e.alt:
+        elif e.key == "Arrow Left" and alt:
             if self.tabs.selected_index > 0:
                 self.tabs.selected_index -= 1
                 await self._on_tab_activated()
                 self.page.update()
-        elif e.key == "Arrow Right" and e.alt:
+        elif e.key == "Arrow Right" and alt:
             if self.tabs.selected_index < len(self._tab_bar.tabs) - 1:
                 self.tabs.selected_index += 1
                 await self._on_tab_activated()
                 self.page.update()
-        elif e.key == "X" and e.alt:
+        elif e.key == "X" and alt:
             clear = self._CLEAR_ACTIONS.get(self._current_index())
             view = self._views.get(self._current_index())
             if clear is not None and view is not None and not is_dialog_open(self.page):
                 clear(view)
-        elif e.alt and e.key in self._SHORTCUTS_KEYS:
+        elif alt and e.key in self._SHORTCUTS_KEYS:
             if not is_dialog_open(self.page):
                 self.page.show_dialog(
                     build_shortcuts_dialog(
@@ -364,7 +383,7 @@ class App:
                     )
                 )
         elif (
-            e.alt
+            alt
             and e.key in self._TAB_JUMP_KEYS
             and self._TAB_JUMP_KEYS[e.key] in self._visible
         ):
@@ -485,6 +504,9 @@ class App:
                 view = self._view_builders[index]()
                 if index in self._read_only:
                     setattr(view, "read_only", True)
+                    save_button = getattr(view, "save_button", None)
+                    if save_button is not None:
+                        save_button.disabled = True
                 self._views[index] = view
             return self._views[index]
 
@@ -740,16 +762,19 @@ def main(page: ft.Page) -> None:
     App(page)
     print(f"App initialized in {time.time() - start_time:.2f}s")
 
-    # Start the FastAPI server after the UI has painted so it never delays the
-    # window appearing.
-    start_time = time.time()
-    start_dpd_server()
-    print(f"FastAPI server started in {time.time() - start_time:.2f}s")
-
     if enable_profiling:
         profiler.disable()
         profiler.dump_stats(str(profile_file))
 
 
-if __name__ == "__main__":
+def run_app() -> None:
+    from gui2.preview import PREVIEW_DIR
+
+    # Flet looks for the assets folder once, at start, and drops it if it is
+    # missing; the preview page is only written later.
+    PREVIEW_DIR.mkdir(parents=True, exist_ok=True)
     ft.run(main)
+
+
+if __name__ == "__main__":
+    run_app()

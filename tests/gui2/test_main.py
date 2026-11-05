@@ -3,6 +3,7 @@
 import asyncio
 import threading
 from typing import Any
+from pathlib import Path
 from types import SimpleNamespace
 from unittest.mock import AsyncMock, MagicMock, call
 
@@ -21,6 +22,7 @@ from gui2.main import (
     claim_session,
     main,
     release_session,
+    run_app,
     tab_selection,
 )
 from gui2.pass1_add_view import Pass1AddView
@@ -97,7 +99,9 @@ def _app_on_tab(index: int, view: object, *, dialog_open: bool = False) -> App:
     dialog = ft.AlertDialog(modal=True)
     dialog.open = dialog_open
     app.page = SimpleNamespace(  # pyright: ignore[reportAttributeAccessIssue]
-        _dialogs=SimpleNamespace(controls=[dialog]), show_dialog=MagicMock()
+        _dialogs=SimpleNamespace(controls=[dialog]),
+        show_dialog=MagicMock(),
+        web=False,
     )
     app._tab_bar = SimpleNamespace(  # pyright: ignore[reportAttributeAccessIssue]
         tabs=[SimpleNamespace(label=ft.Text(label)) for label in TAB_LABELS]
@@ -306,6 +310,8 @@ def _server_app(monkeypatch: pytest.MonkeyPatch, tabs: str) -> App:
     dialog = ft.AlertDialog(modal=True)
     dialog.open = False
     app.page = MagicMock()  # pyright: ignore[reportAttributeAccessIssue]
+    # Alt keys are off in the web; these tests are about tab visibility.
+    app.page.web = False
     app.page._dialogs = SimpleNamespace(controls=[dialog])
     app._view_builders = {  # pyright: ignore[reportAttributeAccessIssue]
         index: (lambda: SimpleNamespace(_save_changes_clicked=MagicMock()))
@@ -335,9 +341,9 @@ def test_server_shows_base_and_listed_tabs_only(
 ) -> None:
     app = _server_app(monkeypatch, "Bold Search,DB")
 
-    assert _tab_bar_labels(app) == ["Pass1Add", "DB", "Bold Search"]
-    assert len(app._tab_bodies.controls) == 3
-    assert app.tabs.selected_index == 0
+    assert _tab_bar_labels(app) == ["Transl", "Pass1Add", "DB", "Bold Search"]
+    assert len(app._tab_bodies.controls) == 4
+    assert app.tabs.selected_index == 1
     assert app._current_index() == 3
 
 
@@ -379,7 +385,7 @@ def test_server_alt_jump_selects_a_listed_tab(
     asyncio.run(app.on_keyboard(_key("D", alt=True)))
 
     assert app._current_index() == 11
-    assert app.tabs.selected_index == 1
+    assert app.tabs.selected_index == 2
     assert 11 in app._mounted_tabs
 
 
@@ -403,7 +409,7 @@ def test_server_alt_arrows_stay_inside_the_visible_tabs(
     app = _server_app(monkeypatch, "DB")
 
     asyncio.run(app.on_keyboard(_key("Arrow Left", alt=True)))
-    assert app._current_index() == 3
+    assert app._current_index() == 1
     for _ in range(5):
         asyncio.run(app.on_keyboard(_key("Arrow Right", alt=True)))
     assert app._current_index() == 11
@@ -434,7 +440,7 @@ def test_server_warmup_builds_only_visible_tabs(
 
     app._warmup_in_background()
 
-    assert built == [3, 13, 11]
+    assert built == [3, 1, 13, 11]
 
 
 class _WordFinderAccessToolkit:
@@ -624,7 +630,6 @@ def test_reload_works_when_the_old_page_never_reported_a_disconnect(
 ) -> None:
     built = MagicMock()
     monkeypatch.setattr("gui2.main.App", built)
-    monkeypatch.setattr("gui2.main.start_dpd_server", MagicMock())
     first, reloaded = MagicMock(), MagicMock()
 
     main(first)
@@ -649,7 +654,6 @@ def test_main_releases_the_session_when_the_page_disconnects(
     free_session: None, monkeypatch: pytest.MonkeyPatch
 ) -> None:
     monkeypatch.setattr("gui2.main.App", MagicMock())
-    monkeypatch.setattr("gui2.main.start_dpd_server", MagicMock())
     first, second = MagicMock(), MagicMock()
 
     main(first)
@@ -658,3 +662,97 @@ def test_main_releases_the_session_when_the_page_disconnects(
 
     assert second.add.call_count == 0  # the real App (mocked) was built, no notice
     assert first.add.call_count == 0  # released first, so nothing to retire
+
+
+def test_run_app_makes_the_preview_folder_before_flet_starts(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    preview_dir = tmp_path / "assets" / "preview"
+    seen: list[bool] = []
+    monkeypatch.setattr("gui2.preview.PREVIEW_DIR", preview_dir)
+    monkeypatch.setattr(
+        "gui2.main.ft.run", lambda target: seen.append(preview_dir.is_dir())
+    )
+
+    run_app()
+
+    assert seen == [True]
+
+
+def test_server_read_tab_gets_its_save_button_disabled(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    app: Any = _server_app(monkeypatch, "√")
+    app._view_builders[14] = lambda: SimpleNamespace(
+        save_button=SimpleNamespace(disabled=False)
+    )
+
+    view = app._view(14)
+
+    assert view.read_only is True
+    assert view.save_button.disabled is True
+
+
+def test_a_tab_that_is_not_read_only_keeps_its_save_button_enabled(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    app: Any = _server_app(monkeypatch, "√")
+    app._view_builders[8] = lambda: SimpleNamespace(
+        save_button=SimpleNamespace(disabled=False)
+    )
+
+    view = app._view(8)
+
+    assert view.save_button.disabled is False
+
+
+@pytest.mark.parametrize("web, expected_tab", [(False, 11), (True, 3)])
+def test_alt_d_jumps_to_the_db_tab_only_outside_the_web(
+    monkeypatch: pytest.MonkeyPatch, web: bool, expected_tab: int
+) -> None:
+    app = _server_app(monkeypatch, "DB")
+    app.page.web = web  # pyright: ignore[reportAttributeAccessIssue]
+
+    asyncio.run(app.on_keyboard(_key("D", alt=True)))
+
+    assert app._current_index() == expected_tab
+
+
+def test_alt_arrow_does_nothing_in_the_web(monkeypatch: pytest.MonkeyPatch) -> None:
+    app = _server_app(monkeypatch, "DB")
+    app.page.web = True  # pyright: ignore[reportAttributeAccessIssue]
+
+    asyncio.run(app.on_keyboard(_key("Arrow Right", alt=True)))
+
+    assert app._current_index() == 3
+
+
+@pytest.mark.parametrize("web, opened", [(False, True), (True, False)])
+def test_alt_question_mark_opens_the_popup_only_outside_the_web(
+    monkeypatch: pytest.MonkeyPatch, web: bool, opened: bool
+) -> None:
+    app = _server_app(monkeypatch, "DB")
+    app.page.web = web  # pyright: ignore[reportAttributeAccessIssue]
+
+    asyncio.run(app.on_keyboard(_key("?", alt=True)))
+
+    assert app.page.show_dialog.called is opened  # pyright: ignore[reportAttributeAccessIssue]
+
+
+def test_ctrl_s_still_works_in_the_web(monkeypatch: pytest.MonkeyPatch) -> None:
+    app = _server_app(monkeypatch, "DB")
+    app.page.web = True  # pyright: ignore[reportAttributeAccessIssue]
+    view = app._view(app._current_index())
+    view._save_changes_clicked = MagicMock()
+
+    asyncio.run(app.on_keyboard(_ctrl_s()))
+
+    view._save_changes_clicked.assert_called_once_with(None)
+
+
+def test_a_contributor_with_no_extra_tabs_still_sees_transl(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    app = _server_app(monkeypatch, "")
+
+    assert _tab_bar_labels(app) == ["Transl", "Pass1Add"]

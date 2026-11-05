@@ -164,6 +164,9 @@ class FilterComponent(ft.Column):
     def _build_ui(self) -> None:
         """Build the main UI structure for the filter component."""
         results_section = self._create_results_section()
+        self.save_button = ft.Button(
+            "Save Changes", on_click=self._save_changes, disabled=self.read_only
+        )
 
         self.controls.extend(
             [
@@ -171,7 +174,7 @@ class FilterComponent(ft.Column):
                 ft.Container(
                     content=ft.Row(
                         [
-                            ft.Button("Save Changes", on_click=self._save_changes),
+                            self.save_button,
                             self.prev_page_button,
                             self.page_label_text,
                             self.next_page_button,
