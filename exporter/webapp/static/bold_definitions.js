@@ -28,6 +28,8 @@ function clearBdResults() {
     appState.bd.resultsHTML = "";
     appState.bd.needsRefetch = false;
     appState.bd.error = "";
+    // Without this, a reload or Back returns to the cleared search.
+    window.history.pushState(navigationState(), "", window.location.pathname);
   }
   bdResults.innerHTML = "";
   bdSearchBox1.value = "";
