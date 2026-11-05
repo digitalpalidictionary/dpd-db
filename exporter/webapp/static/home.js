@@ -600,7 +600,10 @@ function clearSearch() {
   dpdResults.innerHTML = "";
   summaryResults.innerHTML = "";
   if (typeof appState !== "undefined") {
+    cancelRequests(["dpd"]);
     appState.dpd.searchTerm = "";
+    appState.dpd.needsRefetch = false;
+    appState.dpd.error = "";
   }
   window.history.pushState({}, "", window.location.pathname);
   searchBox.focus();

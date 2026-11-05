@@ -102,6 +102,15 @@ function initializeApp() {
   appState.tt.books = books.length > 0 ? books : ["all"];
   appState.tt.language = lang;
 
+  // The initial search syncs its term to the other tabs. Do it now, so this
+  // entry matches the page and Back to it from a summary link keeps the results.
+  const initialTerm = tab === "bd" ? q1 : q;
+  if (initialTerm.trim() !== "") {
+    appState.dpd.searchTerm = initialTerm;
+    appState.bd.searchTerm1 = initialTerm;
+    appState.tt.searchTerm = initialTerm;
+  }
+
   // Seed the initial entry so Back can restore the empty home page.
   window.history.replaceState(navigationState(), "", window.location.href);
 
@@ -168,9 +177,47 @@ function initializeApp() {
   }
 }
 
+// The latest request of each tab. An older one is stale: its response or failure
+// changes nothing. Tabs count separately, so a search on one leaves the others'.
+const latestRequest = { dpd: 0, bd: 0, tt: 0 };
+const pendingQuery = { dpd: null, bd: null, tt: null };
+const requestButtons = { dpd: "search-button", bd: "bd-search-button", tt: "tt-search-button" };
+
+// A tab's request is over: the same query may run again
+function endRequest(tab) {
+  pendingQuery[tab] = null;
+  hideLoading(requestButtons[tab]);
+}
+
+// Make pending requests stale and release what they hold on screen
+function cancelRequests(tabs = ["dpd", "bd", "tt"]) {
+  for (const tab of tabs) {
+    latestRequest[tab]++;
+    endRequest(tab);
+  }
+  const ttResults = document.getElementById("tt-results");
+  if (tabs.includes("tt") && ttResults?.querySelector(".spinner")) {
+    ttResults.innerHTML = appState.tt.resultsHTML;
+  }
+}
+
+// Start a tab's request and return a check for whether it has gone stale, or
+// nothing if the same query is already pending: repeat submits are not re-sent
+function startRequest(tab, query) {
+  if (query === pendingQuery[tab]) return null;
+  latestRequest[tab]++;
+  appState[tab].error = "";
+  pendingQuery[tab] = query;
+  const request = latestRequest[tab];
+  return () => request !== latestRequest[tab];
+}
+
 // Perform a search operation
-async function performSearch(addHistory = true) {
+async function performSearch(addHistory = true, syncTerms = true) {
   let activeBtnId = "";
+  let isStale;
+  // The active tab can change while the request runs.
+  const requestTab = appState.activeTab;
   if (appState.activeTab === "dpd") {
     activeBtnId = "search-button";
   } else if (appState.activeTab === "bd") {
@@ -178,6 +225,10 @@ async function performSearch(addHistory = true) {
   }
 
   if (activeBtnId) {
+    isStale = startRequest(requestTab, searchURL());
+    if (!isStale) return;
+    // A new search replaces a restored one, so its failure does not retry.
+    if (addHistory) appState[requestTab].needsRefetch = false;
     showLoading(activeBtnId);
   }
 
@@ -186,13 +237,17 @@ async function performSearch(addHistory = true) {
       // DPD search
       if (appState.dpd.searchTerm.trim() !== "") {
         // Sync search term to other tabs
-        appState.bd.searchTerm1 = appState.dpd.searchTerm;
-        appState.tt.searchTerm = appState.dpd.searchTerm;
+        if (syncTerms) {
+          appState.bd.searchTerm1 = appState.dpd.searchTerm;
+          appState.tt.searchTerm = appState.dpd.searchTerm;
+        }
 
         const response = await fetch(
           `/search_json?q=${encodeURIComponent(appState.dpd.searchTerm)}`
         );
+        if (!response.ok) throw await responseError(response);
         const data = await response.json();
+        if (isStale()) return;
 
         // Handle summary HTML
         const summaryResults = document.getElementById("summary-results");
@@ -264,6 +319,7 @@ async function performSearch(addHistory = true) {
 
         // Always wrap apostrophes in spans for hiding/showing via CSS
         appState.dpd.resultsHTML = wrapApostrophesInHTML(processedHTML);
+        appState.dpd.needsRefetch = false;
 
         // If addHistory is true, add the new state to the history stack
         if (addHistory) {
@@ -281,7 +337,7 @@ async function performSearch(addHistory = true) {
     } else if (appState.activeTab === "bd") {
       // BD search
       // Sync search term to other tabs (use searchTerm1 as the primary term)
-      if (appState.bd.searchTerm1.trim() !== "") {
+      if (syncTerms && appState.bd.searchTerm1.trim() !== "") {
         appState.dpd.searchTerm = appState.bd.searchTerm1;
         appState.tt.searchTerm = appState.bd.searchTerm1;
       }
@@ -295,10 +351,13 @@ async function performSearch(addHistory = true) {
         )}&q2=${encodeURIComponent(appState.bd.searchTerm2)}&option=${appState.bd.searchOption
         }`
       );
+      if (!response.ok) throw await responseError(response);
       const data = await response.text();
+      if (isStale()) return;
 
       // Update the appState with the new search results
       appState.bd.resultsHTML = data;
+      appState.bd.needsRefetch = false;
 
       // If addHistory is true, add the new state to the history stack
       if (addHistory) {
@@ -311,16 +370,53 @@ async function performSearch(addHistory = true) {
       highlightInflections(appState.dpd.searchTerm);
     }
   } catch (error) {
+    if (isStale()) return;
     console.error("Error fetching data:", error);
+    showSearchError(requestTab, error.busyMessage);
   } finally {
-    if (activeBtnId) {
-      hideLoading(activeBtnId);
-    }
+    if (activeBtnId && !isStale()) endRequest(requestTab);
   }
 }
 
+// The error for a failed response. Only the app's own busy answer, a 503 with
+// Retry-After and nothing but its message, is shown to the visitor: any other
+// body could be a proxy's. /search_json sends that message inside JSON. A body
+// that cannot be read throws here, which also ends as the generic error.
+async function responseError(response) {
+  const error = new Error(`HTTP ${response.status}`);
+  if (response.status === 503 && response.headers.get("Retry-After")) {
+    const body = await response.text();
+    const page = body.startsWith("{") ? JSON.parse(body).dpd_html : body;
+    error.busyMessage = page.match(/^<p class="dpd">([^<]*)<\/p>$/)?.[1];
+  }
+  return error;
+}
+
+// Show a failed search in its tab, which is left empty. A restored tab stays
+// marked, so opening it again retries. The message stays out of resultsHTML,
+// which means results.
+function showSearchError(tabName, message) {
+  const tab = appState[tabName];
+  tab.resultsHTML = "";
+  if (tabName === "dpd") {
+    const summaryResults = document.getElementById("summary-results");
+    if (summaryResults) summaryResults.innerHTML = "";
+  }
+
+  const language = document.documentElement.lang || "en";
+  if (language === "en") {
+    tab.error = message || "Error fetching results.";
+  } else {
+    tab.error = message || "Ошибка при получении ответа.";
+  }
+  // On a tab the user has left, it shows when they return.
+  if (tabName !== appState.activeTab) return;
+  // Searches started from another tab only switch to their own when rendered.
+  render(true);
+}
+
 // Render the UI based on the current state
-function render() {
+function render(keepForm = false) {
   // Set the active tab
   const dpdTab = document.getElementById("dpd-tab");
   const bdTab = document.getElementById("bold-def-tab");
@@ -356,30 +452,33 @@ function render() {
   }
 
   // Update the content of the search input fields
-  const searchBox = document.getElementById("search-box");
-  const bdSearchBox1 = document.getElementById("bd-search-box-1");
-  const bdSearchBox2 = document.getElementById("bd-search-box-2");
+  // A failed search leaves the form as it was, as before.
+  if (!keepForm) {
+    const searchBox = document.getElementById("search-box");
+    const bdSearchBox1 = document.getElementById("bd-search-box-1");
+    const bdSearchBox2 = document.getElementById("bd-search-box-2");
 
-  if (searchBox) searchBox.value = appState.dpd.searchTerm;
-  if (bdSearchBox1) bdSearchBox1.value = appState.bd.searchTerm1;
-  if (bdSearchBox2) bdSearchBox2.value = appState.bd.searchTerm2;
+    if (searchBox) searchBox.value = appState.dpd.searchTerm;
+    if (bdSearchBox1) bdSearchBox1.value = appState.bd.searchTerm1;
+    if (bdSearchBox2) bdSearchBox2.value = appState.bd.searchTerm2;
 
-  const ttSearchBox = document.getElementById("tt-search-box");
-  const ttLangSelect = document.getElementById("tt-lang-select");
+    const ttSearchBox = document.getElementById("tt-search-box");
+    const ttLangSelect = document.getElementById("tt-lang-select");
 
-  if (ttSearchBox) ttSearchBox.value = appState.tt.searchTerm;
-  if (ttLangSelect) ttLangSelect.value = appState.tt.language;
-  if (typeof window.restoreBookSelection === "function") {
-    window.restoreBookSelection(appState.tt.books);
-  }
+    if (ttSearchBox) ttSearchBox.value = appState.tt.searchTerm;
+    if (ttLangSelect) ttLangSelect.value = appState.tt.language;
+    if (typeof window.restoreBookSelection === "function") {
+      window.restoreBookSelection(appState.tt.books);
+    }
 
-  // Update the search option
-  const bdSearchOptions = document.getElementsByName("option");
-  if (bdSearchOptions) {
-    for (const bdSearchOption of bdSearchOptions) {
-      if (bdSearchOption.value === appState.bd.searchOption) {
-        bdSearchOption.checked = true;
-        break;
+    // Update the search option
+    const bdSearchOptions = document.getElementsByName("option");
+    if (bdSearchOptions) {
+      for (const bdSearchOption of bdSearchOptions) {
+        if (bdSearchOption.value === appState.bd.searchOption) {
+          bdSearchOption.checked = true;
+          break;
+        }
       }
     }
   }
@@ -425,9 +524,17 @@ function render() {
   if (ttResults) {
     ttResults.innerHTML = appState.tt.resultsHTML;
   }
+  for (const tabName of ["dpd", "bd", "tt"]) {
+    if (appState[tabName].error) {
+      const error = document.createElement("div");
+      error.className = "error";
+      error.textContent = appState[tabName].error;
+      document.getElementById(`${tabName}-results`).appendChild(error);
+    }
+  }
 
   // Focus the search box for the active tab
-  focusActiveTabSearchBox();
+  if (!keepForm) focusActiveTabSearchBox();
 }
 
 // Switch to a different tab
@@ -438,17 +545,21 @@ function switchTab(tabName) {
   // Add the new state to the history stack
   // addToHistory();
 
+  // Refetch results that Back/Forward restored only as a query. The marker
+  // stays until a search succeeds, so a failed one retries on the next visit.
+  // Terms are not synced: the other tabs keep what the History entry restored.
+  const tab = appState[tabName];
+  const refetch = tab.needsRefetch && tab.resultsHTML === "" && pendingQuery[tabName] === null;
+  if (refetch) tab.error = "";
+
   // Display the new active tab
   render();
 
-  // Refetch results that Back/Forward restored only as a query.
-  const tab = appState[tabName];
-  if (tab.needsRefetch && tab.resultsHTML === "") {
-    tab.needsRefetch = false;
+  if (refetch) {
     if (tabName === "tt") {
-      if (typeof window.performTTSearch === "function") window.performTTSearch(false);
+      if (typeof window.performTTSearch === "function") window.performTTSearch(false, false);
     } else {
-      performSearch(false);
+      performSearch(false, false);
     }
   }
 }
@@ -657,6 +768,8 @@ function handlePopState(event) {
       state, "", hasActiveQuery() ? searchURL() : window.location.href);
     return;
   }
+  // Every tab now restores the entry, so replies to earlier searches are stale.
+  cancelRequests();
   appState.activeTab = state.activeTab;
   let keptDpdResults = false;
   for (const tab of ["dpd", "bd", "tt"]) {
@@ -685,15 +798,21 @@ function handlePopState(event) {
   // TT reads its DOM controls: restore them before starting the refetch.
   // This also clears stale panels and restores focus for an empty entry.
   render();
-  if (appState.activeTab === "dpd" && appState.dpd.searchTerm) {
-    performSearch(false);
-  } else if (appState.activeTab === "bd" &&
-    (appState.bd.searchTerm1 || appState.bd.searchTerm2 || state.bd.hasResults)) {
+  // The active tab's search is a restored one: it leaves the other tabs'
+  // terms alone, and is marked so a failure retries when the tab is reopened,
+  // even for an entry seeded before its first search finished.
+  const active = appState.activeTab;
+  const restoring =
+    (active === "dpd" && appState.dpd.searchTerm) ||
     // An empty BD search still shows a "0 results" message worth restoring.
-    performSearch(false);
-  } else if (appState.activeTab === "tt" && appState.tt.searchTerm &&
-    typeof window.performTTSearch === "function") {
-    window.performTTSearch(false);
+    (active === "bd" && (appState.bd.searchTerm1 || appState.bd.searchTerm2 || state.bd.hasResults)) ||
+    (active === "tt" && appState.tt.searchTerm && typeof window.performTTSearch === "function");
+  if (!restoring) return;
+  appState[active].needsRefetch = true;
+  if (active === "tt") {
+    window.performTTSearch(false, false);
+  } else {
+    performSearch(false, false);
   }
 }
 
