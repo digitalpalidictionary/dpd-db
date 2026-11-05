@@ -13,6 +13,24 @@ from pathlib import Path
 
 from tools.paths import ProjectPaths
 
+# The webapp rewrites its dpd.css from the identity folder on every start, so a
+# hand edit of the generated copy is silently lost.
+GENERATED_CSS_WARNING = """\
+/*
+ * ============================================================================
+ * GENERATED FILE. DO NOT EDIT HERE.
+ *
+ * This file is rebuilt from identity/css/dpd-variables.css and
+ * identity/css/dpd.css every time the webapp starts (tools/css_manager.py).
+ * Any edit made in this file is overwritten and lost.
+ *
+ * To change the CSS:
+ *   1. Edit the source in identity/css/.
+ *   2. Run `just css` to copy it to every place that uses it.
+ * ============================================================================
+ */
+"""
+
 
 class CSSManager:
     _css_cache: dict[str, str] = {}
@@ -36,6 +54,7 @@ class CSSManager:
         """The WebApp needs variables and dpd.css. No fonts in the CSS."""
 
         css_list: list[str] = []
+        css_list.append(GENERATED_CSS_WARNING)
         css_list.append(self.dpd_variables)
         css_list.append("")
         css_list.append(self.dpd_css)

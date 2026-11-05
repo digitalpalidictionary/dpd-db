@@ -1,3 +1,17 @@
+/*
+ * ============================================================================
+ * GENERATED FILE. DO NOT EDIT HERE.
+ *
+ * This file is rebuilt from identity/css/dpd-variables.css and
+ * identity/css/dpd.css every time the webapp starts (tools/css_manager.py).
+ * Any edit made in this file is overwritten and lost.
+ *
+ * To change the CSS:
+ *   1. Edit the source in identity/css/.
+ *   2. Run `just css` to copy it to every place that uses it.
+ * ============================================================================
+ */
+
 :root {
   /* Background in light mode, text in dark mode */
   --light: hsl(198, 100%, 95%);
