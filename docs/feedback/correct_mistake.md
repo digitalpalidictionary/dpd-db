@@ -4,12 +4,15 @@ Did you spot a mistake in the dictionary? Find something missing? Please report 
 
 There are feedback forms inside the dictionary which will auto-fill the required fields. Just click on them directly. There is one in the **grammar** section.
 
-![image](../pics/feedback/grammar.png)
+![image](../pics/feedback/grammar_dark.png#only-dark)
+![image](../pics/feedback/grammar_light.png#only-light)
 
 And another one in the **inflection tables** if you spot something wrong there. 
 
-![image](../pics/feedback/inflection.png)
+![image](../pics/feedback/inflection_dark.png#only-dark)
+![image](../pics/feedback/inflection_light.png#only-light)
 
 And another one when you open the **feedback** button.
 
-![image](../pics/feedback/feedback.png)
+![image](../pics/feedback/feedback_dark.png#only-dark)
+![image](../pics/feedback/feedback_light.png#only-light)

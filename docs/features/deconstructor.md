@@ -4,12 +4,14 @@ The DPD Deconstructor is now available as a separate dictionary.
 
 It currently contains about 700 000 deconstructed words, covering all books in the **Chaṭṭha Saṅgāyana corpus**, *mūla*, *aṭṭhakathā*, *ṭīkā* and *aññā*, as well as all Pāḷi texts on **Sutta Central**. This number will decrease as more compounds get added to the DPD.
 
-![deconstructor_example](../pics/deconstructor/dinnantiādikāpīti.png)
+![deconstructor_example](../pics/deconstructor/dinnantiādikāpīti_dark.png#only-dark)
+![deconstructor_example](../pics/deconstructor/dinnantiādikāpīti_light.png#only-light)
 
 ## How to Install
 The Deconstructor is included in `dpd-goldendict.zip` available from the [releases page on GitHib](https://github.com/digitalpalidictionary/dpd-db/releases){target="_blank"}.
 
-![deconstructor_folder](../pics/deconstructor/dpd_deconstructor_folder.png)
+![deconstructor_folder](../pics/deconstructor/dpd_deconstructor_folder_dark.png#only-dark)
+![deconstructor_folder](../pics/deconstructor/dpd_deconstructor_folder_light.png#only-light)
 
 ## Some Background
 
@@ -31,7 +33,8 @@ It is still a work in progress and far from perfect - an intelligence will alway
 
 For instance, If you open *bahalamadhukatelanāgabalapicchillādīnaṃ* in DPD, it will show the breakup, which can be clicked on to take you to the relevant words.
 
-![deconstructor](../pics/deconstructor/bahalamadhukatelanāgabalapicchillādīnaṃ.png)
+![deconstructor](../pics/deconstructor/bahalamadhukatelanāgabalapicchillādīnaṃ_dark.png#only-dark)
+![deconstructor](../pics/deconstructor/bahalamadhukatelanāgabalapicchillādīnaṃ_light.png#only-light)
 
 
 

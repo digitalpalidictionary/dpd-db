@@ -4,17 +4,20 @@
 
 #### Pāḷi to English Dictionary (Blue)
 
-![pali2english](../pics/features/1pali2english.png)
+![pali2english](../pics/features/1pali2english_dark.png#only-dark)
+![pali2english](../pics/features/1pali2english_light.png#only-light)
 
-#### Pāḷi Roots Dictionary (Orange)
+#### Pāḷi Roots Dictionary (Blue)
 
-![pali2english](../pics/features/2rootsdict.png)
+![pali2english](../pics/features/2rootsdict_dark.png#only-dark)
+![pali2english](../pics/features/2rootsdict_light.png#only-light)
 
 for more info [click here](rootdict.md)
 
 #### English to Pāḷi Dictionary (Purple)
 
-![english2pali](../pics/features/3english2pali.png)
+![english2pali](../pics/features/3english2pali_dark.png#only-dark)
+![english2pali](../pics/features/3english2pali_light.png#only-light)
 
 <!-- #### Compound Deconstruction Dictionary (Sand)
 
@@ -22,7 +25,8 @@ for more info [click here](rootdict.md)
 
 #### Abbreviations and Help Dictionary (Green)
 
-![helpdict](../pics/features/5helpabbreviations.png)
+![helpdict](../pics/features/5helpabbreviations_dark.png#only-dark)
+![helpdict](../pics/features/5helpabbreviations_light.png#only-light)
 
 ## Two supplementary dictionaries
 There are two additional dictionary packs which work in concert with DPD. The first is dedicated to [sandhi splitting and compound deconstruction](deconstructor.md), and the second is a [grammar dictionary](grammardict.md) which can explain the case of every inflected word in a text. Click the links to learn more.
@@ -31,7 +35,8 @@ There are two additional dictionary packs which work in concert with DPD. The fi
 
 When you select on a word in a Pāḷi text and press the hotkey, DPD automatically recognizes all the headwords to which that inflected form belongs. For example, clicking on _takkarassa_ will automatically open _takkara_. 
 
-![inflected forms](../pics/features/inflected%20forms.png)
+![inflected forms](../pics/features/inflected%20forms_dark.png#only-dark)
+![inflected forms](../pics/features/inflected%20forms_light.png#only-light)
 
 ## 100% Dictionary recognition in these books
 
@@ -49,7 +54,8 @@ One of the great features about GoldenDict is the ability to click on any word t
 
 All the important Pāḷi information is presented in **one compact line**, available at a glance, with more detailed information is available by clicking the buttons.
 
-![compact line](../pics/features/compact%20line.png)
+![compact line](../pics/features/compact%20line_dark.png#only-dark)
+![compact line](../pics/features/compact%20line_light.png#only-light)
 
 Essential information includes the part of speech, case which the word takes, English meaning, literal meaning and simplified construction.
 
@@ -57,7 +63,8 @@ Essential information includes the part of speech, case which the word takes, En
 
 If words with multiple meanings are derived from different sources, their numbering will reflect that. 
 
-![renumbering](../pics/feature/../features/renumbering.png)
+![renumbering](../pics/features/renumbering_dark.png#only-dark)
+![renumbering](../pics/features/renumbering_light.png#only-light)
 
 In the example above, 1.1 and 1.2 are both related to Sanskrit *śara* , while 2.1 is derived from the root √sar (to make sound), Sanskrit *svara*.
 
@@ -86,11 +93,13 @@ As DPD is a work in progress, it is useful to know how complete a word's data is
 
 Click the **grammar** button to get more detailed grammatical information about the word.
 
-![grammar](../pics/features/grammar.png)
+![grammar](../pics/features/grammar_dark.png#only-dark)
+![grammar](../pics/features/grammar_light.png#only-light)
 
 This includes root information, detailed construction, derivative, phonetic changes, compound, antonyms, synonyms, commentarial glosses, non-Indo-Aryan cognates, Sanskrit cognates and Sanskrit root.
 
-![grammar2](../pics/features/grammar2.png)
+![grammar2](../pics/features/grammar2_dark.png#only-dark)
+![grammar2](../pics/features/grammar2_light.png#only-light)
 
 If you spot a mistake, please click the link to correct it.
 
@@ -98,7 +107,8 @@ If you spot a mistake, please click the link to correct it.
 
 Click the **examples** button to see relevant sutta examples of the word. 
 
-![examples](../pics/features/examples.png)
+![examples](../pics/features/examples_dark.png#only-dark)
+![examples](../pics/features/examples_light.png#only-light)
 
 If you can think of a better example, please let me know!
 
@@ -106,7 +116,8 @@ If you can think of a better example, please let me know!
 
 Click the **declension** or **conjugation** button to see all the inflected forms of a word. 
 
-![declension](../pics/features/declension.png)
+![declension](../pics/features/declension_dark.png#only-dark)
+![declension](../pics/features/declension_light.png#only-light)
 
 This table is automatically generated using a stem + pattern system, e.g. anicc + o. Irregular inflections have their own unique tables.
 
@@ -117,7 +128,8 @@ Inflected forms not found within the Chaṭṭha Saṅgāyana corpus are
 
 Click the **root family** button to see all words which have the same prefix + root.
 
-![root family](../pics/features/root%20family.png)
+![root family](../pics/features/root%20family_dark.png#only-dark)
+![root family](../pics/features/root%20family_light.png#only-light)
 
 This information is unique to DPD and is based on a detailed study of the Pāḷi and Sanskrit root system. It's great for getting to know the nuanced range of meanings that a root + prefix combination can display.
 
@@ -125,23 +137,27 @@ This information is unique to DPD and is based on a detailed study of the Pāḷ
 
 Click the **word family** button to see all related words which are not derived from a root, but created from the primary word using prefixes and suffixes.
 
-![word family](../pics/features/word_family.png)
+![word family](../pics/features/word_family_dark.png#only-dark)
+![word family](../pics/features/word_family_light.png#only-light)
 
 ## Compound Family 
 
 Click the **compound family** button to see a collection of all the compounds which contain a particular word.
 
-![compound family](../pics/features/compound%20family.png)
+![compound family](../pics/features/compound%20family_dark.png#only-dark)
+![compound family](../pics/features/compound%20family_light.png#only-light)
 
 If the headword itself is a compound, all compound families of the component words will be listed.
 
-![compound family2](../pics/features/compound%20family2.png)
+![compound family2](../pics/features/compound%20family2_dark.png#only-dark)
+![compound family2](../pics/features/compound%20family2_light.png#only-light)
 
 ## Word Frequency
 
 Click the **frequency** button to see a heat map of where and how often a word can be found in the Chaṭṭha Saṅgāyana corpus.
 
-![image](../pics/features/frequency.png)
+![image](../pics/features/frequency_dark.png#only-dark)
+![image](../pics/features/frequency_light.png#only-light)
 
 [Click here](frequency.md) for more detailed inf1formation on this interesting feature. 
 
@@ -151,7 +167,8 @@ Click the **frequency** button to see a heat map of where and how often a word c
 
 By **clicking on any English word** in GoldenDict, you can now access the English to Pāḷi dictionary, which brings up a list of __exact__ matches.
 
-![english to pāḷi](../pics/features/eng-to-pali.png)
+![english to pāḷi](../pics/features/eng-to-pali_dark.png#only-dark)
+![english to pāḷi](../pics/features/eng-to-pali_light.png#only-light)
 
 Or you can use the **search bar** to find a word, phrase or idiom. The dropdown list will display all possible options.
 
@@ -167,7 +184,8 @@ This feature is designed for beginners struggling with English to Pāḷi exerci
 
 Good news for those who read Pāḷi in Sinhala, Devanagari or Thai scripts, DPD recognizes all inflected forms in all three of these scripts.
 
-![devanagari](../pics/features/devanagari.png)
+![devanagari](../pics/features/devanagari_dark.png#only-dark)
+![devanagari](../pics/features/devanagari_light.png#only-light)
 
 Transliteration is based on [Aksharamukha Script Converter](https://aksharamukha.appspot.com/about){target="_blank"}.
 
@@ -183,7 +201,8 @@ It generally takes less than a minute to log an error, and helps to improve the 
 
 All flowers, trees, plants and unusual animals contain a link to a Wikipedia article for more detailed information on the topic. Indian plants are often used in early Buddhist similes, and a picture is worth a thousand words.
 
-![image](../pics/features/wiki.png)
+![image](../pics/features/wiki_dark.png#only-dark)
+![image](../pics/features/wiki_light.png#only-light)
 
 
 

@@ -4,7 +4,8 @@
 
 DPD is now available as a website [www.dpdict.net](https://www.dpdict.net){target="_blank"} with all the functionality of GoldenDict as well as all the user preferences that have been asked for over the years.
 
-![website full page](../pics/dpdict.net/dpdict_fullapge.png)
+![website full page](../pics/dpdict.net/dpdict_fullapge_dark.png#only-dark)
+![website full page](../pics/dpdict.net/dpdict_fullapge_light.png#only-light)
 
 The website is slightly slower than using a dedicated app like GoldenDict, MDict or DictTango, but has the advantage of always being up-to-date with the latest database information. No updating is necessary.
 

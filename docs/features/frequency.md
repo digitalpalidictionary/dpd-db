@@ -2,7 +2,8 @@
 
 Clicking the **frequency** button will give you an instant overview of where and how often a word can be found in the [Chaṭṭha Saṅgāyana](https://www.tipitaka.org/){target="_blank"} corpus.
 
-![image](../pics/frequency/frequency-overview.png)
+![image](../pics/frequency/frequency-overview_dark.png#only-dark)
+![image](../pics/frequency/frequency-overview_light.png#only-light)
 
 These word frequency maps can provide an instantly accessible snapshot of word usage in different strata of texts, and an entry point for further investigation into how Pāḷi words and associated concepts developed over the course of time.
 
@@ -29,7 +30,8 @@ Here is an explanation of some of the quirks of the Chaṭṭha Saṅgāyana cor
 
 ## Vinaya Ṭīkā
 
-![image](../pics/frequency/vinaya-ṭīkā.png)
+![image](../pics/frequency/vinaya-ṭīkā_dark.png#only-dark)
+![image](../pics/frequency/vinaya-ṭīkā_light.png#only-light)
 
 Some of the Vinaya Ṭīkā (sub-commentaries) contain overlapping material which cannot be easily assigned to a specific book of the Vinaya, so all Vinaya Ṭīkā are listed under Vinaya Pārājika.
 
@@ -39,7 +41,8 @@ This section includes Sāratthadīpanī-ṭīkā, Dvemātikāpāḷi, Vinayasa�
 
 ##  Khuddaka Nikāya
 
-![image](../pics/frequency/khuddaka.png)
+![image](../pics/frequency/khuddaka_dark.png#only-dark)
+![image](../pics/frequency/khuddaka_light.png#only-light)
 
 The Khuddaka Nikāya contains much material that differs not only in linguistic style, but also conceptually. It has been divided into three relevant sections for easy reference:
 
@@ -75,16 +78,19 @@ Thank you to Ven. Ānandajoti from [Ancient Buddhist Texts](https://www.ancient-
 
 The Aññā section contains a wealth of material from the commentarial era, all the way up to modern times.
 
-![image](../pics/frequency/aññā.png)
+![image](../pics/frequency/aññā_dark.png#only-dark)
+![image](../pics/frequency/aññā_light.png#only-light)
 
 ### Aññā Abhidhamma
 
-![image](../pics/frequency/a%C3%B1%C3%B1%C4%81-abhidhamma.png)
+![image](../pics/frequency/a%C3%B1%C3%B1%C4%81-abhidhamma_dark.png#only-dark)
+![image](../pics/frequency/a%C3%B1%C3%B1%C4%81-abhidhamma_light.png#only-light)
 
 All the books that are not directly related to the 7 books of the Abhidhamma Piṭaka are included in Aññā Abhidhamma. This section includes summaries and overviews:  Abhidhammāvatāro-nāmarūpaparicchedo, the well-known Abhidhammatthasaṅgaho, Abhidhammāvatāra-purāṇaṭīkā, and Abhidhammamātikāpāḷi.
 
 ### Aññā Visuddhimagga
 
-![image](../pics/frequency/aññā-visuddhimagga.png)
+![image](../pics/frequency/aññā-visuddhimagga_dark.png#only-dark)
+![image](../pics/frequency/aññā-visuddhimagga_light.png#only-light)
 
 The Visuddhimagga is included in the Aññā section under *aṭṭhakathā*, and its commentary under *ṭīkā*. 

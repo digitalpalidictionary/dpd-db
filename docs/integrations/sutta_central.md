@@ -14,13 +14,15 @@ To activate DPD lookup
 
 - Turn on **English**.
 
-![english](../pics/sutta_central/views_english.jpg)
+![english](../pics/sutta_central/views_english_dark.jpg#only-dark)
+![english](../pics/sutta_central/views_english_light.jpg#only-light)
 
 - Find the **View root text with translation** section
 
 - Turn on **side-by-side** or **line-by-line**
 
-![view root text](../pics/sutta_central/views_line_by_line.jpg)
+![view root text](../pics/sutta_central/views_line_by_line_dark.jpg#only-dark)
+![view root text](../pics/sutta_central/views_line_by_line_light.jpg#only-light)
 
 - Click any Pāḷi word in the text to see the DPD definition.
 

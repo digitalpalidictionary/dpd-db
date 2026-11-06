@@ -12,7 +12,8 @@ It works in both **Google Chrome** and **Mozilla Firefox**.
 
 (2) Click **Add to Chrome**.
 
-![add to chrome](../pics/extension/chrome_add_to_chrome.png)
+![add to chrome](../pics/extension/chrome_add_to_chrome_dark.png#only-dark)
+![add to chrome](../pics/extension/chrome_add_to_chrome_light.png#only-light)
 
 
 (3) Click **Add extension** in the popup.
@@ -26,11 +27,13 @@ It works in both **Google Chrome** and **Mozilla Firefox**.
 
 (2) Click **Add to Firefox**.
 
-![add to firefox](../pics/extension/firefox_add_to_firefox_light.png) 
+![add to firefox](../pics/extension/firefox_add_to_firefox_dark.png#only-dark)
+![add to firefox](../pics/extension/firefox_add_to_firefox_light.png#only-light)
 
 (3) Click **Add** in the popup.
 
-![add to firefox](../pics/extension/firefox_add_popup.png)
+![add to firefox](../pics/extension/firefox_add_popup_dark.png#only-dark)
+![add to firefox](../pics/extension/firefox_add_popup_light.png#only-light)
 
 
 ## Pin the Extension

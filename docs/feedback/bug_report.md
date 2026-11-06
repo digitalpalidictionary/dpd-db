@@ -4,7 +4,8 @@ If you find a bug in the code, or something is not behaving as expected, please 
 
 Click the __New Issue__ button on the right-hand side and you will be guided through the rest of the process. 
 
-![make github issue](../pics/feedback/github_issue.png)
+![make github issue](../pics/feedback/github_issue_dark.png#only-dark)
+![make github issue](../pics/feedback/github_issue_light.png#only-light)
 
 Or else just click this link to make a [new bug report](https://github.com/digitalpalidictionary/dpd-db/issues/new/choose){target="_blank"} right now.
 

@@ -6,63 +6,74 @@
 
 Click the buttons to **increase** or **decrease** the font size to best suit your young or old eyes. 
 
-![font size](../pics/dpdict.net/dpdict_settings_font_size.png)
+![font size](../pics/dpdict.net/dpdict_settings_font_size_dark.png#only-dark)
+![font size](../pics/dpdict.net/dpdict_settings_font_size_light.png#only-light)
 
 ## Light or Dark mode
 
 Adjust between a light mode or a dark mode for reduced eye strain.
 
-![light dark mode](../pics/dpdict.net/dpdict_settings_light_dark_mode.png)
+![light dark mode](../pics/dpdict.net/dpdict_settings_light_dark_mode_dark.png#only-dark)
+![light dark mode](../pics/dpdict.net/dpdict_settings_light_dark_mode_light.png#only-light)
 
 ## Sans or serif font
 
 Choose between a sans-serif or serif font.
 
-![alt text](../pics/dpdict.net/dpdict_settings_sans_serif.png)
+![alt text](../pics/dpdict.net/dpdict_settings_sans_serif_dark.png#only-dark)
+![alt text](../pics/dpdict.net/dpdict_settings_sans_serif_light.png#only-light)
 
 ## Niggahīta ṃ or ṁ
 
 Select your preferred representation of the 41st letter of the Pāḷi alphabet.
 
-![niggahita](../pics/dpdict.net/dpdict_settings_niggahita.png)
+![niggahita](../pics/dpdict.net/dpdict_settings_niggahita_dark.png#only-dark)
+![niggahita](../pics/dpdict.net/dpdict_settings_niggahita_light.png#only-light)
 
 ## Grammar button closed or open
 
 If you prefer the **grammar button** visible, turn this setting on.
 
-![grammar open closed](../pics/dpdict.net/dpdict_settings_grammar_open.png)
+![grammar open closed](../pics/dpdict.net/dpdict_settings_grammar_open_dark.png#only-dark)
+![grammar open closed](../pics/dpdict.net/dpdict_settings_grammar_open_light.png#only-light)
 
 All new words will display with the grammar button open by default.
 
-![grammar button open](../pics/dpdict.net/dpdict_settings_grammar_button_open.png)
+![grammar button open](../pics/dpdict.net/dpdict_settings_grammar_button_open_dark.png#only-dark)
+![grammar button open](../pics/dpdict.net/dpdict_settings_grammar_button_open_light.png#only-light)
 
 ## Examples button closed or open
 
 If you prefer the **example button** visible, turn this setting on.
 
-![example button open closed](../pics/dpdict.net/dpdict_settings_example_closed_open.png)
+![example button open closed](../pics/dpdict.net/dpdict_settings_example_closed_open_dark.png#only-dark)
+![example button open closed](../pics/dpdict.net/dpdict_settings_example_closed_open_light.png#only-light)
 
 All new words will display with the examples open by default.
 
-![example button open](../pics/dpdict.net/dpdict_settings_examples_open.png)
+![example button open](../pics/dpdict.net/dpdict_settings_examples_open_dark.png#only-dark)
+![example button open](../pics/dpdict.net/dpdict_settings_examples_open_light.png#only-light)
 
 ## One button at a time
 
 By default, opening a new button displays its content without closing others. When this setting is selected, only one button will display at a time.
 
-![alt text](../pics/dpdict.net/dpdict_settings_one_button_at_a_time.png)
+![alt text](../pics/dpdict.net/dpdict_settings_one_button_at_a_time_dark.png#only-dark)
+![alt text](../pics/dpdict.net/dpdict_settings_one_button_at_a_time_light.png#only-light)
 
 ## Summary 
 
 Hide or display the summary of results at the top of the page. This setting is turned on by default. 
 
-![summary](../pics/dpdict.net/dpdict_settings_summary_show.png)
+![summary](../pics/dpdict.net/dpdict_settings_summary_show_dark.png#only-dark)
+![summary](../pics/dpdict.net/dpdict_settings_summary_show_light.png#only-light)
 
 ## Show sandhi with '
 
 By default all sandhi in DPD is indicated with a single apostrophe **'**. This setting hides and shows the sandhi marker.
 
-![sandhi hide show](../pics/dpdict.net/dpdict_settings_sandhi_hide_show.png)
+![sandhi hide show](../pics/dpdict.net/dpdict_settings_sandhi_hide_show_dark.png#only-dark)
+![sandhi hide show](../pics/dpdict.net/dpdict_settings_sandhi_hide_show_light.png#only-light)
 
 HIDE: akaṅkhī vatamhi avicikicchī niṭṭhaṅgato saddhammeti.
 

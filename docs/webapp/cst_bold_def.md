@@ -14,13 +14,15 @@ DPD now provides a [web search engine](https://www.dpdict.net){target="_blank"} 
 
 Click on the CST Bold Definitions tab in the top left corner of the web page to open it. 
 
-![DPD bold definitions tab](../pics/dpdict.net/dpdict_bd_tab.png)
+![DPD bold definitions tab](../pics/dpdict.net/dpdict_bd_tab_dark.png#only-dark)
+![DPD bold definitions tab](../pics/dpdict.net/dpdict_bd_tab_light.png#only-light)
 
 There are two search boxes.
 
 Use the first search box to find the bold definition you are looking for.
 
-![Search box 1](../pics/dpdict.net/dpdict_bd_searchbox1.png)
+![Search box 1](../pics/dpdict.net/dpdict_bd_searchbox1_dark.png#only-dark)
+![Search box 1](../pics/dpdict.net/dpdict_bd_searchbox1_light.png#only-light)
 
 > Hint: leave the last letter of the word off, as this is often included in sandhi with *iti*.
 
@@ -28,7 +30,8 @@ Use the first search box to find the bold definition you are looking for.
 
 The results will display below.
 
-![Search results](../pics/dpdict.net/dpdict_bd_results.png)
+![Search results](../pics/dpdict.net/dpdict_bd_results_dark.png#only-dark)
+![Search results](../pics/dpdict.net/dpdict_bd_results_light.png#only-light)
 
 In the results, you can see the bold defined word, the definition, and surrounding sentences. The source text and chapter are highlighted in blue. 
 
@@ -36,7 +39,8 @@ In the results, you can see the bold defined word, the definition, and surroundi
 
 There are three different search modes. 
 
-![Search modes](../pics/dpdict.net/dpdict_bd_search_modes.png)
+![Search modes](../pics/dpdict.net/dpdict_bd_search_modes_dark.png#only-dark)
+![Search modes](../pics/dpdict.net/dpdict_bd_search_modes_light.png#only-light)
 
 ### 1. Starts with
 All results will **start with** the search term. It's useful when you know exactly what you are looking for.
@@ -53,15 +57,18 @@ When activated, **fuzzy search** ignores all diacritics, aspiration, double cons
 
 Sometimes you will get too many results. 
 
-![Too many results](../pics/dpdict.net/dpdict_bd_too_many.png)
+![Too many results](../pics/dpdict.net/dpdict_bd_too_many_dark.png#only-dark)
+![Too many results](../pics/dpdict.net/dpdict_bd_too_many_light.png#only-light)
 
 Then you can use the second search box to search within results. 
 
-![Search box 2](../pics/dpdict.net/dpdict_bd_searchbox2.png)
+![Search box 2](../pics/dpdict.net/dpdict_bd_searchbox2_dark.png#only-dark)
+![Search box 2](../pics/dpdict.net/dpdict_bd_searchbox2_light.png#only-light)
 
 This will drastically reduce the number of results.
 
-![alt text](../pics/dpdict.net/dpdict_bd_less_results.png)
+![alt text](../pics/dpdict.net/dpdict_bd_less_results_dark.png#only-dark)
+![alt text](../pics/dpdict.net/dpdict_bd_less_results_light.png#only-light)
 
 Notice that the word from the second search box is highlighted blue in the text.
 

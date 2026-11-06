@@ -27,6 +27,7 @@ The Velthuis system allows you to type diacritics without any special keyboard i
 
 If your word is not found, the closest matches will be displayed.
 
-![no results found](../pics/dpdict.net/dpdict_no_results_found.png)
+![no results found](../pics/dpdict.net/dpdict_no_results_found_dark.png#only-dark)
+![no results found](../pics/dpdict.net/dpdict_no_results_found_light.png#only-light)
 
 **Double-click** on any word to display the relevant dictionary entry. 
