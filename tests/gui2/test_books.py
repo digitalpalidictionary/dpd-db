@@ -3,6 +3,7 @@
 than at construction, so importing `gui2.books` stays off the startup path."""
 
 from collections import defaultdict
+from json import dumps
 from pathlib import Path
 from typing import Any, Callable, IO
 
@@ -76,8 +77,8 @@ def test_index_is_built_only_once(load_calls: list[str]) -> None:
 
 
 def test_none_path_source_stays_lazy_and_empty(load_calls: list[str]) -> None:
-    """The four sources constructed with None paths (nidd1&2, kva, dhpa,
-    jaa) must build neither index and read no files."""
+    """The commentary sources constructed with None paths (kva, dhpa, jaa,
+    dna) must build neither index and read no files."""
     source = SuttaCentralSource("kva", ["kva"], None, None, is_commentary=True)
 
     assert source.pali_file_list == []
@@ -95,3 +96,51 @@ def test_none_path_source_stays_lazy_and_empty(load_calls: list[str]) -> None:
 def test_commentary_books_are_flagged(book: str, expected: bool) -> None:
     # "ja" ends in "a" but is the Jātaka itself, not its commentary
     assert books.sutta_central_books[book].is_commentary is expected
+
+
+def write_segments(folder: Path, name: str, segments: dict[str, str]) -> None:
+    folder.mkdir(parents=True, exist_ok=True)
+    (folder / name).write_text(dumps(segments), encoding="utf-8")
+
+
+def test_two_folders_load_as_one_book(tmp_path: Path) -> None:
+    """A book can list several folders. Its files and words come from all of them."""
+    first = tmp_path / "tha-ap"
+    second = tmp_path / "thi-ap"
+    write_segments(first, "tha-ap2.json", {"tha-ap2:1.1": "Therapadanam eka"})
+    write_segments(first, "tha-ap10.json", {"tha-ap10:1.1": "Therapadanam dasa"})
+    write_segments(second, "thi-ap1.json", {"thi-ap1:1.1": "Theripadanam eka"})
+
+    source = SuttaCentralSource(
+        "ap", ["kn10", "kn11"], [str(first), str(second)], None, is_commentary=False
+    )
+
+    assert [p.name for p in source.pali_file_list] == [
+        "tha-ap2.json",
+        "tha-ap10.json",
+        "thi-ap1.json",
+    ]
+    assert set(source.word_dict) == {"therapadanam", "theripadanam", "eka", "dasa"}
+    assert len(source.segment_dict) == 3
+
+
+def test_single_folder_string_still_works(tmp_path: Path) -> None:
+    write_segments(tmp_path, "kp1.json", {"kp1:1.1": "Namo tassa"})
+
+    source = SuttaCentralSource(
+        "khp", ["kn1"], str(tmp_path), None, is_commentary=False
+    )
+
+    assert [p.name for p in source.pali_file_list] == ["kp1.json"]
+    assert set(source.word_dict) == {"namo", "tassa"}
+
+
+@needs_sc_data
+@pytest.mark.parametrize(
+    ("book", "folders"),
+    [("ap", {"tha-ap", "thi-ap"}), ("nidd1&2", {"mnd", "cnd"})],
+)
+def test_real_two_folder_books_read_both_folders(book: str, folders: set[str]) -> None:
+    source = books.sutta_central_books[book]
+
+    assert {p.parent.name for p in source.pali_file_list} == folders

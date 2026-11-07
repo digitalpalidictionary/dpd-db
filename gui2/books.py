@@ -16,23 +16,31 @@ class SuttaCentralSource:
         self,
         book: str,
         cst_books: list[str],
-        pali_path: str | None,
-        english_path: str | None,
+        pali_path: str | list[str] | None,
+        english_path: str | list[str] | None,
         is_commentary: bool,
     ) -> None:
         self.sc_book: str = book
         self.is_commentary: bool = is_commentary
         self.cst_books: list[str] = cst_books
-        self.pali_path: Path | None = Path(pali_path) if pali_path else None
-        self.english_path: Path | None = Path(english_path) if english_path else None
+        self.pali_paths: list[Path] = self.to_paths(pali_path)
+        self.english_paths: list[Path] = self.to_paths(english_path)
 
-        self.pali_file_list: list[Path] = (
-            self.make_file_list(self.pali_path) if self.pali_path else []
-        )
-        self.english_file_list: list[Path] = (
-            self.make_file_list(self.english_path) if self.english_path else []
-        )
+        self.pali_file_list: list[Path] = self.make_file_lists(self.pali_paths)
+        self.english_file_list: list[Path] = self.make_file_lists(self.english_paths)
         self.allowable_chars: list[str] = pali_alphabet + [" "]
+
+    @staticmethod
+    def to_paths(path: str | list[str] | None) -> list[Path]:
+        if not path:
+            return []
+        return [Path(p) for p in ([path] if isinstance(path, str) else path)]
+
+    def make_file_lists(self, folders: list[Path]) -> list[Path]:
+        # the files of all folders are sorted together, as one text
+        return natural_sort(
+            [p for folder in folders for p in self.make_file_list(folder)]
+        )
 
     def make_file_list(self, folder: Path | None) -> list[Path]:
         if not folder or not folder.exists() or not folder.is_dir():
@@ -181,10 +189,37 @@ sutta_central_books: dict[str, SuttaCentralSource] = {
         "resources/sc-data/sc_bilara_data/translation/en/sujato/sutta/kn/thig",
         is_commentary=False,
     ),
-    "vv": SuttaCentralSource("vv", ["kn6"], None, None, is_commentary=False),
-    "pv": SuttaCentralSource("pv", ["kn7"], None, None, is_commentary=False),
-    "ap": SuttaCentralSource("ap", ["kn10", "kn11"], None, None, is_commentary=False),
-    "bv": SuttaCentralSource("bv", ["kn12"], None, None, is_commentary=False),
+    "vv": SuttaCentralSource(
+        "vv",
+        ["kn6"],
+        "resources/sc-data/sc_bilara_data/root/pli/ms/sutta/kn/vv",
+        None,
+        is_commentary=False,
+    ),
+    "pv": SuttaCentralSource(
+        "pv",
+        ["kn7"],
+        "resources/sc-data/sc_bilara_data/root/pli/ms/sutta/kn/pv",
+        "resources/sc-data/sc_bilara_data/translation/en/kovilo/sutta/kn/pv",
+        is_commentary=False,
+    ),
+    "ap": SuttaCentralSource(
+        "ap",
+        ["kn10", "kn11"],
+        [
+            "resources/sc-data/sc_bilara_data/root/pli/ms/sutta/kn/tha-ap",
+            "resources/sc-data/sc_bilara_data/root/pli/ms/sutta/kn/thi-ap",
+        ],
+        None,
+        is_commentary=False,
+    ),
+    "bv": SuttaCentralSource(
+        "bv",
+        ["kn12"],
+        "resources/sc-data/sc_bilara_data/root/pli/ms/sutta/kn/bv",
+        None,
+        is_commentary=False,
+    ),
     "cp": SuttaCentralSource(
         "cp",
         ["kn13"],
@@ -202,7 +237,10 @@ sutta_central_books: dict[str, SuttaCentralSource] = {
     "nidd1&2": SuttaCentralSource(
         "nidd1&2",
         ["kn15", "kn16"],
-        None,
+        [
+            "resources/sc-data/sc_bilara_data/root/pli/ms/sutta/kn/mnd",
+            "resources/sc-data/sc_bilara_data/root/pli/ms/sutta/kn/cnd",
+        ],
         None,
         is_commentary=False,
     ),

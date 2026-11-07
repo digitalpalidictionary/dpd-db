@@ -3,6 +3,7 @@ import asyncio
 import threading
 from json import JSONDecodeError, dump, dumps, loads
 
+from db.models import Lookup
 from gui2.books import (
     SuttaCentralSegment,
     SuttaCentralSource,
@@ -30,6 +31,7 @@ from tools.epitaka_sentences import epitaka_word_dict, peu_entries
 from tools.goldendict_tools import open_in_goldendict
 from tools.pali_text_files import cst_texts
 from tools.printer import printer as pr
+from sqlalchemy import func, or_
 
 
 class Pass1AutoController:
@@ -82,6 +84,7 @@ class Pass1AutoController:
         self.current_book_processed: int = 0
         self.initial_auto_processed: int = 0
         self.total_missing: int = 0
+        self.unknown_words: set[str] = set()
 
     def get_auto_processed_dict(self, book: str) -> dict:
         with self._lock:
@@ -135,10 +138,34 @@ class Pass1AutoController:
         self.current_book_processed = 0
         await asyncio.to_thread(self.find_missing_words_in_cst)
         await asyncio.to_thread(self.find_missing_words_in_sutta_central)
+
+        # Completely unknown words first: no lookup row, or only an `epd`
+        # entry. The rest keep their original order after them.
+        unknown_list = await asyncio.to_thread(
+            self.find_unknown_words, list(self.missing_words_dict)
+        )
+        self.unknown_words = set(unknown_list)
+        reordered: dict[str, list[SuttaCentralSegment]] = {
+            word: self.missing_words_dict[word] for word in unknown_list
+        }
+        reordered.update(
+            {
+                word: segments
+                for word, segments in self.missing_words_dict.items()
+                if word not in self.unknown_words
+            }
+        )
+        self.missing_words_dict = reordered
+
         await asyncio.to_thread(self.load_prompt_context)
         self.initial_auto_processed = len(self.auto_processed_dict)
         self.total_missing = len(self.missing_words_dict)
         self.unbroken_loop = True
+
+        self.ui.update_message(
+            f"Unknown words (not in lookup): {len(self.unknown_words)}"
+            f" of {self.total_missing}"
+        )
 
         for self.word_in_text, self.sentence_data in self.missing_words_dict.items():
             # Stop can arrive during the setup or after a failed word.
@@ -147,7 +174,10 @@ class Pass1AutoController:
                 self.ui.update_message(f"Stopped processing {self.book}")
                 self.unbroken_loop = False
                 break
-            self.ui.update_message(f"Processing {self.word_in_text}")
+            if self.word_in_text in self.unknown_words:
+                self.ui.update_message(f"Processing {self.word_in_text} (unknown)")
+            else:
+                self.ui.update_message(f"Processing {self.word_in_text}")
 
             self.compile_prompt()
 
@@ -208,6 +238,7 @@ class Pass1AutoController:
         self.book = "text"
         self.load_auto_processed()
         self.current_book_processed = 0
+        self.unknown_words = set()  # Only the book run sets this
 
         cleaned = clean_machine(text)
         words = cleaned.split()
@@ -308,6 +339,34 @@ class Pass1AutoController:
             if self.is_missing(word):
                 self.missing_words_dict[word] = segments
 
+    def find_unknown_words(self, words: list[str]) -> list[str]:
+        """Words with no lookup row, or a row whose only data is `epd`.
+
+        Any data in a lookup column other than `epd` counts as known:
+        headwords, roots, deconstructor, variant, see, spelling, grammar,
+        help, abbrev, abbrev_other, rpd, other, sinhala, devanagari, thai.
+        NULL counts as empty (raw sql rows hold NULLs, not empty strings).
+        Queries in chunks of 900 keys per IN. Input order is kept."""
+
+        data_columns = [
+            getattr(Lookup, column)
+            for column in Lookup.__table__.columns.keys()
+            if column not in ("lookup_key", "epd")
+        ]
+        has_data = or_(*[func.coalesce(col, "") != "" for col in data_columns])
+
+        covered: set[str] = set()
+        chunk_size = 900
+        for i in range(0, len(words), chunk_size):
+            chunk = words[i : i + chunk_size]
+            rows = (
+                self.db.db_session.query(Lookup.lookup_key)
+                .filter(Lookup.lookup_key.in_(chunk), has_data)
+                .all()
+            )
+            covered.update(row[0] for row in rows)
+        return [word for word in words if word not in covered]
+
     def load_prompt_context(self) -> None:
         """Load what every prompt of this run shares: the real dictionary
         values and the ePitaka sentences of the book. Pasted text has no book."""
@@ -327,7 +386,12 @@ class Pass1AutoController:
     def compile_prompt(self):
         """Compile the prompt for the word and save it to the temp folder."""
 
-        self.ui.update_message(f"compiling prompt for {self.word_in_text}")
+        if self.word_in_text in self.unknown_words:
+            self.ui.update_message(
+                f"compiling prompt for {self.word_in_text} (unknown)"
+            )
+        else:
+            self.ui.update_message(f"compiling prompt for {self.word_in_text}")
 
         if self.allowed is None:
             self.allowed = load_allowed_values(self.db.db_session)

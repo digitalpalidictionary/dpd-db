@@ -8,9 +8,13 @@ from types import SimpleNamespace
 import pytest
 
 import gui2.pass1_auto_controller as controller_module
+from db.models import Lookup
 from gui2.books import SuttaCentralSegment
 from gui2.pass1_auto_controller import Pass1AutoController
 from gui2.pass1_context import AllowedValues
+from sqlalchemy import create_engine
+from sqlalchemy.orm import Session
+from sqlalchemy.pool import StaticPool
 
 WORDS = ["narena", "naro", "nara"]
 AI_DELAY = 0.15
@@ -45,6 +49,7 @@ def make_controller(monkeypatch: pytest.MonkeyPatch, tmp_path) -> Any:
     ctrl.chosen_sentences = []
     ctrl.epitaka_dict = {}
     ctrl.allowed = AllowedValues([], [], [], [])
+    ctrl.unknown_words = set()
     ctrl.sentence_data = []
     ctrl.response = None
     ctrl.ai_status_message = ""
@@ -197,3 +202,85 @@ def test_stop_halts_after_the_current_word(
 
     asyncio.run(run())
     assert len(ctrl.auto_processed_dict) == 1
+
+
+def make_lookup_session() -> Session:
+    engine = create_engine(
+        "sqlite://",
+        # Match db_helpers: the production engine allows cross-thread use,
+        # and find_unknown_words now runs in a worker thread.
+        connect_args={"check_same_thread": False},
+        # One shared connection: plain pooling gives each pooled connection
+        # its own empty :memory: database.
+        poolclass=StaticPool,
+    )
+    Lookup.metadata.create_all(engine)
+    return Session(engine)
+
+
+def test_find_unknown_words_returns_epd_only_and_absent(
+    monkeypatch: pytest.MonkeyPatch, tmp_path
+) -> None:
+    ctrl = make_controller(monkeypatch, tmp_path)
+    session = make_lookup_session()
+    session.add(Lookup(lookup_key="known1", headwords="123"))
+    session.add(Lookup(lookup_key="known2", deconstructor='["a + b"]'))
+    session.add(Lookup(lookup_key="epdonly", epd="some epd data"))
+    # Raw sql rows hold NULL, not empty strings: still unknown with epd only.
+    session.add(Lookup(lookup_key="nullrow", headwords=None, epd="epd data"))
+    session.commit()
+    ctrl.db = SimpleNamespace(db_session=session)
+
+    result = ctrl.find_unknown_words(
+        ["known1", "known2", "epdonly", "absent", "nullrow"]
+    )
+
+    assert result == ["epdonly", "absent", "nullrow"]
+
+
+def test_book_run_processes_unknown_words_first(
+    monkeypatch: pytest.MonkeyPatch, tmp_path
+) -> None:
+    ctrl = make_controller(monkeypatch, tmp_path)
+    session = make_lookup_session()
+    session.add(Lookup(lookup_key="m1", headwords="1"))
+    session.add(Lookup(lookup_key="m3", deconstructor="a + b"))
+    session.commit()
+    ctrl.db = SimpleNamespace(
+        make_inflections_lists=lambda: None,
+        db_session=session,
+        all_inflections=set(),
+        sandhi_ok_list=set(),
+        pth=SimpleNamespace(temp_dir=tmp_path),
+    )
+
+    processed: list[str] = []
+
+    def fake_find_missing_in_cst() -> None:
+        ctrl.missing_words_dict = {"m1": [], "m2": [], "m3": [], "m4": []}
+
+    monkeypatch.setattr(ctrl, "find_missing_words_in_cst", fake_find_missing_in_cst)
+    monkeypatch.setattr(ctrl, "find_missing_words_in_sutta_central", lambda: None)
+    monkeypatch.setattr(ctrl, "load_prompt_context", lambda: None)
+    monkeypatch.setattr(ctrl, "compile_prompt", lambda: None)
+
+    def fake_send_prompt(**_):
+        processed.append(ctrl.word_in_text)
+        return SimpleNamespace(content=GOOD_JSON, status_message="ok")
+
+    def fake_update(*args, **kwargs):
+        ctrl.auto_processed_dict[ctrl.word_in_text] = {}
+        return True
+
+    monkeypatch.setattr(ctrl, "send_prompt", fake_send_prompt)
+    monkeypatch.setattr(ctrl, "update_auto_processed", fake_update)
+
+    asyncio.run(ctrl.auto_process_book("ap"))
+
+    # Unknown words first, original order kept inside each group.
+    assert processed == ["m2", "m4", "m1", "m3"]
+    assert ctrl.unknown_words == {"m2", "m4"}
+    assert "Unknown words (not in lookup): 2 of 4" in ctrl.ui.messages
+    assert "Processing m2 (unknown)" in ctrl.ui.messages
+    assert "Processing m1" in ctrl.ui.messages
+    assert "Processing m1 (unknown)" not in ctrl.ui.messages
