@@ -15,6 +15,8 @@ Four main parts: **db** (build and populate tables), **db_tests** (data integrit
 - SKIP finalize's GitHub step here: never comment on or close the issue. Issues are tested externally before they close, and the GitHub rule below forbids any write unasked. Suggest the commit message only. (Violated 2026-09-25 on #266.)
 - When the work left after a thread's code is reviewed is only text (an outcome, notes, docs), finalize at once; don't propose another review (rejected 2026-11-01 on contrib_6).
 - Never pause a thread to ask for commit permission at phase checkpoints. The user commits everything at the end; checkpoint steps are report-only.
+- Review artifacts under `kamma/threads/*/egm/` (`prompts/`, `raw/`) quote the absolute repo path and raw reviewer output. Scan them for home paths before the FIRST commit, not at finalize — a leaked path in a pushed commit cannot be force-pushed away, since `main` is protected.
+- Server-side config cannot be verified in the dev clone: no nginx runs here, and `nginx -t` passes on a broken unix-socket `proxy_pass` (it needs a second colon, `unix:/path.sock:/`). Anything touching nginx or systemd gets verified on the live host with `curl` before it is called done (2026-11-07, contrib password gate).
 
 ## Concurrent Threads (working tree safety)
 Multiple kamma threads regularly run against this repo in the same working tree at once.
