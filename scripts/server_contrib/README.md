@@ -26,6 +26,9 @@ clone. It is safe to re-run; each step is skipped when its result exists.
 - The first build is the maintenance window itself (`--no-systemd --no-push`).
 - The systemd unit `dpd-gui@.service` is installed. Enable one instance with
   `sudo systemctl enable --now dpd-gui@<user>`. Logs: `journalctl -u dpd-gui@<user>`.
+  `dpd-password.service` (the change-password page behind `/<user>/password/`,
+  forced first change) is installed and enabled by the same script; logs:
+  `journalctl -u dpd-password`.
 
 Measured (2026-11-01, 2 vCPU, 8 GB, 4 GB swap): first build 2051 s (~34 min), lowest
 free memory ~170 MB, swap peak ~130 MB. Do not build without swap.
@@ -187,6 +190,11 @@ This fetches `origin/contributions`, merges it into local `main`, and runs
   together with the words they describe. The server never runs it.
 
 ## Removing a contributor
+
+Resetting a password (contributor forgot theirs, or it must change):
+`sudo scripts/server_contrib/set_password.sh <user>` — new hash, same
+mode/group as `add_contributor.sh`, marker armed so the next login lands on
+the change page.
 
 1. Run a maintenance window.
 2. Process or reject all their entries.

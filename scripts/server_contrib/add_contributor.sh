@@ -106,6 +106,22 @@ ENV
 sed -e "s|@USER@|$user|g" -e "s|@PORT@|$port|g" \
     "$here/nginx_contrib_user.conf.template" > "$nginx_file"
 
+# The rendered conf now carries an auth_request gate. If the site file does
+# not define the internal location it points at, that user's URL answers
+# 500. Never fatal — a warning is enough, the fix is runbook Step 7e.
+site_file="$root/etc/nginx/sites-available/dpd-contrib"
+if [[ -f "$site_file" ]] && ! grep -q "_dpd_pw_check" "$site_file"; then
+    echo "WARNING: $site_file has no location = /_dpd_pw_check." >&2
+    echo "WARNING: add it (runbook Step 7e) before reloading nginx, or $user's URL answers 500." >&2
+fi
+
+# The forced-first-change marker, written LAST: a failure above leaves a
+# user without a marker rather than an armed-but-broken one. Mode 600: the
+# only reader is the root-run password service.
+marker_file="$nginx_dir/$user.initial"
+touch "$marker_file"
+chmod 600 "$marker_file"
+
 echo "Added $user."
 echo "URL to hand over: https://<server name>/$user/"
 echo "Next, on the server:"

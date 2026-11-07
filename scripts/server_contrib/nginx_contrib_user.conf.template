@@ -1,8 +1,17 @@
 # Written by add_contributor.sh to /etc/nginx/dpd/@USER@.conf
+# While /etc/nginx/dpd/@USER@.initial exists, the auth_request gate below
+# redirects the editor to the change-password page (forced first change;
+# the password service deletes the marker on success).
 location /@USER@/ {
     # A realm per user, so the browser does not send alice's login to /bob/.
     auth_basic "DPD contributor @USER@";
     auth_basic_user_file /etc/nginx/dpd/@USER@.htpasswd;
+
+    # Forced first change: 403 from /check (marker armed) redirects to the
+    # password page. The internal location this points at lives once in the
+    # site config (location = /_dpd_pw_check).
+    auth_request /_dpd_pw_check;
+    error_page 403 = @pw_@USER@;
 
     # No trailing slash: the /@USER@/ prefix is passed on, because the instance
     # is mounted there (FLET_WEB_APP_PATH) and answers nothing at its root.
@@ -13,4 +22,28 @@ location /@USER@/ {
     proxy_set_header Host $host;
     # A Flet session is one long websocket.
     proxy_read_timeout 3600s;
+}
+
+# The change-password page, behind the same realm as the editor. nginx has
+# authenticated the request before the service sees it, so the form asks
+# only for the new password. Second colon in the unix proxy_pass is
+# mandatory: it splits socket path from URI (without it the whole
+# remainder becomes the socket path and every request 502s).
+location /@USER@/password/ {
+    auth_basic "DPD contributor @USER@";
+    auth_basic_user_file /etc/nginx/dpd/@USER@.htpasswd;
+
+    proxy_pass http://unix:/run/dpd-password.sock:/;
+    proxy_set_header Host $host;
+    proxy_set_header Authorization $http_authorization;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_connect_timeout 30s;
+    proxy_read_timeout 30s;
+}
+
+# Redirect target for the armed-marker gate. A named location + return
+# always emits a real Location header.
+location @pw_@USER@ {
+    return 302 /@USER@/password/;
 }

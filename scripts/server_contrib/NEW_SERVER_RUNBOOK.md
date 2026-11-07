@@ -44,7 +44,7 @@ Define these once. Use the same names everywhere.
 | `NEW_IP` | The new server's public IPv4 address, for example `203.0.113.7`. | The provider's console, after Step 1. |
 | `DOMAIN` | `NEW_IP` with dots turned into dashes, then `.sslip.io`. For `203.0.113.7` this is `203-0-113-7.sslip.io`. | Compute it. The name `sslip.io` answers with the address in the name, so no DNS record is needed. With any other domain name, point its A record at `NEW_IP` before Step 6. |
 | `SSH_TARGET` | `root@NEW_IP` | Compute it. |
-| `OLD_TARGET` | `root@host` of the old server. It must be a root login: the cron and `tar` commands in Steps 7b and 12 act on root's crontab and on system folders. If the old login is not root, stop and tell the owner. | The owner's `[epitaka_server] ssh` setting in the laptop's `config.ini`, read by the OWNER. The agent does not open `config.ini`. |
+| `OLD_TARGET` | `root@host` of the old server. It must be a root login: the cron and `tar` commands in Steps 7b and 12 act on root's crontab and on system folders. If the old login is not root, stop and tell the owner. | The owner's `[dpd_contributor_server] ssh` setting in the laptop's `config.ini`, read by the OWNER. The agent does not open `config.ini`. |
 | `CLONE` | `/root/dpd-db` | Fixed. The scripts default to `$HOME/dpd-db`, and `$HOME` is `/root`. |
 | `DATA` | `/var/lib/dpd/contrib_data` | Fixed. `add_contributor.sh` sets it. |
 | Contributors | A list of `user port` pairs. `alice 8551` is first. Next ports: 8552, 8553, ... | The OWNER names each user: lower-case letters, digits and `_`, starting with a letter, no `added` inside. The port is unique, from 1024 to 65535. |
@@ -358,7 +358,7 @@ Each contributor has four things: a password file, an env file, an nginx locatio
 ssh -t SSH_TARGET '/root/dpd-db/scripts/server_contrib/add_contributor.sh <user> <port>'
 ```
 
-Do 7a OR 7b for each user, never both: `add_contributor.sh` refuses a user that already exists. Run 7a once for each new contributor in the list. `alice 8551` goes first, because it is the `/status` login in the live setup.
+Do 7a OR 7b for each user, never both: `add_contributor.sh` refuses a user that already exists. Run 7a once for each new contributor in the list. `alice 8551` goes first, because it is the `/status` login in the live setup. The script also writes `/etc/nginx/dpd/<user>.initial` (mode 600): the forced-first-change marker. At their first login the contributor is sent to the change-password page (Step 7e) until they change the password; then the marker is gone and it never appears again. The password in `~/dpd_pw_<user>` is valid only until the contributor changes it — after a self-service change the file is stale and Step 11a's curl for that user answers `401`.
 
 CHECK: `ssh SSH_TARGET 'stat -c "%a %U:%G %n" /etc/nginx/dpd/<user>.htpasswd /etc/nginx/dpd/<user>.conf /etc/dpd/<user>.env'`
 
@@ -379,7 +379,7 @@ ssh OLD_TARGET 'tar -C / -cf - etc/dpd etc/nginx/dpd var/lib/dpd/contrib_data' |
 ssh SSH_TARGET 'chgrp www-data /etc/nginx/dpd/*.htpasswd && chmod 640 /etc/nginx/dpd/*.htpasswd && chmod 600 /etc/dpd/*.env /etc/nginx/dpd/*.conf'
 ```
 
-7b replaces 7a for the users it copies. Run the 7a CHECK for each of them, then do 7c. If `OLD_TARGET` is not `root@...`, the old login needs `sudo` for the `tar`. If the old server has a user who should NOT move, delete that user's files on the new server: `/etc/dpd/<user>.env`, `/etc/nginx/dpd/<user>.htpasswd`, `/etc/nginx/dpd/<user>.conf` and every file `/var/lib/dpd/contrib_data/*_<user>.*`.
+7b replaces 7a for the users it copies. Run the 7a CHECK for each of them, then do 7c. If `OLD_TARGET` is not `root@...`, the old login needs `sudo` for the `tar`. If the old server has a user who should NOT move, delete that user's files on the new server: `/etc/dpd/<user>.env`, `/etc/nginx/dpd/<user>.htpasswd`, `/etc/nginx/dpd/<user>.conf` and every file `/var/lib/dpd/contrib_data/*_<user>.*`. The old server has no `<user>.initial` markers, so copied users arrive unarmed: they keep their password and are never sent to the change page. To force it, reset them with `scripts/server_contrib/set_password.sh`.
 
 **7c. Start the instances.** The database from Step 5 must exist.
 
@@ -420,6 +420,70 @@ ssh SSH_TARGET 'nginx -t && systemctl restart nginx && systemctl is-active nginx
 CHECK: `ssh SSH_TARGET 'grep -c "location = /status" /etc/nginx/sites-available/dpd-contrib; nginx -T 2>/dev/null | grep -c "alias /var/lib/dpd/status.txt"'`
 
 EXPECT: `1` and `1`. The `nginx -t` lines are the two from Step 6d, and `is-active` prints `active`.
+
+**7e. The password gate.** Contributors change their own password at `https://DOMAIN/<user>/password/`. A new login with a marker armed (Step 7a, or a `set_password.sh` reset) is redirected there until they change it. The page is served by `dpd-password.service` (a root-run FastAPI app on the unix socket `/run/dpd-password.sock`), which rewrites the htpasswd file preserving its mode and group and deletes the marker on success. `server_setup.sh` installs and enables the unit (Step 5), and users added by 7a already get the gate in their conf. What remains here: the unit check, the site file, the confs of users copied in 7b, and the reload. **WHO:** AGENT.
+
+Unit check (on a fresh build `server_setup.sh` did this; the check is the same either way):
+
+```
+ssh SSH_TARGET 'systemctl is-active dpd-password; systemctl is-enabled dpd-password'
+curl --unix-socket /run/dpd-password.sock http://localhost/health
+```
+
+EXPECT: `active`, `enabled`, then `ok`. If the unit is missing (a server set up before this feature), install it the way `server_setup.sh` does:
+
+```
+ssh SSH_TARGET "sed -e 's|@CLONE@|/root/dpd-db|g' /root/dpd-db/scripts/server_contrib/dpd-password.service | tee /etc/systemd/system/dpd-password.service >/dev/null && systemctl daemon-reload && systemctl enable --now dpd-password"
+```
+
+The site file needs the internal location `location = /_dpd_pw_check` (every user conf's `auth_request` points at it). A fresh build already renders it from `nginx_contrib.conf.template` at 6d. The patch below always runs but inserts only when absent — on a fresh build it prints `skipped`:
+
+```
+ssh SSH_TARGET 'cp -a /etc/nginx/sites-available/dpd-contrib /root/mem/dpd-contrib.before_password'
+ssh SSH_TARGET 'python3 - <<EOF
+import io
+site = "/etc/nginx/sites-available/dpd-contrib"
+text = io.open(site, encoding="utf-8").read()
+if "_dpd_pw_check" in text:
+    print("skipped: already present")
+else:
+    block = """    # The forced-first-change subrequest for every user\'s auth_request
+    # gate (one definition per server; per-user confs only reference it).
+    location = /_dpd_pw_check {
+        internal;
+        proxy_pass http://unix:/run/dpd-password.sock:/check;
+        proxy_pass_request_body off;
+        proxy_set_header Content-Length \"\";
+        proxy_set_header Authorization $http_authorization;
+        proxy_set_header Upgrade \"\";
+        proxy_set_header Connection \"\";
+        proxy_connect_timeout 2s;
+        proxy_read_timeout 5s;
+    }
+"""
+    marker = "    include /etc/nginx/dpd/*.conf;\\n"
+    assert text.count(marker) == 1
+    io.open(site, "w", encoding="utf-8").write(text.replace(marker, marker + "\\n" + block, 1))
+    print("inserted")
+EOF'
+```
+
+Users copied in 7b carry confs rendered from the old template, without the gate. Regenerate each from the new template (the port comes from the env file; the backup goes to `/root/mem/`):
+
+```
+ssh SSH_TARGET 'mkdir -p /root/mem; for env in /etc/dpd/*.env; do
+    user=$(basename "$env" .env)
+    port=$(sed -n "s/^FLET_SERVER_PORT=//p" "$env")
+    cp -a "/etc/nginx/dpd/$user.conf" "/root/mem/$user.conf.before_password"
+    sed -e "s|@USER@|$user|g" -e "s|@PORT@|$port|g" /root/dpd-db/scripts/server_contrib/nginx_contrib_user.conf.template > "/etc/nginx/dpd/$user.conf"
+    chmod 600 "/etc/nginx/dpd/$user.conf"
+done'
+ssh SSH_TARGET 'nginx -t && systemctl reload nginx && systemctl is-active nginx'
+```
+
+CHECK: `ssh SSH_TARGET 'grep -c "location = /_dpd_pw_check" /etc/nginx/sites-available/dpd-contrib; ls /etc/nginx/dpd/*.initial 2>/dev/null | wc -l; stat -c "%a" /run/dpd-password.sock'`
+
+EXPECT: `1`, the number of users added through 7a or reset with `set_password.sh` (users copied in 7b have none), then `660`.
 
 ## Step 8. Deploy key and the nightly cron job
 
@@ -523,7 +587,7 @@ If the `id` command prints `uid=`, the line is wrong. Stop. Open a safety line a
 
 **Order.** Do Step 10 after 12c2, when the data on the new server is final. Before then, a pull from the new server would bring the older copy from Step 7b over newer files on the laptop. Do not do 10a, 10b or 11c before 12c2.
 
-**10a.** **OWNER.** In the laptop's `config.ini`, under `[epitaka_server]`, change the `ssh` value to `root@NEW_IP`. Change nothing else. The agent does not edit `config.ini`. The first connection trusts the new host by itself.
+**10a.** **OWNER.** In the laptop's `config.ini`, under `[dpd_contributor_server]`, change the `ssh` value to `root@NEW_IP`. Change nothing else. The agent does not edit `config.ini`. The first connection trusts the new host by itself.
 
 **10b.** **AGENT.** The daily pull skips a day that is already done. To run one now, move the status file aside, then run the pull once:
 
@@ -571,6 +635,49 @@ EXPECT: after the first night's run (the cron job is installed in Step 12c2, so 
 4. **OWNER.** Process or reject the test word in the editor. Step 12c replaces the new server's data folder with the old one, so a test word saved here is lost on the server at cutover. Do not use a contributor's real work for this test.
 
 EXPECT: `outcome: pulled`, and `<user>: pulled N files, M entries` where `M` is one more than before.
+
+**11d. The password page and the forced-first-change gate.** Uses one contributor's login file from Step 11. Run these from the laptop, in this order.
+
+Without a password, the password page refuses, like the editor:
+
+```
+curl -s -o /dev/null -w '%{http_code}\n' https://DOMAIN/<user>/password/
+```
+
+EXPECT: `401`.
+
+With a marker armed (a user added through 7a, or reset through `set_password.sh`), a logged-in visit to the editor is redirected to the password page:
+
+```
+printf 'user = "<user>:%s"\n' "$(cat ~/dpd_pw_<user>)" | curl -s -K - -o /dev/null -w '%{http_code} %{redirect_url}\n' https://DOMAIN/<user>/
+```
+
+EXPECT: `302 https://DOMAIN/<user>/password/`. A browser whose credentials are NOT cached yet gets the `401` prompt instead (auth_basic answers first) — that is expected.
+
+The change itself: log in to `https://DOMAIN/<user>/password/` in a browser (OWNER, or the contributor), type the new password twice, submit. EXPECT: the page says the password was changed. Then:
+
+```
+printf 'user = "<user>:%s"\n' "$(cat ~/dpd_pw_<user>)" | curl -s -K - -o /dev/null -w 'old: %{http_code}\n' https://DOMAIN/<user>/
+ssh SSH_TARGET 'ls /etc/nginx/dpd/<user>.initial 2>/dev/null || echo marker gone; stat -c "%a %U:%G" /etc/nginx/dpd/<user>.htpasswd; ls /etc/nginx/dpd/<user>.htpasswd.bak'
+```
+
+EXPECT: `old: 401` (the old password stops working at the next prompt), `marker gone`, still `640 root:www-data`, and the `.bak` is present — it keeps the previous hash until the next change; that is the recovery copy, not a leak to fix. Re-arm and check the editor is reachable again with the new password (put the new password in a fresh `~/dpd_pw_<user>` first):
+
+```
+ssh SSH_TARGET 'rm /etc/nginx/dpd/<user>.initial && touch /etc/nginx/dpd/<user>.initial && chmod 600 /etc/nginx/dpd/<user>.initial'
+printf 'user = "<user>:%s"\n' "$(cat ~/dpd_pw_<user>)" | curl -s -K - -o /dev/null -w 'new: %{http_code}\n' https://DOMAIN/<user>/
+ssh SSH_TARGET 'rm /etc/nginx/dpd/<user>.initial'
+```
+
+EXPECT: `new: 200`, and the marker removed again (unless this user should stay forced, then leave it).
+
+Fail-closed check: kill the service and watch it come back.
+
+```
+ssh SSH_TARGET 'systemctl kill dpd-password; sleep 2; systemctl is-active dpd-password; curl -s -o /dev/null -w "editor: %{http_code}\n" --unix-socket /run/dpd-password.sock http://localhost/health; stat -c "socket: %a %U:%G" /run/dpd-password.sock'
+```
+
+EXPECT: `active`, `editor: 200`, and the socket STILL `660 root:www-data` — uvicorn re-applies the mode on restart but never the group, so this line is the one that catches a lost group. While the service is down the editor answers `500`; triage for any 500 on a user URL: `systemctl status dpd-password` first, nginx second.
 
 ## Step 12. Cutover and retirement of the old server
 
@@ -622,7 +729,7 @@ CHECK: `ls ~/backups/old_contrib_data_20261104 | wc -l`
 
 EXPECT: the same number as `ssh OLD_TARGET 'ls /var/lib/dpd/contrib_data | wc -l'`.
 
-**12e. Tell the contributors the new address.** **WHO:** OWNER. It is `https://DOMAIN/<user>/`. Their user names and passwords do not change when Step 7b was used.
+**12e. Tell the contributors the new address.** **WHO:** OWNER. It is `https://DOMAIN/<user>/`. Their user names and passwords do not change when Step 7b was used. Users added through 7a start on the change page: their first login asks them to replace the initial password (between 10 and 72 characters) before the editor opens, and after that their password is their own — `set_password.sh` on the server is the reset path if one is ever lost.
 
 **12f. Retire the old server.** **WHO:** OWNER.
 

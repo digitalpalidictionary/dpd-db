@@ -133,3 +133,28 @@ def test_each_instance_lives_under_its_own_prefix(tmp_path: Path) -> None:
     # /bob answers 404 to what is left.
     conf = (tmp_path / "etc" / "nginx" / "dpd" / "bob.conf").read_text()
     assert "proxy_pass http://127.0.0.1:8552;" in conf
+
+
+def test_the_forced_change_marker_is_written_last_with_mode_600(
+    tmp_path: Path,
+) -> None:
+    """The password service reads <user>.initial to force a first change; the
+    only reader is the root-run service, so 600 is deliberate. Written last,
+    a failure above leaves no marker rather than an armed-but-broken user."""
+    add(tmp_path, "dave", "8554")
+
+    marker = tmp_path / "etc" / "nginx" / "dpd" / "dave.initial"
+    assert marker.is_file()
+    assert (marker.stat().st_mode & 0o777) == 0o600
+
+
+def test_a_site_file_without_the_gate_location_warns(tmp_path: Path) -> None:
+    """A rendered conf carries auth_request; without the internal location in
+    the site file that user's URL answers 500 (runbook Step 7e fixes it)."""
+    site = tmp_path / "etc" / "nginx" / "sites-available" / "dpd-contrib"
+    site.parent.mkdir(parents=True)
+    site.write_text("server {\n}\n", encoding="utf-8")
+
+    result = add(tmp_path, "erin", "8555")
+    assert result.returncode == 0
+    assert "_dpd_pw_check" in result.stderr

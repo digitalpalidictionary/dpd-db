@@ -106,6 +106,21 @@ sed -e "s|@USER@|$(id -un)|g" -e "s|@HOME@|$HOME|g" -e "s|@CLONE@|$clone|g" -e "
 sudo systemctl daemon-reload
 step_done
 
+step "password service unit"
+# The change-password service behind /<user>/password/ (runbook Step 7e).
+# Root on purpose: it rewrites /etc/nginx/dpd/*.htpasswd and chgrps its
+# socket to nginx's group at startup. While it is down, the editor
+# locations answer 500; Restart=always brings it back within 5 s.
+if [[ -f /etc/systemd/system/dpd-password.service ]]; then
+    echo "skipped: /etc/systemd/system/dpd-password.service exists"
+else
+    sed -e "s|@CLONE@|$clone|g" \
+        scripts/server_contrib/dpd-password.service | sudo tee /etc/systemd/system/dpd-password.service >/dev/null
+    sudo systemctl daemon-reload
+    sudo systemctl enable --now dpd-password
+fi
+step_done
+
 step "clean tree gate"
 dirty="$(git status --porcelain --untracked-files=no)"
 if [[ -n "$dirty" ]]; then

@@ -1,0 +1,23 @@
+**Restatement (naive reader).** A contributor's editor at `https://host/<user>/` is behind nginx basic auth per user. A FastAPI service on 127.0.0.1:8500 gets a `/<user>/password/` location (same realm) where the contributor types a new password twice. When the maintainer creates or resets a password he writes `/etc/nginx/dpd/<user>.initial`; while that file exists, an `auth_request` subrequest to `/check` returns 403 for the editor, and an `error_page` 302 sends the browser to the password page, which is the only reachable place. On success the service rewrites the existing htpasswd via a temp file + `os.replace` while preserving mode/gid, verifies, then deletes the marker. A `set_password.sh` is the maintainer's reset. Tests drive the write logic with an injectable directory.
+
+Where I stalled:
+
+**1. Blocker — stray `_` in the redirect target.** `spec.md:126` `error_page 403 =302 /@USER@_/password/;`. `add_contributor.sh:152` substitutes `@USER@` → `/alice_/password/`, which matches no location. Scenario: marker armed, user logs in, gets a 302 to a 404, retries, same 302 — the editor is permanently unreachable until the maintainer resets. Fix: `/@USER@/password/`.
+
+**2. Blocker — `error_page` at server level.** The per-user file is `include`d inside `server {}` (`nginx_contrib.conf.template:15`), so an `error_page` written in it applies to the whole server, and ~5 included files each override the last. Any 403 anywhere (that user, another user, `/status`) redirects to the last-registered user's password page. Fix: place it inside `location /@USER@/ { }`.
+
+**3. Blocker — the shared internal location is optional in the runbook.** `spec.md:143` puts `/_dpd_pw_check` in the site template, but `spec.md:168` says add it to the live site file "if regenerating it". The live file was already regenerated (`NEW_SERVER_RUNBOOK.md` 6d) and hand-patched (7d), so it will not be regenerated. Then every `auth_request` names a location that does not exist and the editor answers 500 for all users. Fix: unconditional exact patch command + `nginx -T | grep -c _dpd_pw_check` CHECK.
+
+**4. Blocker — `/check` behaviour with no Authorization header is undefined**, and so is whether `auth_basic`'s 401 runs before `auth_request`'s verdict. If a missing header yields 403, then a first visit with no cached credentials is 302'd to the password page for every user, marker or not. Fix: state "200 when the header is absent/undecodable; 403 only for a decodable, valid, existing user with a marker", and add a runbook CHECK (fresh browser → 401, not 302).
+
+**5. Major — identity plumbing unstated.** `proxy_pass http://127.0.0.1:8500/;` strips the prefix, so upstream sees `/`; the username exists only in the header, yet no snippet sets `proxy_set_header Authorization $http_authorization;` in either location. Fix: put it in both snippets.
+
+**6. Major — the unit cannot be written from this text.** `spec.md:154`: `ExecStart` `.venv/bin/python -m uvicorn` is a relative path, with no `WorkingDirectory`, no `User` (must be root to write `/etc/nginx/dpd`), no module/object name, and `.venv` may not exist where the other units use `@UV@ run` (`dpd-gui@.service:18,23`; `server_setup.sh:113`). Fix: `@CLONE@/.venv/bin/python -m uvicorn scripts.server_contrib.password_service:app --host 127.0.0.1 --port 8500`, `WorkingDirectory=@CLONE@`, `User=root`.
+
+**7. Major — "every attempt logs one line" vs `/check` per editor request.** A Flet page sends many requests; one journald line each floods or silently violates the rule. Scope logging to `GET /` and `POST /`.
+
+**8. Major — the marker escapes `--root`.** `add_contributor.sh` prefixes all paths with `$root` (`:66-70`); an unrooted `.initial` writes to the real `/etc`, and `test_bad_input_is_refused_and_creates_nothing` (`test_add_contributor.py:105`) breaks. Also `umask 077` at `:104` yields 600, not the promised 644. Fix: `$nginx_dir/` + explicit `chmod 644`.
+
+**9. Major — "injectable htpasswd directory" names no mechanism** (env var, app factory, or dependency override), and the gid test needs a chgrp-able group exactly as `test_add_contributor.py:24-45` discovers one.
+
+**10. Nits.** `spec.md:35` "jinja2-level imports" contradicts `spec.md:242` "no template engine needed". "The same rule as `add_contributor.sh`" omits that script's second rule, the `added` substring (`:39-42`). `/health` has no nginx location, so a `https://DOMAIN/health` CHECK 404s — say `curl 127.0.0.1:8500/health`. The "1 hour" old-login caveat has no stated mechanism. The runbook substep names no parent step, yet that file demands exact commands plus CHECK/EXPECT.

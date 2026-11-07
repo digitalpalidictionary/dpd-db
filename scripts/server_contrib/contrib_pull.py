@@ -587,9 +587,9 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--dry-run", action="store_true")
     args = parser.parse_args()
-    target = config_read("epitaka_server", "ssh")
+    target = config_read("dpd_contributor_server", "ssh")
     if not target:
-        sys.stderr.write("[epitaka_server] ssh is not set in config.ini\n")
+        sys.stderr.write("[dpd_contributor_server] ssh is not set in config.ini\n")
         return 1
     repo = Path.cwd()
     logs = repo / "logs"

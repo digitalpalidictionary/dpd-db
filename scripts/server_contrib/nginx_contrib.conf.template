@@ -11,4 +11,23 @@ server {
     ssl_certificate_key /etc/letsencrypt/live/@SERVER_NAME@/privkey.pem;
 
     include /etc/nginx/dpd/*.conf;
+
+    # The forced-first-change subrequest for every user's auth_request
+    # gate (one definition per server; per-user confs only reference it).
+    # Requires dpd-password.service to be running: while it is down, the
+    # editor locations answer 500 until systemd revives it.
+    location = /_dpd_pw_check {
+        internal;
+        proxy_pass http://unix:/run/dpd-password.sock:/check;
+        proxy_pass_request_body off;
+        proxy_set_header Content-Length "";
+        # The gate depends on this header; state it, never rely on the
+        # pass-through default (herdr review N1).
+        proxy_set_header Authorization $http_authorization;
+        # The subrequest inherits the websocket handshake's upgrade headers.
+        proxy_set_header Upgrade "";
+        proxy_set_header Connection "";
+        proxy_connect_timeout 2s;
+        proxy_read_timeout 5s;
+    }
 }

@@ -1044,7 +1044,7 @@ def test_main_without_the_ssh_setting_stops_with_a_message(
     monkeypatch.setattr(contrib_pull, "config_read", lambda section, option: "")
     monkeypatch.setattr(sys, "argv", ["contrib_pull.py"])
     assert contrib_pull.main() == 1
-    assert "[epitaka_server] ssh is not set" in capsys.readouterr().err
+    assert "[dpd_contributor_server] ssh is not set" in capsys.readouterr().err
 
 
 def test_main_writes_a_failed_notice_back_to_the_status_file(
