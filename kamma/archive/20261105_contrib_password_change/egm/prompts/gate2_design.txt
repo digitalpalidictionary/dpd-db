@@ -10,6 +10,6 @@ Read the inputs and every file they reference. Open at most 15 files.
 Report each finding as: severity (Blocker / Major / Nit), evidence as file:line, the failure scenario, and the fix.
 Lead with problems. No praise. Use at most 600 words.
 
-INPUTS: The spec is kamma/threads/20261105_contrib_password_change/spec.md. The repo root is /home/bodhirasa/MyFiles/3_Active/dpd-db (the current working directory). Read the spec and every repo file it references (scripts/server_contrib/*, tests/scripts/server_contrib/*, pyproject.toml).
+INPUTS: The spec is kamma/threads/20261105_contrib_password_change/spec.md. The repo root is <repo-root> (the current working directory). Read the spec and every repo file it references (scripts/server_contrib/*, tests/scripts/server_contrib/*, pyproject.toml).
 
 TASK: You are the design critic. Attack the design: decisions presented as facts, alternatives never weighed, unhandled failure modes and boundary/error behavior, and anything an implementer would later have to invent because the spec was silent. Pay special attention to: the auth_request gate mechanics (subrequest semantics, what headers reach the service, websocket upgrade), the atomic write path, the error_page redirect form, and the interplay between the nightly git pull and the manual nginx/unit deployment.

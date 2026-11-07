@@ -10,6 +10,6 @@ Read the inputs and every file they reference. Open at most 15 files.
 Report each finding as: severity (Blocker / Major / Nit), evidence as file:line, the failure scenario, and the fix.
 Lead with problems. No praise. Use at most 600 words.
 
-INPUTS: Read kamma/threads/20261105_contrib_password_change/egm/brief.md (request, anchored hypothesis, claims-to-recheck facts list, prior art). The repo root is /home/bodhirasa/MyFiles/3_Active/dpd-db (the current working directory); verify claims against real source.
+INPUTS: Read kamma/threads/20261105_contrib_password_change/egm/brief.md (request, anchored hypothesis, claims-to-recheck facts list, prior art). The repo root is <repo-root> (the current working directory); verify claims against real source.
 
 TASK: Lens = Cost, quota and token economics. What is the peak load, memory footprint, query load of this change? The host has 2 vCPU and 8 GB RAM and memory was already cut twice (kamma/archive/20261102_*). Does the new service or its bcrypt work hit any ceiling (number of contributors, concurrent requests, nightly db rebuild co-running at 01:00)?

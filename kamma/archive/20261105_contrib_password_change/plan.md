@@ -262,14 +262,28 @@
   source; nothing is deployed from the plan).
   → verify: handoff note in the final report names runbook Steps 7e
   and 11d (the live checks landed in 11d, a new lettered substep —
-  recorded per the drift gate). THE DEPLOY IS NOT RUN: it needs the
-  live server and the OWNER.
-- [ ] OWNER deploy confirmation (owner-run, ssh, per runbook 7e): every
+  recorded per the drift gate). DEPLOYED 2026-11-07 — see the deploy
+  confirmation task below for the CHECK outputs.
+- [x] OWNER deploy confirmation (owner-run, ssh, per runbook 7e): every
   7e CHECK passes on the live server — fresh browser → 401; armed
   marker → 302 with `Location:`; change → old password 401 / new 200;
   `stat 640 root:www-data`; marker gone; socket health; kill → revive
   AND the socket is still `660 root:www-data`.
-  → verify: owner reports each CHECK output back into this task's note;
+  → verify: DEPLOYED 2026-11-07 to `<server-ip>` (`<host>`),
+  one user bdhrs. Unit active+enabled, health ok, socket
+  `660 root:www-data` on first start and again after a kill → revive.
+  Site file patched once (idempotent), bdhrs.conf regenerated, nginx -t
+  clean, reloaded. Outside checks: no creds → 401 editor / 401 page /
+  401 status; login, no marker → 200; armed → `302 ->
+  https://<domain>/bdhrs/password/` with page still 200;
+  disarmed → 200. Write path proven as real root against a scratch
+  htpasswd: mode `0o640` → `0o640`, gid `33` → `33` (www-data), marker
+  cleared, `.bak` written, no temp left, old password exit 3 / new exit
+  0. Owner then changed their live password in the browser: mtime moved
+  to 20:06, `POST bdhrs … ok`, `.bak` created, mode still 640
+  root:www-data, marker gone. Only friction: the browser's password
+  manager fought the form for a moment (owner: a few minor problems,
+  now working). THE DEPLOY IS NOT RUN line above is superseded by this.
   the task stays open until then (blocks nothing).
 
 ## Post-review

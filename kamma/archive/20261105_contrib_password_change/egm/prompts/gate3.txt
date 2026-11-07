@@ -10,6 +10,6 @@ Read the inputs and every file they reference. Open at most 15 files.
 Report each finding as: severity (Blocker / Major / Nit), evidence as file:line, the failure scenario, and the fix.
 Lead with problems. No praise. Use at most 600 words.
 
-INPUTS: The plan is kamma/threads/20261105_contrib_password_change/plan.md; its spec is kamma/threads/20261105_contrib_password_change/spec.md. The repo root is /home/bodhirasa/MyFiles/3_Active/dpd-db (the current working directory). Read the plan, the spec, and every repo file they reference (scripts/server_contrib/*, tests/scripts/server_contrib/*, kamma/workflow.md).
+INPUTS: The plan is kamma/threads/20261105_contrib_password_change/plan.md; its spec is kamma/threads/20261105_contrib_password_change/spec.md. The repo root is <repo-root> (the current working directory). Read the plan, the spec, and every repo file they reference (scripts/server_contrib/*, tests/scripts/server_contrib/*, kamma/workflow.md).
 
 TASK: For each task in the plan, can you implement it without making a design decision the plan did not specify? Flag every task that forces the implementer to invent something — an interface, a default value, a file location, an error strategy, a schema — each with severity (Blocker/Major/Nit). The plan's executor rules say repo tasks run in this clone and the server deploy is owner-run via the runbook: check every task against those executor rules and against kamma/workflow.md's task workflow (verify lines, phase-end verification).
