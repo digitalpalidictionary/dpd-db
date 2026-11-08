@@ -222,7 +222,7 @@ async function performTTSearch(addHistory = true, syncTerms = true) {
           } catch (e) {
             // Invalid regex, escape it as literal string
             regex = new RegExp(
-              `(${q.replace(/[.*+?^${}()|[\\]\\]/g, "\\$&")})`,
+              `(${q.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")})`,
               "gi"
             );
           }
@@ -461,7 +461,7 @@ function highlightTextNodes(element, filter) {
   nodesToReplace.forEach((node) => {
     const span = document.createElement("span");
     const regex = new RegExp(
-      `(${filter.replace(/[.*+?^${}()|[\\]\\]/g, "\\$&")})`,
+      `(${filter.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")})`,
       "gi"
     );
     span.innerHTML = node.nodeValue.replace(
