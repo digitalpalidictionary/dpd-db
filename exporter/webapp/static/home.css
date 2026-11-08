@@ -668,10 +668,9 @@ a {
   color: var(--dark);
   cursor: pointer;
   display: inline-flex;
-  font-size: 0.8em;
-  padding: 5px 10px;
+  padding: 0;
   transition: 1s;
-  width: auto;
+  width: 24px;
   align-items: center;
   justify-content: center;
   min-width: 24px;
@@ -681,6 +680,13 @@ a {
 .clear-history-button:hover {
   box-shadow: var(--shadow-hover);
   background-color: red;
+}
+
+/* The history pane scrolls, so a tooltip above the button is cut off at the
+   pane's top edge. Show this one below the button instead. */
+.clear-history-button[data-title]:hover::after {
+  bottom: auto;
+  top: 125%;
 }
 
 p.message {
