@@ -31,6 +31,8 @@
             const read = window.dpdReadPreference;
             if (read("theme") === "dark") root.classList.add("dark-mode");
             if (read("sans-serif-toggle") === "true") root.classList.add("serif-font");
+            const fontSize = read("fontSize");
+            if (/^\d+$/.test(fontSize)) root.style.setProperty("--saved-font-size", fontSize + "px");
             ["history", "settings"].forEach(function (name) {
                 let collapsed = read(name + "-pane_collapsed");
                 // Older versions saved Settings under an empty element id.

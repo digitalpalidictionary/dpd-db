@@ -102,7 +102,8 @@ body {
   background-color: var(--light);
   color: var(--dark);
   font-family: var(--font-body);
-  font-size: 1em;
+  /* set before the first paint from the saved setting; home.js then sets the same size */
+  font-size: var(--saved-font-size, 1em);
   transition: 1s;
   scroll-behavior: smooth;
   height: 100vh;
