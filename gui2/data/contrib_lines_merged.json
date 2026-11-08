@@ -14,6 +14,11 @@
         "vijjurivabbhakūṭaṃ",
         "sabbamāhariṃ"
     ],
+    "checked_bdhrs.csv": [
+        "ticīvaraṃdāsiṃ",
+        "madhurenāhaṃ",
+        "vadanañcāpi"
+    ],
     "db_test_exceptions_alice.tsv": [],
     "manual_corrections_alice.tsv": [
         "kopāhanā\tko + upāhanā",
