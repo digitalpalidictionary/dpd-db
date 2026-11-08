@@ -161,6 +161,19 @@ def test_example_1_is_the_first_chosen_sentence(
     assert saved["example_2"] == "epitaka pali"
 
 
+def test_family_compound_from_the_ai_is_not_saved(
+    monkeypatch: pytest.MonkeyPatch, tmp_path
+) -> None:
+    ctrl = make_controller(monkeypatch, tmp_path)
+    compile_for(ctrl, "nara", [("sc pali", "sc english")], [])
+    ctrl.response = '{"lemma_1": "nara", "family_compound": "loka nāyaka"}'
+    ctrl.update_auto_processed(None, None)
+
+    saved = ctrl.auto_processed_dict["nara"]
+    assert saved["lemma_1"] == "nara"
+    assert "family_compound" not in saved
+
+
 def test_loop_lets_the_screen_run_during_ai_calls(
     monkeypatch: pytest.MonkeyPatch, tmp_path
 ) -> None:

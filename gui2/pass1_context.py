@@ -1,7 +1,7 @@
 """Context and prompts for Pass1 Auto.
 
 The sentence picker, related entries in the answer's JSON shape, the real
-dictionary values, and the old and new prompt builders. Plain inputs only,
+dictionary values, and the prompt builder. Plain inputs only,
 so the prompt test (kamma thread 20261104_pass1_auto_prompt) and gui2 run
 the same code."""
 
@@ -27,14 +27,11 @@ ANSWER_KEYS: tuple[str, ...] = (
     "root_sign",
     "root_base",
     "family_root",
-    "family_compound",
     "construction",
     "stem",
     "pattern",
     "comment",
 )
-
-SYSTEM_PROMPT_OLD = "Follow the instructions very carefully."
 
 SYSTEM_PROMPT = (
     "You are a Pāḷi grammarian who writes draft entries for the Digital Pāḷi "
@@ -183,7 +180,6 @@ def related_entry_dict(headword: DpdHeadword) -> dict[str, str | int]:
         "root_sign": headword.root_sign,
         "root_base": headword.root_base,
         "family_root": headword.family_root,
-        "family_compound": headword.family_compound,
         "construction": headword.construction,
         "stem": headword.stem,
         "pattern": headword.pattern,
@@ -226,135 +222,6 @@ def load_allowed_values(db_session: Session) -> AllowedValues:
     )
 
 
-# --- old prompt ---
-
-
-def build_old_prompt(word: str, sentences: list[Sentence], related: list[str]) -> str:
-    """The prompt gui2 sent until 2026-11, word for word."""
-
-    prompt = f"""
-## Word in the text
-{word}
-
-## Sentences: 
-{"\n".join([f"{count}. Pāḷi : {pali}\n{count}. English: {english}\n" for count, (pali, english) in enumerate(sentences)])}
-
-## Related dictionary entries:
-{"\n".join([f"- {entry}" for entry in related])}
----        
-You are an expert in Pāḷi grammar.
-Based on the information above, please provide your very best suggestion of the word's:
-
-1. lemma_1
-2. lemma_2
-3. pos
-4. grammar
-5. meaning_2
-6. root_key
-7. root_sign
-8. root_base
-9. family_root
-10. family_compound
-11. construction
-12. stem
-13. pattern
-14. comment
-
-## lemma_1 field
-- This must be word in the text, without case endings. 
-- Inflected verbs must be in 3rd singular, e.g. gacchanti = `gacchati`
-- Declined nouns, adjectives and participles in vocative singular, e.g. narena = `nara`
-- Sandhi compounds should be left example as they are, and pos marked as sandhi e.g. `chahaṅgehi`
-
-## lemma_2 field
-- For verbs, participles, adjectives, adverbs, etc. it is the same as lemma_1
-- For nouns, it is the nominitve singular, e.g. buddha = `buddho`
-
-
-## pos field
-- For adverbs, and all indecliables, the pos is `ind`. The grammar is `ind, adv`.
-- In general, words ending in `ādi` are `masc`. 
-- The only parts of speech to be added are these:
-abbrev: abbreviation
-abs: absolutive
-adj: adjective
-aor: aorist
-card: cardinal number
-cond: conditional verb
-cs: conjugational sign
-fem: feminine noun
-fut: future verb
-ger: gerund
-idiom: idiomatic expression
-imp: imperative verb
-imperf: imperfect verb
-ind: indeclinable
-inf: infinitive
-letter: letter of the alphabet
-masc: masculine noun
-nt: neuter noun
-opt: optative verb
-ordin: ordinal number
-perf: perfect verb
-pp: past participle
-pr: present tense verb
-prefix: prefix
-pron: pronoun
-prp: present participle
-ptp: potential participle
-root: root
-sandhi: sandhi compound
-suffix: suffix
-ve: verbal ending
-
-## grammar field
-- If the word is a compound, include part of speech, comma, comp e.g. dhammavinaya = `masc, comp`
-- If the word is a noun derived from a root, show the word it is derived from e.g. vinaya = `masc, from vineti`
-- If the word is a verbal form display it like this: avitaranta = `prp of na vitarati`
-- if the word is a sandhi compound, grammar is sandhi and parts of speech, e.g. `sandhi, masc + pron`
-
-## meaning_2 field
-- Compare the Pāḷi sentence with the English sentence to understand how the word is being used in context. If possible provide multiple meanings, separated by semicolons. e.g. nara = man; person; human being
-- In vinaya, words ending in vatthu mean 'case of ...'
-
-## construction field
-- Construction must be pure Pāḷi construction, no English. e.g. anupassati = `anu + passa + ti`, māra = `√mar > mār + *a`
-
-## root_key, root_sign, root_base, family_root
-- These fields only apply to words with a root, not to compounds. 
-- Unless the word is derived from a root, leave them empty. 
-
-## family root field
-- The family_root is all the verbal prefixes and the root separated by spaces, e.g. samūhantabba = saṃ ud √han, anukamma = anu √kar
-
-## family_compound
-- The field only applies to words that are compounds. 
-- Items are space separated, no plus signs +
-- Taddhita should be reduced to kita, e.g. pannarasaka = `pannarasa`
-- Negatives should just show the positive components, e.g. nadhammagaruka = `dhamma garu`
-- Inflected forms should be vocative sg, e.g. mūlāya = `mūla`
-
-## stem and pattern
-- For sandhi stem is `-`, pattern is empty
-- For all indeclinables, infinitives, absolutes adverbs, stem is `-`, pattern is empty
-- Carefully analyse the provided stems and patterns, and don't make anything up.
-
-## all other fields
-- Analyse the related dictionary entries above and use the same style and pattern. Only add the required data, no commentary.
-
-## comment
-- Add your own commentary to this field, not to any other field.
-- Only mention anything relevant or interesting, nothing that is already in other fields. 
-- Explain the meaning according to the contextual sentence. 
-
-## Return
-- Return your results as a pure JSON, without any preceding or following text. Pure JSON only. 
----
-
-"""
-    return prompt
-
-
 # --- new prompt ---
 
 _EXAMPLE_WORD = "lokanāyakaṃ"
@@ -370,7 +237,6 @@ _EXAMPLE_ANSWER: dict[str, str] = {
     "root_sign": "",
     "root_base": "",
     "family_root": "",
-    "family_compound": "loka nāyaka",
     "construction": "loka + nāyaka",
     "stem": "lokanāyak",
     "pattern": "a masc",
@@ -423,13 +289,6 @@ _FIELD_RULES = """\
 - root_sign: pick one from the list below.
 - root_base: for verbs and verb forms only. The root + sign > base, with (caus) or (irreg) where it applies: "√bhū + *e > bhāve (caus)", "√gam + a > gama > gaccha (irreg)". Empty for nouns and adjectives.
 - family_root: the prefixes and the root, separated by spaces, without the root's number: "upa saṃ √kam", "pa √sad", "√gam".
-
-## family_compound
-- Compounds: the dictionary form of each part, separated by spaces, no +: "loka nāyaka", "akusala kamma patha". Suffixes such as -ka, -tā or -ya are not parts.
-- Negative compounds show only the positive parts: nadhammagaruka = "dhamma garu".
-- A noun or adjective made from another word: that word ("gāma" for gāmaṇi, "sīla" for sīlavant, "agāra" for agāraka).
-- Verbs and participles: the same as lemma_1.
-- Sandhi: empty.
 
 ## construction
 - Pāḷi only, no English. Parts are joined with " + ".

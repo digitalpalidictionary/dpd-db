@@ -482,6 +482,10 @@ class Pass1AutoController:
             # Try parsing the cleaned response
             parsed_json = loads(cleaned_response)
 
+            # Pass1 entries have no meaning_1, so a compound family never
+            # shows for them, and beginners find it too hard to fill in.
+            parsed_json.pop("family_compound", None)
+
             # add ai details
             if provider:
                 try:

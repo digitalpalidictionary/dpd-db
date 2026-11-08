@@ -2,9 +2,11 @@ from gui2.pass1_context import (
     ANSWER_KEYS,
     AllowedValues,
     build_new_prompt,
-    build_old_prompt,
     choose_sentences,
+    related_entry_dict,
 )
+from db.models import DpdHeadword
+from gui2.dpd_fields_lists import PASS1_FIELDS
 
 ALLOWED = AllowedValues(
     pos=["masc", "adj"],
@@ -113,10 +115,16 @@ def test_prompt_lists_answer_keys_and_real_values() -> None:
     assert "a masc · a adj" in fixed
     assert "√kam 1 (walk, go)" in fixed
     assert "masc: masculine noun" in fixed
+    assert "family_compound" not in _prompt("x")
 
 
-def test_old_prompt_sentence_and_related_lines() -> None:
-    prompt = build_old_prompt("w", [("pali text", "english text")], ["lemma_1: x"])
-    assert "## Word in the text\nw\n" in prompt
-    assert "0. Pāḷi : pali text\n0. English: english text\n" in prompt
-    assert "## Related dictionary entries:\n- lemma_1: x\n---        \n" in prompt
+def test_related_entries_leave_out_family_compound() -> None:
+    headword = DpdHeadword(id=1, lemma_1="lokanāyaka", family_compound="loka nāyaka")
+    entry = related_entry_dict(headword)
+    assert "family_compound" not in entry
+    assert entry["lemma_1"] == "lokanāyaka"
+
+
+def test_pass1_screen_does_not_show_family_compound() -> None:
+    assert "family_compound" not in PASS1_FIELDS
+    assert "family_word" in PASS1_FIELDS

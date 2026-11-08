@@ -333,7 +333,6 @@ PASS1_FIELDS = [
     "root_sign",
     "root_base",
     "construction",
-    "family_compound",
     "family_word",
     "stem",
     "pattern",
