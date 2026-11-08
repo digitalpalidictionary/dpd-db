@@ -535,3 +535,5 @@
 - 2026-11-08 [BEHAVIOR] Two long wrap-up summaries were rejected as a wall of text. Give one decision at a time, with the file named, and stop.
 - 2026-11-08 [WORKFLOW] The Azure DeepSeek flash review gave no output after 72 s. The user asked to switch to the DeepSeek API, which answered in under a minute per group.
 - 2026-11-08 [POSITIVE] Checking the reviewer's claim against the key handler showed that tooltip hints must follow the page's web flag, not the server role. Two other reviewer claims (a missing test file, a test green on revert) were false when checked.
+2026-11-08 [WORKFLOW] contrib tablet: the first report ("not scrolling") was really a fixed header filling a short screen; a phone on the debug cable plus a 401 count in the nginx log found both causes in minutes. Ask for the exact symptom and read the server log before reading code.
+2026-11-08 [REPEATED] User asked for the short version after two long replies; keep every reply to a few lines.

@@ -136,6 +136,7 @@ db = get_db_session(Path("dpd.db"))
 Unless specified, the repo is https://github.com/digitalpalidictionary/dpd-db.
 
 - **Commit only when asked, NEVER unasked.** Format, all lowercase: `#issue area: change1, change2` (e.g. `#67 webapp: updated css, fixed overflow`). Max 72 chars on the first line.
+- **Merged PR commits follow the same format.** Contributor PR titles often lack the issue number (#288 and #286 merged without one, 2026-11-08). Before `gh pr merge`, check the title; if it has no `#issue`, find the issue and pass `--subject "#NNN area: change (#PR)"` (lowercase, max 72 chars). Never merge first and fix later: `main` allows force pushes since 2026-11-08, but rewriting it is a last resort.
 - This repo has an automated "data update" commit habit running independently of any session, which can re-track a file you `git rm --cached`'d earlier (it happened to `tools/proofreader.tsv`). Before finalizing a thread that untracked a file, verify with `git ls-files <path>`.
 - **NEVER write to GitHub issues unless specifically asked.** This covers ALL writes: creating, commenting, editing body/title, checklist items, closing/reopening, labelling. Noticing a follow-up is not a licence to touch the tracker — report it to the user.
 - Write issue comments in the user's style: short, direct, lowercase sentence starts, minimal punctuation.
