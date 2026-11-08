@@ -240,6 +240,63 @@ This fetches `origin/contributions`, merges it into local `main`, and runs
   and `contrib_lines_merged.json` with the TSV backup, so the logs reach main
   together with the words they describe. The server never runs it.
 
+## Adding a contributor
+
+Done and verified on 2026-11-08 for the user `deva` (port 8552). Run it as
+root on the server, in `/root/dpd-db`. The target comes from
+`[dpd_contributor_server] ssh` in `config.ini`; never write the address here.
+
+1. Pick a free port. `grep -h "^FLET_SERVER_PORT" /etc/dpd/*.env` lists the
+   used ones; take the next number up from 8551. The script refuses a port
+   that is already taken.
+2. Pick the user name: lower-case letters, digits or `_`, starting with a
+   letter, and without `added` in it. `/etc/dpd/<user>.env` must not exist.
+3. Create the login, the env file, the nginx file and the data folder. The
+   password is read from stdin when stdin is a pipe, so it never sits in a
+   file:
+
+   ```bash
+   cd /root/dpd-db
+   printf '<password>\n' | bash scripts/server_contrib/add_contributor.sh <user> <port> ["Extra,Tabs"]
+   ```
+
+   A contributor gets the tabs Pass1Add and Transl. Extra tabs are optional
+   and come only from `Bold Search`, `DB`, `√`, `Infl`; the last three are
+   read-only (see `gui2/contributor_tabs.py`).
+4. Start the editor and let nginx see the new file:
+
+   ```bash
+   systemctl enable --now dpd-gui@<user>
+   nginx -t && systemctl reload nginx
+   ```
+
+5. Add the unit to the nightly job, or the window will not stop it before the
+   pull and the rebuild. Back up the crontab first, then add one more
+   `--instance dpd-gui@<user>` to the `maintenance_window.py` line:
+
+   ```bash
+   mkdir -p /root/mem && crontab -l > /root/mem/crontab.before_<user>
+   crontab -l | sed 's|--instance dpd-gui@<last user>|& --instance dpd-gui@<user>|' | crontab -
+   crontab -l | grep -o -- '--instance [^ ]*'
+   ```
+
+6. Check it from outside, not just on the server (host = the server's
+   `https://<ip with dashes>.sslip.io`):
+   - `systemctl is-active dpd-gui@<user>` prints `active`, and `NRestarts` is `0`.
+   - `curl -s -o /dev/null -w '%{http_code}' https://<host>/<user>/` prints `401`.
+   - The same with `-u <user>:wrong` prints `401`.
+   - The same with `-u <user>:<password>` prints `302`, redirected to
+     `/<user>/password/`. That is the forced first password change; the marker
+     `/etc/nginx/dpd/<user>.initial` makes it happen, and the service deletes
+     the marker once they choose a new password.
+   - The other users' services are still `active`.
+7. Send the user their URL, user name and temporary password. Send the
+   password in a separate message from the URL.
+
+The data folder is shared and flat (`additions_<user>.json` and so on), so
+nothing is created per user there. Give each contributor a different Pass1
+book, as the note in `gui2/pass1_file_manager.py` asks.
+
 ## Removing a contributor
 
 Resetting a password (contributor forgot theirs, or it must change):
