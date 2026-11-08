@@ -1503,19 +1503,6 @@
                 Fix it here</a>.
         </p>
     </div>
-    {% endif %} {% if d.i.needs_sets_button %}
-    <div id="sets_{{d.i.lemma_1_}}" class="dpd content hidden">
-        {% for f in d.fs %} {% if loop.index0 == 0 %}
-        <p class="heading underlined">{% else %}</p>
-
-        <p class="heading underlined overlined">
-            {% endif %}
-            <b>{{d.i.lemma_clean}}</b>
-            belongs to the set of
-            <b>{{f.set}}</b>
-        </p>
-        {{f.html|safe}} {% endfor %}
-    </div>
     {% endif %}
 
     <!-- frequency -->

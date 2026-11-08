@@ -5,6 +5,7 @@ import types
 from types import SimpleNamespace
 from typing import cast
 
+import pytest
 from jinja2 import Environment, FileSystemLoader
 
 sys.modules.setdefault(
@@ -239,3 +240,33 @@ def test_dpd_headword_every_compound_family_heading_has_jump_link() -> None:
 
     for family in ("kata", "kara"):
         assert 'href="#test_headwordcf_top"' in _family_heading(html, family)
+
+
+@pytest.mark.parametrize("set_names", [("numbers",), ("numbers", "colours")])
+def test_dpd_headword_renders_each_set_once_with_working_button(
+    set_names: tuple[str, ...],
+) -> None:
+    d = _make_template_data(SuttaInfo(dpd_sutta="", dpd_code=""))
+    d.i.needs_sutta_info_button = False
+    d.i.lemma_clean = "test headword"
+    d.i.needs_set_button = len(set_names) == 1
+    d.i.needs_sets_button = len(set_names) > 1
+    d.i.family_set_list = list(set_names)
+    d.fs = [
+        SimpleNamespace(
+            set=name,
+            html=f"<table><tr><td>{name} member</td></tr></table>",
+        )
+        for name in set_names
+    ]
+    env = Environment(
+        loader=FileSystemLoader("exporter/webapp/templates"), autoescape=False
+    )
+    html = env.get_template("dpd_headword.html").render(d=d)
+
+    panel = "family_set" if len(set_names) == 1 else "family_sets"
+    target = f"{panel}_test_headword"
+    assert f'data-target="{target}"' in html
+    assert f'id="{target}"' in html
+    for family_set in d.fs:
+        assert html.count(family_set.html) == 1

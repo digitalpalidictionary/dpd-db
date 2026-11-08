@@ -36,12 +36,6 @@ if (ttSearchBox) {
   });
 }
 
-if (ttFilterBox) {
-  ttFilterBox.addEventListener("input", function (e) {
-    filterTTResults(e.target.value);
-  });
-}
-
 if (ttFilterMode) {
   ttFilterMode.addEventListener("change", function () {
     filterTTResults(ttFilterBox.value);
