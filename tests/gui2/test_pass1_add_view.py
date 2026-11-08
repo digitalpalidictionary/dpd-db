@@ -51,9 +51,11 @@ def dpd_fields(monkeypatch: pytest.MonkeyPatch) -> FakeDpdFields:
     view = object.__new__(Pass1AddView)
     view.db = SimpleNamespace(get_headword_by_id=lambda _: headword)  # pyright: ignore[reportAttributeAccessIssue]
     view.dpd_fields = fake_fields  # pyright: ignore[reportAttributeAccessIssue]
+    view.clone_from_field = SimpleNamespace(value="nara 2")  # pyright: ignore[reportAttributeAccessIssue]
     view._history_dropdown = SimpleNamespace(value="1")  # pyright: ignore[reportAttributeAccessIssue]
     view.update_message = lambda _: None  # pyright: ignore[reportAttributeAccessIssue]
     view._handle_history_selection(SimpleNamespace(control=SimpleNamespace(value="1")))  # pyright: ignore[reportArgumentType]
+    fake_fields.clone_from_field = view.clone_from_field  # pyright: ignore[reportAttributeAccessIssue]
     return fake_fields
 
 
@@ -66,3 +68,23 @@ def test_history_load_clears_suggestions(dpd_fields: FakeDpdFields) -> None:
 def test_history_load_keeps_helper_flags(dpd_fields: FakeDpdFields) -> None:
     assert dpd_fields.flags.stem_pattern_done
     assert dpd_fields.flags.lemma_2_done
+
+
+def test_history_load_empties_the_clone_box(dpd_fields: FakeDpdFields) -> None:
+    assert dpd_fields.clone_from_field.value == ""  # pyright: ignore[reportAttributeAccessIssue]
+
+
+def test_clear_all_empties_the_clone_box(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setattr(
+        Pass1AddView, "page", SimpleNamespace(update=lambda: None), raising=False
+    )
+    view = object.__new__(Pass1AddView)
+    monkeypatch.setattr(view, "_build_middle_section", lambda: SimpleNamespace())
+    view.top_section = view.bottom_section = SimpleNamespace()  # pyright: ignore[reportAttributeAccessIssue]
+    view.word_in_text = SimpleNamespace(value="nara", error=None)  # pyright: ignore[reportAttributeAccessIssue]
+    view.clone_from_field = SimpleNamespace(value="nara 2")  # pyright: ignore[reportAttributeAccessIssue]
+    view.update_message = lambda _: None  # pyright: ignore[reportAttributeAccessIssue]
+
+    view.clear_all_fields()
+
+    assert view.clone_from_field.value == ""

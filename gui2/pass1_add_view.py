@@ -372,6 +372,7 @@ class Pass1AddView(ft.Column, PopUpMixin):
         # Clear word_in_text separately
         self.word_in_text.value = ""
         self.word_in_text.error = None
+        self.clone_from_field.value = ""
 
         self.update_message("")
         self.page.update()
@@ -488,6 +489,7 @@ class Pass1AddView(ft.Column, PopUpMixin):
                     for field_name, ui_field in self.dpd_fields.fields.items():
                         if hasattr(headword, field_name):
                             ui_field.value = getattr(headword, field_name)
+                    self.clone_from_field.value = ""
                     self.update_message(f"loaded {headword.lemma_clean} from history")
                 else:
                     self.update_message(
