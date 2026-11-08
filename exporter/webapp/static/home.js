@@ -604,8 +604,11 @@ searchBox.addEventListener("input", function () {
 function clearSearch() {
   searchBox.value = "";
   // The niggahita toggle replaces these elements, so find the current ones.
-  document.getElementById("dpd-results").innerHTML = "";
-  document.getElementById("summary-results").innerHTML = "";
+  // Double-clicking the title removes them, so they may be missing.
+  for (const id of ["dpd-results", "summary-results"]) {
+    const element = document.getElementById(id);
+    if (element) element.innerHTML = "";
+  }
   if (typeof appState !== "undefined") {
     cancelRequests(["dpd"]);
     appState.dpd.searchTerm = "";
