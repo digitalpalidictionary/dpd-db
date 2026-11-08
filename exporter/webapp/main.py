@@ -12,7 +12,7 @@ from fastapi.responses import (
     RedirectResponse,
     Response,
 )
-from exporter.webapp.precompressed_index import IndexStaticFiles
+from exporter.webapp.precompressed_index import IndexStaticFiles, digest
 from fastapi.templating import Jinja2Templates
 from sqlalchemy.exc import OperationalError
 from starlette.convertors import Convertor, register_url_convertor
@@ -89,14 +89,42 @@ with get_db() as db_session:
 
 # Set up templates
 templates = Jinja2Templates(directory=str(pth.webapp_templates_dir))
-# pyrefly: ignore  # jinja2 leaves Environment.globals unannotated, so its value
-# type infers as the union of jinja's own defaults; extending it is the
-# documented usage.
-templates.env.globals["show_tbw"] = config_test("dictionary", "show_tbw", "yes")
 
 # Update CSS
 css_manager = CSSManager()
 css_manager.update_webapp_css()
+
+# pyrefly: ignore  # jinja2 leaves Environment.globals unannotated, so its value
+# type infers as the union of jinja's own defaults; extending it is the
+# documented usage.
+templates.env.globals.update(
+    {
+        "show_tbw": config_test("dictionary", "show_tbw", "yes"),
+        # Every script and style home.html loads shares one version, computed
+        # at startup. Once the server restarts after a change, new pages get
+        # fresh URLs for all of them. The server only has the current files,
+        # so an old cached page, or one rendered while files are replaced
+        # before a restart, can still mix old and new. dpd.css is written
+        # above, so its new content is included.
+        "webapp_asset_version": digest(
+            b"\0".join(
+                (pth.webapp_static_dir / name).read_bytes()
+                for name in (
+                    "dpd.css",
+                    "home.css",
+                    "switch.css",
+                    "tt.css",
+                    "app.js",
+                    "home.js",
+                    "bold_definitions.js",
+                    "tipitaka_translations.js",
+                    "dpd.js",
+                    "sorter.js",
+                )
+            )
+        ),
+    }
+)
 
 # Global CSS and JS
 with open(pth.webapp_css_path, encoding="utf-8") as f:
