@@ -87,8 +87,16 @@ def form_page(user: str, message: str = "") -> str:
 <p><label>Type it again<br><input type="password" name="repeat" required></label></p>
 <p style="color: #555;">Between {MIN_LENGTH_BYTES} and {MAX_LENGTH_BYTES} bytes
 (a plain letter, digit or punctuation mark is one byte).</p>
+<p><label><input type="checkbox" id="show"> Show passwords</label></p>
 <p><button type="submit">Change password</button></p>
-</form>""",
+</form>
+<script>
+document.getElementById("show").addEventListener("change", function () {{
+  var kind = this.checked ? "text" : "password";
+  document.querySelectorAll("input[name=new_password], input[name=repeat]")
+    .forEach(function (box) {{ box.type = kind; }});
+}});
+</script>""",
     )
 
 

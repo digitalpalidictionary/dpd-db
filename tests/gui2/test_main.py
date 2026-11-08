@@ -308,6 +308,7 @@ def _server_app(monkeypatch: pytest.MonkeyPatch, tabs: str, web: bool = False) -
     app._views = {}  # pyright: ignore[reportAttributeAccessIssue]
     app._loading_bar = ft.ProgressBar()  # pyright: ignore[reportAttributeAccessIssue]
     app._db_init_started = False  # pyright: ignore[reportAttributeAccessIssue]
+    app._web_header = ft.Container()  # pyright: ignore[reportAttributeAccessIssue]
     app.toolkit = MagicMock()  # pyright: ignore[reportAttributeAccessIssue]
     dialog = ft.AlertDialog(modal=True)
     dialog.open = False
@@ -785,3 +786,27 @@ def test_tab_bar_shows_the_tooltip(
     tabs = app._tab_bar.tabs  # pyright: ignore[reportAttributeAccessIssue]
     label = tabs[_tab_bar_labels(app).index("DB")].label  # pyright: ignore[reportAttributeAccessIssue]
     assert label.tooltip == expected
+
+
+def test_web_page_scrolls_with_header_inside_canvas(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    app = _server_app(monkeypatch, "DB", web=True)
+    page: Any = app.page
+    canvas = page.add.call_args.args[0]
+    assert page.scroll == ft.ScrollMode.AUTO
+    assert canvas.height == App._WEB_CANVAS_MIN_HEIGHT
+    assert canvas.content.controls == [app._web_header, app.tabs]  # pyright: ignore[reportAttributeAccessIssue]
+
+
+def test_web_canvas_grows_with_a_tall_window_and_never_shrinks(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    app = _server_app(monkeypatch, "DB", web=True)
+    page: Any = app.page
+    canvas = page.add.call_args.args[0]
+    canvas.update = MagicMock()
+    page.on_resize(SimpleNamespace(height=1400))
+    assert canvas.height == 1400
+    page.on_resize(SimpleNamespace(height=500))
+    assert canvas.height == App._WEB_CANVAS_MIN_HEIGHT

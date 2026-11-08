@@ -6,9 +6,16 @@ from rich import print
 class AppBarUpdater:
     def __init__(self, page: ft.Page) -> None:
         self.page: ft.Page = page
+        # Set on the web, where the counts sit in a header that is not the
+        # page's AppBar.
+        self.counter: ft.Text | None = None
 
     def update(self, message: str) -> None:
         """Updates the first action item's value in the page's appbar."""
+        if self.counter is not None:
+            self.counter.value = message
+            self.page.update()
+            return
         if not self.page.appbar:
             print("[yellow]Warning:[/yellow] Page appbar is not set.")
             return

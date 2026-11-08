@@ -239,3 +239,13 @@ def test_service_store_is_one_shared_instance(
         assert password_service.store() is password_service.store()
     finally:
         password_service.store.cache_clear()
+
+
+def test_form_page_has_show_passwords_box() -> None:
+    page = password_service.form_page("alice")
+    assert 'id="show"' in page
+    assert "Show passwords" in page
+    # The script is an f-string body: a lone brace would have raised, and the
+    # doubled braces must come out as single ones.
+    assert "box.type = kind;" in page
+    assert "{{" not in page

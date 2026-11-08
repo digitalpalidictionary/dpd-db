@@ -5,7 +5,7 @@ import threading
 import time
 from collections.abc import Callable
 from pathlib import Path
-from typing import TYPE_CHECKING, Any
+from typing import TYPE_CHECKING, Any, cast
 
 import flet as ft
 
@@ -179,14 +179,29 @@ class App:
                 ]
             )
 
-        page.appbar = ft.AppBar(
-            title=ft.Text("dpd gui"),
-            bgcolor=ft.Colors.LIGHT_BLUE_900,
-            elevation=100,
-            title_spacing=20,
-            center_title=False,
-            actions=appbar_actions,
-        )
+        if page.web:
+            # A page-level AppBar is fixed, and on a short tablet screen it and
+            # the tab row leave no room for the fields. This header sits in the
+            # scrolling canvas instead, so it scrolls away.
+            self.toolkit.appbar_updater.counter = cast(ft.Text, appbar_actions[0])
+            self._web_header = ft.Container(
+                content=ft.Row(
+                    [ft.Text("dpd gui", size=22), ft.Row(appbar_actions)],
+                    alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
+                ),
+                bgcolor=ft.Colors.LIGHT_BLUE_900,
+                padding=ft.Padding.symmetric(horizontal=20),
+                height=56,
+            )
+        else:
+            page.appbar = ft.AppBar(
+                title=ft.Text("dpd gui"),
+                bgcolor=ft.Colors.LIGHT_BLUE_900,
+                elevation=100,
+                title_spacing=20,
+                center_title=False,
+                actions=appbar_actions,
+            )
 
         # Views are built off the UI thread by the warm-up worker (in
         # priority order) so the window paints instantly and every tab is
@@ -660,6 +675,27 @@ class App:
         text = getattr(label, "value", None)
         return text or str(index)
 
+    # The editor is laid out for a desktop window. A canvas at least this tall
+    # keeps its fields reachable on a short screen: the page scrolls
+    # vertically instead of squeezing the fields into what the header leaves.
+    _WEB_CANVAS_MIN_HEIGHT: int = 800
+
+    def _add_web_canvas(self) -> None:
+        """Put the header and the tabs on a vertically scrolling canvas."""
+        self._web_canvas = ft.Container(
+            content=ft.Column([self._web_header, self.tabs], spacing=0, expand=True),
+            height=self._WEB_CANVAS_MIN_HEIGHT,
+        )
+
+        def fit_canvas(e: ft.PageResizeEvent) -> None:
+            self._web_canvas.height = max(e.height, self._WEB_CANVAS_MIN_HEIGHT)
+            self._web_canvas.update()
+
+        self.page.on_resize = fit_canvas
+        self.page.scroll = ft.ScrollMode.AUTO
+        self.page.padding = 0
+        self.page.add(self._web_canvas)
+
     def build_ui(self) -> None:
         """Constructs the main UI elements."""
 
@@ -719,7 +755,10 @@ class App:
             self._start_index
         )
 
-        self.page.add(self.tabs)
+        if self.page.web:
+            self._add_web_canvas()
+        else:
+            self.page.add(self.tabs)
         self.page.update()
 
         # Window has painted — load the database in the background. The
