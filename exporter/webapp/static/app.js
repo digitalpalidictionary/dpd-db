@@ -94,6 +94,10 @@ function initializeApp() {
 
   const books = bookParam.split(",").map(b => b.trim()).filter(b => b);
 
+  // The server's initial hold only applies while a DPD deep link can load.
+  // URLSearchParams can also disagree with the server about duplicate keys.
+  if (tab !== "dpd" || q.trim() === "") releaseInitialSearchHold();
+
   // Populate appState from the URL
   appState.activeTab = tab;
   appState.dpd.searchTerm = q;
@@ -185,10 +189,17 @@ const latestRequest = { dpd: 0, bd: 0, tt: 0 };
 const pendingQuery = { dpd: null, bd: null, tt: null };
 const requestButtons = { dpd: "search-button", bd: "bd-search-button", tt: "tt-search-button" };
 
+// Once released, ordinary searches do not hide the panes again.
+function releaseInitialSearchHold() {
+  document.documentElement.classList.remove("search-pending");
+}
+
 // A tab's request is over: the same query may run again
 function endRequest(tab) {
   pendingQuery[tab] = null;
   hideLoading(requestButtons[tab]);
+  // Only the current DPD request (or an explicit cancellation) owns the hold.
+  if (tab === "dpd") releaseInitialSearchHold();
 }
 
 // Make pending requests stale and release what they hold on screen
@@ -552,6 +563,8 @@ function render(keepForm = false) {
 
 // Switch to a different tab
 function switchTab(tabName) {
+  // Navigation ends the initial DPD-only layout hold even if its fetch is slow.
+  if (tabName !== "dpd") releaseInitialSearchHold();
   // Update appState.activeTab
   appState.activeTab = tabName;
 

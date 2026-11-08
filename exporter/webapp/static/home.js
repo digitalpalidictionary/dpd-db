@@ -666,6 +666,12 @@ function initPanelToggle(buttonId, paneId, storageKey) {
 
   button.addEventListener("click", function () {
     const isVisible = !pane.classList.contains("panel-hidden");
+    // On a held phone deep link the pane can look hidden while it's open. A
+    // click shows it now instead of once results arrive.
+    if (root.classList.contains("search-pending") && window.getComputedStyle(pane).display === "none") {
+      root.classList.remove("search-pending");
+      if (isVisible) return;
+    }
     pane.classList.toggle("panel-hidden", isVisible);
     button.classList.toggle("inactive", isVisible);
     try {
