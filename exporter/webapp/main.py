@@ -22,6 +22,7 @@ import re
 from db.db_helpers import get_db_session
 from db.models import BoldDefinition, DbInfo
 from audio.db.db_helpers import get_audio_record
+from exporter.webapp.lazy_panels import split_hidden_panels
 from exporter.webapp.response_encoding import encode_search_response
 from exporter.webapp.preloads import (
     make_ascii_to_unicode_dict,
@@ -172,8 +173,11 @@ def db_search_html(request: Request, q: str):
 
 
 @app.get("/search_json", response_class=JSONResponse)
-def db_search_json(request: Request, q: str):
-    """Main search route for website."""
+def db_search_json(request: Request, q: str, lazy: bool = False):
+    """Main search route for website.
+
+    With lazy=1, hidden panels are sent empty and their contents arrive in
+    "panels", for the browser to build when each is opened."""
 
     q_roman = auto_translit_to_roman(q)
 
@@ -190,6 +194,10 @@ def db_search_json(request: Request, q: str):
         "dpd_html": dpd_html,
         "license": LICENSE_NOTICE,
     }
+    if lazy:
+        response_data["dpd_html"], response_data["panels"] = split_hidden_panels(
+            dpd_html
+        )
     return encode_search_response(
         request, JSONResponse(content=response_data, headers=LICENSE_LINK_HEADER)
     )
