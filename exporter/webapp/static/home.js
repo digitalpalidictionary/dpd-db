@@ -603,8 +603,9 @@ searchBox.addEventListener("input", function () {
 
 function clearSearch() {
   searchBox.value = "";
-  dpdResults.innerHTML = "";
-  summaryResults.innerHTML = "";
+  // The niggahita toggle replaces these elements, so find the current ones.
+  document.getElementById("dpd-results").innerHTML = "";
+  document.getElementById("summary-results").innerHTML = "";
   if (typeof appState !== "undefined") {
     cancelRequests(["dpd"]);
     appState.dpd.searchTerm = "";
