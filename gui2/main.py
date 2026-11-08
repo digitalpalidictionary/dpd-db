@@ -46,6 +46,34 @@ TAB_LABELS: list[str] = [
     "Infl",
 ]
 
+TAB_TOOLTIPS: dict[str, str] = {
+    "Global": "Backup, inflections and Anki update.",
+    "Transl": "Look up translations of Pāḷi texts.",
+    "Pass1Auto": "Run the automatic first pass over a book.",
+    "Pass1Add": "Add new words from a book, one at a time.",
+    "Pass2Pre": "Prepare the words of a book for the second pass.",
+    "Pass2x": "Work through words that occur in the commentary.",
+    "Pass2Auto": "Run the automatic second pass over a book.",
+    "Pass2Add": "Edit a word that is already in the dictionary.",
+    "'": "Find and replace sandhi in the dictionary.",
+    "Sp": "Find and replace spelling in the dictionary.",
+    "Sandhi": "Check sandhi splits of words.",
+    "DB": "Search and filter the dictionary.",
+    "Tests": "Run the dictionary's internal tests.",
+    "Bold Search": "Search the bold definitions in the commentaries.",
+    "√": "Browse the verbal roots.",
+    "CT": "Manage the compound type rules, and search the words by type.",
+    "Infl": "Browse the inflection tables.",
+}
+
+
+def tab_tooltip(label: str, shortcut: str | None, show_key: bool) -> str:
+    """A tab's hover text: its description, then its Alt key if it has one."""
+    text = TAB_TOOLTIPS[label]
+    if shortcut and show_key:
+        text = f"{text} Alt+{shortcut}"
+    return text
+
 
 def tab_selection() -> tuple[list[int], frozenset[int]]:
     """The tab indices to show and the read-only ones. A contributor-server
@@ -650,9 +678,9 @@ class App:
                 ft.Tab(
                     label=ft.Text(
                         label,
-                        tooltip=f"Alt+{shortcuts[index]}"
-                        if index in shortcuts
-                        else None,
+                        tooltip=tab_tooltip(
+                            label, shortcuts.get(index), not self.page.web
+                        ),
                     ),
                 )
                 for index, label in zip(self._visible, tab_labels)

@@ -18,12 +18,14 @@ from gui2.global_tab_view import GlobalTabView
 from gui2.inflection_templates_tab_view import InflectionTemplatesTabView
 from gui2.main import (
     ALREADY_OPEN_MESSAGE,
+    TAB_TOOLTIPS,
     App,
     claim_session,
     main,
     release_session,
     run_app,
     tab_selection,
+    tab_tooltip,
 )
 from gui2.pass1_add_view import Pass1AddView
 from gui2.pass1_auto_view import Pass1AutoView
@@ -293,7 +295,7 @@ def test_shortcut_list_names_every_tab_jump_and_clear_tab() -> None:
         assert TAB_LABELS[index] in shortcuts["Alt+X"]
 
 
-def _server_app(monkeypatch: pytest.MonkeyPatch, tabs: str) -> App:
+def _server_app(monkeypatch: pytest.MonkeyPatch, tabs: str, web: bool = False) -> App:
     """An App built through build_ui as a contributor-server session."""
     monkeypatch.setenv("DPD_GUI2_ROLE", "contributor-server")
     monkeypatch.setenv("DPD_GUI2_TABS", tabs)
@@ -311,7 +313,7 @@ def _server_app(monkeypatch: pytest.MonkeyPatch, tabs: str) -> App:
     dialog.open = False
     app.page = MagicMock()  # pyright: ignore[reportAttributeAccessIssue]
     # Alt keys are off in the web; these tests are about tab visibility.
-    app.page.web = False
+    app.page.web = web
     app.page._dialogs = SimpleNamespace(controls=[dialog])
     app._view_builders = {  # pyright: ignore[reportAttributeAccessIssue]
         index: (lambda: SimpleNamespace(_save_changes_clicked=MagicMock()))
@@ -743,11 +745,11 @@ def test_ctrl_s_still_works_in_the_web(monkeypatch: pytest.MonkeyPatch) -> None:
     app = _server_app(monkeypatch, "DB")
     app.page.web = True  # pyright: ignore[reportAttributeAccessIssue]
     view = app._view(app._current_index())
-    view._save_changes_clicked = MagicMock()
+    view._save_changes_clicked = MagicMock()  # pyright: ignore[reportAttributeAccessIssue]
 
     asyncio.run(app.on_keyboard(_ctrl_s()))
 
-    view._save_changes_clicked.assert_called_once_with(None)
+    view._save_changes_clicked.assert_called_once_with(None)  # pyright: ignore[reportAttributeAccessIssue]
 
 
 def test_a_contributor_with_no_extra_tabs_still_sees_transl(
@@ -756,3 +758,30 @@ def test_a_contributor_with_no_extra_tabs_still_sees_transl(
     app = _server_app(monkeypatch, "")
 
     assert _tab_bar_labels(app) == ["Transl", "Pass1Add"]
+
+
+def test_every_tab_has_a_tooltip() -> None:
+    assert set(TAB_TOOLTIPS) == set(TAB_LABELS)
+
+
+def test_tab_tooltip_adds_the_key_only_when_shown() -> None:
+    assert tab_tooltip("DB", "D", True) == "Search and filter the dictionary. Alt+D"
+    assert tab_tooltip("DB", "D", False) == "Search and filter the dictionary."
+    assert tab_tooltip("Pass1Add", None, True) == TAB_TOOLTIPS["Pass1Add"]
+
+
+@pytest.mark.parametrize(
+    "web, expected",
+    [
+        (False, "Search and filter the dictionary. Alt+D"),
+        (True, "Search and filter the dictionary."),
+    ],
+)
+def test_tab_bar_shows_the_tooltip(
+    monkeypatch: pytest.MonkeyPatch, web: bool, expected: str
+) -> None:
+    app = _server_app(monkeypatch, "DB", web=web)
+
+    tabs = app._tab_bar.tabs  # pyright: ignore[reportAttributeAccessIssue]
+    label = tabs[_tab_bar_labels(app).index("DB")].label  # pyright: ignore[reportAttributeAccessIssue]
+    assert label.tooltip == expected

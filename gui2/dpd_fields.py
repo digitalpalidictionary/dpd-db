@@ -55,6 +55,8 @@ DpdFieldType = Union[
 
 
 class DpdFields(PopUpMixin):
+    duplicate_message: str | None = None
+
     def __init__(
         self,
         ui,
@@ -758,7 +760,8 @@ class DpdFields(PopUpMixin):
             lemma_1_field = self.get_field("lemma_1")
             lemma_1_field.error_text = f"{lemma_1} already in db"
             self.page.update()
-            self.ui.update_message(f"{lemma_1} already in db")
+            self.duplicate_message = f"{lemma_1} already in db"
+            self.ui.update_message(self.duplicate_message)
             return False
 
         return True
@@ -772,6 +775,18 @@ class DpdFields(PopUpMixin):
         request_focus(field)
         self.page.update()
 
+    def _clear_duplicate_message(self) -> None:
+        """Empty the message bar if it still shows the duplicate warning."""
+        bar = getattr(self.ui, "message_field", None) or getattr(
+            self.ui, "_message_field", None
+        )
+        if (
+            self.duplicate_message
+            and getattr(bar, "value", None) == self.duplicate_message
+        ):
+            self.ui.update_message("")
+        self.duplicate_message = None
+
     def lemma_1_change(self, e: ft.ControlEvent) -> None:
         """Test lemma_1 already in db."""
 
@@ -780,6 +795,9 @@ class DpdFields(PopUpMixin):
         if not self.flags.loaded_from_db:
             if value in (self.db.all_lemma_1 or set()):
                 field.error_text = f"{value} already in db"
+            else:
+                field.error_text = None
+                self._clear_duplicate_message()
 
         elif not value:
             field.error_text = "required field"

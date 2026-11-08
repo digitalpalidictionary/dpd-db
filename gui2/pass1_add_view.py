@@ -8,6 +8,7 @@ from gui2.mixins import PopUpMixin
 from gui2.pass1_auto_controller import Pass1AutoController
 from gui2.toolkit import ToolKit
 from gui2.ui_utils import field_border, page_of
+from tools.server_mode import is_headless_server
 from tools.speech_marks import SpeechMarkManager
 
 LABEL_WIDTH = 250
@@ -101,8 +102,23 @@ class Pass1AddView(ft.Column, PopUpMixin):
         )
         self.clone_button = ft.Button(
             "Clone",
+            tooltip="Copy the fields of an existing entry into the empty fields of this form. Type its ID or lemma first. Examples and the ID are not copied.",
             on_click=self._click_clone_headword,
             width=BUTTON_WIDTH,
+        )
+
+        # A contributor's saves go to a separate file, so a refresh shows nothing new.
+        refresh_db_button: list[ft.Control] = (
+            []
+            if is_headless_server()
+            else [
+                ft.Button(
+                    "Refresh DB",
+                    tooltip="Reload the database after it changed outside this form, such as after a pull or rebuild.",
+                    width=BUTTON_WIDTH,
+                    on_click=self.handle_refresh_db_click,
+                )
+            ]
         )
 
         # Create the top section Column
@@ -114,16 +130,14 @@ class Pass1AddView(ft.Column, PopUpMixin):
                             self.books_dropdown,
                             ft.Button(
                                 "Process Book",
+                                tooltip="Load the words of the chosen book and show the first one.",
                                 width=BUTTON_WIDTH,
                                 on_click=self.handle_process_book_click,
                             ),
-                            ft.Button(
-                                "Refresh DB",
-                                width=BUTTON_WIDTH,
-                                on_click=self.handle_refresh_db_click,
-                            ),
+                            *refresh_db_button,
                             ft.Button(
                                 "Clear All",
+                                tooltip="Empty the form. The word stays in the book's list.",
                                 width=BUTTON_WIDTH,
                                 on_click=self.clear_all_fields,
                             ),
@@ -155,6 +169,7 @@ class Pass1AddView(ft.Column, PopUpMixin):
         # Define Add to DB button as an instance variable
         self.add_to_db_button = ft.Button(
             "Add to DB",
+            tooltip="Show a preview. After you confirm, save the entry and load the next word.",
             on_click=self.handle_add_to_db_click,
             width=BUTTON_WIDTH,
         )
@@ -162,6 +177,7 @@ class Pass1AddView(ft.Column, PopUpMixin):
         # Define Test button
         self.test_button = ft.Button(
             "Test",
+            tooltip="Check the form for mistakes. If all checks pass, the Add to DB button turns green.",
             on_click=self._click_run_tests,
             width=BUTTON_WIDTH,
         )
@@ -175,11 +191,13 @@ class Pass1AddView(ft.Column, PopUpMixin):
                             self.add_to_db_button,
                             ft.Button(
                                 "Pass",
+                                tooltip="Skip this word and load the next one. The word stays in the list for later.",
                                 on_click=self.handle_pass_click,
                                 width=BUTTON_WIDTH,
                             ),
                             ft.Button(
                                 "Delete",
+                                tooltip="Remove this word from the list without saving it, then load the next word.",
                                 on_click=self.handle_delete_click,
                                 width=BUTTON_WIDTH,
                             ),
@@ -189,21 +207,25 @@ class Pass1AddView(ft.Column, PopUpMixin):
                         [
                             ft.Button(
                                 "Sandhi OK",
+                                tooltip="Mark this word as a correct sandhi form, so it is not flagged again.",
                                 on_click=self.handle_sandhi_ok_click,
                                 width=BUTTON_WIDTH,
                             ),
                             ft.Button(
                                 "Add to Sandhi",
+                                tooltip="Save how this word splits into its parts. A box asks you to type the split.",
                                 on_click=self.handle_add_to_sandhi_click,
                                 width=BUTTON_WIDTH,
                             ),
                             ft.Button(
                                 "Add to Variants",
+                                tooltip="Save this word as a variant of a main reading. A box asks you to type the main reading.",
                                 on_click=self.handle_add_to_variants_click,
                                 width=BUTTON_WIDTH,
                             ),
                             ft.Button(
                                 "Add to Spelling",
+                                tooltip="Save this word as a spelling mistake. A box asks you to type the correct spelling.",
                                 on_click=self.handle_add_to_spelling_mistakes_click,
                                 width=BUTTON_WIDTH,
                             ),

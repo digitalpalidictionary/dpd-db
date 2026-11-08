@@ -1,5 +1,7 @@
 from pathlib import Path
 
+import pytest
+
 from gui2.daily_log import DailyLog
 from gui2.paths import Gui2Paths
 from gui2.toolkit import ToolKit
@@ -75,3 +77,11 @@ class TestGetCounts:
         counts = log.get_counts()
         assert "pass1: 1" in counts
         assert "pass2x: 2" in counts
+
+    def test_contributor_server_shows_only_pass1(
+        self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+    ):
+        monkeypatch.setenv("DPD_GUI2_ROLE", "contributor-server")
+        log, _ = _log(tmp_path)
+        log.increment("pass1", 2)
+        assert log.get_counts().strip() == "pass1: 2"

@@ -4,6 +4,7 @@ import json
 from pathlib import Path
 
 from gui2.toolkit import ToolKit  # Import ToolKit
+from tools.server_mode import is_headless_server
 
 
 class DailyLog:
@@ -14,6 +15,7 @@ class DailyLog:
         self.file_path: Path = self.gui2pth.daily_log_path
         self.data: dict[str, dict[str, int]] = self._load()
         self.appbar_updater = toolkit.appbar_updater
+        self._pass1_only: bool = is_headless_server()
 
     def _load(self) -> dict[str, dict[str, int]]:
         """Loads data, assumes file exists and is valid."""
@@ -66,6 +68,9 @@ class DailyLog:
                 "pass2_update": 0,
             },
         )
+        # A contributor can only use Pass1Add, so the other counters stay at 0.
+        if self._pass1_only:
+            return f"pass1: {today_entry.get('pass1', 0)}  "
         return (
             f"pass1: {today_entry.get('pass1', 0)} pass2_pre: {today_entry.get('pass2_pre', 0)} "
             f"pass2x: {today_entry.get('pass2x', 0)} "

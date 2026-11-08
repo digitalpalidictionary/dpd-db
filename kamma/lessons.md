@@ -529,3 +529,9 @@
 - 2026-11-08 [BEHAVIOR] Listed the Pass1 Auto draft files with `git ls-files`, so an untracked draft file that a Pass1 Auto run had just written (the kva book) was missed and the user had to point it out. Draft files are written by runs, so list them with `ls gui2/data/pass1_auto_*.json` and compare to the tracked list.
 - 2026-11-08 [WORKFLOW] The kamma spec-gate hook blocked every code edit because a different, older thread had a spec but no plan. Check for such threads at the start of a thread and ask the owner before touching them.
 - 2026-11-08 [POSITIVE] Reverting each change and rerunning its test (restoring in the same command) proved the new tests guard the change; the second review round's two coverage nits were cheap to add the same way.
+- 2026-11-08 [REPEATED] The user said twice not to mention that keyboard shortcuts fail in the web app, first in tooltips and then in my replies and comments. Treat a fact the user states as theirs; don't echo it back.
+- 2026-11-08 [REPEATED] The user said to stop mentioning saving in every tab tooltip after the first correction covered only three tabs. Apply a correction to the whole set at once.
+- 2026-11-08 [BEHAVIOR] Fixed the red lemma_1 field but left the stale "already in db" message bar, then said so only as a note. The user asked "why would you not fix that?" — fix every visible symptom of a reported bug in the same change.
+- 2026-11-08 [BEHAVIOR] Two long wrap-up summaries were rejected as a wall of text. Give one decision at a time, with the file named, and stop.
+- 2026-11-08 [WORKFLOW] The Azure DeepSeek flash review gave no output after 72 s. The user asked to switch to the DeepSeek API, which answered in under a minute per group.
+- 2026-11-08 [POSITIVE] Checking the reviewer's claim against the key handler showed that tooltip hints must follow the page's web flag, not the server role. Two other reviewer claims (a missing test file, a test green on revert) were false when checked.
