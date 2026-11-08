@@ -42,25 +42,23 @@ var fontSizeDisplay = document.getElementById("font-size-display");
 let dpdResultsContent = "";
 let language;
 
-const startMessage = `
-        <p class="message">Search for Pāḷi or English words above using <b>Unicode</b> or <b>Velthuis</b> characters.</p>
-        <p class="message"><b>Double click</b> on any word to search for it.</p>
-        <p class="message">Adjust the <b>settings</b> to suit your preferences.</p>
-        <p class="message"><b>Refresh</b> the page if you experience any problems.</p>
-        <p class="message">
-            <a href="https://docs.dpdict.net/webapp/" target="_blank">Click here</a>
-            for more details about this website or
-            <a href="https://docs.dpdict.net/" target="_blank">more information</a>
-            about DPD in general.
-        </p>
-        <p class="message">Start by <b>double clicking</b> on any word in the list below:</p>
-        <p class="message">atthi kāmarāgapariyuṭṭhitena peace kar gacchatīti Root ✓</p>
-        `;
-
 //// load state
 
+// Older cached pages have no prepaint script, so there are no startup classes
+// to hand off and the saved preferences are read here instead.
+var dpdPrepainted = typeof window.dpdReadPreference === "function";
+if (!dpdPrepainted) {
+  window.dpdReadPreference = function (key) {
+    try {
+      return localStorage.getItem(key);
+    } catch (e) {
+      return null;
+    }
+  };
+}
+
 function loadToggleState(id) {
-  var savedState = localStorage.getItem(id);
+  var savedState = window.dpdReadPreference(id);
   if (savedState !== null) {
     document.getElementById(id).checked = JSON.parse(savedState);
   }
@@ -70,10 +68,6 @@ function loadToggleState(id) {
 document.addEventListener("DOMContentLoaded", function () {
   const htmlElement = document.documentElement;
   language = htmlElement.lang || "en";
-
-  if (dpdResults.innerHTML.trim() === "") {
-    dpdResults.innerHTML = startMessage;
-  }
 
   // Set the toggle switch to the correct state and apply the theme
   try {
@@ -323,7 +317,7 @@ function expandSelectionToWord() {
 //// font size ////
 
 function loadFontSize() {
-  fontSize = localStorage.getItem("fontSize");
+  fontSize = window.dpdReadPreference("fontSize");
   if (fontSize === null) {
     bodyStyle = window.getComputedStyle(document.body);
     fontSize = parseInt(bodyStyle.getPropertyValue("font-size"), 10);
@@ -452,17 +446,10 @@ sansSerifToggle.addEventListener("change", function () {
 });
 
 function swopSansSerif() {
-  const serifFonts = "'Source Serif 4', serif"; // Use Source Serif 4 here
-  const sansFonts = "'Inter', sans-serif"; // Use Inter font here
-  if (sansSerifToggle.checked) {
-    document.body.style.fontFamily = serifFonts;
-    searchBox.style.fontFamily = serifFonts;
-    searchButton.style.fontFamily = serifFonts;
-  } else {
-    document.body.style.fontFamily = sansFonts;
-    searchBox.style.fontFamily = sansFonts;
-    searchButton.style.fontFamily = sansFonts;
-  }
+  document.documentElement.classList.toggle(
+    "serif-font",
+    sansSerifToggle.checked,
+  );
 }
 
 //// niggahita
@@ -491,6 +478,9 @@ grammarToggle.addEventListener("change", function () {
   const grammarButtons = document.getElementsByName("grammar-button");
   const grammarDivs = document.getElementsByName("grammar-div");
   if (this.checked) {
+    if (window.openPanels) {
+      window.openPanels([...grammarDivs]);
+    }
     grammarButtons.forEach((button) => {
       button.classList.add("active");
     });
@@ -513,6 +503,9 @@ exampleToggle.addEventListener("change", function () {
   const exampleButtons = document.getElementsByName("example-button");
   const exampleDivs = document.getElementsByName("example-div");
   if (this.checked) {
+    if (window.openPanels) {
+      window.openPanels([...exampleDivs]);
+    }
     exampleButtons.forEach((button) => {
       button.classList.add("active");
     });
@@ -597,12 +590,17 @@ searchBox.addEventListener("input", function () {
 
 function clearSearch() {
   searchBox.value = "";
-  dpdResults.innerHTML = "";
-  summaryResults.innerHTML = "";
+  // The niggahita toggle replaces these elements, so find the current ones.
+  // Double-clicking the title removes them, so they may be missing.
+  for (const id of ["dpd-results", "summary-results"]) {
+    const element = document.getElementById(id);
+    if (element) element.innerHTML = "";
+  }
   if (typeof appState !== "undefined") {
     cancelRequests(["dpd"]);
     appState.dpd.searchTerm = "";
     appState.dpd.resultsHTML = "";
+    appState.dpd.panels = {};
     appState.dpd.needsRefetch = false;
     appState.dpd.error = "";
   }
@@ -619,7 +617,16 @@ clearButton.addEventListener("click", clearSearch);
 function initCollapseToggle(toggleButton, paneElement) {
   if (!toggleButton || !paneElement) return;
 
-  const isMobile = window.innerWidth <= 576;
+  const root = document.documentElement;
+  const startupClass = "startup-" + paneElement.id.replace("-pane", "") + "-collapsed";
+  // CSS applies the prepaint preference responsively. Recheck the viewport here
+  // in case it changed while scripts were downloading.
+  const isMobile = window.matchMedia("(max-width: 576px)").matches;
+  const collapsed = dpdPrepainted
+    ? root.classList.contains(startupClass)
+    : window.dpdReadPreference(paneElement.id + "_collapsed") !== "false";
+  paneElement.classList.toggle("collapsed", isMobile && collapsed);
+  root.classList.remove(startupClass);
 
   const handleToggle = function () {
     paneElement.classList.toggle("collapsed");
@@ -641,17 +648,6 @@ function initCollapseToggle(toggleButton, paneElement) {
       }
     });
   }
-
-  if (!isMobile) {
-    return;
-  }
-
-  const savedState = localStorage.getItem(paneElement.id + "_collapsed");
-  if (savedState === "true") {
-    paneElement.classList.add("collapsed");
-  } else if (savedState === null) {
-    paneElement.classList.add("collapsed");
-  }
 }
 
 function initPanelToggle(buttonId, paneId, storageKey) {
@@ -659,13 +655,14 @@ function initPanelToggle(buttonId, paneId, storageKey) {
   const pane = document.getElementById(paneId) || document.querySelector("." + paneId);
   if (!button || !pane) return;
 
-  try {
-    const saved = localStorage.getItem(storageKey);
-    if (saved === "false") {
-      pane.classList.add("panel-hidden");
-      button.classList.add("inactive");
-    }
-  } catch (e) {}
+  const root = document.documentElement;
+  const startupClass = "startup-" + paneId.replace("-pane", "") + "-hidden";
+  const hidden = dpdPrepainted
+    ? root.classList.contains(startupClass)
+    : window.dpdReadPreference(storageKey) === "false";
+  pane.classList.toggle("panel-hidden", hidden);
+  button.classList.toggle("inactive", hidden);
+  root.classList.remove(startupClass);
 
   button.addEventListener("click", function () {
     const isVisible = !pane.classList.contains("panel-hidden");

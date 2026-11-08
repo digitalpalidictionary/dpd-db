@@ -1,3 +1,98 @@
+/* Local stand-ins, resized to take up the same room as the web fonts. Without
+   them the page reflows when Inter or Source Serif 4 arrive. Each size-adjust
+   is the measured width ratio on DPD's own text, and each override is the web
+   font's ascent or descent divided by that ratio. Only one of Arial and Roboto
+   exists on most devices, and the same goes for Georgia and Noto Serif. */
+@font-face {
+  font-family: "Inter Arial";
+  font-weight: 400;
+  src: local("Arial"), local("ArialMT"), local("Liberation Sans");
+  size-adjust: 107.2%;
+  ascent-override: 90.37%;
+  descent-override: 22.5%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: "Inter Arial";
+  font-weight: 700;
+  src: local("Arial Bold"), local("Arial-BoldMT"), local("Liberation Sans Bold");
+  size-adjust: 102.2%;
+  ascent-override: 94.79%;
+  descent-override: 23.6%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: "Inter Roboto";
+  font-weight: 400;
+  src: local("Roboto"), local("Roboto Regular"), local("Roboto-Regular");
+  size-adjust: 106.3%;
+  ascent-override: 91.13%;
+  descent-override: 22.69%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: "Inter Roboto";
+  font-weight: 700;
+  src: local("Roboto Bold"), local("Roboto-Bold");
+  size-adjust: 108.8%;
+  ascent-override: 89.04%;
+  descent-override: 22.17%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: "Serif Georgia";
+  font-weight: 400;
+  src: local("Georgia");
+  size-adjust: 105%;
+  ascent-override: 98.67%;
+  descent-override: 31.9%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: "Serif Georgia";
+  font-weight: 700;
+  src: local("Georgia Bold"), local("Georgia-Bold");
+  size-adjust: 93.6%;
+  ascent-override: 110.68%;
+  descent-override: 35.79%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: "Serif Noto";
+  font-weight: 400;
+  src: local("Noto Serif"), local("NotoSerif"), local("Noto Serif Regular"), local("NotoSerif-Regular");
+  size-adjust: 97.8%;
+  ascent-override: 105.93%;
+  descent-override: 34.25%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: "Serif Noto";
+  font-weight: 700;
+  src: local("Noto Serif Bold"), local("NotoSerif-Bold");
+  size-adjust: 95.3%;
+  ascent-override: 108.71%;
+  descent-override: 35.15%;
+  line-gap-override: 0%;
+}
+
+:root {
+  --font-sans: "Inter", "Inter Arial", "Inter Roboto", sans-serif;
+  --font-serif: "Source Serif 4", "Serif Georgia", "Serif Noto", serif;
+  --font-body: var(--font-sans);
+}
+
+html.serif-font {
+  --font-body: var(--font-serif);
+}
+
 html.dark-mode body {
   background-color: var(--dark);
   color: var(--light);
@@ -6,8 +101,9 @@ html.dark-mode body {
 body {
   background-color: var(--light);
   color: var(--dark);
-  font-family: "Inter", sans-serif;
-  font-size: 1em;
+  font-family: var(--font-body);
+  /* set before the first paint from the saved setting; home.js then sets the same size */
+  font-size: var(--saved-font-size, 1em);
   transition: 1s;
   scroll-behavior: smooth;
   height: 100vh;
@@ -182,7 +278,7 @@ a {
   border: 2px solid var(--gray-transparent);
   box-shadow: none;
   color: var(--dark);
-  font-family: "Inter", sans-serif;
+  font-family: var(--font-sans);
   font-size: 130%;
   height: 30px;
   margin: 5px;
@@ -256,6 +352,12 @@ a {
 
 .dark-mode .search-box:focus {
   border-color: var(--primary);
+}
+
+/* The serif setting covers the main search box and button, as before. */
+#search-box,
+#search-button {
+  font-family: var(--font-body);
 }
 
 .search-button {
@@ -1211,5 +1313,40 @@ label {
   }
   to {
     transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+/* Match the hydrated pane styles before the deferred scripts initialize.
+   These root classes are handed off atomically to each pane in home.js. */
+html.startup-history-hidden .history-pane,
+html.startup-settings-hidden .settings-pane {
+  display: none !important;
+}
+
+html.startup-history-hidden #history-toggle-button,
+html.startup-settings-hidden #settings-toggle-button {
+  filter: grayscale(100%) opacity(0.35);
+}
+
+html.startup-history-collapsed .history-pane .collapse-icon,
+html.startup-settings-collapsed .settings-pane .collapse-icon {
+  transform: rotate(-90deg);
+}
+
+@media (max-width: 576px) {
+  html.startup-history-collapsed .history-list-pane,
+  html.startup-history-collapsed .history-pane .clear-history-button,
+  html.startup-settings-collapsed .settings-pane > p {
+    display: none;
+  }
+
+  html.startup-history-collapsed .history-pane .pane-header,
+  html.startup-settings-collapsed .settings-pane .pane-header {
+    justify-content: center;
+  }
+
+  html.startup-history-collapsed .history-pane h3,
+  html.startup-settings-collapsed .settings-pane h3 {
+    margin: 0 auto;
   }
 }

@@ -12,7 +12,7 @@ from fastapi.responses import (
     RedirectResponse,
     Response,
 )
-from exporter.webapp.precompressed_index import IndexStaticFiles
+from exporter.webapp.precompressed_index import IndexStaticFiles, digest
 from fastapi.templating import Jinja2Templates
 from sqlalchemy.exc import OperationalError
 from starlette.convertors import Convertor, register_url_convertor
@@ -22,6 +22,7 @@ import re
 from db.db_helpers import get_db_session
 from db.models import BoldDefinition, DbInfo
 from audio.db.db_helpers import get_audio_record
+from exporter.webapp.lazy_panels import split_hidden_panels
 from exporter.webapp.response_encoding import encode_search_response
 from exporter.webapp.preloads import (
     make_ascii_to_unicode_dict,
@@ -89,14 +90,42 @@ with get_db() as db_session:
 
 # Set up templates
 templates = Jinja2Templates(directory=str(pth.webapp_templates_dir))
-# pyrefly: ignore  # jinja2 leaves Environment.globals unannotated, so its value
-# type infers as the union of jinja's own defaults; extending it is the
-# documented usage.
-templates.env.globals["show_tbw"] = config_test("dictionary", "show_tbw", "yes")
 
 # Update CSS
 css_manager = CSSManager()
 css_manager.update_webapp_css()
+
+# pyrefly: ignore  # jinja2 leaves Environment.globals unannotated, so its value
+# type infers as the union of jinja's own defaults; extending it is the
+# documented usage.
+templates.env.globals.update(
+    {
+        "show_tbw": config_test("dictionary", "show_tbw", "yes"),
+        # Every script and style home.html loads shares one version, computed
+        # at startup. Once the server restarts after a change, new pages get
+        # fresh URLs for all of them. The server only has the current files,
+        # so an old cached page, or one rendered while files are replaced
+        # before a restart, can still mix old and new. dpd.css is written
+        # above, so its new content is included.
+        "webapp_asset_version": digest(
+            b"\0".join(
+                (pth.webapp_static_dir / name).read_bytes()
+                for name in (
+                    "dpd.css",
+                    "home.css",
+                    "switch.css",
+                    "tt.css",
+                    "app.js",
+                    "home.js",
+                    "bold_definitions.js",
+                    "tipitaka_translations.js",
+                    "dpd.js",
+                    "sorter.js",
+                )
+            )
+        ),
+    }
+)
 
 # Global CSS and JS
 with open(pth.webapp_css_path, encoding="utf-8") as f:
@@ -172,8 +201,11 @@ def db_search_html(request: Request, q: str):
 
 
 @app.get("/search_json", response_class=JSONResponse)
-def db_search_json(request: Request, q: str):
-    """Main search route for website."""
+def db_search_json(request: Request, q: str, lazy: bool = False):
+    """Main search route for website.
+
+    With lazy=1, hidden panels are sent empty and their contents arrive in
+    "panels", for the browser to build when each is opened."""
 
     q_roman = auto_translit_to_roman(q)
 
@@ -190,6 +222,10 @@ def db_search_json(request: Request, q: str):
         "dpd_html": dpd_html,
         "license": LICENSE_NOTICE,
     }
+    if lazy:
+        response_data["dpd_html"], response_data["panels"] = split_hidden_panels(
+            dpd_html
+        )
     return encode_search_response(
         request, JSONResponse(content=response_data, headers=LICENSE_LINK_HEADER)
     )

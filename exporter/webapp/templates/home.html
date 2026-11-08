@@ -9,26 +9,41 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,700;1,8..60,400;1,8..60,700&amp;display=swap" />
-    <link rel="stylesheet" type="text/css" href="/static/dpd.css" />
-    <link rel="stylesheet" type="text/css" href="/static/home.css" />
-    <link rel="stylesheet" type="text/css" href="/static/switch.css" />
-    <link rel="stylesheet" type="text/css" href="/static/tt.css" />
+    <link rel="stylesheet" type="text/css" href="/static/dpd.css?v={{ webapp_asset_version }}" />
+    <link rel="stylesheet" type="text/css" href="/static/home.css?v={{ webapp_asset_version }}" />
+    <link rel="stylesheet" type="text/css" href="/static/switch.css?v={{ webapp_asset_version }}" />
+    <link rel="stylesheet" type="text/css" href="/static/tt.css?v={{ webapp_asset_version }}" />
     <link rel="icon" type="image/svg+xml" href="/static/dpd-logo-dark.svg" />
     <link rel="alternate" type="application/rss+xml" title="DPD Updates" href="https://digitalpalidictionary.github.io/rss.xml" />
 
     <script>
         window.DPD_RELEASE_VERSION = "{{ dpd_release_version }}";
-        // Prevents a flash of unstyled content (FOUC)
-        // This script is in the <head> so it runs before the page is rendered
-        (function () {
+        // Resolve preferences before the first paint, even if storage is blocked.
+        window.dpdReadPreference = function (key) {
             try {
-                const theme = localStorage.getItem("theme");
-                if (theme === "dark") {
-                    document.documentElement.classList.add("dark-mode");
-                }
+                return localStorage.getItem(key);
             } catch (e) {
-                console.log("LocalStorage is not available.", e);
+                return null;
             }
+        };
+        (function () {
+            const root = document.documentElement;
+            const read = window.dpdReadPreference;
+            if (read("theme") === "dark") root.classList.add("dark-mode");
+            if (read("sans-serif-toggle") === "true") root.classList.add("serif-font");
+            const fontSize = read("fontSize");
+            if (/^\d+$/.test(fontSize)) root.style.setProperty("--saved-font-size", fontSize + "px");
+            ["history", "settings"].forEach(function (name) {
+                let collapsed = read(name + "-pane_collapsed");
+                // Older versions saved Settings under an empty element id.
+                if (name === "settings" && collapsed === null) collapsed = read("_collapsed");
+                if (collapsed !== "false") {
+                    root.classList.add("startup-" + name + "-collapsed");
+                }
+                if (read(name + "PaneVisible") === "false") {
+                    root.classList.add("startup-" + name + "-hidden");
+                }
+            });
         })();
     </script>
 </head>
@@ -140,10 +155,16 @@
             </div>
             <div class="dpd-pane" id="dpd-pane">
                 <div class="summary-results" id="summary-results"></div>
-                <div class="dpd-results" id="dpd-results">{{
-                    dpd_results|safe }}</div>
+                <div class="dpd-results" id="dpd-results">
+                    {%- if dpd_results -%}
+                    {{ dpd_results|safe }}
+                    {%- elif (request.query_params.get('tab') or 'dpd') == 'dpd'
+                        and not request.query_params.get('q', '') -%}
+                    {% include 'welcome.html' %}
+                    {%- endif -%}
+                </div>
             </div>
-            <div class="settings-pane">
+            <div class="settings-pane" id="settings-pane">
                 <div class="pane-header">
                     <h3 class="dpd">Settings</h3>
                     <button class="collapse-toggle" id="settings-collapse-toggle" aria-label="Toggle settings">
@@ -389,12 +410,12 @@
         </div>
     </div>
 
-    <script src="static/app.js" defer></script>
-    <script src="static/home.js"></script>
-    <script src="static/bold_definitions.js"></script>
-    <script src="static/tipitaka_translations.js"></script>
-    <script src="static/dpd.js"></script>
-    <script src="static/sorter.js"></script>
+    <script src="static/app.js?v={{ webapp_asset_version }}" defer></script>
+    <script src="static/home.js?v={{ webapp_asset_version }}"></script>
+    <script src="static/bold_definitions.js?v={{ webapp_asset_version }}"></script>
+    <script src="static/tipitaka_translations.js?v={{ webapp_asset_version }}"></script>
+    <script src="static/dpd.js?v={{ webapp_asset_version }}"></script>
+    <script src="static/sorter.js?v={{ webapp_asset_version }}"></script>
 </body>
 
 </html>

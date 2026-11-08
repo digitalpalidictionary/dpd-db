@@ -66,6 +66,7 @@ Tipiṭaka translations (`/tt_search`), bold definitions (`/bd_search`) and audi
 - **Description:** Main search route for the website's dynamic search functionality. Returns the rendered HTML fragments for the results and summary.
 - **Parameters:**
     - `q` (str): The search query.
+    - `lazy` (bool, optional): used by the webapp. Hidden panels come empty in `dpd_html`, with their contents in a `panels` map keyed by panel id. Other callers can leave it out and get the full HTML.
 - **Response:** JSON
     ```json
     {
