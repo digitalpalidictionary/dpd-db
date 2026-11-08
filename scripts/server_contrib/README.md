@@ -127,6 +127,57 @@ The block is kept in `nginx_status.conf.template` in this folder. A run that
 cannot write the status file logs `could not write the status file` and still
 finishes normally: the status file never decides the window's outcome.
 
+## Update the server now (manual, no rebuild)
+
+Use this to put a code or draft-file change on the server today, without
+waiting for the 01:00 window. Done and verified on 2026-11-08 (`7cf7aa5c`,
+the Pass1 `family_compound` removal). The window rebuilds the db (30 to 55
+minutes) whenever `main` moved, so do not run it by hand for this. It sees the
+moved commit and rebuilds that night anyway.
+
+Do not use this when the change needs a db rebuild to take effect (a new
+column, new data in `dpd.db`). Wait for the window.
+
+1. Commit and push to `main`. The server pulls from GitHub, so unpushed work
+   never arrives. A new file must be added by name first.
+2. Take the target from `[dpd_contributor_server] ssh` in `config.ini`. Never
+   write the address in a doc. Every command below runs over `ssh <target>`.
+3. Look first, change nothing:
+   - `cd /root/dpd-db && git status --porcelain | wc -l` must print `0`. A dirty
+     checkout makes the pull fail, and the window refuses to run on one too.
+   - `ps -eo pid,args | grep "[m]aintenance_window"` must print nothing. Do not
+     use `pgrep -f maintenance_window`: the ssh command line itself matches it.
+   - `git fetch origin main`, then `git rev-list --count HEAD..origin/main` is
+     how far behind it is, and `git merge-base --is-ancestor HEAD origin/main`
+     must succeed (a fast-forward).
+   - `git diff --name-only HEAD origin/main` must not list `resources/` submodule
+     paths. If it does, use the window, which also runs the submodule update.
+   - `systemctl list-units "dpd-gui@*" --all` lists the instances to restart.
+4. Stop, pull, start. The `trap` starts the instances again even if the pull
+   fails:
+
+   ```bash
+   cd /root/dpd-db; trap "systemctl start dpd-gui@<user>" EXIT
+   systemctl stop dpd-gui@<user>
+   git pull --ff-only origin main
+   ```
+
+   Give `stop` and `start` every instance from step 3. Never use `git reset`
+   or `git checkout` on the server to force it.
+5. Check, do not trust the "started" line:
+   - `systemctl is-active dpd-gui@<user>` prints `active`, and `NRestarts` is `0`.
+   - `journalctl -u dpd-gui@<user> -n 6 -o cat` shows `Stopped` then `Started`.
+     The `status=143` and `Failed with result 'exit-code'` lines before it are
+     the normal result of a stop request.
+   - The editor URL answers `401` without a login (the nginx password gate).
+   - `grep` the server's copy of the changed file for the change.
+6. Contributors lose their open editor session for about a minute, and
+   unsaved fields in it. Their finished-word lists and data folder are outside
+   the checkout and are untouched.
+
+The next 01:00 window pulls nothing new, sees `main` moved since
+`logs/last_built_commit`, and rebuilds as normal.
+
 
 ## The pieces
 
