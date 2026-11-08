@@ -18,17 +18,32 @@
 
     <script>
         window.DPD_RELEASE_VERSION = "{{ dpd_release_version }}";
-        // Prevents a flash of unstyled content (FOUC)
-        // This script is in the <head> so it runs before the page is rendered
-        (function () {
+        // Resolve preferences before the first paint, even if storage is blocked.
+        window.dpdReadPreference = function (key) {
             try {
-                const theme = localStorage.getItem("theme");
-                if (theme === "dark") {
-                    document.documentElement.classList.add("dark-mode");
-                }
+                return localStorage.getItem(key);
             } catch (e) {
-                console.log("LocalStorage is not available.", e);
+                return null;
             }
+        };
+        (function () {
+            const root = document.documentElement;
+            const read = window.dpdReadPreference;
+            if (read("theme") === "dark") root.classList.add("dark-mode");
+            if (read("sans-serif-toggle") === "true") root.classList.add("serif-font");
+            const fontSize = read("fontSize");
+            if (/^\d+$/.test(fontSize)) root.style.setProperty("--saved-font-size", fontSize + "px");
+            ["history", "settings"].forEach(function (name) {
+                let collapsed = read(name + "-pane_collapsed");
+                // Older versions saved Settings under an empty element id.
+                if (name === "settings" && collapsed === null) collapsed = read("_collapsed");
+                if (collapsed !== "false") {
+                    root.classList.add("startup-" + name + "-collapsed");
+                }
+                if (read(name + "PaneVisible") === "false") {
+                    root.classList.add("startup-" + name + "-hidden");
+                }
+            });
         })();
     </script>
 </head>
@@ -140,10 +155,16 @@
             </div>
             <div class="dpd-pane" id="dpd-pane">
                 <div class="summary-results" id="summary-results"></div>
-                <div class="dpd-results" id="dpd-results">{{
-                    dpd_results|safe }}</div>
+                <div class="dpd-results" id="dpd-results">
+                    {%- if dpd_results -%}
+                    {{ dpd_results|safe }}
+                    {%- elif (request.query_params.get('tab') or 'dpd') == 'dpd'
+                        and not request.query_params.get('q', '') -%}
+                    {% include 'welcome.html' %}
+                    {%- endif -%}
+                </div>
             </div>
-            <div class="settings-pane">
+            <div class="settings-pane" id="settings-pane">
                 <div class="pane-header">
                     <h3 class="dpd">Settings</h3>
                     <button class="collapse-toggle" id="settings-collapse-toggle" aria-label="Toggle settings">

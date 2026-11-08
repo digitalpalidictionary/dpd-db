@@ -20,7 +20,7 @@
   box-sizing: border-box;
   outline: none;
   transition: 1s;
-  font-family: "Inter", sans-serif;
+  font-family: var(--font-sans);
   font-size: 1em;
   cursor: pointer;
   user-select: none;
@@ -93,7 +93,7 @@
   box-sizing: border-box;
   outline: none;
   transition: 1s;
-  font-family: "Inter", sans-serif;
+  font-family: var(--font-sans);
 }
 
 .dark-mode .tt-select {
@@ -144,7 +144,7 @@
   box-sizing: border-box;
   outline: none;
   transition: 1s;
-  font-family: "Inter", sans-serif;
+  font-family: var(--font-sans);
   font-size: 1em;
 }
 
@@ -182,7 +182,7 @@
   box-sizing: border-box;
   outline: none;
   transition: 1s;
-  font-family: "Inter", sans-serif;
+  font-family: var(--font-sans);
   font-size: 1em;
 }
 
