@@ -26,7 +26,9 @@ window.playAudio = playAudio;
 document.addEventListener("click", function (event) {
     var playButton = event.target.closest(".dpd-button.play");
     if (playButton) {
-        var headword = playButton.getAttribute("data-headword");
+        const audioHeadword = playButton.getAttribute("data-audio-headword");
+        var headword = audioHeadword
+            ? decodeURIComponent(audioHeadword) : playButton.getAttribute("data-headword");
         var gender = playButton.getAttribute("data-gender");
         if (headword) {
             playAudio(headword, gender);
@@ -40,6 +42,10 @@ document.addEventListener("click", function (event) {
         const target_id = otherButton.getAttribute("data-target");
         var target = document.getElementById(target_id);
         if (target) {
+            // The webapp sends panel contents separately (app.js).
+            if (window.openPanels) {
+                window.openPanels([target]);
+            }
             let oneButtonToggleEnabled = false;
             try {
                 oneButtonToggleEnabled = localStorage.getItem("one-button-toggle") === "true";

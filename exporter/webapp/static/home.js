@@ -491,6 +491,9 @@ grammarToggle.addEventListener("change", function () {
   const grammarButtons = document.getElementsByName("grammar-button");
   const grammarDivs = document.getElementsByName("grammar-div");
   if (this.checked) {
+    if (window.openPanels) {
+      window.openPanels([...grammarDivs]);
+    }
     grammarButtons.forEach((button) => {
       button.classList.add("active");
     });
@@ -513,6 +516,9 @@ exampleToggle.addEventListener("change", function () {
   const exampleButtons = document.getElementsByName("example-button");
   const exampleDivs = document.getElementsByName("example-div");
   if (this.checked) {
+    if (window.openPanels) {
+      window.openPanels([...exampleDivs]);
+    }
     exampleButtons.forEach((button) => {
       button.classList.add("active");
     });
@@ -597,12 +603,17 @@ searchBox.addEventListener("input", function () {
 
 function clearSearch() {
   searchBox.value = "";
-  dpdResults.innerHTML = "";
-  summaryResults.innerHTML = "";
+  // The niggahita toggle replaces these elements, so find the current ones.
+  // Double-clicking the title removes them, so they may be missing.
+  for (const id of ["dpd-results", "summary-results"]) {
+    const element = document.getElementById(id);
+    if (element) element.innerHTML = "";
+  }
   if (typeof appState !== "undefined") {
     cancelRequests(["dpd"]);
     appState.dpd.searchTerm = "";
     appState.dpd.resultsHTML = "";
+    appState.dpd.panels = {};
     appState.dpd.needsRefetch = false;
     appState.dpd.error = "";
   }
