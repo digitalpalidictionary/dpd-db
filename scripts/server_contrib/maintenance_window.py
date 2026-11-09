@@ -2,7 +2,8 @@
 
 Flow (each branch logged to `logs/maintenance_YYYYMMDD.log`):
 
-    stop instances
+    announce the stop in the notice file, wait (only with --warn-minutes)
+      → stop instances
       → capture rollback (db copy, HEAD, every delivered contributor file)
       → dirty-tree check (refuse, nothing touched)
       → git pull --ff-only + submodule update
@@ -14,6 +15,7 @@ Flow (each branch logged to `logs/maintenance_YYYYMMDD.log`):
            then restore the tracked files the build rewrote
       on ANY failure after the pull: restore db, HEAD and contributor files
     start instances (always, in a finally)
+      → remove the notice file
 
 A failed dirty-tree check or pull skips reconcile, push and rebuild. A failed
 rebuild restores the contributor files too, so the overlay matches the old db
@@ -30,15 +32,17 @@ import shutil
 import sqlite3
 import subprocess
 import sys
+import time
 from collections.abc import Callable
 from dataclasses import dataclass, field
-from datetime import datetime
+from datetime import UTC, datetime, timedelta
 from enum import Enum
 from pathlib import Path
 
 from scripts.server_contrib.contrib_push import push_contributions
 from scripts.server_contrib.contrib_reconcile import reconcile_all
 from tools.contrib_entry import delivered_files
+from tools.contrib_notice import NOTICE_FILE, remove_notice, write_notice
 
 # Sanity floors for the post-rebuild health check (dpd has ~80k headwords /
 # ~800k lookup rows; these are deliberately low guards against a broken build).
@@ -67,6 +71,9 @@ class WindowConfig:
     # Where the browser-readable outcome goes. Defaults to the log folder,
     # which only root can read; nginx needs a path it can reach.
     status_file: Path | None = None
+    # Minutes between the announcement and the stop. 0 = no notice, no wait.
+    warn_minutes: int = 0
+    notice_file: Path = NOTICE_FILE
 
 
 @dataclass
@@ -77,6 +84,7 @@ class WindowSteps:
     generate: Callable[[WindowConfig], None]
     health_check: Callable[[WindowConfig], None]
     translation_db: Callable[[WindowConfig], None]
+    wait: Callable[[float], None] = time.sleep
 
 
 @dataclass
@@ -90,6 +98,12 @@ class Rollback:
 # call can't strand the window with instances stopped.
 STEP_TIMEOUT = 3600
 LAST_BUILT_FILE = "last_built_commit"
+
+# The editors read the notice every 15 s (TICK_SECONDS in gui2/server_lifecycle.py)
+# and need about 3 s to flush the move to the offline page, and they only move
+# once the stop time has passed. The stop must come after both, or the process
+# dies before any editor sees the stop time.
+OFFLINE_GRACE_SECONDS = 25
 
 # The browser-readable failure surface: one small text file the window rewrites
 # at the end of every run, served at /status behind the maintainer's login.
@@ -405,9 +419,22 @@ def run_maintenance(config: WindowConfig, steps: WindowSteps | None = None) -> O
 
     if config.use_systemd and not config.instances:
         log.warning("no --instance given: nothing is stopped before the window")
-    stop_failed = _systemctl("stop", config.instances, config, log)
+    stop_failed: list[str] = []
     outcome = Outcome.SKIPPED
     try:
+        if config.warn_minutes > 0:
+            stop_at = datetime.now(UTC) + timedelta(minutes=config.warn_minutes)
+            try:
+                write_notice(config.notice_file, stop_at)
+                log.info(f"notice armed: stop at {stop_at.isoformat()}")
+            except OSError as exc:
+                log.warning(f"could not write the notice file: {exc}")
+            # The wait happens even when the write failed, so the stop time stays 01:00.
+            steps.wait(
+                max(0.0, (stop_at - datetime.now(UTC)).total_seconds())
+                + OFFLINE_GRACE_SECONDS
+            )
+        stop_failed = _systemctl("stop", config.instances, config, log)
         if stop_failed:
             # A running instance can still write the files the window reads.
             log.error(f"could not stop {stop_failed}, window refused")
@@ -469,6 +496,12 @@ def run_maintenance(config: WindowConfig, steps: WindowSteps | None = None) -> O
         outcome = Outcome.FAILED
     finally:
         _systemctl("start", config.instances, config, log)
+        if config.warn_minutes > 0:
+            try:
+                if remove_notice(config.notice_file):
+                    log.info("notice removed")
+            except OSError as exc:
+                log.warning(f"could not remove the notice file: {exc}")
         if outcome is not Outcome.FAILED:
             _remove_database_copy(config, log)
         log.info(f"maintenance window end: {outcome.value}")
@@ -492,6 +525,8 @@ def _config_from_args(args: argparse.Namespace) -> WindowConfig:
         or project_root.parent / f"{project_root.name}_contrib_worktree",
         log_dir=args.log_dir or project_root / "logs",
         status_file=args.status_file,
+        warn_minutes=args.warn_minutes,
+        notice_file=args.notice_file,
         instances=args.instance or [],
         use_systemd=not args.no_systemd,
         remote=args.remote,
@@ -518,6 +553,18 @@ def main() -> None:
         type=Path,
         default=None,
         help="Browser-readable outcome file (default: <log-dir>/status.txt)",
+    )
+    parser.add_argument(
+        "--warn-minutes",
+        type=int,
+        default=0,
+        help="announce the stop to open editors this many minutes ahead (0 = no notice)",
+    )
+    parser.add_argument(
+        "--notice-file",
+        type=Path,
+        default=NOTICE_FILE,
+        help="where the editors read the stop time",
     )
     parser.add_argument("--instance", action="append", help="systemd unit (repeatable)")
     parser.add_argument("--remote", default="origin")

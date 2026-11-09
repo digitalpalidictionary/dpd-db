@@ -15,6 +15,7 @@ from gui2.contributor_tabs import allowed_tabs, resolve_extra_tabs
 from gui2.roots_tab_view import RootsTabView
 from gui2.sandhi_find_replace_view import SandhiFindReplaceView
 from gui2.sandhi_view import SandhiView
+from gui2 import server_lifecycle
 from gui2.shortcuts_dialog import ShortcutGroup, build_shortcuts_dialog
 from gui2.spelling_find_replace_view import SpellingFindReplaceView
 from gui2.toolkit import ToolKit
@@ -668,6 +669,11 @@ class App:
             )
         else:
             show_global_snackbar(self.page, "All tabs and tools ready.", "info", 2000)
+            if self.page.web and is_headless_server():
+                elapsed = time.monotonic() - server_lifecycle.PROCESS_START
+                server_lifecycle.log(
+                    f"tabs ready after {elapsed:.1f}s since process start"
+                )
 
     def _tab_label(self, index: int) -> str:
         """Return a tab's visible label, for messages about that tab."""
@@ -823,11 +829,16 @@ def main(page: ft.Page) -> None:
     claim_session(page)
     page.on_disconnect = lambda _: release_session(page)
     page.on_close = lambda _: release_session(page)
+    if page.web and is_headless_server():
+        server_lifecycle.attach(page)
 
     # Time App initialization
     start_time = time.time()
     App(page)
     print(f"App initialized in {time.time() - start_time:.2f}s")
+    if page.web and is_headless_server():
+        elapsed = time.monotonic() - server_lifecycle.PROCESS_START
+        server_lifecycle.log(f"app built {elapsed:.1f}s after process start")
 
     if enable_profiling:
         profiler.disable()

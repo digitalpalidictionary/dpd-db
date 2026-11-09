@@ -48,7 +48,9 @@ certificate, `add_contributor.sh` (asks for a password), the deploy key,
 `maintenance_window.py` is the orchestrator:
 
 ```
-stop instances
+announce the stop in the notice file, wait   (only with --warn-minutes N;
+                                              waits N minutes + 25 s so editors can move to the offline page)
+  → stop instances
   → capture rollback     (db copy, HEAD, every delivered contributor file)
   → dirty-tree check     (tracked files only; a dirty tree refuses the window)
   → git pull --ff-only + submodule update
@@ -60,6 +62,7 @@ stop instances
        → re-apply WAL → restore the tracked files the build rewrote
   on ANY failure after the pull: restore db, HEAD and contributor files
 start instances (always)
+  → remove the notice file
 ```
 
 A failed instance stop, a failed dirty-tree check or a failed pull skips
@@ -82,7 +85,8 @@ reconcile, push and rebuild. Every run logs to `logs/maintenance_YYYYMMDD.log`.
 
 ### Run it
 
-Production (cron on the server, 01:00 IST on a host in IST):
+Production (cron on the server, 00:30 IST on a host in IST; the editors stop at
+01:00 because `--warn-minutes 30` announces the stop 30 minutes ahead):
 
 The `PATH` line is required. Cron's short default path has no `uv`, and the
 window runs `uv` by name for the rebuild. Without it the first night fails at
@@ -90,7 +94,7 @@ the rebuild (2026-11-04: `No such file or directory: 'uv'`; the rollback worked)
 
 ```bash
 PATH=/root/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-0 1 * * * cd /root/dpd-db && /root/.local/bin/uv run --no-sync scripts/server_contrib/maintenance_window.py --data-dir /var/lib/dpd/contrib_data --instance dpd-gui@alice --status-file /var/lib/dpd/status.txt >> /root/mem/window_cron.log 2>&1
+30 0 * * * cd /root/dpd-db && /root/.local/bin/uv run --no-sync scripts/server_contrib/maintenance_window.py --data-dir /var/lib/dpd/contrib_data --instance dpd-gui@alice --status-file /var/lib/dpd/status.txt --warn-minutes 30 >> /root/mem/window_cron.log 2>&1
 ```
 
 Add one `--instance` per contributor unit.
@@ -105,6 +109,29 @@ Flags: `--no-systemd`, `--no-push`, `--instance <unit>` (repeatable),
 `--db-path`, `--data-dir` (default: `DPD_GUI2_DATA_DIR`, else `gui2/data`),
 `--worktree` (default: `<project-root>_contrib_worktree`), `--log-dir`,
 `--status-file`, `--remote`, `--branch`.
+
+### Warnings and idle sleep
+
+- With `--warn-minutes N` the window writes the stop time to the notice file
+  (`--notice-file`, default `/var/lib/dpd/notice.json`), waits until then, and
+  removes the file at the end. Each open editor shows a banner at each of 30, 15,
+  10, 5 and 1 minutes left that is still ahead (fewer if it opens late), then goes
+  to the static "offline" page at the stop time.
+  The maintenance log has `notice armed` and `notice removed`.
+- Idle sleep: after 30 minutes with no action an editor shows a 2-minute
+  countdown, then sends the browser to the static "asleep" page and the process
+  exits. systemd restarts an empty process (`Restart=always`), which loads the
+  database only when the person comes back. A half-filled form is lost. Idle
+  sleep and the banner run side by side: a person who is idle can still sleep
+  before the stop time.
+- Kill switch: set `DPD_GUI2_IDLE_MINUTES` in `/etc/dpd/<user>.env` (`0` turns
+  sleep off, a number sets the minutes) and restart that unit. The restart drops
+  that person's editor at once, so do it when they are not working.
+- Every decision is one line in the journal:
+  `journalctl -u dpd-gui@<user> | grep lifecycle:`.
+- The two pages live in `pages/` and are installed to `/var/www/dpd-pages/`
+  (runbook step 6e). nginx serves them for every user prefix and shows the
+  offline page whenever an instance does not answer.
 
 ### The failure surface (`/status`)
 

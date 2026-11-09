@@ -4,6 +4,7 @@ import json
 import logging
 import sqlite3
 import subprocess
+from datetime import UTC, datetime, timedelta
 from pathlib import Path
 
 import pytest
@@ -11,6 +12,7 @@ import pytest
 from scripts.server_contrib import maintenance_window
 from scripts.server_contrib.contrib_reconcile import load_json_dict, write_json_dict
 from scripts.server_contrib.maintenance_window import (
+    OFFLINE_GRACE_SECONDS,
     Outcome,
     WindowConfig,
     WindowSteps,
@@ -18,6 +20,7 @@ from scripts.server_contrib.maintenance_window import (
     run_maintenance,
 )
 from tools.contrib_entry import entry_hash
+from tools.contrib_notice import read_notice
 
 
 def _git(*args: str, cwd: Path) -> str:
@@ -569,3 +572,152 @@ class TestLogFormat:
         )
 
         assert " ERROR boom" in text
+
+
+class TestWarning:
+    def _warn_setup(self, tmp_path: Path, minutes: int = 30) -> Setup:
+        setup = _setup(tmp_path)
+        setup.config.warn_minutes = minutes
+        setup.config.notice_file = tmp_path / "notice.json"
+        return setup
+
+    def test_notice_is_armed_then_waited_on_then_removed(self, tmp_path: Path):
+        setup = self._warn_setup(tmp_path)
+        seen: dict = {}
+        order: list[str] = []
+
+        def fake_wait(seconds: float) -> None:
+            seen["seconds"] = seconds
+            seen["notice"] = read_notice(setup.config.notice_file)
+            order.append("wait")
+
+        calls = Calls()
+        steps = _steps(calls, wait=fake_wait)
+        real_pull = steps.pull
+        steps.pull = lambda config: (order.append("pull"), real_pull(config))[1]
+
+        outcome = run_maintenance(setup.config, steps)
+
+        assert outcome is Outcome.REBUILT
+        grace = OFFLINE_GRACE_SECONDS
+        assert 1790 + grace <= seen["seconds"] <= 1800 + grace
+        stop_at, reason = seen["notice"]
+        assert reason == "ok" and stop_at is not None
+        ahead = stop_at - datetime.now(UTC)
+        assert timedelta(minutes=29) < ahead < timedelta(minutes=30, seconds=1)
+        assert order == ["wait", "pull"]
+        assert not setup.config.notice_file.exists()
+        text = setup.log_text()
+        assert "notice armed" in text
+        assert "notice removed" in text
+        assert text.index("notice armed") < text.index("pulled + submodules")
+
+    def test_the_stop_waits_for_the_notice(
+        self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+    ):
+        setup = self._warn_setup(tmp_path)
+        setup.config.use_systemd = True
+        events: list[str] = []
+        real_run = subprocess.run
+
+        def fake_run(cmd, *args, **kwargs):
+            if cmd[0] == "systemctl":
+                events.append(f"systemctl {cmd[1]}")
+                return subprocess.CompletedProcess(cmd, 0)
+            return real_run(cmd, *args, **kwargs)
+
+        monkeypatch.setattr(subprocess, "run", fake_run)
+        steps = _steps(Calls(), wait=lambda seconds: events.append("wait"))
+
+        run_maintenance(setup.config, steps)
+
+        assert events == ["wait", "systemctl stop", "systemctl start"]
+
+    def test_warn_zero_never_waits_and_writes_nothing(self, tmp_path: Path):
+        setup = self._warn_setup(tmp_path, minutes=0)
+        waited: list[float] = []
+
+        outcome = run_maintenance(setup.config, _steps(Calls(), wait=waited.append))
+
+        assert outcome is Outcome.REBUILT
+        assert waited == []
+        assert not setup.config.notice_file.exists()
+        assert "notice" not in setup.log_text()
+
+    def test_an_unwritable_notice_path_does_not_fail_the_window(self, tmp_path: Path):
+        setup = self._warn_setup(tmp_path)
+        blocker = tmp_path / "a_file"
+        blocker.write_text("x")
+        setup.config.notice_file = blocker / "notice.json"
+        waited: list[float] = []
+
+        outcome = run_maintenance(setup.config, _steps(Calls(), wait=waited.append))
+
+        assert outcome is Outcome.REBUILT
+        assert len(waited) == 1
+        assert 1790 + OFFLINE_GRACE_SECONDS <= waited[0] <= 1800 + OFFLINE_GRACE_SECONDS
+        text = setup.log_text()
+        assert "could not write the notice file" in text
+        assert "notice armed" not in text
+
+    def test_a_failed_pull_still_removes_the_notice(self, tmp_path: Path):
+        setup = self._warn_setup(tmp_path)
+        steps = _steps(Calls(), wait=lambda seconds: None)
+        steps.pull = Calls().step("pull", error=RuntimeError("network"))
+
+        outcome = run_maintenance(setup.config, steps)
+
+        assert outcome is Outcome.FAILED
+        assert not setup.config.notice_file.exists()
+        assert "notice removed" in setup.log_text()
+
+    def test_the_command_line_flags_reach_the_window(
+        self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+    ):
+        seen: list[WindowConfig] = []
+
+        def fake_run(config: WindowConfig) -> Outcome:
+            seen.append(config)
+            return Outcome.SKIPPED
+
+        monkeypatch.setattr(maintenance_window, "run_maintenance", fake_run)
+        monkeypatch.setattr(
+            "sys.argv",
+            [
+                "maintenance_window.py",
+                "--no-systemd",
+                "--warn-minutes",
+                "5",
+                "--notice-file",
+                str(tmp_path / "x.json"),
+            ],
+        )
+
+        maintenance_window.main()
+
+        assert seen[0].warn_minutes == 5
+        assert seen[0].notice_file == tmp_path / "x.json"
+
+    def test_arguments_reach_the_config(self, tmp_path: Path):
+        import argparse
+
+        args = argparse.Namespace(
+            project_root=tmp_path,
+            db_path=None,
+            data_dir=tmp_path / "d",
+            worktree=None,
+            log_dir=None,
+            status_file=None,
+            instance=None,
+            no_systemd=True,
+            remote="origin",
+            branch="main",
+            no_push=True,
+            warn_minutes=5,
+            notice_file=tmp_path / "x.json",
+        )
+
+        config = maintenance_window._config_from_args(args)
+
+        assert config.warn_minutes == 5
+        assert config.notice_file == tmp_path / "x.json"

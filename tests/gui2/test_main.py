@@ -255,6 +255,20 @@ def test_keys_do_nothing_while_a_popup_is_open(
     assert view.method_calls == []
 
 
+def test_an_open_banner_does_not_block_a_shortcut() -> None:
+    view = MagicMock(spec=RootsTabView)
+    app = _app_on_tab(14, view)
+    banner = ft.Banner(
+        content=ft.Text("update soon"), actions=[ft.TextButton("Got it")]
+    )
+    banner.open = True
+    app.page._dialogs.controls.append(banner)
+
+    asyncio.run(app.on_keyboard(_ctrl_s()))
+
+    assert view.method_calls == [call._save_root(None)]
+
+
 @pytest.mark.parametrize("key", ["?", "/"])
 def test_alt_question_mark_opens_the_shortcuts_popup(key: str) -> None:
     app = _app_on_tab(0, MagicMock())
@@ -810,3 +824,34 @@ def test_web_canvas_grows_with_a_tall_window_and_never_shrinks(
     assert canvas.height == 1400
     page.on_resize(SimpleNamespace(height=500))
     assert canvas.height == App._WEB_CANVAS_MIN_HEIGHT
+
+
+def _main_with_lifecycle(
+    monkeypatch: pytest.MonkeyPatch, *, web: bool, headless: bool
+) -> MagicMock:
+    attach = MagicMock()
+    monkeypatch.setattr("gui2.main._session_page", None)
+    monkeypatch.setattr("gui2.main.App", MagicMock())
+    monkeypatch.setattr("gui2.main.server_lifecycle.attach", attach)
+    monkeypatch.setattr("gui2.main.is_headless_server", lambda: headless)
+    page = MagicMock()
+    page.web = web
+    main(page)
+    return attach
+
+
+@pytest.mark.parametrize(
+    ("web", "headless", "attached"),
+    [
+        (True, True, True),
+        (True, False, False),
+        (False, True, False),
+        (False, False, False),
+    ],
+)
+def test_idle_sleep_attaches_only_to_web_sessions_on_the_server(
+    monkeypatch: pytest.MonkeyPatch, web: bool, headless: bool, attached: bool
+) -> None:
+    attach = _main_with_lifecycle(monkeypatch, web=web, headless=headless)
+
+    assert attach.called is attached

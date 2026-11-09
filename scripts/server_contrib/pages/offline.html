@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The editor is not running right now</title>
+<style>
+  body { margin: 0; min-height: 100vh; display: flex; align-items: center; justify-content: center; background: #121212; color: #e6e6e6; font-family: system-ui, sans-serif; }
+  main { max-width: 32rem; padding: 2rem; text-align: center; }
+  h1 { font-size: 1.6rem; margin: 0 0 1rem; }
+  p { line-height: 1.5; margin: 0 0 1.5rem; }
+  a.go { display: inline-block; padding: 0.9rem 2rem; font-size: 1.2rem; background: #1e88e5; color: #fff; border-radius: 0.5rem; text-decoration: none; }
+  small { display: block; margin-top: 1.5rem; color: #9a9a9a; }
+</style>
+</head>
+<body>
+<main>
+  <h1>The editor is not running right now</h1>
+  <p>It is either starting up (wait a minute) or doing its daily update, which can take up to an hour.</p>
+  <a class="go" id="go" href="/">Try again</a>
+</main>
+<script>
+  const seg = location.pathname.split("/")[1] || "";
+  const home = /^[a-z][a-z0-9_]{0,31}$/.test(seg) ? "/" + seg + "/" : "/";
+  document.getElementById("go").href = home;
+</script>
+</body>
+</html>

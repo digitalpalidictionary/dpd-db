@@ -1,0 +1,86 @@
+# Gate 3 — implementation-readiness audit
+
+Backend: pi, DeepSeek API (`--provider deepseek --model deepseek-flash --thinking off --mode json`), 1 reviewer, first attempt (1,630 words).
+
+## Raw findings
+
+I have enough evidence. Writing the audit.
+
+---
+
+# Implementation-readiness audit — `20261109_contrib_idle_notices`
+
+## Blockers
+
+**B1 · Task 3.3 — `attach` cannot monkeypatch a `Session` method the plan names.** `dispatch_event` and `apply_patch` are real methods (`flet/messaging/session.py:432`, called from `flet_web/fastapi/flet_app.py:391`), but the plan says "install the two wrappers on `page.session` (instance attributes)". `Session` is a plain class with no `__slots__` and no `__setattr__` guard, so instance attributes *will* shadow the bound methods — but `dispatch_event` is `async def`, and the wrapper must be `async def` too or the `await` at `flet_web/fastapi/flet_app.py:384` breaks. The plan does say "keep each one's kind", but it does not say where the wrapped list/state lives, nor that the wrapper must be a closure over the *original bound method* captured before assignment (the plan's wording "call the original bound method" is ambiguous about capture order and would deadlock into infinite recursion if read as `self.dispatch_event`). **Fix:** spell out `orig = page.session.dispatch_event` then `page.session.dispatch_event = async def wrapper(...)` capturing `orig`, and state that `apply_patch` stays sync.
+
+**B2 · Task 3.3 — `page.session` raises `RuntimeError` on a *destroyed* session, so `_is_connected` cannot be written as specified.** `flet/controls/page.py:1304-1310`: `session` is a property that raises `RuntimeError("An attempt to fetch destroyed session.")`. The plan's `_is_connected` catches `RuntimeError` — fine — but `attach` also reads `page.session` to install wrappers, and the tick's "prune gone pages" gets no `page` cleanup strategy. The plan never says whether a page whose session is already destroyed at `attach` time is skipped, kept, or crashes. **Fix:** specify `attach` returns early (logging) when `page.session` raises, and that pruned pages are dropped from `pages` but their entries in `countdown_dialogs`/`banners` keyed by `id(page)` are also dropped (the plan doesn't say; `id()` reuse after GC is real).
+
+**B3 · Task 3.4 — no file/location for the `Lifecycle` singleton and the "two log lines" in `main.py`.** The plan says `main()` "only calls `attach(page)` and two log lines" and `gui2/main.py` after `claim_session(page)`. But `claim_session` is not shown at the cited line; `gui2/main.py:381` is `App.on_keyboard` per spec, and the plan never gives a line number for the insertion point. The implementer must find the exact `main()` body, `claim_session` call, `App initialized` print, and `_warmup_in_background` snackbar. **Fix:** give `file:line` for each of the four insertion points, as the spec does elsewhere.
+
+**B4 · Task 5.1 — executor rule violated.** Allowed commands on the server are `systemctl, journalctl, nginx -t, crontab…, install, cp, sed -i…, cat /proc`. `git pull --ff-only` and `git log -1` are **not** in the list, and the plan's own rules say "Never run git". Task 5.1 is a Blocker: the server agent cannot legally run it. **Fix:** change 5.1 to an owner-run step, or add `git pull`/`git log` to the allowed-server list explicitly.
+
+**B5 · Task 5.7 — executor rule violated + EXPECT unverifiable.** The command `uv run --no-sync scripts/server_contrib/maintenance_window.py …` is not `uv run pytest` — it's a long-lived run (>60 s), which the rules require in background *with a pid file and a bounded `timeout 600` wait*. The plan says "in the background with a pid file" but never gives the pid path or the wait command. Also `grep notice logs/maintenance_$(date +%Y%m%d).log` uses `grep`, not in the allowed list. **Fix:** add the pid path, the `timeout 600 bash -c` wait, and put `grep` on the allowed list or use `rg`.
+
+---
+
+## Majors
+
+**M1 · Task 2.2 — `WindowConfig` field order breaks existing positional construction.** `WindowConfig` (`scripts/server_contrib/maintenance_window.py:59-71`) has `status_file` as its **last** field. Adding `warn_minutes`/`notice_file` after it is fine, but the plan never says *where*: before `status_file` would break any positional `WindowConfig(...)` in the existing tests. **Fix:** state "append after `status_file`".
+
+**M2 · Task 2.2 — the `wait` call happens before the instance stop but the plan's `stop_failed: list[str] = []` pre-init contradicts the existing early-return.** `run_maintenance` currently does `stop_failed = _systemctl(...)` **before** the `try:` (`maintenance_window.py:398`) and checks it inside. The plan moves the call into the `try:` — but the existing code at line 400 checks `if stop_failed:` *first thing* inside the `try:`. After the move, the check must run *after* `steps.wait(...)`, which the plan never states, and the plan does not say whether the window refuses *before or after* the 30-minute wait when a stop fails. **Fix:** specify the order: write notice → wait → stop → check `stop_failed`.
+
+**M3 · Task 2.2 — `_config_from_args` has no `status_file` default and `notice_file` default is `NOTICE_FILE`, but `NOTICE_FILE` is a `Path` in `tools/contrib_notice.py` the plan says to import as `from tools.contrib_notice import NOTICE_FILE`; `scripts/` importing `tools/` is legal but `maintenance_window.py` already imports `tools.contrib_entry` (`maintenance_window.py:43`), so the import is fine. The problem is the plan gives **no** default for `--notice-file` relative to `config.log_dir` or `data_dir`** — the default is the absolute `/var/lib/dpd/notice.json`, which does not exist on the laptop, so **Task 2.3's "warn 30" test cannot write there** without overriding `--notice-file`. The plan's 2.3 tests say "the notice file exists" but never say the test passes `notice_file=tmp_path`. **Fix:** state that every 2.3 test constructs `WindowConfig(notice_file=tmp_path/"notice.json")`.
+
+**M4 · Task 3.3 — `banners` is `dict[int, tuple[ft.Banner, ft.Text]]`, but spec B.4 says "The banner is shown with `page.show_dialog`". `show_dialog` is not on `Page` in the plan's citation — `gui2/ui_utils.py` uses `page.show_dialog(snackbar)` (line ~163), so it exists, but the plan never says whether a *new* `ft.Banner` per step replaces the old one via `show_dialog` (which stacks) or `page.pop_dialog()` first.** The constraint in the spec says a fresh object avoids "Dialog is already opened", but stacking banners would put two on the dialog stack. **Fix:** specify the refresh path: on a new step, `page.pop_dialog()` the old banner before `show_dialog(new)`.
+
+**M5 · Task 3.1 — `decide_idle` row "countdown + no page → SLEEP at the end" is contradictory with the spec's A.5.** Spec A.5 says "Countdown showing and every page disconnects → the countdown keeps running and the process sleeps when it ends." The plan's rule list has `countdown running and now - countdown_started >= COUNTDOWN_SECONDS` → SLEEP *before* the `any_connected` rule, so with no page it sleeps only at countdown end — which matches spec. But the plan's test bullet says "countdown + no page → SLEEP at the end", which is correct, yet the `decide_idle` signature puts `any_connected` *after* the countdown rules — so the test row is fine. The real gap: **the plan never says what `now` is when `countdown_started` is set but `last_activity` is stale and a page connects.** Spec A.5 "a new page connects → cancelled" relies on `last_activity > countdown_started`, which only holds if `attach`/connection sets `last_activity`; the plan's `attach` does, but a *reconnect* of an existing page does not go through `attach`. **Fix:** say reconnection updates `last_activity`, or the "new page connects" cancel case is untestable.
+
+**M6 · Task 5.3 EXPECT "not 502 Bad Gateway" is a manual owner check the server agent cannot verify**, and `curl` to `https://<server name>/alice/_dpd/offline.html` is behind htpasswd (spec C.3 says the pages have "no login", but the plan's regex location is site-level *outside* the per-user block, so no auth — consistent). **But** the agent never reads htpasswd, so the second CHECK ("owner sees …") is unautomated. **Fix:** mark it "owner-reported; not enforceable by the agent", or add a `curl -u`-free check the agent can run.
+
+**M7 · Task 4.1 test asserts `offline.html` has "no placeholder", but the placeholder is `N seconds` only in `asleep.html` — and task 5.5 later removes it. The test in 4.1 cannot pass for `asleep.html` until 5.5, and 4.1 says "both files exist … `offline.html` has no placeholder". Fine — but 5.5 says "update the test in 4.1 to assert the placeholder is gone", which means the 4.1 test *must* have a placeholder assertion for `asleep.html` that 4.1 does not specify.** **Fix:** split: 4.1 asserts `asleep.html` contains `N seconds`; 5.5 flips that assertion.
+
+**M8 · Task 3.2 — guard test imports `flet.messaging.session.Session` and asserts `inspect.iscoroutinefunction(Session.dispatch_event)`.** Verified true (`session.py:432`). But `apply_patch` has **no** `inspect`-able citation in the plan's own text and I could not confirm its exact line without opening more files; if it is a `partial` or instance-assigned, `callable(...)` still passes but the test is weaker than the plan implies. **Fix:** cite `apply_patch`'s `file:line` and state its kind (sync) so a reviewer can verify.
+
+**M9 · Task 5.6 EXPECT "VmRSS under 120 MB"** — the spec says "about 87 MB" and memory figures are from an archived file. **No code or artifact in this repo gives 120 MB**; the plan invents the ceiling. **Fix:** cite the source, or say "record the number; compare to the 87 MB baseline".
+
+---
+
+## Nits
+
+- **N1 · Task 3.3** `log()` says "Check `tools/printer.py` for the right call; `print(..., flush=True)` is acceptable" — that is a decision the plan leaves open. Pick one.
+- **N2 · Task 3.3** `PR.hard`/`pr.white` newline behaviour unspecified; the `lifecycle:` grep in 5.4/5.9 depends on exact prefixes.
+- **N3 · Task 4.2** the regex `location ~ "…"` uses `alias /var/www/dpd-pages/$1.html` — `$1` inside `alias` with a regex location is a known nginx trap (needs `location ~ ^/…/(asleep|offline)\.html$` to capture; the anchored group is fine, but the plan never says the `alias` must be the *first* `$1` capture). Verify with `nginx -t` on the server, which 5.3 does.
+- **N4 · Task 1.1** `FLET_WEB_APP_PATH=probe` mount-prefix behaviour is asserted, not cited; if Flet's env name differs, 1.5 fails for a reason the plan doesn't anticipate.
+- **N5 · Task 2.2** help text for `--warn-minutes` given, but `--notice-file` has no help string; ruff won't complain, reviewers will.
+- **N6 · Task 5.2** "lines rendering `dpd-gui@.service`, currently 104-105" — a line-number citation into `server_setup.sh` that will drift after Phase 4 edits; prefer a grep anchor.
+- **N7 · Task 6.3** scans for `/home/|<user>` but the plan itself writes `<repo root>` fine; however `artifacts/` files (server_rollout.md) may capture real paths from pasted output — the scan should include `artifacts/`.
+
+**Counts:** 5 Blocker, 9 Major, 7 Nit.
+## Disposition
+
+| # | Finding | Severity | Decision | How checked | Where fixed |
+|---|---|---|---|---|---|
+| B1 | Wrapper capture order and kinds unspecified; recursion risk | Blocker | Accept | `flet/messaging/session.py:432` (async), `:303` (sync) | plan 3.3 `attach` |
+| B2 | `attach` on a destroyed session; dict cleanup on prune (`id()` reuse) | Blocker | Accept | `flet/controls/page.py:1304-1310` | plan 3.3 `attach`, `tick` |
+| B3 | No line anchors for the `main.py` insertion points | Blocker | Accept | `gui2/main.py:670`, `:823-825`, `:830` | plan 3.4 |
+| B4 | Server `git pull` not in the allowed list | Blocker | Accept | plan executor rules | plan executor rules (server list) |
+| B5 | 5.7 needs a pid path and bounded wait; `grep` not allowed | Blocker | Accept | plan executor rules | plan 5.7, executor rules |
+| M1 | `WindowConfig` field position | Major | Accept | `maintenance_window.py:59-71`, `status_file` is last | plan 2.2 |
+| M2 | Order of notice → wait → stop → refusal check | Major | Accept | `run_maintenance` | plan 2.2 |
+| M3 | 2.3 tests must use a tmp notice path | Major | Accept | `NOTICE_FILE` is `/var/lib/dpd/notice.json` | plan 2.3 |
+| M4 | Banner refresh: stacking vs replace | Major | Accept | `base_page.py:402-427` `show_dialog`/`pop_dialog` | plan 3.3 banner helper |
+| M5 | A Flet reconnect reusing the session never re-runs `attach`, so it cannot cancel the countdown | Major | Accept | `flet_web/fastapi/flet_app.py:275-341` reuses a known session | plan 3.3 `was_connected` |
+| M6 | 5.3 browser check is owner-only | Major | Accept | — | plan 5.3 EXPECT marked owner-reported |
+| M7 | 4.1/5.5 placeholder assertion undefined | Major | Accept | — | plan 4.1 |
+| M8 | Cite `apply_patch` and its kind | Major | Accept | `session.py:303`, sync | plan 3.3 |
+| M9 | 120 MB ceiling invented | Major | Accept | mem_measure results, `plus15s` = 86.5 MB | plan 5.6 |
+| N1 | `log()` call left open | Nit | Accept | `tools/printer.py` uses rich `print` with markup | plan 3.3: builtin `print(..., flush=True)` |
+| N2 | Exact log prefix | Nit | Accept | same fix as N1 | plan 3.3 |
+| N3 | `alias $1` trap in regex location | Nit | Reject | one capture group, `$1` is it; 5.3 runs `nginx -t` and `curl` | — |
+| N4 | `FLET_WEB_APP_PATH` not cited | Nit | Accept | read in `flet/app.py` | plan 1.1 |
+| N5 | `--notice-file` help string | Nit | Accept | — | plan 2.2 |
+| N6 | Line-number anchor into `server_setup.sh` drifts | Nit | Accept | — | plan 5.2 grep anchor |
+| N7 | Home-path scan should cover `artifacts/` | Nit | Reject | 6.3 already scans the whole thread folder, `artifacts/` included | — |
+
+Counts: 21 findings — 19 accepted, 2 rejected, 0 escalated. No Blocker or Major left open.

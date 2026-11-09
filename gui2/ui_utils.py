@@ -167,10 +167,10 @@ _CANCEL_LABELS = ("Cancel", "Close")
 
 
 def is_dialog_open(page: ft.Page) -> bool:
-    """True when a popup covers the page. SnackBars share the dialog stack but
-    leave the page usable, so they do not count."""
+    """True when a popup covers the page. SnackBars and Banners share the dialog
+    stack but leave the page usable, so they do not count."""
     return any(
-        dialog.open and not isinstance(dialog, ft.SnackBar)
+        dialog.open and not isinstance(dialog, (ft.SnackBar, ft.Banner))
         for dialog in page._dialogs.controls
     )
 
@@ -183,10 +183,11 @@ async def cancel_top_dialog(page: ft.Page) -> bool:
     dialog, keeps each popup's cancel side-effects (resetting a field, firing
     a callback with None). A non-modal dialog on top is left alone: Flutter
     already dismisses it on Escape, so handling it here would close twice.
-    SnackBars share the dialog stack but are not popups, so they are skipped.
+    SnackBars and Banners share the dialog stack but are not popups, so they
+    are skipped.
     """
     for dialog in reversed(page._dialogs.controls):
-        if not dialog.open or isinstance(dialog, ft.SnackBar):
+        if not dialog.open or isinstance(dialog, (ft.SnackBar, ft.Banner)):
             continue
         if not (isinstance(dialog, ft.AlertDialog) and dialog.modal):
             return False

@@ -19,7 +19,9 @@ Environment=FLET_WEB_APP_PATH=%i
 EnvironmentFile=/etc/dpd/%i.env
 WorkingDirectory=@CLONE@
 ExecStart=@UV@ run --no-sync python gui2/main.py
-Restart=on-failure
+# Idle sleep exits with 0 and must come back as an empty process;
+# `systemctl stop` (the nightly window) is still final.
+Restart=always
 RestartSec=10
 TimeoutStopSec=30
 

@@ -99,7 +99,7 @@ CHECK: `ssh -o ControlPath=/tmp/cm-new -O check root@NEW_IP`
 
 EXPECT: `Master running (pid=...)`
 
-**2b. Time zone.** A fresh image is on UTC. The nightly job runs at 01:00 in the server's zone. The owner's zone is Asia/Colombo.
+**2b. Time zone.** A fresh image is on UTC. The nightly job starts at 00:30 and stops the editors at 01:00 in the server's zone. The owner's zone is Asia/Colombo.
 
 ```
 ssh SSH_TARGET 'timedatectl set-timezone Asia/Colombo'
@@ -346,6 +346,16 @@ nginx: configuration file /etc/nginx/nginx.conf test is successful
 
 Do not start nginx yet. The certificate hook may already have started it, with no site loaded. Step 7d restarts it, after the contributors' files exist.
 
+**6e. Static pages.** The site file serves two pages, "asleep" and "offline", from `/var/www/dpd-pages/`. nginx answers 502 with the offline page while an editor is down. Fill in the wake time in `asleep.html` first (the line "Waking takes about N seconds"; the number is the median of three measured wake times, rounded up to a multiple of 10).
+
+```bash
+ssh SSH_TARGET 'install -d -m 755 /var/www/dpd-pages && install -m 644 /root/dpd-db/scripts/server_contrib/pages/asleep.html /root/dpd-db/scripts/server_contrib/pages/offline.html /var/www/dpd-pages/'
+```
+
+CHECK: `ssh SSH_TARGET 'ls -l /var/www/dpd-pages; grep -c "N seconds" /var/www/dpd-pages/asleep.html'`
+
+EXPECT: two files with mode `-rw-r--r--`, then `0`.
+
 ## Step 7. Contributors, and the `/status` page
 
 **WHO:** AGENT, except where it says OWNER.
@@ -526,7 +536,7 @@ The `ls-remote` proves the key can read. It cannot prove the key can write. The 
 ssh SSH_TARGET 'crontab -l 2>/dev/null > /root/mem/crontab.before_20261104; true'
 ssh SSH_TARGET 'cat > /root/mem/new_crontab' <<'EOF'
 PATH=/root/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-0 1 * * * cd /root/dpd-db && /root/.local/bin/uv run --no-sync scripts/server_contrib/maintenance_window.py --data-dir /var/lib/dpd/contrib_data --instance dpd-gui@alice --status-file /var/lib/dpd/status.txt >> /root/mem/window_cron.log 2>&1
+30 0 * * * cd /root/dpd-db && /root/.local/bin/uv run --no-sync scripts/server_contrib/maintenance_window.py --data-dir /var/lib/dpd/contrib_data --instance dpd-gui@alice --status-file /var/lib/dpd/status.txt --warn-minutes 30 >> /root/mem/window_cron.log 2>&1
 EOF
 ssh SSH_TARGET 'crontab /root/mem/new_crontab && systemctl restart cron'
 ```

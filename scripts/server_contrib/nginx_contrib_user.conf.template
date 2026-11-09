@@ -12,6 +12,9 @@ location /@USER@/ {
     # site config (location = /_dpd_pw_check).
     auth_request /_dpd_pw_check;
     error_page 403 = @pw_@USER@;
+    # While the instance is down nginx answers 502: show the offline page.
+    # Per user, because a block that sets its own error_page inherits none.
+    error_page 502 503 504 /@USER@/_dpd/offline.html;
 
     # No trailing slash: the /@USER@/ prefix is passed on, because the instance
     # is mounted there (FLET_WEB_APP_PATH) and answers nothing at its root.

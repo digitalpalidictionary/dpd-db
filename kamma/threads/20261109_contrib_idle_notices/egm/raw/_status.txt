@@ -1,0 +1,12 @@
+gate1_ux ok words=902
+gate1_contrarian ok words=767
+gate1_migration ok words=625
+gate1_observability ok words=667
+gate1_techdebt ok words=662
+gate1_cost ok words=842
+DONE
+gate2_comprehension ok words=636
+gate2_design ok words=902
+DONE
+gate3_readiness ok words=1630
+DONE

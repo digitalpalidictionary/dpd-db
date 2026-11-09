@@ -101,6 +101,26 @@ def test_snackbar_does_not_count_as_dialog_open() -> None:
     assert is_dialog_open(_page(snackbar)) is False
 
 
+def test_banner_does_not_count_as_dialog_open() -> None:
+    banner = ft.Banner(
+        content=ft.Text("update soon"), actions=[ft.TextButton("Got it")]
+    )
+    banner.open = True
+    assert is_dialog_open(_page(banner)) is False
+
+
+def test_escape_ignores_banner_on_top() -> None:
+    pressed: list[str] = []
+    banner = ft.Banner(
+        content=ft.Text("update soon"), actions=[ft.TextButton("Got it")]
+    )
+    banner.open = True
+    page = _page(_dialog(["Cancel"], pressed), banner)
+
+    assert asyncio.run(cancel_top_dialog(page)) is True
+    assert pressed == ["Cancel"]
+
+
 def _mount(child: ft.BaseControl, parent: ft.BaseControl) -> None:
     # Flet links a mounted control to its parent this way.
     child._parent = weakref.ref(parent)  # pyright: ignore[reportAttributeAccessIssue]

@@ -121,6 +121,22 @@ def test_each_user_gets_their_own_login_realm(tmp_path: Path) -> None:
     assert 'auth_basic "DPD contributor alice";' in conf
 
 
+def test_a_down_instance_shows_the_offline_page(tmp_path: Path) -> None:
+    add(tmp_path, "alice", "8551")
+
+    conf = (tmp_path / "etc" / "nginx" / "dpd" / "alice.conf").read_text()
+    assert "error_page 502 503 504 /alice/_dpd/offline.html;" in conf
+
+
+def test_the_site_serves_both_static_pages_for_any_user_prefix() -> None:
+    site = Path("scripts/server_contrib/nginx_contrib.conf.template").read_text(
+        encoding="utf-8"
+    )
+
+    assert r'location ~ "^/[a-z][a-z0-9_]{0,31}/_dpd/(asleep|offline)\.html$"' in site
+    assert "alias /var/www/dpd-pages/$1.html;" in site
+
+
 def test_each_instance_lives_under_its_own_prefix(tmp_path: Path) -> None:
     """Flet asks for its engine files at the mount path. Mounted at the root,
     every user's page asks the domain root, which only one instance can serve,

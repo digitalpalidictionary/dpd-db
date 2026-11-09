@@ -12,6 +12,15 @@ server {
 
     include /etc/nginx/dpd/*.conf;
 
+    # The "asleep" and "offline" pages, for every user prefix. One regex
+    # location beats each per-user prefix location, and there is no login
+    # because the pages hold nothing private. Install the files with the
+    # runbook step "static pages".
+    location ~ "^/[a-z][a-z0-9_]{0,31}/_dpd/(asleep|offline)\.html$" {
+        alias /var/www/dpd-pages/$1.html;
+        default_type text/html;
+    }
+
     # The forced-first-change subrequest for every user's auth_request
     # gate (one definition per server; per-user confs only reference it).
     # Requires dpd-password.service to be running: while it is down, the
