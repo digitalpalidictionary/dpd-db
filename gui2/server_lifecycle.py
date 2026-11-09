@@ -266,15 +266,18 @@ class Lifecycle:
                 banner.open = False
                 page.update()
 
-            text = ft.Text(banner_text(minutes))
+            urgent = minutes <= RED_FROM_MINUTES
+            # White is unreadable on amber, black is unreadable on red.
+            ink = ft.Colors.WHITE if urgent else ft.Colors.BLACK
+            text = ft.Text(banner_text(minutes), color=ink)
             banner = ft.Banner(
                 content=text,
-                bgcolor=(
-                    ft.Colors.RED_700
-                    if minutes <= RED_FROM_MINUTES
-                    else ft.Colors.AMBER_700
-                ),
-                actions=[ft.TextButton("Got it", on_click=got_it)],
+                bgcolor=ft.Colors.RED_700 if urgent else ft.Colors.AMBER_700,
+                actions=[
+                    ft.TextButton(
+                        "Got it", on_click=got_it, style=ft.ButtonStyle(color=ink)
+                    )
+                ],
             )
             self.banners[id(page)] = (banner, text)
             page.show_dialog(banner)

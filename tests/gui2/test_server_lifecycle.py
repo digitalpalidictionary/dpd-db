@@ -428,6 +428,8 @@ class TestBannerFlow:
         first = page.shown[0]
         assert "in 12 minutes" in first.content.value
         assert first.bgcolor == ft.Colors.AMBER_700
+        assert first.content.color == ft.Colors.BLACK
+        assert first.actions[0].style.color == ft.Colors.BLACK
 
         lifecycle.tick(now_mono=2.0, now_utc=self.NOW + timedelta(minutes=1))
         assert len(page.shown) == 1
@@ -447,6 +449,8 @@ class TestBannerFlow:
         lifecycle.tick(now_mono=5.0, now_utc=self.NOW + timedelta(minutes=7))
         assert len(page.shown) == 3
         assert page.shown[2].bgcolor == ft.Colors.RED_700
+        assert page.shown[2].content.color == ft.Colors.WHITE
+        assert page.shown[2].actions[0].style.color == ft.Colors.WHITE
 
     def test_stop_time_sends_the_page_offline_and_idle_stays_quiet(
         self, tmp_path: Path, launched: list[str], monkeypatch: pytest.MonkeyPatch
