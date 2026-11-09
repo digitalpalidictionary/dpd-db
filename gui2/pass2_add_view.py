@@ -49,6 +49,8 @@ LABEL_WIDTH = 250
 BUTTON_WIDTH = 250
 LABEL_COLOUR = ft.Colors.GREY_500
 HIGHLIGHT_COLOUR = ft.Colors.BLUE_200
+# Origin is not a Pass1 Add field (the form sets it), but a Pass2 editor wants to see it.
+PASS1_FILTER_FIELDS = [*PASS1_FIELDS, "origin"]
 
 
 class Pass2AddView(ft.Column, PopUpMixin):
@@ -731,7 +733,7 @@ class Pass2AddView(ft.Column, PopUpMixin):
         elif filter_type == "word":
             visible_fields = WORD_FIELDS
         elif filter_type == "pass1":
-            visible_fields = PASS1_FIELDS
+            visible_fields = PASS1_FILTER_FIELDS
 
         self.dpd_fields.filter_fields(visible_fields)
         self.page.update()
@@ -814,6 +816,8 @@ class Pass2AddView(ft.Column, PopUpMixin):
         if self._filter_radios.value == "sutta":
             self._apply_sutta_prefill()
             self.dpd_fields.filter_fields(SUTTA_FIELDS)
+        elif self._filter_radios.value == "pass1":
+            self.dpd_fields.filter_fields(PASS1_FILTER_FIELDS)
         else:
             self._filter_radios.value = "all"  # Reset filter to 'all'
         self.headword_original = None  # Resetting the original data reference
@@ -1076,8 +1080,10 @@ class Pass2AddView(ft.Column, PopUpMixin):
 
             self._update_history_dropdown()
             self.page.update()
-            # clear_all_fields keeps the sutta filter; a finished add should not
-            self._filter_radios.value = "all"
+            # clear_all_fields keeps the sutta filter; a finished add should not.
+            # Pass1 stays, because that work is hundreds of words in a row.
+            if self._filter_radios.value != "pass1":
+                self._filter_radios.value = "all"
             self.clear_all_fields()
             if not copied:
                 self.update_message(
@@ -1584,6 +1590,10 @@ class Pass2AddView(ft.Column, PopUpMixin):
         are simply not added this time."""
 
         if not self._missing_words_switch.value:
+            return
+
+        # A pass1 word has no meaning_1, so it has no example to add.
+        if not word_to_save.meaning_1:
             return
 
         sections = self._find_missing_eg_words(word_to_save)

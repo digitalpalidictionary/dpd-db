@@ -537,3 +537,4 @@
 - 2026-11-08 [POSITIVE] Checking the reviewer's claim against the key handler showed that tooltip hints must follow the page's web flag, not the server role. Two other reviewer claims (a missing test file, a test green on revert) were false when checked.
 2026-11-08 [WORKFLOW] contrib tablet: the first report ("not scrolling") was really a fixed header filling a short screen; a phone on the debug cable plus a 401 count in the nginx log found both causes in minutes. Ask for the exact symptom and read the server log before reading code.
 2026-11-08 [REPEATED] User asked for the short version after two long replies; keep every reply to a few lines.
+- 2026-11-09 [CONFUSION] "pass1 add" meant the Pass1 radio filter and missing-words popup in Pass2 Add; searching Pass1 Add first cost several reads — grep the named UI label across gui2 before assuming the screen

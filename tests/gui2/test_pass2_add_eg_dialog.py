@@ -104,8 +104,12 @@ class TestNoRecursiveKeyboardState:
     def test_opening_the_popup_twice_does_not_recurse(self) -> None:
         view, page = _view()
 
-        view._show_missing_words_dialog(SimpleNamespace(lemma_1="gacchati"))  # pyright: ignore[reportArgumentType]
-        view._show_missing_words_dialog(SimpleNamespace(lemma_1="karoti"))  # pyright: ignore[reportArgumentType]
+        view._show_missing_words_dialog(
+            SimpleNamespace(lemma_1="gacchati", meaning_1="x")
+        )  # pyright: ignore[reportArgumentType]
+        view._show_missing_words_dialog(
+            SimpleNamespace(lemma_1="karoti", meaning_1="x")
+        )  # pyright: ignore[reportArgumentType]
 
         # A key the popup does not consume: this is where the old handler
         # delegated to itself.
@@ -115,7 +119,9 @@ class TestNoRecursiveKeyboardState:
         view, page = _view()
         original = page.on_keyboard_event
 
-        view._show_missing_words_dialog(SimpleNamespace(lemma_1="gacchati"))  # pyright: ignore[reportArgumentType]
+        view._show_missing_words_dialog(
+            SimpleNamespace(lemma_1="gacchati", meaning_1="x")
+        )  # pyright: ignore[reportArgumentType]
 
         assert page.on_keyboard_event is original, (
             "the popup replaced the app's global keyboard handler; closing it "
@@ -126,7 +132,7 @@ class TestNoRecursiveKeyboardState:
 class TestDialogStack:
     def test_closing_removes_the_dialog_from_the_stack(self) -> None:
         view, page = _view()
-        headword = SimpleNamespace(lemma_1="gacchati")
+        headword = SimpleNamespace(lemma_1="gacchati", meaning_1="x")
 
         view._show_missing_words_dialog(headword)  # pyright: ignore[reportArgumentType]
         assert len(page.dialogs) == 1
@@ -141,7 +147,9 @@ class TestDialogStack:
         view, page = _view()
 
         for lemma in ("gacchati", "karoti", "bhavati"):
-            view._show_missing_words_dialog(SimpleNamespace(lemma_1=lemma))  # pyright: ignore[reportArgumentType]
+            view._show_missing_words_dialog(
+                SimpleNamespace(lemma_1=lemma, meaning_1="x")
+            )  # pyright: ignore[reportArgumentType]
             view._close_eg_alert()
 
         assert page.dialogs == []
@@ -167,7 +175,9 @@ class TestFocusAfterClose:
         self, focused: list[Any], label: str
     ) -> None:
         view, _ = _view()
-        view._show_missing_words_dialog(SimpleNamespace(lemma_1="gacchati"))  # pyright: ignore[reportArgumentType]
+        view._show_missing_words_dialog(
+            SimpleNamespace(lemma_1="gacchati", meaning_1="x")
+        )  # pyright: ignore[reportArgumentType]
 
         self._popup_button(view, label).on_click(None)
 
