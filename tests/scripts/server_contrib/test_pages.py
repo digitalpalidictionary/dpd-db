@@ -21,11 +21,13 @@ def test_page_is_self_contained_and_has_its_heading(name: str) -> None:
     assert "F5" not in text
 
 
-def test_asleep_page_still_has_the_wake_time_placeholder() -> None:
-    # Task 5.5 fills N from the measured wake times and flips this assertion.
+def test_asleep_page_states_the_measured_wake_time() -> None:
+    # Median of three wake times on the server (18.1, 18.3 and 59.6 s) is
+    # 18.3 s, rounded up to 20. The 59.6 s start was cold, so 20 is typical.
     text = (PAGES / "asleep.html").read_text(encoding="utf-8")
 
-    assert "N seconds" in text
+    assert "N seconds" not in text
+    assert "Waking takes about 20 seconds" in text
     assert "Wake the editor" in text
 
 
