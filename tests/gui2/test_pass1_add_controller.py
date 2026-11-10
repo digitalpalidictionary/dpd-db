@@ -122,3 +122,61 @@ def test_controller_builds_without_touching_the_word_finder(
 
     assert ctrl.toolkit.db_manager is not None
     assert not hasattr(ctrl, "wordfinder_manager")
+
+
+# --- saving a word typed in by hand must not cost the editor a book word ---
+
+
+def _save_ctrl(
+    monkeypatch: pytest.MonkeyPatch, box_value: str
+) -> tuple[Pass1AddController, list[str], list[str]]:
+    monkeypatch.setattr(controller_module, "save_headword", lambda *a: (True, ""))
+    removed: list[str] = []
+    loaded: list[str] = []
+    ctrl = object.__new__(Pass1AddController)
+    ctrl.daily_log = MagicMock()
+    ctrl.toolkit = MagicMock()  # pyright: ignore[reportAttributeAccessIssue]
+    ctrl.db = MagicMock()
+    ctrl.book_to_process = "book"
+    ctrl.pass1_auto_controller = MagicMock()
+    ctrl.pass1_auto_controller.remove_word.side_effect = lambda _b, w: removed.append(w)
+    ctrl.pass1_auto_controller.get_auto_processed_dict.return_value = {}
+    ctrl.auto_processed_iter = iter([("b", {"pos": "x"})])
+    ctrl.word_in_text = "a"
+    ctrl.sentence_data = {"pos": "x"}
+    ctrl.load_into_gui = lambda: loaded.append(ctrl.word_in_text)  # pyright: ignore[reportAttributeAccessIssue]
+    ctrl.ui = MagicMock()
+    ctrl.ui.word_in_text.value = box_value
+    return ctrl, removed, loaded
+
+
+def test_saving_a_hand_typed_word_keeps_the_book_word(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    ctrl, removed, loaded = _save_ctrl(monkeypatch, box_value="")
+    ctrl._save_previewed_word(MagicMock(id=1, lemma_1="zzz"), "", False)
+
+    assert removed == []
+    assert loaded == ["a"]
+
+
+def test_saving_the_book_word_moves_to_the_next_one(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    ctrl, removed, loaded = _save_ctrl(monkeypatch, box_value="a")
+    ctrl._save_previewed_word(MagicMock(id=1, lemma_1="a"), "", False)
+
+    assert removed == ["a"]
+    assert loaded == ["b"]
+
+
+def test_hand_typed_save_after_the_last_book_word_loads_nothing(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    ctrl, _, loaded = _save_ctrl(monkeypatch, box_value="a")
+    ctrl.auto_processed_iter = iter([])
+    ctrl._save_previewed_word(MagicMock(id=1, lemma_1="a"), "", False)
+    ctrl.ui.word_in_text.value = ""
+    ctrl._save_previewed_word(MagicMock(id=2, lemma_1="zzz"), "", False)
+
+    assert loaded == []

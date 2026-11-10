@@ -111,6 +111,8 @@ class Pass1AddController(SandhiOK, SnackBarMixin):
             )
             self.ui.update_remaining(len(current_dict))
             self.ui.clear_all_fields()
+            # The last word is done; a later hand-typed save must not reload it.
+            self.word_in_text = ""
             self.ui.update_message("No more words to process.")
             return False
 
@@ -215,10 +217,26 @@ class Pass1AddController(SandhiOK, SnackBarMixin):
             )  # Use ui's history_manager
             self.ui._update_history_dropdown()
 
-            self.remove_word_and_save_json()
+            # "Clear all" empties the box but the book word stays in memory.
+            # A word typed in by hand must not delete it or skip past it.
+            saved_book_word = (
+                bool(getattr(self, "word_in_text", ""))
+                and self.ui.word_in_text.value == self.word_in_text
+            )
+            keep_book_word = (
+                not saved_book_word
+                and bool(getattr(self, "word_in_text", ""))
+                and self.book_to_process is not None
+            )
+            if saved_book_word:
+                self.remove_word_and_save_json()
             self.ui.clear_all_fields()
 
             self.db.get_all_lemma_1_and_lemma_clean()
+            if keep_book_word:
+                self.load_into_gui()
+                self.ui.update_message(f"{self.word_in_text} loaded")
+                return
             is_next_item = self.get_next_item()
             if is_next_item:
                 self.load_into_gui()
