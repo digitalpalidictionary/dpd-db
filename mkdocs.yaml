@@ -48,6 +48,7 @@ nav:
       - integrations/index.md
       - Dhamma.gift website: "integrations/dhamma_gift.md"
       - ePitaka: "integrations/epitaka.md"
+      - PaliVerse: "integrations/paliverse.md"
       - Simsapa Dhamma Reader: "integrations/simsapa.md"
       - Sutamaya: "integrations/sutamaya.md"
       - Sutta Central Website: "integrations/sutta_central.md"

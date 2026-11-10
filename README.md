@@ -41,6 +41,7 @@ DPD is integrated into the following software and websites.
 [Dhamma.gift](https://dhamma.gift/) | [Docs](https://digitalpalidictionary.github.io/integrations/dhamma_gift/)  
 [ePitaka](https://epitaka.org/) | [Docs](https://digitalpalidictionary.github.io/integrations/epitaka/)  
 [Pāli Practice](https://www.dhammabytes.org/pali-practice/)  
+[PaliVerse](https://www.paliverse.org) | [Docs](https://digitalpalidictionary.github.io/integrations/paliverse/)  
 [Simsapa Dhamma Reader](https://simsapa.github.io/) | [Docs](https://digitalpalidictionary.github.io/integrations/simsapa/)    
 [sutamaya](https://sutamaya.org/) | [Docs](https://digitalpalidictionary.github.io/integrations/sutamaya/)  
 [Sutta Central](https://suttacentral.net/) | [Docs](https://digitalpalidictionary.github.io/integrations/sutta_central/)  
