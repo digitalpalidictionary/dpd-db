@@ -14,6 +14,10 @@
         "vijjurivabbhakūṭaṃ",
         "sabbamāhariṃ"
     ],
+    "checked_deva.csv": [
+        "dadāmiha",
+        "yettha"
+    ],
     "checked_bdhrs.csv": [
         "ticīvaraṃdāsiṃ",
         "madhurenāhaṃ",
@@ -23,5 +27,9 @@
     "manual_corrections_alice.tsv": [
         "kopāhanā\tko + upāhanā",
         "dasahupāgato\tdasahi + upāgato"
+    ],
+    "manual_corrections_deva.tsv": [
+        "dadāmiha\tdadāmi + ahaṃ",
+        "yettha\tye + ettha"
     ]
 }
