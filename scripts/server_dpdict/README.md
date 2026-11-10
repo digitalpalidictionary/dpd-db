@@ -44,3 +44,19 @@ Then, on the server:
 - Never run `uv` over ssh without the path in step 2.
 - The full update script is not needed for code-only changes. It downloads
   both the main database and the audio database.
+
+## Docs site
+
+`docs.dpdict.net` serves the clone of the pages repo at
+`~/digitalpalidictionary.github.io`. GitHub builds the site on every docs
+change and pushes it to that repo. A cron line on the server pulls the clone
+once a day at 01:00 UTC. The crontab is not in this repo, so install the line
+by hand on a new server. Make the log folder first, because cron cannot
+create it: `mkdir -p ~/logs`. Then run:
+
+    crontab -l | grep -qF 'digitalpalidictionary.github.io" pull' || (crontab -l; echo '0 1 * * * git -C "$HOME/digitalpalidictionary.github.io" pull --ff-only -q >> "$HOME/logs/docs-pull.log" 2>&1') | crontab -
+
+A normal run writes nothing. `~/logs/docs-pull.log` holds only errors. The pull
+uses `--ff-only`, so a local change in the clone stops it and leaves the
+served files as they were. For an immediate update, run the `docs-update`
+recipe from the server's own `~/justfile`.

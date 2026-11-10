@@ -547,3 +547,7 @@
 - 2026-11-10 [BEHAVIOR] Offered the commit before the framework review; the order is review, finalize, then commit.
 - 2026-11-10 [WORKFLOW] A background wait around a remote command with nested quotes never ended, and I kept waiting after the work was done; test remote quoting once before backgrounding and check the clock first.
 - 2026-11-10 [BEHAVIOR] User stopped me driving his browser and running long sleeps; he does the browser steps, I set up the server and watch the logs.
+- 2026-11-10 [WORKFLOW] An idempotent server install script wrote its "before" backup on every run, so the second run overwrote the real before-state; write the backup only when the file is absent.
+- 2026-11-10 [BEHAVIOR] A plan verify line used `git status`, which the owner's rules forbid the agent to run; plan checks use `ls` or `rg`, and leave git checks to the owner.
+- 2026-11-10 [POSITIVE] Reading the live server before writing the spec found a 15-day stale clone, a cron-only constraint (no sudo, no linger) and a testable page, so the plan needed no rework.
+- 2026-11-10 [WORKFLOW] The spec said the crontab held "nothing else" without counting comment lines; state what a listing counted and what it left out.
