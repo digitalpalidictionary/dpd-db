@@ -10,19 +10,40 @@
   h1 { font-size: 1.6rem; margin: 0 0 1rem; }
   p { line-height: 1.5; margin: 0 0 1.5rem; }
   a.go { display: inline-block; padding: 0.9rem 2rem; font-size: 1.2rem; background: #1e88e5; color: #fff; border-radius: 0.5rem; text-decoration: none; }
+  [hidden] { display: none !important; }
   small { display: block; margin-top: 1.5rem; color: #9a9a9a; }
 </style>
 </head>
 <body>
 <main>
   <h1>The editor is not running right now</h1>
-  <p>It is either starting up (wait a minute) or doing its daily update, which can take up to an hour.</p>
-  <a class="go" id="go" href="/">Try again</a>
+  <p>The editor is being updated (the daily update takes up to an hour) or it is starting up. Please wait. A button appears here when the editor is ready.</p>
+  <a class="go" id="go" href="/" hidden>Open the editor</a>
+  <small id="wait">Checking every 15 seconds.</small>
 </main>
 <script>
   const seg = location.pathname.split("/")[1] || "";
   const home = /^[a-z][a-z0-9_]{0,31}$/.test(seg) ? "/" + seg + "/" : "/";
-  document.getElementById("go").href = home;
+  const go = document.getElementById("go");
+  go.href = home;
+  // While the editor is down nginx answers 502, 503 or 504; any other answer
+  // (200, or 401 when this browser has no login yet) means it is back.
+  async function check() {
+    try {
+      const r = await fetch(home, { cache: "no-store", credentials: "same-origin" });
+      if (![502, 503, 504].includes(r.status)) {
+        go.hidden = false;
+        document.getElementById("wait").hidden = true;
+        clearInterval(timer);
+      }
+    } catch (e) {
+      // no answer at all: keep waiting
+    }
+  }
+  const timer = setInterval(check, 15000);
+  // A person who lands here just after the editor came back should not wait
+  // a full interval for the button.
+  setTimeout(check, 3000);
 </script>
 </body>
 </html>

@@ -1,0 +1,19 @@
+# Spec "How we'll know it's done": evidence (2026-11-10)
+
+| # | Item | Evidence | State |
+|---|---|---|---|
+| 1 | Unit tests: idle decision, env override, notice file, banner steps, `run_maintenance` with `--warn-minutes`, Flet guard test | `tests/gui2/test_server_lifecycle.py`, `tests/tools/test_contrib_notice.py`, `tests/scripts/server_contrib/test_maintenance_window.py` (class `TestWarning`), `test_pages.py`. Related suite: 1896 passed, 7 slow deselected; `just typecheck`: 0 errors. Revert checks recorded in the review notes (spec, "Review record"). | Met |
+| 2 | Local web run with a 1-minute idle value: countdown, "I'm here" cancels, left alone goes to the asleep page and exits 0 | `artifacts/local_check.md`, `live_countdown.png` | Met |
+| 3 | On the server: countdown, asleep page, restart with a new pid, wake, `lifecycle:` lines, measured wake time on the page (median of three readings, two warm and one cold; a fourth attempt gave no reading) | `artifacts/server_rollout.md` (5.4 wake time: 59.6, 18.3, 18.1 s, page says 20; 5.6: countdown at 1.2 min, `asleep: ... 1 page(s) sent away`, `NRestarts=1`, wake brought the editor back), `asleep_page_live.png` | Met |
+| 4 | On the server, a window run with a small `--warn-minutes`: banner steps, tab to the offline page at the stop, nginx offline page while the instance is down, `notice armed` and `notice removed` in the maintenance log | Real night run 2026-11-10: `notice armed` 00:30, stop 25 s after the announced time, `notice removed`, `rebuilt`, 0 problems (`server_rollout.md`, 5.9). Banner steps 10, 5, 1 and the move to the offline page seen on the server with a private notice file, owner confirmed on screen. | **Met by substitution.** Three separate pieces of evidence, none of them a window run with a short value (the owner skipped that test). (a) The banner steps and the move to the offline page were seen on a hand-started copy of the editor, on the editor's port, with a private notice file, not on the real unit with the real notice. (b) The real night run covers `notice armed`, the stop 25 s after the announced time, `notice removed`, outcome and cron, but nobody had a page open on new code, so the banner at the stop was not seen in a real window. (c) On 2026-11-10 05:05 the owner saw the offline page, with no button, while his editor was stopped; after the start the button "Open the editor" appeared and opened the editor. |
+| 5 | Live crontab at 00:30 with `--warn-minutes 30`; runbook, README, `kamma/tech.md` say so | `crontab -l` read after the night run; `rg warn-minutes` finds all three docs | Met |
+| 6 | Memory: after sleep the process is back near 87 MB | `VmRSS` 99.8 MB at 18 s after the restart, 99.9 MB for a clean restart; the 766 MB peak was the loaded editor | Met, read as: the empty restarted process (no page open) holds about 100 MB, 13 MB over the 86.5 MB empty-process baseline and inside the plan's 30 MB margin. A post-sleep reading after a loaded editor slept is the 99.8 MB one. |
+
+Also done, not on the original list: the offline page has no button until the editor answers (owner request, 2026-11-10); local stub check and server install recorded in `server_rollout.md`.
+
+Not covered, in plain words:
+
+- A banner on a real unit in a real window (no one had a page open on new code during the first night run).
+- The offline move at the stop time inside a real window (seen only on the hand-started copy).
+- One unexplained incident: on 2026-11-09 a connected real-Chrome tab never got the countdown for 9 minutes with a 2-minute setting; two later runs, one through nginx, behaved correctly. The cause was not found. If a contributor reports an editor that never sleeps, add event-name logging first.
+- The button after a full 30 to 55 minute update; the stop and start was seen live by the owner.

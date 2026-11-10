@@ -3,7 +3,9 @@
 Runs only for web sessions on the contributor server (see `attach`). Two jobs:
 
 - Idle sleep: after IDLE_MINUTES with no action from the browser, show a
-  countdown, then send the browser to a static page and end the process.
+  countdown, then send the browser to a static page and end the process. With
+  no page connected there is nobody to show a countdown to, so it sleeps at
+  once. DPD_GUI2_IDLE_MINUTES overrides the minutes; 0 turns idle sleep off.
   CPython rarely gives freed memory back to the OS, so ending the process is
   the dependable way to free the ~1 GB a loaded editor holds. systemd brings
   back an empty process.

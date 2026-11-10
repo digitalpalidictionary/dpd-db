@@ -69,7 +69,7 @@ Plain English. Relative times only: never a server clock time, because contribut
 - **Countdown dialog** — title "Still there?"; body "You have not used the editor for 30 minutes. To free memory for other contributors, it will go to sleep in 2 minutes. Anything you have not saved will be lost."; one button "I'm here". The body shows the configured minutes. It does not need a live seconds count.
 - **Asleep page** — heading "The editor is asleep"; body "It went to sleep after 30 minutes without use, to free memory for other contributors. Anything that was not saved is gone."; button "Wake the editor"; small print "Waking takes about N seconds while the dictionary loads." N is the median of 3 measured wake times (process start → "All tabs and tools ready." snackbar) from the plan's measurement task, rounded up to a whole multiple of 10 (41 → 50). The spec does not guess it, and the page is not installed on the server until N is filled in.
 - **Banner** — "The editor restarts for its daily update in 15 minutes. Save your work now. Anything unsaved will be lost." ("in 1 minute" at the last step); button "Got it".
-- **Offline page** — heading "The editor is not running right now"; body "It is either starting up (wait a minute) or doing its daily update, which can take up to an hour."; button "Try again".
+- **Offline page** (changed 2026-11-10 at the owner's request, after the live banner test) — heading "The editor is not running right now"; body "The editor is being updated (the daily update takes up to an hour) or it is starting up. Please wait. A button appears here when the editor is ready." **No button while the editor is down.** The page asks the editor's own address every 15 seconds; any answer other than 502, 503 or 504 means the editor is back, and the button "Open the editor" appears. The asleep page is unchanged: it has its button at once, because waking from sleep works immediately. A sleeping person who clicks while an update runs lands on this page and waits.
 
 ### E. Logging
 
@@ -106,6 +106,7 @@ Accepted Goldfish findings (Gate 1, `egm/gate1.md`):
 - (Nit) A kill switch per user (A.4).
 
 Known risks:
+- A window killed hard (not by an exception, which the `finally` handles) while it waits leaves a notice with a future stop time. Editors then show the banner and move to the offline page at that time although nothing was stopped; the offline page's button appears (the editor still answers) and idle sleep stays off in that process until the next restart. A notice more than 60 s past its stop time is ignored. Not guarded further: a heartbeat file was judged more machinery than a rare event deserves (pre-finalize review, 2026-11-10).
 - Someone who reads for 30 minutes without clicking or typing gets the countdown. Two minutes to answer it is the guard.
 - People who return within the hour after sleeping pay the full database load again. 30 minutes is a trade-off; the env value changes it per user.
 - Several people waking at once share 2 vCPU; each wake is CPU-heavy. Not addressed here.

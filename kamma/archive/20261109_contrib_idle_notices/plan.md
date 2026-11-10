@@ -141,6 +141,8 @@ Goal: settle the four unknowns in the spec's "Not verified" list on a throwaway 
 - [x] 4.5 Phase check: `uv run pytest tests/scripts/server_contrib/ tests/gui2/test_server_lifecycle.py tests/tools/test_contrib_notice.py`.
   → verify: all pass.
 
+- [x] 4.6 (added 2026-11-10, owner request) Offline page: no button while the editor is down, a check every 15 s, the button "Open the editor" appears when the editor answers (any status except 502, 503, 504). Update `scripts/server_contrib/pages/offline.html`, its tests, and the spec D wording. → verify: `uv run pytest tests/scripts/server_contrib/test_pages.py`; a local run of the page against a stub that answers 502 then 200 shows the button only after the 200; then install the page on the server and `curl` it.
+
 ## Phase 5 — Server rollout and measurement — *Fast*
 
 **Server facts read on 2026-11-09 (the plan was written with `alice` as the example user; it does not exist):** the live instances are `dpd-gui@bdhrs` (the owner's own account) and `dpd-gui@deva` (a real contributor). The instances run as root. The live cron runs at 01:00 with both `--instance` flags. Wherever this phase says `alice`, read `bdhrs`. Never restart or stop `deva` for a test. The owner approved reaching the server directly over ssh from the laptop (2026-11-09), using the target from `config.ini`; the server agent is not needed.
@@ -165,14 +167,14 @@ Runbook phase. Precondition: the owner has committed and pushed Phases 1–4 to 
   CHECK: `ls -ld /var/lib/dpd` shows a folder other users can read (`drwxr-xr-x`), because the editor processes run as the contributor, not root; owner sees the banner at 5 (red) and 1 minutes and lands on the offline page at the stop (about 25 s before the instance stops); `grep notice logs/maintenance_$(date +%Y%m%d).log`; `ls /var/lib/dpd/notice.json` after the run. EXPECT: banner seen; log has `notice armed` and `notice removed`; the notice file is gone; `/status` shows the run's outcome.
 - [x] 5.8 WHO: server agent. Change the live crontab: `crontab -l > /root/mem/crontab.before_20261109`, then rewrite the window line to start `30 0 * * *` and add `--warn-minutes 30`, keeping every other argument; `crontab <file>`.
   CHECK: `crontab -l | grep maintenance_window`. EXPECT: one line, `30 0 * * *`, contains `--warn-minutes 30` and the `PATH` line above it is unchanged.
-- [ ] 5.9 Phase check: the next morning, the server agent reads that night's `logs/maintenance_<date>.log` and `journalctl -u dpd-gui@alice --since yesterday | grep lifecycle:`.
+- [x] 5.9 Phase check: the next morning, the server agent reads that night's `logs/maintenance_<date>.log` and `journalctl -u dpd-gui@alice --since yesterday | grep lifecycle:`.
   → verify: `notice armed` at about 00:30, the stop at about 01:00, `notice removed` at the end, and no `lifecycle:` error lines.
 
 ## Phase 6 — Final verification — *Fast*
 
-- [ ] 6.1 Run the whole related suite and the repo checks: `uv run pytest tests/gui2/ tests/tools/ tests/scripts/server_contrib/` and `just typecheck`.
+- [x] 6.1 Run the whole related suite and the repo checks: `uv run pytest tests/gui2/ tests/tools/ tests/scripts/server_contrib/` and `just typecheck`.
   → verify: all pass; typecheck clean.
-- [ ] 6.2 Walk the spec's "How we'll know it's done" list item by item and mark each with the artifact that proves it (`artifacts/probe_results.md`, `artifacts/local_check.md`, `artifacts/server_rollout.md`).
+- [x] 6.2 Walk the spec's "How we'll know it's done" list item by item and mark each with the artifact that proves it (`artifacts/probe_results.md`, `artifacts/local_check.md`, `artifacts/server_rollout.md`).
   → verify: all six items have evidence; anything missing is listed for the owner, not ticked.
-- [ ] 6.3 Scan the thread folder for home paths and addresses before the owner's first commit: `rg -n "/home/" kamma/threads/20261109_contrib_idle_notices/` and the changed docs.
+- [x] 6.3 Scan the thread folder for home paths and addresses before the owner's first commit: `rg -n "/home/" kamma/threads/20261109_contrib_idle_notices/` and the changed docs.
   → verify: no matches.

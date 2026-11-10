@@ -352,9 +352,9 @@ Do not start nginx yet. The certificate hook may already have started it, with n
 ssh SSH_TARGET 'install -d -m 755 /var/www/dpd-pages && install -m 644 /root/dpd-db/scripts/server_contrib/pages/asleep.html /root/dpd-db/scripts/server_contrib/pages/offline.html /var/www/dpd-pages/'
 ```
 
-CHECK: `ssh SSH_TARGET 'ls -l /var/www/dpd-pages; grep -c "N seconds" /var/www/dpd-pages/asleep.html'`
+CHECK: `ssh SSH_TARGET 'ls -l /var/www/dpd-pages; grep -Eo "about [0-9]+ seconds" /var/www/dpd-pages/asleep.html'`
 
-EXPECT: two files with mode `-rw-r--r--`, then `0`.
+EXPECT: two files with mode `-rw-r--r--`, then one line `about N seconds` where N is the measured number, a nonzero multiple of 10 (not the letter N).
 
 ## Step 7. Contributors, and the `/status` page
 

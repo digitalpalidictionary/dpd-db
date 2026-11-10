@@ -144,6 +144,10 @@ class TestBannerMaths:
     def test_banner_step(self, minutes: int, step: int | None) -> None:
         assert banner_step(minutes) == step
 
+    def test_a_stop_time_in_the_past_gives_zero_or_less(self) -> None:
+        assert minutes_left(self.NOW - timedelta(seconds=30), self.NOW) == 0
+        assert minutes_left(self.NOW - timedelta(seconds=61), self.NOW) == -1
+
     def test_banner_text_singular_and_plural(self) -> None:
         assert "in 1 minute." in banner_text(1)
         assert "in 15 minutes." in banner_text(15)
@@ -165,6 +169,24 @@ def test_flet_session_still_has_the_two_inbound_methods() -> None:
         "Session.dispatch_event is gone or no longer async (spec A.3)"
     )
     assert callable(Session.apply_patch), "Session.apply_patch is gone (spec A.3)"
+    # attach() wraps apply_patch with a plain function; an async one would
+    # turn the wrapper's return value into an un-awaited coroutine.
+    assert not inspect.iscoroutinefunction(Session.apply_patch), (
+        "Session.apply_patch became async: the wrapper in attach() must await it"
+    )
+
+
+def test_the_window_waits_longer_than_one_editor_check_plus_the_flush() -> None:
+    """The window stops the editors OFFLINE_GRACE_SECONDS after the announced
+    stop time. If the editors' check interval grows past that, no editor sees
+    the stop time before the process dies."""
+    from scripts.server_contrib.maintenance_window import OFFLINE_GRACE_SECONDS
+
+    assert OFFLINE_GRACE_SECONDS > sl.TICK_SECONDS + sl.SLEEP_FLUSH_SECONDS
+
+
+def test_the_sleep_flush_is_a_real_wait() -> None:
+    assert sl.SLEEP_FLUSH_SECONDS > 0
 
 
 class FakeSession:
@@ -487,6 +509,24 @@ class TestBannerFlow:
 
         assert len(page.shown) == 2
         assert page.shown[1].open is True
+
+    @pytest.mark.parametrize(
+        ("minutes", "colour", "ink"),
+        [
+            (6, ft.Colors.AMBER_700, ft.Colors.BLACK),
+            (5, ft.Colors.RED_700, ft.Colors.WHITE),
+        ],
+    )
+    def test_the_banner_turns_red_exactly_at_five_minutes(
+        self, tmp_path: Path, minutes: int, colour: str, ink: str
+    ) -> None:
+        lifecycle, page = self.setup_one(tmp_path)
+        write_notice(lifecycle.notice_file, self.NOW + timedelta(minutes=minutes))
+
+        lifecycle.tick(now_mono=1.0, now_utc=self.NOW)
+
+        assert page.shown[0].bgcolor == colour
+        assert page.shown[0].content.color == ink
 
     def test_a_page_that_joins_during_a_step_gets_the_banner(
         self, tmp_path: Path

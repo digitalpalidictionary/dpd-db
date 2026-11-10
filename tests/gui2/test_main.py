@@ -267,6 +267,7 @@ def test_an_open_banner_does_not_block_a_shortcut() -> None:
     asyncio.run(app.on_keyboard(_ctrl_s()))
 
     assert view.method_calls == [call._save_root(None)]
+    assert banner.open is True
 
 
 @pytest.mark.parametrize("key", ["?", "/"])

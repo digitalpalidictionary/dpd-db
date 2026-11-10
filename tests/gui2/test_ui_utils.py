@@ -119,6 +119,7 @@ def test_escape_ignores_banner_on_top() -> None:
 
     assert asyncio.run(cancel_top_dialog(page)) is True
     assert pressed == ["Cancel"]
+    assert banner.open is True
 
 
 def _mount(child: ft.BaseControl, parent: ft.BaseControl) -> None:

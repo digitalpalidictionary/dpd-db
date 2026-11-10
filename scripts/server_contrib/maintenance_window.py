@@ -564,7 +564,7 @@ def main() -> None:
         "--notice-file",
         type=Path,
         default=NOTICE_FILE,
-        help="where the editors read the stop time",
+        help="where the editors read the stop time (they read the default path: change it only for tests)",
     )
     parser.add_argument("--instance", action="append", help="systemd unit (repeatable)")
     parser.add_argument("--remote", default="origin")

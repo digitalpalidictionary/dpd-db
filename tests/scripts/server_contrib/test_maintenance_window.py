@@ -20,7 +20,7 @@ from scripts.server_contrib.maintenance_window import (
     run_maintenance,
 )
 from tools.contrib_entry import entry_hash
-from tools.contrib_notice import read_notice
+from tools.contrib_notice import NOTICE_FILE, read_notice
 
 
 def _git(*args: str, cwd: Path) -> str:
@@ -662,14 +662,18 @@ class TestWarning:
 
     def test_a_failed_pull_still_removes_the_notice(self, tmp_path: Path):
         setup = self._warn_setup(tmp_path)
-        steps = _steps(Calls(), wait=lambda seconds: None)
+        waited: list[float] = []
+        steps = _steps(Calls(), wait=waited.append)
         steps.pull = Calls().step("pull", error=RuntimeError("network"))
 
         outcome = run_maintenance(setup.config, steps)
 
         assert outcome is Outcome.FAILED
+        assert len(waited) == 1
         assert not setup.config.notice_file.exists()
-        assert "notice removed" in setup.log_text()
+        text = setup.log_text()
+        assert "notice removed" in text
+        assert text.index("notice armed") < text.index("window failed after the pull")
 
     def test_the_command_line_flags_reach_the_window(
         self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
@@ -697,6 +701,23 @@ class TestWarning:
 
         assert seen[0].warn_minutes == 5
         assert seen[0].notice_file == tmp_path / "x.json"
+
+    def test_without_the_flags_there_is_no_warning(
+        self, monkeypatch: pytest.MonkeyPatch
+    ):
+        seen: list[WindowConfig] = []
+
+        def fake_run(config: WindowConfig) -> Outcome:
+            seen.append(config)
+            return Outcome.SKIPPED
+
+        monkeypatch.setattr(maintenance_window, "run_maintenance", fake_run)
+        monkeypatch.setattr("sys.argv", ["maintenance_window.py", "--no-systemd"])
+
+        maintenance_window.main()
+
+        assert seen[0].warn_minutes == 0
+        assert seen[0].notice_file == NOTICE_FILE
 
     def test_arguments_reach_the_config(self, tmp_path: Path):
         import argparse

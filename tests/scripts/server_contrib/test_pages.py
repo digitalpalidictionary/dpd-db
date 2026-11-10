@@ -31,5 +31,21 @@ def test_asleep_page_states_the_measured_wake_time() -> None:
     assert "Wake the editor" in text
 
 
-def test_offline_page_button_says_try_again() -> None:
-    assert "Try again" in (PAGES / "offline.html").read_text(encoding="utf-8")
+def test_offline_page_has_no_visible_button_until_the_editor_answers() -> None:
+    text = (PAGES / "offline.html").read_text(encoding="utf-8")
+
+    assert 'id="go" href="/" hidden>Open the editor</a>' in text
+    # The page's own CSS sets display on the button, which beats the hidden
+    # attribute unless this rule is there.
+    assert "[hidden] { display: none !important; }" in text
+    assert "setInterval(check, 15000)" in text
+    assert "setTimeout(check, 3000)" in text
+    assert "[502, 503, 504]" in text
+    assert "Try again" not in text
+
+
+def test_asleep_page_button_is_visible_at_once() -> None:
+    text = (PAGES / "asleep.html").read_text(encoding="utf-8")
+
+    assert "hidden" not in text
+    assert "fetch(" not in text

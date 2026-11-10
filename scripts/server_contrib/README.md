@@ -131,7 +131,10 @@ Flags: `--no-systemd`, `--no-push`, `--instance <unit>` (repeatable),
   `journalctl -u dpd-gui@<user> | grep lifecycle:`.
 - The two pages live in `pages/` and are installed to `/var/www/dpd-pages/`
   (runbook step 6e). nginx serves them for every user prefix and shows the
-  offline page whenever an instance does not answer.
+  offline page whenever an instance does not answer. The asleep page has its
+  button at once. The offline page has no button: it asks the editor's address
+  every 15 seconds and shows "Open the editor" only when the editor answers
+  again (any answer except 502, 503, 504).
 
 ### The failure surface (`/status`)
 
