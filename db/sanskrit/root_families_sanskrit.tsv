@@ -395,6 +395,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √kit 3	1	a	know, doubt	√cit	1	perceive, know, appear	saṃ √kit		saṃketa
 √kitt	8	*aya	make known	√kṝt √kīrt	10	mention	√kitt	kīrt	akīrtayat, akīrtat, akīrti (na + kīrti), acikīrtat, acīkṛtat, kīrtayat, kīrtayati, kīrtayitvā, kīrti, kīrtita, kīrtitavya, kṝtayamāna, su + kīrtita
 √kitt	8	*e	make known	√kṝt √kīrt	10	mention	pa √kitt	prakīrt	prakīrtayat, prakīrtayati
+√kitt	8	*e	make known	√kṝt √kīrt	10	mention	pati √kitt		
 √kitt	8	*e	make known	√kṝt √kīrt	10	mention	pari √kitt	parikīrt	prakīrtana
 √kitt	8	*e	make known	√kṝt √kīrt	10	mention	saṃ √kitt	saṃkīrt	saṃkīrti
 √kir	1	a	scatter, sprinkle	√kṝ √kṛ	6	scatter	√kir	kṝ	ākārṣīt, ākirat, kiṇva, kira, kirati
@@ -3147,6 +3148,7 @@ root_key	root_group	root_sign	root_meaning	sanskrit_root	sanskrit_root_class	san
 √su 2	1	a	flow	√sru	1	flow	pati √su	-	pratisrota, pratisrotam, pratisrotam, pratiśrotas
 √su 2	1	*e	flow	√sru	1	flow	pari √su	parisru	na + parisrava +, parisrava (streaming), pariśraya (bsk), parisravati, parisravayati, parisrāvaṇa, parisruta, parisrvayitvā, parisrvita, sa + pariśraya (bsk)
 √su 2	1	a	flow	√sru	1	flow	vi √su	visru	
+√su 2	1	a	flow	√sru	1	flow	saṃ √su		
 √su 3	1	a	extract, distil	√su	5	press out, extract	√su		surā
 √su 3	1	a	extract, distil	√su	5	press out, extract	ā √su		āsava
 √su 4	1	a	generate, beget	√sū	1, 2, 4, 5	generate, enliven, impel	√su	sū	suta, sutā, sūti, sūtikā

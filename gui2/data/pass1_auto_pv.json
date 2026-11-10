@@ -1,21 +1,4 @@
 {
-    "duṭṭhavāco": {
-        "lemma_1": "duṭṭhavāca",
-        "lemma_2": "duṭṭhavāca",
-        "pos": "adj",
-        "grammar": "adj, comp",
-        "meaning_2": "of harsh speech; speaking evil words; foul-mouthed",
-        "root_key": "",
-        "root_sign": "",
-        "root_base": "",
-        "family_root": "",
-        "construction": "duṭṭha + vācā",
-        "stem": "duṭṭhavāc",
-        "pattern": "a adj",
-        "comment": "[deepseek: deepseek-v4-flash] Bahubbīhi compound describing a person; nominative singular in the verse. DPD also records the variant duṭṭhāvāca.",
-        "example_1": "8. ‘‘ Samaṇo ahaṃ pāpotiduṭṭhavāco [pāpo duṭṭhavāco (sī.), pāpo dukkhavāco (syā. pī.)], tapassirūpo mukhasā asaññato;",
-        "translation_1": "“I was a wicked recluse, of very harsh speech, a sham ascetic, and unrestrained in my speech;"
-    },
     "gedhitamano": {
         "lemma_1": "gedhitamana",
         "lemma_2": "gedhitamana",
