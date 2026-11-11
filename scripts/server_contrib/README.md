@@ -161,6 +161,28 @@ The block is kept in `nginx_status.conf.template` in this folder. A run that
 cannot write the status file logs `could not write the status file` and still
 finishes normally: the status file never decides the window's outcome.
 
+## Keep the database file in memory
+
+The first page after a cold file cache reads the whole `dpd.db` (about 880 MB)
+from the virtual disk. Measured 2026-11-11 from `sar`: the slow starts (13 s to
+build the app plus about 25 s for the tabs) show about 800 MB of disk reads, the
+fast ones almost none. The file leaves the cache after the nightly rebuild and
+about 06:00 each day; the cause of the 06:00 drop is not found.
+
+A cron line on the server reads the file every 10 minutes, so the first
+contributor of the day does not pay for it. A read of the cached file takes
+well under a second. Not in the repo's setup script: add it by hand after the
+window's line, with the crontab backed up first (`crontab -l >
+/root/mem/crontab.before_db_warm`):
+
+```bash
+*/10 * * * * [ -f /root/dpd-db/dpd.db ] && cat /root/dpd-db/dpd.db > /dev/null
+```
+
+Check it: `fincore /root/dpd-db/dpd.db` shows the file's resident size next to
+its full size. They match when the file is warm. Remove the line if the host
+gets enough memory pressure to need the cache for something else.
+
 ## Update the server now (manual, no rebuild)
 
 Use this to put a code or draft-file change on the server today, without
