@@ -234,3 +234,14 @@
     overflow-wrap: normal;
     word-break: normal;
 }
+/* a table cell cannot be styled from markdown, so the cell takes the colour of
+   the highlight inside it. The theme's dark-mode colour is a faint blue. */
+.md-typeset .missing-words td:has(> mark) {
+    background-color: var(--md-typeset-mark-color);
+}
+[data-md-color-scheme="slate"] .md-typeset .missing-words td:has(> mark) {
+    background-color: hsla(48, 100%, 50%, 0.45);
+}
+.md-typeset .missing-words td > mark {
+    background-color: transparent;
+}
