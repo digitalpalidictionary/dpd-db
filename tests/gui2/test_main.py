@@ -905,6 +905,19 @@ def test_a_closing_page_releases_the_preview_latch(
     assert preview_module._owner is None
 
 
+def test_a_disconnected_page_keeps_its_preview_rights(
+    free_session: None, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    # A browser reload reuses the page and brings its dialog back.
+    monkeypatch.setattr("gui2.main._session_page", None)
+    page = MagicMock()
+    monkeypatch.setattr(preview_module, "_owner", page)
+
+    release_session(page, closed=False)
+
+    assert preview_module._owner is page
+
+
 def test_run_app_makes_the_preview_folder_before_flet_starts(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:

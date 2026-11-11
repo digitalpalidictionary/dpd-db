@@ -921,12 +921,17 @@ def claim_session(page: ft.Page) -> None:
             pr.red(f"could not release the old app: {e}")
 
 
-def release_session(page: ft.Page) -> None:
-    """Free the session, but only if this page is the one that holds it."""
+def release_session(page: ft.Page, closed: bool = True) -> None:
+    """Free the session, but only if this page is the one that holds it.
+
+    `closed` is False for a disconnect: a browser reload reuses the same page
+    and brings its preview dialog back, so the page must keep its right to save."""
     global _session_page
     with _session_lock:
         if _session_page is page:
             _session_page = None
+    if not closed:
+        return
     # Also on a clean close, not just a takeover: a dead page must not hold
     # the preview latch (nor its dialog graph) for the life of the process.
     try:
@@ -953,7 +958,7 @@ def main(page: ft.Page) -> None:
     page.title = ""
 
     claim_session(page)
-    page.on_disconnect = lambda _: release_session(page)
+    page.on_disconnect = lambda _: release_session(page, closed=False)
     page.on_close = lambda _: release_session(page)
     if page.web and is_headless_server():
         server_lifecycle.attach(page)

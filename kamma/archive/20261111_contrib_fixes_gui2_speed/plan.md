@@ -1355,3 +1355,31 @@ above:
 After the review fixes: `uv run pytest tests/gui2 tests/tools tests/scripts
 tests/db -q` → **2347 passed, 7 deselected**; pyright clean per file
 (`gui2/main.py` at the 24 baseline); `just typecheck` → **0 errors**.
+
+## Post-rollout fix (2026-11-11): Save after a reload saved nothing
+
+**Found live by the owner on the server.** Pass1Add: Add to DB, preview opens, F5.
+The dialog came back, Save did nothing, Cancel worked, and a normal Save
+(no reload) worked. The journal had no "page connected" after the F5, so Flet
+reused the same page (session reconnect, `main()` not re-run).
+
+**Cause:** `page.on_disconnect` called `release_session`, which called
+`retire_page` and cleared the preview owner. The reconnected page then showed its
+dialog again, but `save()` in `gui2/preview.py` returned at the
+`_owner is not page` check (spec A2). Cancel has no such check, so it worked.
+
+**Fix:** `release_session(page, closed=True)` in `gui2/main.py`. `on_disconnect`
+passes `closed=False`: it still frees the session slot but keeps the preview
+owner. `on_close` keeps the old behaviour. A different page is never blocked by
+a stale owner (spec A1), so a page that never comes back cannot hold the latch.
+
+**Test:** `test_a_disconnected_page_keeps_its_preview_rights` in
+`tests/gui2/test_main.py`. With the early return disabled it fails (1 failed);
+with the fix, `tests/gui2/test_main.py` + `test_preview.py` → 118 passed. ruff
+clean; pyright clean on both files.
+
+**Not verified:** the live reload test on the server after the fix (needs a
+rollout and a restart). Spec A2's "retired page saves nothing" still holds for a
+real takeover.
+**Open:** "db slow" on the server is a cold-start wait (about 13 s build + 25 s
+tabs after idle sleep); queries themselves take 0.2–0.6 s. Cause not found.
