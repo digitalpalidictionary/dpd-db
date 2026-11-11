@@ -4,6 +4,7 @@ import json
 from pathlib import Path
 
 from gui2.toolkit import ToolKit  # Import ToolKit
+from tools.printer import printer as pr
 from tools.server_mode import is_headless_server
 
 
@@ -24,11 +25,22 @@ class DailyLog:
                 return json.load(f)
         except FileNotFoundError:
             return {}
+        except json.JSONDecodeError:
+            # A write cut off mid-way leaves an empty file. Without this the
+            # editor could not start at all until someone repaired it by hand.
+            corrupt = self.file_path.with_name(self.file_path.name + ".corrupt")
+            self.file_path.replace(corrupt)
+            pr.red(f"{self.file_path.name} is damaged, kept as {corrupt.name}")
+            return {}
 
     def _save(self) -> None:
         """Saves data, assumes success."""
-        with open(self.file_path, "w", encoding="utf-8") as f:
-            json.dump(self.data, f, indent=4, sort_keys=True)
+        # Write then swap, so a kill mid-write cannot leave a half-written file.
+        tmp = self.file_path.with_name(self.file_path.name + ".tmp")
+        tmp.write_text(
+            json.dumps(self.data, indent=4, sort_keys=True), encoding="utf-8"
+        )
+        tmp.replace(self.file_path)
 
     def increment(self, key: str, count: int = 1) -> None:
         """Increments 'pass1', 'pass2' or 'pass2_pre' for today, saves and updates appbar."""

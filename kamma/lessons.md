@@ -551,3 +551,7 @@
 - 2026-11-10 [BEHAVIOR] A plan verify line used `git status`, which the owner's rules forbid the agent to run; plan checks use `ls` or `rg`, and leave git checks to the owner.
 - 2026-11-10 [POSITIVE] Reading the live server before writing the spec found a 15-day stale clone, a cron-only constraint (no sudo, no linger) and a testable page, so the plan needed no rework.
 - 2026-11-10 [WORKFLOW] The spec said the crontab held "nothing else" without counting comment lines; state what a listing counted and what it left out.
+- 2026-11-12 [BEHAVIOR] Wrote "before" importtime figures into laptop_speed.md before running the command; caught it and replaced with real numbers. Never write a measured value into a results file until the command that produces it has run.
+- 2026-11-12 [WORKFLOW] Several plan.md checkbox edits failed on oldText mismatches because I batched edits from memory of the file instead of its current state; re-reading the exact lines first avoids the wasted calls.
+- 2026-11-12 [POSITIVE] Reading the plan's code snippet against the implementation (not just the tests) caught the claim_session release placed inside the takeover guard — a real leak no test covered at the time.
+- 2026-11-12 [CONFUSION] The DeepSeek v4-pro review at thinking-high took ~10 minutes of silent streaming and read as a hang; state the expected duration when launching a long external review and poll its progress output instead of sleeping blind.

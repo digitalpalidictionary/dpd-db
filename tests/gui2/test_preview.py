@@ -122,7 +122,7 @@ def button(dialog, label: str):
 @pytest.fixture
 def flow(monkeypatch):
     """preview_and_confirm with the render, write and open steps faked."""
-    monkeypatch.setattr(preview_module, "_in_progress", False)
+    monkeypatch.setattr(preview_module, "_owner", None)
     monkeypatch.setattr(preview_module, "render_preview", lambda *_: "<html>")
     monkeypatch.setattr(preview_module, "write_preview", lambda *_: Path("p.html"))
 
@@ -142,7 +142,7 @@ def flow(monkeypatch):
             preview_module.preview_and_confirm(page, None, None, "alice", on_save)  # pyright: ignore[reportArgumentType]
         )
 
-    return SimpleNamespace(page=page, saves=saves, start=start)
+    return SimpleNamespace(page=page, saves=saves, start=start, on_save=on_save)
 
 
 def test_nothing_saves_before_save_is_pressed(flow):
@@ -172,6 +172,49 @@ def test_second_preview_while_one_is_open_is_ignored(flow):
     flow.start()
     flow.start()
     assert len(flow.page.dialogs) == 1
+
+
+def test_a_new_page_can_preview_while_an_old_page_left_its_dialog_open(flow):
+    flow.start()
+    other = FakePage()
+    asyncio.run(
+        preview_module.preview_and_confirm(
+            other,  # pyright: ignore[reportArgumentType]
+            None,  # pyright: ignore[reportArgumentType]
+            None,  # pyright: ignore[reportArgumentType]
+            "alice",
+            flow.on_save,
+        )
+    )
+    assert len(other.dialogs) == 1
+
+
+def test_save_on_a_retired_page_saves_nothing(flow):
+    flow.start()
+    preview_module.retire_page(flow.page)
+    save = button(flow.page.dialogs[0], "Save")
+    asyncio.run(save.on_click(None))
+    assert flow.saves == []
+
+
+def test_save_on_the_old_page_saves_nothing_after_a_new_page_took_the_preview(flow):
+    flow.start()
+    other = FakePage()
+    asyncio.run(
+        preview_module.preview_and_confirm(
+            other,  # pyright: ignore[reportArgumentType]
+            None,  # pyright: ignore[reportArgumentType]
+            None,  # pyright: ignore[reportArgumentType]
+            "alice",
+            flow.on_save,
+        )
+    )
+    save = button(flow.page.dialogs[0], "Save")
+    asyncio.run(save.on_click(None))
+    assert flow.saves == []
+    other_save = button(other.dialogs[0], "Save")
+    asyncio.run(other_save.on_click(None))
+    assert flow.saves == [1]
 
 
 def test_failed_render_still_offers_save(flow, monkeypatch):

@@ -146,6 +146,25 @@ def test_a_flag_file_with_no_final_newline_is_refused(tmp_path: Path) -> None:
     assert check_content(write(tmp_path, "checked", b"abc"), "checked")
 
 
+def test_a_carriage_return_inside_a_line_is_refused(tmp_path: Path) -> None:
+    assert (
+        check_content(
+            write(tmp_path, "manual_corrections", b"a\tb\rjunk\n"), "manual_corrections"
+        )
+        == "carriage return inside a line"
+    )
+
+
+def test_windows_line_endings_still_pass(tmp_path: Path) -> None:
+    assert (
+        check_content(
+            write(tmp_path, "manual_corrections", b"a\tb\r\nc\td\r\n"),
+            "manual_corrections",
+        )
+        is None
+    )
+
+
 def test_a_flag_line_of_501_characters_is_refused(tmp_path: Path) -> None:
     assert check_content(write(tmp_path, "checked", b"a" * 501 + b"\n"), "checked")
 

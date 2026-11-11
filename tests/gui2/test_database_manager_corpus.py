@@ -5,6 +5,7 @@ worker in gui2.database_manager."""
 import threading
 import time
 from collections.abc import Generator
+from typing import cast
 
 import pytest
 from sqlalchemy import Engine, create_engine, event, inspect
@@ -104,6 +105,79 @@ def test_load_corpus_loads_all_rows(db_manager: DatabaseManager):
     corpus = db_manager.load_corpus()
     assert len(corpus) == 3
     assert {hw.lemma_1 for hw in corpus} == {"kata 1", "gata 1", "dhamma 1"}
+
+
+def test_release_memory_empties_the_big_data_and_a_reload_still_works(
+    db_manager: DatabaseManager,
+):
+    db_manager.load_corpus()
+    db_manager.all_lemma_1 = {"a"}
+    db_manager.all_inflections = {"a"}
+    db_manager._relationship_detector = cast("RelationshipDetector", object())
+
+    db_manager.release_memory()
+
+    assert db_manager.db == []
+    assert db_manager._relationship_detector is None
+    assert db_manager.all_lemma_1 is None
+    assert db_manager.all_inflections == set()
+    assert db_manager.is_db_loaded() is False
+
+    corpus = db_manager.load_corpus()
+    assert len(corpus) == 3
+    assert {hw.lemma_1 for hw in corpus} == {"kata 1", "gata 1", "dhamma 1"}
+
+
+def test_note_new_lemma_adds_the_lemma_and_its_clean_form(
+    db_manager: DatabaseManager,
+):
+    db_manager.all_lemma_1 = {"a 1"}
+    db_manager.all_lemma_clean = {"a"}
+
+    db_manager.note_new_lemma("b 2")
+
+    assert "b 2" in db_manager.all_lemma_1
+    assert "b" in db_manager.all_lemma_clean
+
+
+def test_note_new_lemma_before_the_db_load_does_nothing(
+    db_manager: DatabaseManager,
+):
+    db_manager.all_lemma_1 = None
+    db_manager.all_lemma_clean = None
+
+    db_manager.note_new_lemma("b 2")  # must not raise
+
+    assert db_manager.all_lemma_1 is None
+    assert db_manager.all_lemma_clean is None
+
+
+def test_initialize_db_after_release_does_nothing(
+    db_manager: DatabaseManager, monkeypatch: pytest.MonkeyPatch
+):
+    """A takeover released this manager: its background load must not refill."""
+    db_manager.release_memory()
+    calls: list[str] = []
+
+    def noop(*args: object, **kwargs: object) -> None:
+        calls.append("called")
+
+    for name in (
+        "get_all_lemma_1_and_lemma_clean",
+        "get_all_pos",
+        "get_all_roots",
+        "get_all_root_families",
+        "get_all_compound_families",
+        "get_all_word_families",
+        "get_all_patterns",
+        "get_all_decon_no_headwords",
+    ):
+        monkeypatch.setattr(db_manager, name, noop)
+
+    db_manager.initialize_db()
+
+    assert calls == []
+    assert db_manager.is_db_loaded() is False
 
 
 def test_load_corpus_is_cached(

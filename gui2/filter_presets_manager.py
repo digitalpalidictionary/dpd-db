@@ -1,6 +1,7 @@
 import json
 
 from gui2.toolkit import ToolKit
+from tools.printer import printer as pr
 
 PresetData = dict[str, list | int]
 
@@ -17,10 +18,21 @@ class FilterPresetsManager:
                 return json.load(f)
         except FileNotFoundError:
             return {}
+        except json.JSONDecodeError:
+            # A write cut off mid-way leaves an empty file. Without this the
+            # editor could not start at all until someone repaired it by hand.
+            corrupt = self.presets_path.with_name(self.presets_path.name + ".corrupt")
+            self.presets_path.replace(corrupt)
+            pr.red(f"{self.presets_path.name} is damaged, kept as {corrupt.name}")
+            return {}
 
     def save_presets(self) -> None:
-        with open(self.presets_path, "w", encoding="utf-8") as f:
-            json.dump(self.presets, f, ensure_ascii=False, indent=4)
+        # Write then swap, so a kill mid-write cannot leave a half-written file.
+        tmp = self.presets_path.with_name(self.presets_path.name + ".tmp")
+        tmp.write_text(
+            json.dumps(self.presets, ensure_ascii=False, indent=4), encoding="utf-8"
+        )
+        tmp.replace(self.presets_path)
 
     def save_preset(
         self,

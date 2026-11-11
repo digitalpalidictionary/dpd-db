@@ -35,6 +35,41 @@ class TestInitialState:
         assert log.get_count("pass1") == 0
         assert log.get_history() == {}
 
+    def test_an_empty_file_starts_at_zero_and_is_kept_aside(self, tmp_path: Path):
+        paths = Gui2Paths(base_dir=tmp_path)
+        paths.gui2_data_path.mkdir(parents=True, exist_ok=True)
+        paths.daily_log_path.write_text("", encoding="utf-8")
+        log, _ = _log(tmp_path)
+        assert log.get_history() == {}
+        assert (paths.gui2_data_path / "daily_log.json.corrupt").exists()
+
+    def test_a_save_leaves_no_temp_file(self, tmp_path: Path):
+        import json
+
+        log, _ = _log(tmp_path)
+        log.increment("pass1")
+        data_dir = Gui2Paths(base_dir=tmp_path).gui2_data_path
+        assert not list(data_dir.glob("*.tmp"))
+        saved = (data_dir / "daily_log.json").read_text(encoding="utf-8")
+        assert saved == json.dumps(log.data, indent=4, sort_keys=True)
+
+    def test_a_failing_save_keeps_the_previous_file(
+        self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+    ):
+        log, _ = _log(tmp_path)
+        log.increment("pass1")
+        path = Gui2Paths(base_dir=tmp_path).daily_log_path
+        good = path.read_text(encoding="utf-8")
+
+        def broken(*args: object, **kwargs: object) -> str:
+            raise RuntimeError("disk full")
+
+        monkeypatch.setattr("gui2.daily_log.json.dumps", broken)
+        with pytest.raises(RuntimeError):
+            log.increment("pass1")
+        # The old truncate-then-write would have destroyed the file here.
+        assert path.read_text(encoding="utf-8") == good
+
 
 class TestIncrement:
     def test_increments_default_amount(self, tmp_path: Path):

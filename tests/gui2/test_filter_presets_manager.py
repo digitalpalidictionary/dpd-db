@@ -1,5 +1,7 @@
 from pathlib import Path
 
+import pytest
+
 from gui2.filter_presets_manager import FilterPresetsManager
 from gui2.paths import Gui2Paths
 from gui2.toolkit import ToolKit
@@ -24,6 +26,44 @@ class TestNoPresets:
         mgr = _manager(tmp_path)
         assert mgr.get_first_preset() is None
         assert mgr.get_first_preset_name() is None
+
+
+class TestDamagedFileAndAtomicSave:
+    def test_a_damaged_file_starts_empty_and_is_kept_aside(self, tmp_path: Path):
+
+        paths = Gui2Paths(base_dir=tmp_path)
+        paths.gui2_data_path.mkdir(parents=True, exist_ok=True)
+        paths.filter_presets_path.write_text("", encoding="utf-8")
+        mgr = _manager(tmp_path)
+        assert mgr.presets == {}
+        assert (paths.gui2_data_path / "filter_presets.json.corrupt").exists()
+
+    def test_a_save_leaves_no_temp_file(self, tmp_path: Path):
+        import json
+
+        mgr = _manager(tmp_path)
+        mgr.save_preset("p1", [], ["id"], 0)
+        data_dir = Gui2Paths(base_dir=tmp_path).gui2_data_path
+        assert not list(data_dir.glob("*.tmp"))
+        saved = (data_dir / "filter_presets.json").read_text(encoding="utf-8")
+        assert saved == json.dumps(mgr.presets, ensure_ascii=False, indent=4)
+
+    def test_a_failing_save_keeps_the_previous_file(
+        self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+    ):
+        mgr = _manager(tmp_path)
+        mgr.save_preset("p1", [], ["id"], 0)
+        path = Gui2Paths(base_dir=tmp_path).filter_presets_path
+        good = path.read_text(encoding="utf-8")
+
+        def broken(*args: object, **kwargs: object) -> str:
+            raise RuntimeError("disk full")
+
+        monkeypatch.setattr("gui2.filter_presets_manager.json.dumps", broken)
+        with pytest.raises(RuntimeError):
+            mgr.save_preset("p2", [], ["id"], 0)
+        # The old truncate-then-write would have destroyed the file here.
+        assert path.read_text(encoding="utf-8") == good
 
 
 class TestSavePreset:

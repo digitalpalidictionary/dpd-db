@@ -29,6 +29,10 @@ clone. It is safe to re-run; each step is skipped when its result exists.
   `dpd-password.service` (the change-password page behind `/<user>/password/`,
   forced first change) is installed and enabled by the same script; logs:
   `journalctl -u dpd-password`.
+- Each instance has a memory limit in the unit: `MemoryHigh=1500M` (slowed
+  above it) and `MemoryMax=2G` (killed, then restarted empty). A warm instance
+  holds about 775 MB. Check with
+  `systemctl show dpd-gui@<user> -p MemoryHigh -p MemoryMax`.
 
 Measured (2026-11-01, 2 vCPU, 8 GB, 4 GB swap): first build 2051 s (~34 min), lowest
 free memory ~170 MB, swap peak ~130 MB. Do not build without swap.

@@ -72,6 +72,10 @@ class DatabaseManager:
     # Counts mark_corpus_stale() calls, so a build can tell that a refresh landed
     # while it ran and must not mark its sets as fresh.
     _stale_epoch: int = 0
+    # Set by release_memory(): a retired app's background workers check it and
+    # stop, so a takeover's freed memory is not refilled. Class-level so an
+    # object.__new__ manager (tests) has it too.
+    _released: bool = False
 
     def __init__(self, own_sandhi_checked: Path | None = None) -> None:
         self.pth: ProjectPaths = ProjectPaths()
@@ -182,6 +186,10 @@ class DatabaseManager:
         self.get_all_roots()
 
     def initialize_db(self):
+        # A retired app's takeover already emptied it; reloading would just
+        # refill the memory the takeover freed.
+        if self._released:
+            return
         self.get_all_lemma_1_and_lemma_clean()
         self.get_all_pos()
         self.get_all_roots()
@@ -189,7 +197,11 @@ class DatabaseManager:
         self.get_all_compound_families()
         self.get_all_word_families()
         self.get_all_patterns()
-        self.get_all_decon_no_headwords()
+        # Only the Pass2Pre tab reads this set, and a contributor never has
+        # that tab. The server's db is read-only, so the cache can never be
+        # saved there and every start would pay the live scan.
+        if not is_headless_server():
+            self.get_all_decon_no_headwords()
         # The relationship detector is NOT built here: it costs ~0.8-0.9 s
         # (full corpus scan) and is only read when a word's synonym field is
         # used. get_relationship_detector() builds it lazily; the app warm-up
@@ -265,6 +277,35 @@ class DatabaseManager:
         self._inflections_ready = False
         self._stale_epoch += 1
 
+    def release_memory(self) -> None:
+        """Drop every large structure. For a page that a newer page replaced:
+        its app can do no more work, and the new app needs the room."""
+        with self._corpus_lock:
+            self.db = []
+            self._corpus_stale = True
+        self._released = True
+        self._relationship_detector = None
+        self.db_loaded = False
+        self._inflections_ready = False
+        self._inflections_gen = -1
+        self._pass2_gen = -1
+        self._components_gen = -1
+        self.all_inflections = set()
+        self.all_inflections_missing_meaning = set()
+        self.all_inflections_missing_example = set()
+        self.all_inflections_missing_any_example = set()
+        self.all_suffixes = set()
+        self.compound_components_map = {}
+        self.all_decon_no_headwords = set()
+        self.all_lemma_1 = None
+        self.all_lemma_clean = None
+        self.all_pos = None
+        self.all_roots = None
+        self.all_compound_families = None
+        self.all_root_families = None
+        self.all_word_families = None
+        self.all_patterns = None
+
     def get_all_roots(self) -> None:
         roots = self.db_session.query(DpdRoot.root).distinct().all()
         self.all_roots = set([root[0] for root in roots])
@@ -278,6 +319,14 @@ class DatabaseManager:
                     if entry.get("lemma_1"):
                         self.all_lemma_1.add(str(entry["lemma_1"]))
         self.all_lemma_clean = set([clean_lemma_1(lemma) for lemma in self.all_lemma_1])
+
+    def note_new_lemma(self, lemma_1: str) -> None:
+        """Add one saved lemma to the lookup sets. For a new word this gives
+        the same sets as re-reading every lemma, without the query."""
+        if self.all_lemma_1 is None or self.all_lemma_clean is None:
+            return
+        self.all_lemma_1.add(lemma_1)
+        self.all_lemma_clean.add(clean_lemma_1(lemma_1))
 
     def get_all_pos(self):
         # Optimized to not load the full first word
@@ -909,6 +958,9 @@ class DatabaseManager:
     def _detector_rebuild_worker(self) -> None:
         while True:
             time.sleep(DETECTOR_REBUILD_DEBOUNCE_SECS)
+            if self._released:
+                # A takeover emptied this manager; do not rebuild into it.
+                return
             with self._detector_rebuild_lock:
                 self._detector_rebuild_pending = False
             try:

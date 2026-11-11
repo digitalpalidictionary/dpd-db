@@ -3,6 +3,7 @@
 import flet as ft
 import pyperclip
 from rich import print
+from typing import cast
 
 from db.models import DpdHeadword
 from gui2.books import sutta_central_books
@@ -75,8 +76,9 @@ class Pass1AddController(SandhiOK, SnackBarMixin):
             self.ui.clear_all_fields()
 
     def load_json(self):
+        # Set by process_book, this method's only caller.
         self.auto_processed_dict = self.pass1_auto_controller.get_auto_processed_dict(
-            self.book_to_process
+            cast(str, self.book_to_process)
         )
         if not self.auto_processed_dict:
             self.ui.update_message("file not found or empty.")
@@ -232,7 +234,12 @@ class Pass1AddController(SandhiOK, SnackBarMixin):
                 self.remove_word_and_save_json()
             self.ui.clear_all_fields()
 
-            self.db.get_all_lemma_1_and_lemma_clean()
+            if already_in_db:
+                # An edit may have renamed the lemma; only a full re-read
+                # drops the old name.
+                self.db.get_all_lemma_1_and_lemma_clean()
+            else:
+                self.db.note_new_lemma(new_word.lemma_1)
             if keep_book_word:
                 self.load_into_gui()
                 self.ui.update_message(f"{self.word_in_text} loaded")
@@ -253,11 +260,13 @@ class Pass1AddController(SandhiOK, SnackBarMixin):
         # (i.e., when processing from a book, not when loading from history)
         if hasattr(self, "word_in_text") and self.word_in_text:
             self.pass1_auto_controller.remove_word(
-                self.book_to_process, self.word_in_text
+                cast(str, self.book_to_process), self.word_in_text
             )
             # Update the auto_processed_dict to reflect the removal
             self.auto_processed_dict = (
-                self.pass1_auto_controller.get_auto_processed_dict(self.book_to_process)
+                self.pass1_auto_controller.get_auto_processed_dict(
+                    cast(str, self.book_to_process)
+                )
             )
             self.ui.update_remaining(len(self.auto_processed_dict))
             self.ui.update_message(f"{self.word_in_text} deleted")

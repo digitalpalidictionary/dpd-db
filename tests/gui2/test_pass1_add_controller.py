@@ -180,3 +180,25 @@ def test_hand_typed_save_after_the_last_book_word_loads_nothing(
     ctrl._save_previewed_word(MagicMock(id=2, lemma_1="zzz"), "", False)
 
     assert loaded == []
+
+
+def test_a_committed_new_word_notes_the_lemma_without_a_full_reread(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    ctrl, _, _ = _save_ctrl(monkeypatch, box_value="")
+
+    ctrl._save_previewed_word(MagicMock(id=1, lemma_1="zzz 1"), "", False)
+
+    ctrl.db.note_new_lemma.assert_called_once_with("zzz 1")
+    ctrl.db.get_all_lemma_1_and_lemma_clean.assert_not_called()
+
+
+def test_a_committed_edit_still_rereads_the_lemmas(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    ctrl, _, _ = _save_ctrl(monkeypatch, box_value="")
+
+    ctrl._save_previewed_word(MagicMock(id=1, lemma_1="zzz 1"), "", True)
+
+    ctrl.db.get_all_lemma_1_and_lemma_clean.assert_called_once_with()
+    ctrl.db.note_new_lemma.assert_not_called()

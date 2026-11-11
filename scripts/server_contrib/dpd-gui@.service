@@ -24,6 +24,11 @@ ExecStart=@UV@ run --no-sync python gui2/main.py
 Restart=always
 RestartSec=10
 TimeoutStopSec=30
+# One runaway instance must not starve the others. Above MemoryHigh the
+# kernel slows it and reclaims; at MemoryMax it is killed, and Restart=always
+# brings back an empty process. A warm instance holds about 775 MB.
+MemoryHigh=1500M
+MemoryMax=2G
 
 [Install]
 WantedBy=multi-user.target

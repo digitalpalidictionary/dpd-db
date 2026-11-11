@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 import asyncio
 import threading
+from functools import cached_property
 from json import JSONDecodeError, dump, dumps, loads
+from typing import TYPE_CHECKING
 
 from db.models import Lookup
 from gui2.books import (
@@ -33,6 +35,9 @@ from tools.pali_text_files import cst_texts
 from tools.printer import printer as pr
 from sqlalchemy import func, or_
 
+if TYPE_CHECKING:
+    from tools.ai_manager import AIManager
+
 
 class Pass1AutoController:
     def __init__(
@@ -44,7 +49,7 @@ class Pass1AutoController:
 
         self.ui: Pass1AutoView = ui
         self.db = toolkit.db_manager
-        self.ai_manager = toolkit.ai_manager
+        self._toolkit: ToolKit = toolkit
         self.file_manager = Pass1FileManager(toolkit.paths)
         self._lock = threading.Lock()
 
@@ -85,6 +90,12 @@ class Pass1AutoController:
         self.initial_auto_processed: int = 0
         self.total_missing: int = 0
         self.unknown_words: set[str] = set()
+
+    @cached_property
+    def ai_manager(self) -> "AIManager":
+        # Built on first use: a contributor's Pass1Add reuses this controller
+        # for its word lists and never sends an AI request.
+        return self._toolkit.ai_manager
 
     def get_auto_processed_dict(self, book: str) -> dict:
         with self._lock:

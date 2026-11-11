@@ -62,6 +62,9 @@ ONE_COLUMN_KINDS = ("user_dictionary", "checked")
 TWO_COLUMN_NO_HEADER_KINDS = ("manual_corrections",)
 ID_TEXT = re.compile(r"[0-9]{1,12}")
 CONTROL_CHARACTERS = re.compile(r"[\x00-\x08\x0b\x0c\x0e-\x1f]")
+# A bare carriage return is a line break to some readers, so one line here
+# could reach a shared file as two, the second with the wrong column count.
+LONE_CARRIAGE_RETURN = re.compile(r"\r(?!\n)")
 EXCEPTION_LINE = re.compile(r"[^\t]+\t[0-9]+")
 SSH_OPTIONS: list[str] = [
     "ssh",
@@ -152,6 +155,8 @@ def _check_json(text: str) -> str | None:
 def _check_lines(text: str, kind: str) -> str | None:
     if CONTROL_CHARACTERS.search(text):
         return "control character"
+    if LONE_CARRIAGE_RETURN.search(text):
+        return "carriage return inside a line"
     if text and not text.endswith("\n"):
         return "no final newline"
     header = TWO_COLUMN_HEADERS.get(kind)

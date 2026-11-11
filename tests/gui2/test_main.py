@@ -27,6 +27,7 @@ from gui2.main import (
     tab_selection,
     tab_tooltip,
 )
+import gui2.preview as preview_module
 from gui2.pass1_add_view import Pass1AddView
 from gui2.pass1_auto_view import Pass1AutoView
 from gui2.pass2_add_view import Pass2AddView
@@ -365,26 +366,6 @@ def test_server_shows_base_and_listed_tabs_only(
     assert app._current_index() == 3
 
 
-def test_server_pass1_add_still_gets_the_hidden_pass1_auto_controller(
-    monkeypatch: pytest.MonkeyPatch,
-) -> None:
-    app: Any = _server_app(monkeypatch, "DB")
-    controller = object()
-    # build_ui already built the start tab with the stand-in builders
-    app._views.clear()
-    app._mounted_tabs.clear()
-    app._view_builders[2] = lambda: SimpleNamespace(controller=controller)
-    app._view_builders[3] = lambda: SimpleNamespace(
-        auto_controller=app._view(2).controller
-    )
-
-    pass1_add_view = app._view(3)
-
-    assert 2 not in app._visible
-    assert pass1_add_view.auto_controller is controller
-    assert 2 not in app._mounted_tabs
-
-
 def test_server_alt_jump_to_a_hidden_tab_does_nothing(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
@@ -461,6 +442,19 @@ def test_server_warmup_builds_only_visible_tabs(
     assert built == [3, 1, 13, 11]
 
 
+def test_a_released_app_does_not_warm_up(monkeypatch: pytest.MonkeyPatch) -> None:
+    """A takeover emptied this app mid-startup: the warm-up must not build
+    into the freed memory."""
+    app = _server_app(monkeypatch, "DB")
+    built: list[int] = []
+    app._ensure_tab_built = built.append  # pyright: ignore[reportAttributeAccessIssue]
+    app.toolkit.db_manager._released = True  # pyright: ignore[reportAttributeAccessIssue]
+
+    app._warmup_in_background()
+
+    assert built == []
+
+
 class _WordFinderAccessToolkit:
     """A toolkit double that records every read of the word finder names."""
 
@@ -496,6 +490,91 @@ def test_server_warmup_skips_the_word_finder_without_pass2add(
     app._warmup_in_background()
 
     assert toolkit.wordfinder_access == []
+
+
+class _AIManagerAccessToolkit:
+    """A toolkit double that records every read of the AI manager."""
+
+    def __init__(self) -> None:
+        self.ai_manager_access: list[str] = []
+        self._mocks: dict[str, MagicMock] = {}
+
+    def __getattr__(self, name: str) -> MagicMock:
+        if name == "ai_manager":
+            self.__dict__["ai_manager_access"].append(name)
+        mocks: dict[str, MagicMock] = self.__dict__.setdefault("_mocks", {})
+        return mocks.setdefault(name, MagicMock())
+
+
+def test_server_warmup_skips_the_ai_manager_without_an_ai_tab(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    app = _server_app(monkeypatch, "DB")
+    toolkit = _AIManagerAccessToolkit()
+    app.toolkit = toolkit  # pyright: ignore[reportAttributeAccessIssue]
+
+    app._warmup_in_background()
+
+    assert toolkit.ai_manager_access == []
+
+
+def test_desktop_warmup_still_builds_the_ai_manager(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    app = _server_app(monkeypatch, "DB")
+    app._visible = list(range(len(TAB_LABELS)))  # pyright: ignore[reportAttributeAccessIssue]
+    app._tab_bar.tabs = [  # pyright: ignore[reportAttributeAccessIssue]
+        ft.Tab(label=ft.Text(TAB_LABELS[index])) for index in app._visible
+    ]
+    toolkit = _AIManagerAccessToolkit()
+    app.toolkit = toolkit  # pyright: ignore[reportAttributeAccessIssue]
+
+    app._warmup_in_background()
+
+    assert toolkit.ai_manager_access == ["ai_manager"]
+
+
+def test_server_pass1add_does_not_build_the_pass1auto_view(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    app: Any = _server_app(monkeypatch, "DB")
+    built_tab_2: list[int] = []
+    app._views.clear()
+    app._mounted_tabs.clear()
+    app._view_builders[2] = lambda: built_tab_2.append(2)
+    app._view_builders[3] = app._make_pass1_add
+
+    with (
+        monkeypatch.context() as m,
+    ):
+        m.setattr("gui2.pass1_add_view.Pass1AddView", MagicMock())
+        m.setattr("gui2.pass1_auto_controller.Pass1AutoController", MagicMock())
+        app._make_pass1_add()
+
+    assert built_tab_2 == []
+
+
+def test_desktop_pass1add_shares_the_pass1auto_views_controller(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    app: Any = _server_app(monkeypatch, "DB")
+    app._visible = sorted(set(app._visible) | {2})  # pyright: ignore[reportAttributeAccessIssue]
+    controller = object()
+    app._views.clear()
+    app._mounted_tabs.clear()
+    app._view_builders[2] = lambda: SimpleNamespace(controller=controller)
+
+    fake_view = MagicMock()
+    fake_controller_class = MagicMock()
+    with monkeypatch.context() as m:
+        m.setattr("gui2.pass1_add_view.Pass1AddView", fake_view)
+        m.setattr(
+            "gui2.pass1_auto_controller.Pass1AutoController", fake_controller_class
+        )
+        app._make_pass1_add()
+
+    assert fake_view.call_args.args[2] is controller
+    fake_controller_class.assert_not_called()
 
 
 def test_server_warmup_with_pass2add_still_touches_the_word_finder(
@@ -668,6 +747,30 @@ def test_a_dead_old_page_does_not_break_the_takeover(free_session: None) -> None
     fresh.add.assert_called_once()  # fresh really became the holder
 
 
+def test_a_takeover_retires_the_old_pages_preview(
+    free_session: None, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    first = MagicMock()
+    monkeypatch.setattr("gui2.preview._owner", first)
+
+    claim_session(first)
+    claim_session(MagicMock())
+
+    assert preview_module._owner is None
+
+
+def test_a_takeover_closes_the_old_pages_dialogs(free_session: None) -> None:
+    first = MagicMock()
+    dialog = ft.AlertDialog(modal=True)
+    dialog.open = True
+    first._dialogs = SimpleNamespace(controls=[dialog])
+
+    claim_session(first)
+    claim_session(MagicMock())
+
+    assert dialog.open is False
+
+
 def test_main_releases_the_session_when_the_page_disconnects(
     free_session: None, monkeypatch: pytest.MonkeyPatch
 ) -> None:
@@ -680,6 +783,126 @@ def test_main_releases_the_session_when_the_page_disconnects(
 
     assert second.add.call_count == 0  # the real App (mocked) was built, no notice
     assert first.add.call_count == 0  # released first, so nothing to retire
+
+
+def test_a_server_takeover_releases_the_old_app(
+    free_session: None, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    monkeypatch.setenv("DPD_GUI2_ROLE", "contributor-server")
+    monkeypatch.setattr("gui2.main._session_app", None, raising=False)
+    monkeypatch.setattr("gui2.main.server_lifecycle.attach", lambda _page: None)
+    first_app, second_app = MagicMock(), MagicMock()
+    built = MagicMock(side_effect=[first_app, second_app])
+    monkeypatch.setattr("gui2.main.App", built)
+    first, second = MagicMock(), MagicMock()
+    first.web = True
+    second.web = True
+
+    main(first)
+    main(second)
+
+    first_app.release_memory.assert_called_once()
+    second_app.release_memory.assert_not_called()
+
+
+def test_a_desktop_takeover_releases_nothing(
+    free_session: None, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    monkeypatch.delenv("DPD_GUI2_ROLE", raising=False)
+    monkeypatch.setattr("tools.server_mode.config_read", lambda *_: None)
+    monkeypatch.setattr("gui2.main._session_app", None, raising=False)
+    first_app, second_app = MagicMock(), MagicMock()
+    built = MagicMock(side_effect=[first_app, second_app])
+    monkeypatch.setattr("gui2.main.App", built)
+    first, second = MagicMock(), MagicMock()
+    first.web = True
+    second.web = True
+
+    main(first)
+    main(second)
+
+    first_app.release_memory.assert_not_called()
+
+
+def test_a_failing_release_does_not_break_the_takeover(
+    free_session: None, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    monkeypatch.setenv("DPD_GUI2_ROLE", "contributor-server")
+    monkeypatch.setattr("gui2.main._session_app", None, raising=False)
+    monkeypatch.setattr("gui2.main.server_lifecycle.attach", lambda _page: None)
+    first_app, second_app = MagicMock(), MagicMock()
+    first_app.release_memory.side_effect = RuntimeError("boom")
+    built = MagicMock(side_effect=[first_app, second_app])
+    monkeypatch.setattr("gui2.main.App", built)
+    first, second = MagicMock(), MagicMock()
+    first.web = True
+    second.web = True
+
+    main(first)
+    main(second)  # must not raise
+
+    assert built.call_count == 2
+
+
+def test_a_server_release_happens_even_after_a_disconnect(
+    free_session: None, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    """After a real disconnect _session_page is None, but the old app is still
+    held; a later page must release it."""
+    monkeypatch.setenv("DPD_GUI2_ROLE", "contributor-server")
+    monkeypatch.setattr("gui2.main._session_app", None, raising=False)
+    monkeypatch.setattr("gui2.main.server_lifecycle.attach", lambda _page: None)
+    first_app, second_app = MagicMock(), MagicMock()
+    built = MagicMock(side_effect=[first_app, second_app])
+    monkeypatch.setattr("gui2.main.App", built)
+    first, second = MagicMock(), MagicMock()
+    first.web = True
+    second.web = True
+
+    main(first)
+    first.on_disconnect(None)
+    main(second)
+
+    first_app.release_memory.assert_called_once()
+
+
+def test_an_app_that_loses_the_session_mid_build_is_released(
+    free_session: None, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    """A third page claims while the App is being built: the app registers
+    nowhere, so it must be emptied instead of leaking."""
+    monkeypatch.setenv("DPD_GUI2_ROLE", "contributor-server")
+    monkeypatch.setattr("gui2.main._session_app", None, raising=False)
+    monkeypatch.setattr("gui2.main.server_lifecycle.attach", lambda _page: None)
+    app = MagicMock()
+    other = MagicMock()
+
+    def build_app_with_a_takeover(page) -> MagicMock:
+        claim_session(other)  # C takes over mid-build
+        return app
+
+    monkeypatch.setattr("gui2.main.App", build_app_with_a_takeover)
+    page = MagicMock()
+    page.web = True
+
+    main(page)
+
+    app.release_memory.assert_called_once()
+    import gui2.main as main_module
+
+    assert main_module._session_app is not app
+
+
+def test_a_closing_page_releases_the_preview_latch(
+    free_session: None, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    monkeypatch.setattr("gui2.main._session_page", None)
+    page = MagicMock()
+    monkeypatch.setattr(preview_module, "_owner", page)
+
+    release_session(page)  # a clean disconnect, no takeover
+
+    assert preview_module._owner is None
 
 
 def test_run_app_makes_the_preview_folder_before_flet_starts(

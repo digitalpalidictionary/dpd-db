@@ -2,6 +2,7 @@
 
 import json
 import logging
+import shutil
 import sqlite3
 import subprocess
 from datetime import UTC, datetime, timedelta
@@ -337,6 +338,46 @@ class TestRollback:
         assert "rebuild blew up" in text
         assert "would start instances" in text
 
+    def test_a_failed_db_restore_still_restores_the_contributor_files(
+        self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+    ):
+        setup = _setup(tmp_path)
+        done = _entry("done")
+        path = setup.config.data_dir / "additions_alice.json"
+        write_json_dict(path, {"alice_1": done})
+        (setup.config.data_dir / "checked_alice.csv").write_text("word\n")
+        before = setup.head()
+        log = [{"_source_key": "alice_1", "_source_hash": entry_hash(done)}]
+        setup.main_commit("log", **{"gui2/data/additions_added.json": json.dumps(log)})
+
+        real_copy2 = shutil.copy2
+
+        def failing_copy2(src, dst, *args, **kwargs):
+            if str(src).endswith(".prev"):
+                raise OSError("disk full")
+            return real_copy2(src, dst, *args, **kwargs)
+
+        def corrupting_rebuild(config: WindowConfig) -> None:
+            config.db_path.write_bytes(b"CORRUPT")
+            (config.data_dir / "checked_alice.csv").unlink()
+            monkeypatch.setattr(
+                "scripts.server_contrib.maintenance_window.shutil.copy2",
+                failing_copy2,
+            )
+            raise RuntimeError("rebuild blew up")
+
+        outcome = run_maintenance(
+            setup.config, _steps(Calls(), rebuild=corrupting_rebuild)
+        )
+
+        assert outcome is Outcome.FAILED
+        assert load_json_dict(path) == {"alice_1": done}
+        assert (setup.config.data_dir / "checked_alice.csv").read_text() == "word\n"
+        assert setup.head() == before
+        text = setup.log_text()
+        assert "rollback of the database FAILED" in text
+        assert "maintenance aborted before the pull" not in text
+
     def test_push_failure_is_logged_and_the_rebuild_still_runs(self, tmp_path: Path):
         setup = _setup(tmp_path)
         calls = Calls()
@@ -400,6 +441,84 @@ class TestStopFailure:
         assert calls.names == []
         assert "systemctl start dpd-gui@alice" in seen
         assert "window refused" in setup.log_text()
+
+    def test_a_failed_start_fails_the_run(
+        self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+    ):
+        setup = _setup(tmp_path)
+        setup.config.use_systemd = True
+        calls = Calls()
+        seen: list[str] = []
+
+        real_run = subprocess.run
+
+        def fake_run(cmd: list[str], **kwargs: object) -> subprocess.CompletedProcess:
+            if cmd[0] != "systemctl":
+                return real_run(cmd, **kwargs)  # pyright: ignore[reportCallIssue, reportArgumentType]
+            seen.append(" ".join(cmd))
+            return subprocess.CompletedProcess(cmd, 1 if cmd[1] == "start" else 0)
+
+        monkeypatch.setattr(
+            "scripts.server_contrib.maintenance_window.subprocess.run", fake_run
+        )
+
+        outcome = run_maintenance(setup.config, _steps(calls))
+
+        assert outcome is Outcome.FAILED
+        status = (setup.config.log_dir / "status.txt").read_text(encoding="utf-8")
+        assert status.startswith("outcome: failed\n")
+
+    def test_a_start_that_times_out_fails_the_run_and_writes_the_status(
+        self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+    ):
+        setup = _setup(tmp_path)
+        setup.config.use_systemd = True
+        calls = Calls()
+
+        real_run = subprocess.run
+
+        def fake_run(cmd: list[str], **kwargs: object) -> subprocess.CompletedProcess:
+            if cmd[0] != "systemctl":
+                return real_run(cmd, **kwargs)  # pyright: ignore[reportCallIssue, reportArgumentType]
+            if cmd[1] == "start":
+                raise subprocess.TimeoutExpired(cmd, 300)
+            return subprocess.CompletedProcess(cmd, 0)
+
+        monkeypatch.setattr(
+            "scripts.server_contrib.maintenance_window.subprocess.run", fake_run
+        )
+
+        outcome = run_maintenance(setup.config, _steps(calls))
+
+        assert outcome is Outcome.FAILED
+        assert (setup.config.log_dir / "status.txt").exists()
+
+    def test_a_timed_out_start_does_not_skip_the_other_instances(
+        self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+    ) -> None:
+        setup = _setup(tmp_path)
+        setup.config.use_systemd = True
+        setup.config.instances = ["dpd-gui@alice", "dpd-gui@bob"]
+        seen: list[str] = []
+
+        real_run = subprocess.run
+
+        def fake_run(cmd: list[str], **kwargs: object) -> subprocess.CompletedProcess:
+            if cmd[0] != "systemctl":
+                return real_run(cmd, **kwargs)  # pyright: ignore[reportCallIssue, reportArgumentType]
+            seen.append(" ".join(cmd))
+            if cmd[1] == "start" and cmd[2] == "dpd-gui@alice":
+                raise subprocess.TimeoutExpired(cmd, 300)
+            return subprocess.CompletedProcess(cmd, 0)
+
+        monkeypatch.setattr(
+            "scripts.server_contrib.maintenance_window.subprocess.run", fake_run
+        )
+
+        outcome = run_maintenance(setup.config, _steps(Calls()))
+
+        assert outcome is Outcome.FAILED
+        assert "systemctl start dpd-gui@bob" in seen
 
 
 class TestRollbackWal:

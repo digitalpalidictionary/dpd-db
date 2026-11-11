@@ -10,14 +10,9 @@ from typing import TYPE_CHECKING, Any, cast
 import flet as ft
 
 from gui2.ai_search_window import launch_ai_search_window
-from gui2.compound_type_tab_view import CompoundTypeTabView
 from gui2.contributor_tabs import allowed_tabs, resolve_extra_tabs
-from gui2.roots_tab_view import RootsTabView
-from gui2.sandhi_find_replace_view import SandhiFindReplaceView
-from gui2.sandhi_view import SandhiView
 from gui2 import server_lifecycle
 from gui2.shortcuts_dialog import ShortcutGroup, build_shortcuts_dialog
-from gui2.spelling_find_replace_view import SpellingFindReplaceView
 from gui2.toolkit import ToolKit
 from gui2.ui_utils import cancel_top_dialog, is_dialog_open, show_global_snackbar
 from tools.printer import printer as pr
@@ -112,18 +107,6 @@ class App:
     )
 
     def __init__(self, page: ft.Page) -> None:
-        from gui2.global_tab_view import GlobalTabView
-        from gui2.inflection_templates_tab_view import InflectionTemplatesTabView
-        from gui2.pass1_add_view import Pass1AddView
-        from gui2.pass1_auto_view import Pass1AutoView
-        from gui2.pass2_add_view import Pass2AddView
-        from gui2.pass2_auto_view import Pass2AutoView
-        from gui2.pass2_pre_view import Pass2PreProcessView
-        from gui2.pass2x.in_commentary_view import Pass2xInCommentaryView
-        from gui2.bold_search_view import BoldSearchView
-        from gui2.tests_tab_view import TestsTabView
-        from gui2.translations_view import TranslationsView
-
         self.page = page
         self._db_init_started: bool = False
         self._warmup_started: bool = False
@@ -209,8 +192,8 @@ class App:
         # ready by the time it is clicked; clicking a not-yet-warmed tab
         # builds it on demand (see _view / _on_tab_activated). Each builder
         # is a thunk keyed by tab index; the Pass1Add view reuses the
-        # Pass1Auto view's controller, so building it transparently builds
-        # Pass1Auto first via _view(2), even where its tab is hidden.
+        # Pass1Auto view's controller. Where the Pass1Auto tab is hidden,
+        # Pass1Add gets a controller with no view (see _make_pass1_add).
         self._views: dict[int, ft.Control] = {}
         self._mounted_tabs: set[int] = set()
         self._visible, self._read_only = tab_selection()
@@ -219,28 +202,101 @@ class App:
         self._start_index: int = 3 if is_headless_server() else self._visible[0]
         self._focused_tab_index: int = self._start_index
         self._view_builders: dict[int, Callable[[], ft.Control]] = {
-            0: lambda: GlobalTabView(self.page, self.toolkit),
-            1: lambda: TranslationsView(self.page, self.toolkit),
-            2: lambda: Pass1AutoView(self.page, self.toolkit),
-            3: lambda: Pass1AddView(self.page, self.toolkit, self._view(2).controller),
-            4: lambda: Pass2PreProcessView(self.page, self.toolkit),
-            5: lambda: Pass2xInCommentaryView(self.page, self.toolkit),
-            6: lambda: Pass2AutoView(self.page, self.toolkit),
-            7: lambda: Pass2AddView(self.page, self.toolkit),
-            8: lambda: SandhiFindReplaceView(self.page, self.toolkit),
-            9: lambda: SpellingFindReplaceView(self.page, self.toolkit),
-            10: lambda: SandhiView(self.page, self.toolkit),
+            0: self._make_global,
+            1: self._make_translations,
+            2: self._make_pass1_auto,
+            3: self._make_pass1_add,
+            4: self._make_pass2_pre,
+            5: self._make_pass2x_in_commentary,
+            6: self._make_pass2_auto,
+            7: self._make_pass2_add,
+            8: self._make_sandhi_find_replace,
+            9: self._make_spelling_find_replace,
+            10: self._make_sandhi,
             11: self._make_filter_tab,
-            12: lambda: TestsTabView(self.page, self.toolkit),
-            13: lambda: BoldSearchView(self.page, self.toolkit),
-            14: lambda: RootsTabView(self.page, self.toolkit),
-            15: lambda: CompoundTypeTabView(self.page, self.toolkit),
-            16: lambda: InflectionTemplatesTabView(self.page, self.toolkit),
+            12: self._make_tests,
+            13: self._make_bold_search,
+            14: self._make_roots,
+            15: self._make_compound_type,
+            16: self._make_inflection_templates,
         }
 
         self.build_ui()
 
         self.toolkit.username_manager.get_username()
+
+    def _make_global(self) -> ft.Control:
+        from gui2.global_tab_view import GlobalTabView
+
+        return GlobalTabView(self.page, self.toolkit)
+
+    def _make_translations(self) -> ft.Control:
+        from gui2.translations_view import TranslationsView
+
+        return TranslationsView(self.page, self.toolkit)
+
+    def _make_pass1_auto(self) -> ft.Control:
+        from gui2.pass1_auto_view import Pass1AutoView
+
+        return Pass1AutoView(self.page, self.toolkit)
+
+    def _make_pass1_add(self) -> ft.Control:
+        from gui2.pass1_add_view import Pass1AddView
+
+        if 2 in self._visible:
+            controller = self._view(2).controller  # the Pass1Auto view's own
+        else:
+            # Pass1Add reads only this controller's word lists. Building the
+            # hidden Pass1Auto view for it would build every AI client, which
+            # nothing on a contributor's page can use.
+            from gui2.pass1_auto_controller import Pass1AutoController
+
+            controller = Pass1AutoController(None, self.toolkit)
+        return Pass1AddView(self.page, self.toolkit, controller)
+
+    def _make_pass2_pre(self) -> ft.Control:
+        from gui2.pass2_pre_view import Pass2PreProcessView
+
+        return Pass2PreProcessView(self.page, self.toolkit)
+
+    def _make_pass2x_in_commentary(self) -> ft.Control:
+        from gui2.pass2x.in_commentary_view import Pass2xInCommentaryView
+
+        return Pass2xInCommentaryView(self.page, self.toolkit)
+
+    def _make_pass2_auto(self) -> ft.Control:
+        from gui2.pass2_auto_view import Pass2AutoView
+
+        return Pass2AutoView(self.page, self.toolkit)
+
+    def _make_pass2_add(self) -> ft.Control:
+        from gui2.pass2_add_view import Pass2AddView
+
+        return Pass2AddView(self.page, self.toolkit)
+
+    def _make_sandhi_find_replace(self) -> ft.Control:
+        from gui2.sandhi_find_replace_view import SandhiFindReplaceView
+
+        return SandhiFindReplaceView(self.page, self.toolkit)
+
+    def _make_spelling_find_replace(self) -> ft.Control:
+        from gui2.spelling_find_replace_view import SpellingFindReplaceView
+
+        return SpellingFindReplaceView(self.page, self.toolkit)
+
+    def _make_sandhi(self) -> ft.Control:
+        from gui2.sandhi_view import SandhiView
+
+        return SandhiView(self.page, self.toolkit)
+
+    def release_memory(self) -> None:
+        """Empty this app's data once a newer page has replaced its page."""
+        with self._build_lock:
+            self._views.clear()
+            self._view_builders = {}
+        with self.toolkit._lazy_lock:
+            self.toolkit._lazy_cache.clear()
+        self.toolkit.db_manager.release_memory()
 
     def _make_filter_tab(self) -> "FilterTabView":
         from gui2.filter_tab_view import (
@@ -257,6 +313,31 @@ class App:
                 display_filters=CONTRIBUTOR_DISPLAY_FILTERS,
             )
         return FilterTabView(self.page, self.toolkit)
+
+    def _make_tests(self) -> ft.Control:
+        from gui2.tests_tab_view import TestsTabView
+
+        return TestsTabView(self.page, self.toolkit)
+
+    def _make_bold_search(self) -> ft.Control:
+        from gui2.bold_search_view import BoldSearchView
+
+        return BoldSearchView(self.page, self.toolkit)
+
+    def _make_roots(self) -> ft.Control:
+        from gui2.roots_tab_view import RootsTabView
+
+        return RootsTabView(self.page, self.toolkit)
+
+    def _make_compound_type(self) -> ft.Control:
+        from gui2.compound_type_tab_view import CompoundTypeTabView
+
+        return CompoundTypeTabView(self.page, self.toolkit)
+
+    def _make_inflection_templates(self) -> ft.Control:
+        from gui2.inflection_templates_tab_view import InflectionTemplatesTabView
+
+        return InflectionTemplatesTabView(self.page, self.toolkit)
 
     def _on_submit_data(self, e: ft.ControlEvent) -> None:
         """Handle Submit Data button click."""
@@ -609,6 +690,9 @@ class App:
     def _initialize_db_in_background(self) -> None:
         # The longest operation in the app — ~11 s, measured — and until now it
         # ran with nothing on screen to say so.
+        if getattr(self.toolkit.db_manager, "_released", None) is True:
+            # A takeover emptied this app while it was starting up.
+            return
         self._set_loading(True)
         try:
             self.toolkit.db_manager.initialize_db()
@@ -639,6 +723,9 @@ class App:
     def _warmup_in_background(self) -> None:
         """Build every tab (most-used first), then the heavy managers, so
         nothing waits on a first click. Started after the db load finishes."""
+        if getattr(self.toolkit.db_manager, "_released", None) is True:
+            # A takeover emptied this app; do not build into it.
+            return
         # A failing builder leaves its tab unmounted (retried on click) and
         # must not abort the warm-up of the remaining tabs and managers.
         failed: list[str] = []
@@ -649,13 +736,19 @@ class App:
                 self._ensure_tab_built(index)
             except Exception:
                 failed.append(self._tab_label(index))
+        if getattr(self.toolkit.db_manager, "_released", None) is True:
+            # The takeover landed while tabs were being built: the managers
+            # below would reload the corpus into the freed memory.
+            return
         try:
             # The word finder is Pass2Add's tool: without the tab nothing
             # can open it, so building it would just cost its ~160 MB.
             if 7 in self._visible:
                 self.toolkit.wordfinder_manager
                 self.toolkit.wordfinder_popup
-            self.toolkit.ai_manager
+            # Only the two Auto tabs send AI requests.
+            if 2 in self._visible or 6 in self._visible:
+                self.toolkit.ai_manager
             self.toolkit.bold_definitions_search_manager
             # Pre-build the synonym/phonetic detector (~0.8-0.9 s corpus
             # scan) so initialize_db can skip it and the first synonym
@@ -775,23 +868,28 @@ class App:
 
 
 # One live app per process. A second browser tab would build a second copy of
-# the app (~2.5 GB) that holds the same contributor JSON in memory, and two
-# copies rewriting one file lose each other's saves. The newest page wins:
-# Flet does not always fire on_disconnect when a tab reloads (its send loop
-# raises on a closing socket and skips the disconnect step), so waiting for the
-# old page to say it left would lock a reloading contributor out.
+# the app (about 560 MB measured, 2026-11-02) that holds the same contributor
+# JSON in memory, and two copies rewriting one file lose each other's saves.
+# The newest page wins: Flet does not always fire on_disconnect when a tab
+# reloads (its send loop raises on a closing socket and skips the disconnect
+# step), so waiting for the old page to say it left would lock a reloading
+# contributor out.
 _session_lock = threading.Lock()
 _session_page: ft.Page | None = None
+# The app built for the live page, so a takeover can empty it (server only).
+_session_app: "App | None" = None
 
 ALREADY_OPEN_MESSAGE = "This app is already open in another tab or window."
 
 
 def claim_session(page: ft.Page) -> None:
     """Take the process's one session. The page that held it, if any, is retired."""
-    global _session_page
+    global _session_page, _session_app
     with _session_lock:
         previous = _session_page
         _session_page = page
+        previous_app = _session_app
+        _session_app = None
     if previous is not None and previous is not page:
         try:
             # The old App stays alive in memory; without this its Ctrl+S would
@@ -802,6 +900,25 @@ def claim_session(page: ft.Page) -> None:
         except Exception as e:
             # The old connection may already be dead; nothing is left to show.
             pr.red(f"could not retire the old page: {e}")
+        try:
+            from gui2.preview import retire_page
+
+            retire_page(previous)
+            # A modal left open on the old page still has working buttons.
+            for dialog in list(previous._dialogs.controls):
+                dialog.open = False
+            previous.update()
+        except Exception as e:
+            pr.red(f"could not close the old page's dialogs: {e}")
+    if previous_app is not None and is_headless_server():
+        try:
+            # Each open copy holds its own corpus and lookup sets; emptying
+            # the old one first lets the new app reuse that memory. Outside
+            # the retirement guard: after a disconnect _session_page is None
+            # but the old app is still held, and it must be released too.
+            previous_app.release_memory()
+        except Exception as e:
+            pr.red(f"could not release the old app: {e}")
 
 
 def release_session(page: ft.Page) -> None:
@@ -810,9 +927,18 @@ def release_session(page: ft.Page) -> None:
     with _session_lock:
         if _session_page is page:
             _session_page = None
+    # Also on a clean close, not just a takeover: a dead page must not hold
+    # the preview latch (nor its dialog graph) for the life of the process.
+    try:
+        from gui2.preview import retire_page
+
+        retire_page(page)
+    except Exception as e:
+        pr.red(f"could not retire the closing page's preview: {e}")
 
 
 def main(page: ft.Page) -> None:
+    global _session_app
     # Enable/disable profiling
     enable_profiling = False
     profile_file = Path("gui2_profile.prof")
@@ -834,7 +960,21 @@ def main(page: ft.Page) -> None:
 
     # Time App initialization
     start_time = time.time()
-    App(page)
+    app = App(page)
+    with _session_lock:
+        # Only if this page still holds the session: a third page may have
+        # taken over while the app was being built.
+        if _session_page is page:
+            _session_app = app
+            replaced = False
+        else:
+            replaced = True
+    if replaced and is_headless_server():
+        try:
+            # Nobody will ever register this app; empty it instead of leaking.
+            app.release_memory()
+        except Exception as e:
+            pr.red(f"could not release the replaced app: {e}")
     print(f"App initialized in {time.time() - start_time:.2f}s")
     if page.web and is_headless_server():
         elapsed = time.monotonic() - server_lifecycle.PROCESS_START

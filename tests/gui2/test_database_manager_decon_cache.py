@@ -54,3 +54,56 @@ def test_any_other_failure_still_prints_and_the_session_stays_usable(
 
     assert "decon cache refresh failed: database is locked" in capsys.readouterr().out
     assert session.query(Lookup).count() == 0
+
+
+def _initialize_with_decon_probe(
+    monkeypatch: pytest.MonkeyPatch, manager: DatabaseManager
+) -> list[str]:
+    """initialize_db with every lookup set a no-op, and the decon call
+    recording that it ran."""
+    calls: list[str] = []
+
+    def noop(*args: object, **kwargs: object) -> None:
+        pass
+
+    def decon() -> None:
+        calls.append("decon")
+        manager.all_decon_no_headwords.add("x")
+
+    for name in (
+        "get_all_lemma_1_and_lemma_clean",
+        "get_all_pos",
+        "get_all_roots",
+        "get_all_root_families",
+        "get_all_compound_families",
+        "get_all_word_families",
+        "get_all_patterns",
+    ):
+        monkeypatch.setattr(manager, name, noop)
+    monkeypatch.setattr(manager, "get_all_decon_no_headwords", decon)
+    manager.all_decon_no_headwords = set()
+    manager.initialize_db()
+    return calls
+
+
+def test_a_contributor_server_never_loads_the_decon_set(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    monkeypatch.setenv("DPD_GUI2_ROLE", "contributor-server")
+    manager = _manager(_read_only_session(tmp_path))
+
+    calls = _initialize_with_decon_probe(monkeypatch, manager)
+
+    assert calls == []
+    assert manager.all_decon_no_headwords == set()
+
+
+def test_the_desktop_still_loads_the_decon_set(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    monkeypatch.delenv("DPD_GUI2_ROLE", raising=False)
+    manager = _manager(_read_only_session(tmp_path))
+
+    calls = _initialize_with_decon_probe(monkeypatch, manager)
+
+    assert calls == ["decon"]

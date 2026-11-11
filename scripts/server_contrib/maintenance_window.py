@@ -250,9 +250,15 @@ def _systemctl(
         return []
     failed: list[str] = []
     for unit in instances:
-        result = subprocess.run(
-            ["systemctl", action, unit], check=False, timeout=GIT_TIMEOUT
-        )
+        try:
+            result = subprocess.run(
+                ["systemctl", action, unit], check=False, timeout=GIT_TIMEOUT
+            )
+        except (subprocess.TimeoutExpired, OSError) as exc:
+            # One hung unit must not leave the later units unattempted.
+            log.error(f"systemctl {action} {unit} FAILED ({exc})")
+            failed.append(unit)
+            continue
         if result.returncode != 0:
             log.error(f"systemctl {action} {unit} FAILED (exit {result.returncode})")
             failed.append(unit)
@@ -332,39 +338,55 @@ def _capture_rollback(config: WindowConfig) -> Rollback:
 def _restore_rollback(
     config: WindowConfig, rollback: Rollback, log: logging.Logger
 ) -> None:
-    if rollback.db_backup is not None and rollback.db_backup.exists():
-        shutil.copy2(rollback.db_backup, config.db_path)
-        # A -wal left by the failed rebuild would be replayed over the old db.
-        for suffix in ("-wal", "-shm"):
-            config.db_path.with_name(config.db_path.name + suffix).unlink(
-                missing_ok=True
+    # Each step is guarded so one failure cannot skip the others. Contributor
+    # files go first: they are the only copy of a contributor's work, and the
+    # db and the working tree can be rebuilt.
+    try:
+        # Iterate the backup (ground truth), not the current dir: a contributor
+        # file deleted by the failed window must still be restored.
+        for backup_file in rollback.data_backup.iterdir():
+            shutil.copy2(backup_file, config.data_dir / backup_file.name)
+        log.info("restored contributor files")
+    except Exception as exc:
+        log.error(f"rollback of the contributor files FAILED: {exc}")
+    try:
+        if rollback.db_backup is not None and rollback.db_backup.exists():
+            # Copy beside the db, then swap: a copy that fails half-way must
+            # not leave a truncated dpd.db for the instances to start on.
+            staged = config.db_path.with_name(config.db_path.name + ".restoring")
+            shutil.copy2(rollback.db_backup, staged)
+            os.replace(staged, config.db_path)
+            # A -wal left by the failed rebuild would be replayed over the old db.
+            for suffix in ("-wal", "-shm"):
+                config.db_path.with_name(config.db_path.name + suffix).unlink(
+                    missing_ok=True
+                )
+            log.info(f"restored db from {rollback.db_backup.name}")
+    except Exception as exc:
+        log.error(f"rollback of the database FAILED: {exc}")
+    try:
+        if rollback.pre_commit is not None:
+            reset = subprocess.run(
+                ["git", "reset", "--hard", rollback.pre_commit],
+                cwd=config.project_root,
+                check=False,
+                timeout=GIT_TIMEOUT,
             )
-        log.info(f"restored db from {rollback.db_backup.name}")
-    if rollback.pre_commit is not None:
-        reset = subprocess.run(
-            ["git", "reset", "--hard", rollback.pre_commit],
-            cwd=config.project_root,
-            check=False,
-            timeout=GIT_TIMEOUT,
-        )
-        submodule = subprocess.run(
-            ["git", "submodule", "update", "--recursive"],
-            cwd=config.project_root,
-            check=False,
-            timeout=STEP_TIMEOUT,
-        )
-        if reset.returncode != 0 or submodule.returncode != 0:
-            log.error(
-                "rollback git restore FAILED — working tree may be inconsistent "
-                f"(reset={reset.returncode}, submodule={submodule.returncode})"
+            submodule = subprocess.run(
+                ["git", "submodule", "update", "--recursive"],
+                cwd=config.project_root,
+                check=False,
+                timeout=STEP_TIMEOUT,
             )
-        else:
-            log.info(f"restored working tree to {rollback.pre_commit}")
-    # Iterate the backup (ground truth), not the current dir: a contributor
-    # file deleted by the failed window must still be restored.
-    for backup_file in rollback.data_backup.iterdir():
-        shutil.copy2(backup_file, config.data_dir / backup_file.name)
-    log.info("restored contributor files")
+            if reset.returncode != 0 or submodule.returncode != 0:
+                log.error(
+                    "rollback git restore FAILED — working tree may be inconsistent "
+                    f"(reset={reset.returncode}, submodule={submodule.returncode})"
+                )
+            else:
+                log.info(f"restored working tree to {rollback.pre_commit}")
+    except Exception as exc:
+        log.error(f"rollback git restore FAILED: {exc}")
 
 
 def _restore_build_changes(config: WindowConfig, log: logging.Logger) -> None:
@@ -495,7 +517,15 @@ def run_maintenance(config: WindowConfig, steps: WindowSteps | None = None) -> O
         log.error(f"maintenance aborted before the pull: {exc}")
         outcome = Outcome.FAILED
     finally:
-        _systemctl("start", config.instances, config, log)
+        try:
+            start_failed = _systemctl("start", config.instances, config, log)
+        except (subprocess.TimeoutExpired, OSError) as exc:
+            log.error(f"could not start the instances: {exc}")
+            start_failed = list(config.instances)
+        if start_failed:
+            # An editor that stayed down is a failed night, whatever the
+            # rebuild did: the owner must see it in the status and exit code.
+            outcome = Outcome.FAILED
         if config.warn_minutes > 0:
             try:
                 if remove_notice(config.notice_file):

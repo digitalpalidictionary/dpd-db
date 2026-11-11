@@ -217,7 +217,17 @@ async def show_preview_dialog(
     page.update()
 
 
-_in_progress = False
+# The page whose preview dialog is open. Held per page, not per process: a
+# reload or a second tab makes a new page, and a process-wide flag left set
+# by the old page's dialog would block every later save.
+_owner: ft.Page | None = None
+
+
+def retire_page(page: ft.Page) -> None:
+    """Forget a page that a newer page replaced. Its dialog can no longer save."""
+    global _owner
+    if _owner is page:
+        _owner = None
 
 
 async def preview_and_confirm(
@@ -228,17 +238,22 @@ async def preview_and_confirm(
     on_save: Callable[[], Awaitable[None]],
 ) -> None:
     """Open the preview in the browser, then ask: Save or Cancel. A second call
-    while one preview is open or saving does nothing."""
-    global _in_progress
-    if _in_progress:
+    from the same page while its preview is open or saving does nothing."""
+    global _owner
+    if _owner is page:
         return
-    _in_progress = True
+    _owner = page
 
     def release() -> None:
-        global _in_progress
-        _in_progress = False
+        global _owner
+        if _owner is page:
+            _owner = None
 
     async def save() -> None:
+        # A retired page holds a stale copy of the contributor's file; a save
+        # from it would be overwritten by the live page's next save.
+        if _owner is not page:
+            return
         try:
             await on_save()
         finally:
