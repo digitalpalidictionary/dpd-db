@@ -165,6 +165,8 @@ Unless specified, the repo is https://github.com/digitalpalidictionary/dpd-db.
 - Every sentence on a public page or form is a promise to strangers. Write only what the spec states and you have tested. An invented "every offer is read" line was removed by the user (2026-10-22, #271).
 - Maintainers are Buddhist monastics: never name, seek or accept money on any page. Asking for goods or services (a server, a subscription) is allowed — SN42.10, the passage `kamma/archive/20261022_contributions_form/spec.md` already cites.
 - "Contribution form" means offer help. "Contribution website" means add Pāḷi entries. Keep the two names apart.
+- A docs page has one `#` heading. The mkdocs theme lists only the headings under the first one in its contents list, so a second `#` hides its whole section.
+- A generated report on dictionary data counts what is in `dpd.db` and its tracked data files. Never subtract work-in-progress files such as `gui2/data/pass1_auto_*.json`. The owner removed that from the Missing Words page (2026-11-11).
 
 ## CI Workflows
 - Before hard-coding a branch for an upstream repo in a workflow, read it: `gh api repos/<owner>/<repo> --jq .default_branch`. `bksubhuti/tpr_downloads` uses `master`, the other submodule upstreams use `main`.
