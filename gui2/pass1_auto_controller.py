@@ -89,6 +89,7 @@ class Pass1AutoController:
         self.current_book_processed: int = 0
         self.initial_auto_processed: int = 0
         self.total_missing: int = 0
+        self.unknown_only_run: bool = False
         self.unknown_words: set[str] = set()
 
     @cached_property
@@ -124,17 +125,17 @@ class Pass1AutoController:
         self.auto_processed_keys = list(self.auto_processed_dict.keys())
         self.ui.update_auto_processed_count("0 / 0")
 
-    async def auto_process_book(self, book: str) -> None:
+    async def auto_process_book(self, book: str, unknown_only: bool = False) -> None:
         if self._run_in_progress:
             self.ui.update_message("Already processing. Press Stop first.")
             return
         self._run_in_progress = True
         try:
-            await self._auto_process_book(book)
+            await self._auto_process_book(book, unknown_only)
         finally:
             self._run_in_progress = False
 
-    async def _auto_process_book(self, book: str) -> None:
+    async def _auto_process_book(self, book: str, unknown_only: bool = False) -> None:
         self.ui.clear_all_fields()
         self.stop_flag = False
         self.missing_words_dict = {}  # Clear for new book
@@ -144,6 +145,7 @@ class Pass1AutoController:
         await asyncio.to_thread(self.db.make_inflections_lists)
 
         self.book = book
+        self.unknown_only_run = unknown_only
         self.cst_books = sutta_central_books[book].cst_books
         self.load_auto_processed()
         self.current_book_processed = 0
@@ -167,6 +169,13 @@ class Pass1AutoController:
             }
         )
         self.missing_words_dict = reordered
+        all_missing = len(self.missing_words_dict)
+        if unknown_only:
+            self.missing_words_dict = {
+                word: segments
+                for word, segments in self.missing_words_dict.items()
+                if word in self.unknown_words
+            }
 
         await asyncio.to_thread(self.load_prompt_context)
         self.initial_auto_processed = len(self.auto_processed_dict)
@@ -174,9 +183,11 @@ class Pass1AutoController:
         self.unbroken_loop = True
 
         self.ui.update_message(
-            f"Unknown words (not in lookup): {len(self.unknown_words)}"
-            f" of {self.total_missing}"
+            f"Unknown words (not in lookup): {len(self.unknown_words)} of {all_missing}"
         )
+        if unknown_only and not self.missing_words_dict:
+            self.ui.update_message(f"No unknown words in {self.book}")
+            return
 
         for self.word_in_text, self.sentence_data in self.missing_words_dict.items():
             # Stop can arrive during the setup or after a failed word.
@@ -226,7 +237,8 @@ class Pass1AutoController:
                 break
 
         if self.unbroken_loop:
-            self.ui.update_message(f"Finished processing {self.book}")
+            what = "unknown words in" if unknown_only else "processing"
+            self.ui.update_message(f"Finished {what} {self.book}")
 
     async def auto_process_text(self, text: str) -> None:
         if self._run_in_progress:
@@ -250,6 +262,7 @@ class Pass1AutoController:
         self.load_auto_processed()
         self.current_book_processed = 0
         self.unknown_words = set()  # Only the book run sets this
+        self.unknown_only_run = False
 
         cleaned = clean_machine(text)
         words = cleaned.split()
@@ -479,6 +492,11 @@ class Pass1AutoController:
             status_message=f"Failed after {max_retries} attempts for {self.word_in_text}. Last error: {last_error}",
         )
 
+    def progress_text(self) -> str:
+        # An Unknown run counts only its own words, not the saved ones.
+        saved = 0 if self.unknown_only_run else self.initial_auto_processed
+        return f"{saved + self.current_book_processed} / {saved + self.total_missing}"
+
     def update_auto_processed(self, provider: str | None, model: str | None) -> bool:
         if not isinstance(self.response, str):
             self.ui.update_message(
@@ -530,9 +548,7 @@ class Pass1AutoController:
                 open_in_goldendict(self.word_in_text)
             self.ui.update_word_in_text(self.word_in_text)
             self.current_book_processed += 1
-            self.ui.update_auto_processed_count(
-                f"{self.initial_auto_processed + self.current_book_processed} / {self.initial_auto_processed + self.total_missing}"
-            )
+            self.ui.update_auto_processed_count(self.progress_text())
             self.ui.update_ai_results(
                 dumps(
                     self.auto_processed_dict[self.word_in_text],

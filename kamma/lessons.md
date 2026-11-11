@@ -555,3 +555,6 @@
 - 2026-11-12 [WORKFLOW] Several plan.md checkbox edits failed on oldText mismatches because I batched edits from memory of the file instead of its current state; re-reading the exact lines first avoids the wasted calls.
 - 2026-11-12 [POSITIVE] Reading the plan's code snippet against the implementation (not just the tests) caught the claim_session release placed inside the takeover guard — a real leak no test covered at the time.
 - 2026-11-12 [CONFUSION] The DeepSeek v4-pro review at thinking-high took ~10 minutes of silent streaming and read as a hang; state the expected duration when launching a long external review and poll its progress output instead of sleeping blind.
+- 2026-11-12 [BEHAVIOR] Spec item 5 said the Unknown counter counts only unknown words, but I reused the old counter that adds saved words; the owner found it on a live run (15 / 964). Check each displayed number against the spec line before ticking the task.
+- 2026-11-12 [CONFUSION] Asked the owner which button they pressed when the thread's one new feature was the obvious answer; measure the data first, ask second.
+- 2026-11-12 [BEHAVIOR] A blind find-and-replace of a button label also hit "AutoProcess Book" in the spec text and made "AutoWhole Book"; after a text replace over thread files, grep for the old and new words.

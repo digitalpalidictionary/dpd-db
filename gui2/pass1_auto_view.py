@@ -46,7 +46,7 @@ class Pass1AutoView(ft.Column):
             label_style=TEXT_FIELD_LABEL_STYLE,
             autofocus=True,
             options=self.book_options,
-            width=300,
+            width=220,
             text_size=14,
             border=field_border(color=ft.Colors.BLUE_200),
         )
@@ -55,7 +55,7 @@ class Pass1AutoView(ft.Column):
             label_style=TEXT_FIELD_LABEL_STYLE,
             autofocus=True,
             options=self._build_model_options(),
-            width=300,
+            width=220,
             text_size=14,
             border=field_border(color=ft.Colors.BLUE_200),
             menu_width=700,
@@ -102,7 +102,7 @@ class Pass1AutoView(ft.Column):
             expand=True,
         )
         self.text_dialog = ft.AlertDialog(
-            title=ft.Text("AutoProcess Text"),
+            title=ft.Text("Process Text"),
             content=ft.Container(
                 content=self.text_input_field,
                 width=600,
@@ -121,10 +121,6 @@ class Pass1AutoView(ft.Column):
                             ft.Row(
                                 controls=[
                                     self.books_dropdown,
-                                    ft.Button(
-                                        "AutoProcess Book",
-                                        on_click=self.handle_book_click,
-                                    ),
                                     self.ai_model_dropdown,
                                     ft.IconButton(
                                         icon=ft.Icons.REFRESH,
@@ -132,7 +128,15 @@ class Pass1AutoView(ft.Column):
                                         on_click=self._on_reload_models,
                                     ),
                                     ft.Button(
-                                        "AutoProcess Text",
+                                        "Unknown",
+                                        on_click=self.handle_unknown_click,
+                                    ),
+                                    ft.Button(
+                                        "Whole Book",
+                                        on_click=self.handle_book_click,
+                                    ),
+                                    ft.Button(
+                                        "Process Text",
                                         on_click=self.handle_text_button_click,
                                     ),
                                     ft.Button(
@@ -187,6 +191,12 @@ class Pass1AutoView(ft.Column):
     async def handle_book_click(self, e):
         if self.books_dropdown.value:
             await self.controller.auto_process_book(self.books_dropdown.value)
+
+    async def handle_unknown_click(self, e):
+        if self.books_dropdown.value:
+            await self.controller.auto_process_book(
+                self.books_dropdown.value, unknown_only=True
+            )
 
     def handle_text_button_click(self, e):
         self.text_input_field.value = ""

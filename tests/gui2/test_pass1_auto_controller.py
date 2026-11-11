@@ -297,3 +297,97 @@ def test_book_run_processes_unknown_words_first(
     assert "Processing m2 (unknown)" in ctrl.ui.messages
     assert "Processing m1" in ctrl.ui.messages
     assert "Processing m1 (unknown)" not in ctrl.ui.messages
+
+
+def setup_unknown_run(
+    monkeypatch: pytest.MonkeyPatch, tmp_path, words: list[str]
+) -> tuple[Any, list[str]]:
+    ctrl = make_controller(monkeypatch, tmp_path)
+    session = make_lookup_session()
+    session.add(Lookup(lookup_key="m1", headwords="1"))
+    session.add(Lookup(lookup_key="m3", deconstructor="a + b"))
+    session.commit()
+    ctrl.db = SimpleNamespace(
+        make_inflections_lists=lambda: None,
+        db_session=session,
+        all_inflections=set(),
+        sandhi_ok_list=set(),
+        pth=SimpleNamespace(temp_dir=tmp_path),
+    )
+    processed: list[str] = []
+
+    def fake_find_missing_in_cst() -> None:
+        ctrl.missing_words_dict = {
+            w: [] for w in words if w not in ctrl.auto_processed_dict
+        }
+
+    def fake_send_prompt(**_):
+        processed.append(ctrl.word_in_text)
+        return SimpleNamespace(content=GOOD_JSON, status_message="ok")
+
+    def fake_update(*args, **kwargs):
+        ctrl.auto_processed_dict[ctrl.word_in_text] = {}
+        return True
+
+    monkeypatch.setattr(ctrl, "find_missing_words_in_cst", fake_find_missing_in_cst)
+    monkeypatch.setattr(ctrl, "find_missing_words_in_sutta_central", lambda: None)
+    monkeypatch.setattr(ctrl, "load_prompt_context", lambda: None)
+    monkeypatch.setattr(ctrl, "compile_prompt", lambda: None)
+    monkeypatch.setattr(ctrl, "send_prompt", fake_send_prompt)
+    monkeypatch.setattr(ctrl, "update_auto_processed", fake_update)
+    return ctrl, processed
+
+
+def test_unknown_only_run_sends_only_unknown_words(
+    monkeypatch: pytest.MonkeyPatch, tmp_path
+) -> None:
+    ctrl, processed = setup_unknown_run(monkeypatch, tmp_path, ["m1", "m2", "m3", "m4"])
+
+    asyncio.run(ctrl.auto_process_book("ap", unknown_only=True))
+
+    assert processed == ["m2", "m4"]
+    assert ctrl.total_missing == 2
+    assert "Unknown words (not in lookup): 2 of 4" in ctrl.ui.messages
+    assert ctrl.ui.messages[-1] == "Finished unknown words in ap"
+
+
+def test_unknown_only_then_normal_run_sends_the_rest(
+    monkeypatch: pytest.MonkeyPatch, tmp_path
+) -> None:
+    ctrl, processed = setup_unknown_run(monkeypatch, tmp_path, ["m1", "m2", "m3", "m4"])
+    # load_auto_processed reads a file; keep the words saved by the first run.
+    monkeypatch.setattr(ctrl, "load_auto_processed", lambda: None)
+
+    asyncio.run(ctrl.auto_process_book("ap", unknown_only=True))
+    processed.clear()
+    asyncio.run(ctrl.auto_process_book("ap"))
+
+    assert processed == ["m1", "m3"]
+    assert ctrl.ui.messages[-1] == "Finished processing ap"
+
+
+def test_unknown_only_with_no_unknown_words_ends_at_once(
+    monkeypatch: pytest.MonkeyPatch, tmp_path
+) -> None:
+    ctrl, processed = setup_unknown_run(monkeypatch, tmp_path, ["m1", "m3"])
+
+    asyncio.run(ctrl.auto_process_book("ap", unknown_only=True))
+
+    assert processed == []
+    assert ctrl.ui.messages[-1] == "No unknown words in ap"
+
+
+def test_unknown_only_counter_counts_only_unknown_words(
+    monkeypatch: pytest.MonkeyPatch, tmp_path
+) -> None:
+    ctrl, _ = setup_unknown_run(monkeypatch, tmp_path, ["m1", "m2", "m3", "m4"])
+    # 5 words saved by earlier runs must not show in the Unknown counter.
+    ctrl.auto_processed_dict = {f"old{i}": {} for i in range(5)}
+    monkeypatch.setattr(ctrl, "load_auto_processed", lambda: None)
+
+    asyncio.run(ctrl.auto_process_book("ap", unknown_only=True))
+    ctrl.current_book_processed = 1
+
+    assert ctrl.progress_text() == "1 / 2"
+    ctrl.unknown_only_run = False
+    assert ctrl.progress_text() == "6 / 7"
