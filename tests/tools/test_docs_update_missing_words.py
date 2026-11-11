@@ -387,3 +387,28 @@ def test_saved_pass1_auto_words_still_count_as_missing(
     words, unknown, needs, _top = finder.count_book(mw.Book("Row", ["kn10"], []))
 
     assert (words, unknown, needs) == (1, 1, 0)
+
+
+HIGHLIGHT_ROWS = [
+    ("Quiet", 100, mw.HIGHLIGHT_UNRECOGNISED - 1, 3, []),
+    ("Busy", 200, mw.HIGHLIGHT_UNRECOGNISED, 3, []),
+    (mw.TOTAL_LABEL, 300, 500, 6, []),
+]
+
+
+def test_markdown_highlights_a_book_at_the_limit() -> None:
+    text = mw.render_markdown("2026-11-11", [("Vinaya", HIGHLIGHT_ROWS)])
+
+    assert mw.HIGHLIGHT_NOTE in text
+    assert "| Quiet | 100 | 19 | 3 | 22.0% |" in text
+    assert "| Busy | 200 | <mark>20</mark> | 3 | 11.5% |" in text
+    assert "| **All books added** | **300** | **500** | **6** | **168.7%** |" in text
+
+
+def test_typst_highlights_a_book_at_the_limit() -> None:
+    text = mw.render_typst("2026-11-11", [("Vinaya", HIGHLIGHT_ROWS)])
+
+    fill = f'table.cell(fill: rgb("{mw.HIGHLIGHT_COLOUR}"))'
+    assert "[Quiet], [100], [19], [3]" in text
+    assert f"[Busy], [200], {fill}[20], [3]" in text
+    assert f"{fill}[*500*]" not in text

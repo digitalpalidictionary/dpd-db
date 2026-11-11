@@ -26,8 +26,7 @@ a variant, spelling, see or grammar row.
 
 A row follows the Pass1 Auto books. Its words are the CST words of the matching
 CST books plus the SuttaCentral words, as Pass1 Auto uses both. The CST rows with
-no SuttaCentral text (the last four Khuddaka books, the Abhidhamma and all
-commentaries) are CST text only.
+no SuttaCentral text (the Abhidhamma and all commentaries) are CST text only.
 
 Usage:
     uv run python tools/docs_update_missing_words.py
@@ -115,7 +114,7 @@ SUTTA_ROOT = [
     ),
 ]
 # Order and codes follow the Chaṭṭha Saṅgāyana, which puts Milindapañha before
-# Nettippakaraṇa and Peṭakopadesa. The last four books have no SuttaCentral text.
+# Nettippakaraṇa and Peṭakopadesa.
 KHUDDAKA_ROOT = [
     Book("Khuddakapāṭha", ["kn1"], ["khp"]),
     Book("Dhammapada", ["kn2"], ["dhp"]),
@@ -131,14 +130,10 @@ KHUDDAKA_ROOT = [
     Book("Cariyāpiṭaka", ["kn13"], ["cp"]),
     Book("Jātaka", ["kn14"], ["ja"]),
     Book("Niddesa (Mahāniddesa, Cūḷaniddesa)", ["kn15", "kn16"], ["nidd1&2"]),
-    *cst_only(
-        [
-            ("kn17", "Paṭisambhidāmagga"),
-            ("kn18", "Milindapañha"),
-            ("kn19", "Nettippakaraṇa"),
-            ("kn20", "Peṭakopadesa"),
-        ]
-    ),
+    Book("Paṭisambhidāmagga", ["kn17"], ["ps"]),
+    Book("Milindapañha", ["kn18"], ["mil"]),
+    Book("Nettippakaraṇa", ["kn19"], ["ne"]),
+    Book("Peṭakopadesa", ["kn20"], ["pe"]),
 ]
 
 VINAYA_COMMENTARY: list[tuple[str, str]] = [
@@ -366,14 +361,25 @@ def missing_percent(words: int, unknown: int, needs: int) -> str:
     return f"{(unknown + needs) / words:.1%}" if words else ""
 
 
+def is_highlighted(unrecognised: int) -> bool:
+    return unrecognised >= HIGHLIGHT_UNRECOGNISED
+
+
 DEFINITIONS_TITLE = "What the columns mean"
 TABLES_TITLE = "Missing words by book"
+# A book with this many unrecognised words has work waiting for a contributor.
+HIGHLIGHT_UNRECOGNISED = 20
+UNRECOGNISED_COLUMN = 2
+HIGHLIGHT_NOTE = (
+    f"An unrecognised count of {HIGHLIGHT_UNRECOGNISED} or more is highlighted."
+)
+HIGHLIGHT_COLOUR = "#fff3a3"
 CONTRIBUTE_FORM_URL = "https://forms.gle/Z7ENe8CVFpe2yQqKA"
 CONTRIBUTE_BEFORE = (
     "If you would like to contribute to the dictionary, please fill in the "
 )
 CONTRIBUTE_LINK_TEXT = "contribution form"
-CONTRIBUTE_AFTER = " and let us know what you would like to help with."
+CONTRIBUTE_AFTER = " and let us know which books you are interested in."
 TOP_TITLE = "Most frequent missing words"
 TOP_INTRO = (
     f"The {TOP_WORDS} missing words that occur most often in each book,"
@@ -417,7 +423,7 @@ def render_markdown(today: str, tables: list[tuple[str, list[Row]]]) -> str:
     lines += [f"## {DEFINITIONS_TITLE}", ""]
     for heading, text in HEADINGS:
         lines += [f"### {heading}", "", text, ""]
-    lines += [f"## {TABLES_TITLE}", ""]
+    lines += [f"## {TABLES_TITLE}", "", HIGHLIGHT_NOTE, ""]
     for title, rows in tables:
         lines += [
             f"### {title}",
@@ -433,6 +439,10 @@ def render_markdown(today: str, tables: list[tuple[str, list[Row]]]) -> str:
             ]
             if name == TOTAL_LABEL:
                 cells = [f"**{c}**" for c in cells]
+            elif is_highlighted(numbers[1]):
+                cells[UNRECOGNISED_COLUMN] = (
+                    f"<mark>{cells[UNRECOGNISED_COLUMN]}</mark>"
+                )
             lines.append(f"| {' | '.join(cells)} |")
         lines.append("")
     lines += [f"## {TOP_TITLE}", "", TOP_INTRO, ""]
@@ -472,7 +482,7 @@ def render_typst(today: str, tables: list[tuple[str, list[Row]]]) -> str:
     lines += [f"== {DEFINITIONS_TITLE}", ""]
     for heading, text in HEADINGS:
         lines += [f"=== {typst_escape(heading)}", "", typst_escape(text), ""]
-    lines += [f"== {TABLES_TITLE}", ""]
+    lines += [f"== {TABLES_TITLE}", "", HIGHLIGHT_NOTE, ""]
     for title, rows in tables:
         lines += [
             f"=== {typst_escape(title)}",
@@ -490,7 +500,13 @@ def render_typst(today: str, tables: list[tuple[str, list[Row]]]) -> str:
             ]
             if name == TOTAL_LABEL:
                 cells = [f"*{c}*" for c in cells]
-            lines.append("  " + ", ".join(f"[{c}]" for c in cells) + ",")
+            typst_cells = [f"[{c}]" for c in cells]
+            if is_highlighted(numbers[1]) and name != TOTAL_LABEL:
+                fill = f'fill: rgb("{HIGHLIGHT_COLOUR}")'
+                typst_cells[UNRECOGNISED_COLUMN] = (
+                    f"table.cell({fill})[{cells[UNRECOGNISED_COLUMN]}]"
+                )
+            lines.append("  " + ", ".join(typst_cells) + ",")
         lines += [")", ""]
     lines += ["#pagebreak()", f"== {TOP_TITLE}", "", TOP_INTRO, ""]
     for title, rows in tables:

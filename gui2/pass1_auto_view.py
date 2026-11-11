@@ -36,6 +36,8 @@ class Pass1AutoView(ft.Column):
             expand=True,
             color=ft.Colors.BLUE_200,
             selectable=True,
+            max_lines=1,
+            overflow=ft.TextOverflow.ELLIPSIS,
         )
         self.book_options = [
             ft.dropdown.Option(key=item, text=item)

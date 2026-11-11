@@ -1,6 +1,6 @@
 # Missing Words in DPD
 
-If you would like to contribute to the dictionary, please fill in the [contribution form](https://forms.gle/Z7ENe8CVFpe2yQqKA){target="_blank"} and let us know what you would like to help with.
+If you would like to contribute to the dictionary, please fill in the [contribution form](https://forms.gle/Z7ENe8CVFpe2yQqKA){target="_blank"} and let us know which books you are interested in.
 
 **Date: 2026-11-11**
 
@@ -28,13 +28,15 @@ Unrecognised plus needs a headword, as a share of the distinct words.
 
 ## Missing words by book
 
+An unrecognised count of 20 or more is highlighted.
+
 ### Vinaya
 
 | Book | Distinct words | Unrecognised | Needs a headword | Missing % |
 |---|---:|---:|---:|---:|
 | Vibhaṅga (Bhikkhu and Bhikkhunī) | 15,670 | 0 | 12 | 0.1% |
 | Khandhaka (Mahāvagga, Cūḷavagga) | 19,934 | 3 | 4 | 0.0% |
-| Parivāra | 7,580 | 23 | 547 | 7.5% |
+| Parivāra | 7,580 | <mark>23</mark> | 547 | 7.5% |
 | **All books added** | **43,184** | **26** | **563** | **1.4%** |
 
 ### Four Nikāyas
@@ -60,92 +62,92 @@ Unrecognised plus needs a headword, as a share of the distinct words.
 | Petavatthu | 4,637 | 4 | 686 | 14.9% |
 | Theragāthā | 7,766 | 12 | 20 | 0.4% |
 | Therīgāthā | 3,539 | 5 | 9 | 0.4% |
-| Apadāna (Therāpadāna, Therīapadāna) | 21,437 | 953 | 7,809 | 40.9% |
-| Buddhavaṃsa | 3,679 | 72 | 842 | 24.8% |
-| Cariyāpiṭaka | 2,477 | 33 | 501 | 21.6% |
-| Jātaka | 30,022 | 1,222 | 8,136 | 31.2% |
-| Niddesa (Mahāniddesa, Cūḷaniddesa) | 20,552 | 706 | 3,570 | 20.8% |
-| Paṭisambhidāmagga | 8,787 | 39 | 2,355 | 27.2% |
-| Milindapañha | 17,670 | 326 | 4,074 | 24.9% |
-| Nettippakaraṇa | 7,927 | 94 | 1,080 | 14.8% |
-| Peṭakopadesa | 9,212 | 181 | 1,965 | 23.3% |
-| **All books added** | **163,050** | **3,658** | **32,273** | **22.0%** |
+| Apadāna (Therāpadāna, Therīapadāna) | 21,437 | <mark>953</mark> | 7,809 | 40.9% |
+| Buddhavaṃsa | 3,679 | <mark>72</mark> | 842 | 24.8% |
+| Cariyāpiṭaka | 2,477 | <mark>33</mark> | 501 | 21.6% |
+| Jātaka | 30,022 | <mark>1,222</mark> | 8,136 | 31.2% |
+| Niddesa (Mahāniddesa, Cūḷaniddesa) | 19,828 | <mark>228</mark> | 3,435 | 18.5% |
+| Paṭisambhidāmagga | 9,001 | <mark>41</mark> | 2,515 | 28.4% |
+| Milindapañha | 18,150 | <mark>343</mark> | 4,379 | 26.0% |
+| Nettippakaraṇa | 8,049 | <mark>95</mark> | 1,149 | 15.5% |
+| Peṭakopadesa | 9,291 | <mark>182</mark> | 1,996 | 23.4% |
+| **All books added** | **163,221** | **3,201** | **32,703** | **22.0%** |
 
 ### Abhidhamma
 
 | Book | Distinct words | Unrecognised | Needs a headword | Missing % |
 |---|---:|---:|---:|---:|
-| Dhammasaṅgaṇī | 2,644 | 21 | 536 | 21.1% |
-| Vibhaṅga | 6,047 | 57 | 1,249 | 21.6% |
+| Dhammasaṅgaṇī | 2,644 | <mark>21</mark> | 536 | 21.1% |
+| Vibhaṅga | 6,047 | <mark>57</mark> | 1,249 | 21.6% |
 | Dhātukathā | 827 | 3 | 149 | 18.4% |
 | Puggalapaññatti | 2,638 | 14 | 156 | 6.4% |
-| Kathāvatthu | 6,968 | 50 | 1,236 | 18.5% |
+| Kathāvatthu | 6,968 | <mark>50</mark> | 1,236 | 18.5% |
 | Yamaka | 1,175 | 6 | 361 | 31.2% |
-| Paṭṭhāna | 4,845 | 153 | 3,109 | 67.3% |
+| Paṭṭhāna | 4,845 | <mark>153</mark> | 3,109 | 67.3% |
 | **All books added** | **25,144** | **304** | **6,796** | **28.2%** |
 
 ### Vinaya commentaries
 
 | Book | Distinct words | Unrecognised | Needs a headword | Missing % |
 |---|---:|---:|---:|---:|
-| Pārājikakaṇḍa-aṭṭhakathā | 36,476 | 396 | 11,310 | 32.1% |
-| Pācittiya-aṭṭhakathā | 12,706 | 131 | 3,099 | 25.4% |
-| Mahāvagga-aṭṭhakathā | 13,965 | 94 | 3,390 | 24.9% |
-| Cūḷavagga-aṭṭhakathā | 8,972 | 66 | 2,184 | 25.1% |
-| Parivāra-aṭṭhakathā | 8,639 | 45 | 2,032 | 24.0% |
+| Pārājikakaṇḍa-aṭṭhakathā | 36,476 | <mark>396</mark> | 11,310 | 32.1% |
+| Pācittiya-aṭṭhakathā | 12,706 | <mark>131</mark> | 3,099 | 25.4% |
+| Mahāvagga-aṭṭhakathā | 13,965 | <mark>94</mark> | 3,390 | 24.9% |
+| Cūḷavagga-aṭṭhakathā | 8,972 | <mark>66</mark> | 2,184 | 25.1% |
+| Parivāra-aṭṭhakathā | 8,639 | <mark>45</mark> | 2,032 | 24.0% |
 | **All books added** | **80,758** | **732** | **22,015** | **28.2%** |
 
 ### Four Nikāyas commentaries
 
 | Book | Distinct words | Unrecognised | Needs a headword | Missing % |
 |---|---:|---:|---:|---:|
-| Dīgha 1: Sīlakkhandhavagga-aṭṭhakathā | 22,675 | 139 | 5,467 | 24.7% |
-| Dīgha 2: Mahāvagga-aṭṭhakathā | 25,817 | 163 | 6,877 | 27.3% |
-| Dīgha 3: Pāthikavagga-aṭṭhakathā | 17,776 | 104 | 4,080 | 23.5% |
-| Majjhima 1: Mūlapaṇṇāsa-aṭṭhakathā | 41,018 | 327 | 11,600 | 29.1% |
-| Majjhima 2: Majjhimapaṇṇāsa-aṭṭhakathā | 21,925 | 23 | 5,072 | 23.2% |
-| Majjhima 3: Uparipaṇṇāsa-aṭṭhakathā | 17,160 | 129 | 4,089 | 24.6% |
-| Saṃyutta 1: Sagāthāvagga-aṭṭhakathā | 22,986 | 190 | 5,529 | 24.9% |
-| Saṃyutta 2: Nidānavagga-aṭṭhakathā | 15,721 | 92 | 3,744 | 24.4% |
-| Saṃyutta 3: Khandhavagga-aṭṭhakathā | 7,857 | 39 | 1,734 | 22.6% |
-| Saṃyutta 4: Saḷāyatanavagga-aṭṭhakathā | 11,346 | 60 | 2,702 | 24.3% |
-| Saṃyutta 5: Mahāvagga-aṭṭhakathā | 12,811 | 77 | 3,288 | 26.3% |
-| Aṅguttara: Ekakanipāta-aṭṭhakathā | 22,226 | 110 | 5,635 | 25.8% |
-| Aṅguttara: Dukanipāta-aṭṭhakathā (nipātas 2 to 4) | 25,951 | 129 | 5,856 | 23.1% |
-| Aṅguttara: Pañcakanipāta-aṭṭhakathā (nipātas 5 to 7) | 14,346 | 67 | 2,971 | 21.2% |
-| Aṅguttara: Aṭṭhakanipāta-aṭṭhakathā (nipātas 8 to 11) | 12,820 | 56 | 2,595 | 20.7% |
+| Dīgha 1: Sīlakkhandhavagga-aṭṭhakathā | 22,675 | <mark>139</mark> | 5,467 | 24.7% |
+| Dīgha 2: Mahāvagga-aṭṭhakathā | 25,817 | <mark>163</mark> | 6,877 | 27.3% |
+| Dīgha 3: Pāthikavagga-aṭṭhakathā | 17,776 | <mark>104</mark> | 4,080 | 23.5% |
+| Majjhima 1: Mūlapaṇṇāsa-aṭṭhakathā | 41,018 | <mark>327</mark> | 11,600 | 29.1% |
+| Majjhima 2: Majjhimapaṇṇāsa-aṭṭhakathā | 21,925 | <mark>23</mark> | 5,072 | 23.2% |
+| Majjhima 3: Uparipaṇṇāsa-aṭṭhakathā | 17,160 | <mark>129</mark> | 4,089 | 24.6% |
+| Saṃyutta 1: Sagāthāvagga-aṭṭhakathā | 22,986 | <mark>190</mark> | 5,529 | 24.9% |
+| Saṃyutta 2: Nidānavagga-aṭṭhakathā | 15,721 | <mark>92</mark> | 3,744 | 24.4% |
+| Saṃyutta 3: Khandhavagga-aṭṭhakathā | 7,857 | <mark>39</mark> | 1,734 | 22.6% |
+| Saṃyutta 4: Saḷāyatanavagga-aṭṭhakathā | 11,346 | <mark>60</mark> | 2,702 | 24.3% |
+| Saṃyutta 5: Mahāvagga-aṭṭhakathā | 12,811 | <mark>77</mark> | 3,288 | 26.3% |
+| Aṅguttara: Ekakanipāta-aṭṭhakathā | 22,226 | <mark>110</mark> | 5,635 | 25.8% |
+| Aṅguttara: Dukanipāta-aṭṭhakathā (nipātas 2 to 4) | 25,951 | <mark>129</mark> | 5,856 | 23.1% |
+| Aṅguttara: Pañcakanipāta-aṭṭhakathā (nipātas 5 to 7) | 14,346 | <mark>67</mark> | 2,971 | 21.2% |
+| Aṅguttara: Aṭṭhakanipāta-aṭṭhakathā (nipātas 8 to 11) | 12,820 | <mark>56</mark> | 2,595 | 20.7% |
 | **All books added** | **292,435** | **1,705** | **71,239** | **24.9%** |
 
 ### Khuddaka Nikāya commentaries
 
 | Book | Distinct words | Unrecognised | Needs a headword | Missing % |
 |---|---:|---:|---:|---:|
-| Khuddakapāṭha-aṭṭhakathā | 13,642 | 122 | 3,902 | 29.5% |
-| Dhammapada-aṭṭhakathā | 37,128 | 259 | 8,216 | 22.8% |
-| Udāna-aṭṭhakathā | 26,090 | 186 | 8,067 | 31.6% |
-| Itivuttaka-aṭṭhakathā | 23,057 | 148 | 7,330 | 32.4% |
-| Suttanipāta-aṭṭhakathā | 37,398 | 278 | 11,119 | 30.5% |
-| Vimānavatthu-aṭṭhakathā | 16,933 | 155 | 5,018 | 30.5% |
-| Petavatthu-aṭṭhakathā | 14,368 | 127 | 3,419 | 24.7% |
-| Theragāthā-aṭṭhakathā | 44,058 | 484 | 13,105 | 30.8% |
-| Therīgāthā-aṭṭhakathā | 16,355 | 162 | 3,545 | 22.7% |
-| Apadāna-aṭṭhakathā | 31,660 | 501 | 9,987 | 33.1% |
-| Buddhavaṃsa-aṭṭhakathā | 18,915 | 294 | 6,133 | 34.0% |
-| Cariyāpiṭaka-aṭṭhakathā | 21,068 | 248 | 6,603 | 32.5% |
-| Jātaka-aṭṭhakathā | 100,922 | 2,684 | 38,201 | 40.5% |
-| Mahāniddesa-aṭṭhakathā | 29,675 | 348 | 9,591 | 33.5% |
-| Cūḷaniddesa-aṭṭhakathā | 11,058 | 87 | 2,901 | 27.0% |
-| Paṭisambhidāmagga-aṭṭhakathā | 38,411 | 343 | 15,286 | 40.7% |
-| Nettippakaraṇa-aṭṭhakathā | 19,233 | 250 | 6,883 | 37.1% |
+| Khuddakapāṭha-aṭṭhakathā | 13,642 | <mark>122</mark> | 3,902 | 29.5% |
+| Dhammapada-aṭṭhakathā | 37,128 | <mark>259</mark> | 8,216 | 22.8% |
+| Udāna-aṭṭhakathā | 26,090 | <mark>186</mark> | 8,067 | 31.6% |
+| Itivuttaka-aṭṭhakathā | 23,057 | <mark>148</mark> | 7,330 | 32.4% |
+| Suttanipāta-aṭṭhakathā | 37,398 | <mark>278</mark> | 11,119 | 30.5% |
+| Vimānavatthu-aṭṭhakathā | 16,933 | <mark>155</mark> | 5,018 | 30.5% |
+| Petavatthu-aṭṭhakathā | 14,368 | <mark>127</mark> | 3,419 | 24.7% |
+| Theragāthā-aṭṭhakathā | 44,058 | <mark>484</mark> | 13,105 | 30.8% |
+| Therīgāthā-aṭṭhakathā | 16,355 | <mark>162</mark> | 3,545 | 22.7% |
+| Apadāna-aṭṭhakathā | 31,660 | <mark>501</mark> | 9,987 | 33.1% |
+| Buddhavaṃsa-aṭṭhakathā | 18,915 | <mark>294</mark> | 6,133 | 34.0% |
+| Cariyāpiṭaka-aṭṭhakathā | 21,068 | <mark>248</mark> | 6,603 | 32.5% |
+| Jātaka-aṭṭhakathā | 100,922 | <mark>2,684</mark> | 38,201 | 40.5% |
+| Mahāniddesa-aṭṭhakathā | 29,675 | <mark>348</mark> | 9,591 | 33.5% |
+| Cūḷaniddesa-aṭṭhakathā | 11,058 | <mark>87</mark> | 2,901 | 27.0% |
+| Paṭisambhidāmagga-aṭṭhakathā | 38,411 | <mark>343</mark> | 15,286 | 40.7% |
+| Nettippakaraṇa-aṭṭhakathā | 19,233 | <mark>250</mark> | 6,883 | 37.1% |
 | **All books added** | **499,971** | **6,676** | **159,306** | **33.2%** |
 
 ### Abhidhamma commentaries
 
 | Book | Distinct words | Unrecognised | Needs a headword | Missing % |
 |---|---:|---:|---:|---:|
-| Aṭṭhasālinī (Dhammasaṅgaṇī-aṭṭhakathā) | 25,888 | 234 | 9,537 | 37.7% |
-| Sammohavinodanī (Vibhaṅga-aṭṭhakathā) | 28,616 | 307 | 10,511 | 37.8% |
-| Pañcappakaraṇa-aṭṭhakathā (Dhātukathā to Paṭṭhāna) | 22,164 | 240 | 9,504 | 44.0% |
+| Aṭṭhasālinī (Dhammasaṅgaṇī-aṭṭhakathā) | 25,888 | <mark>234</mark> | 9,537 | 37.7% |
+| Sammohavinodanī (Vibhaṅga-aṭṭhakathā) | 28,616 | <mark>307</mark> | 10,511 | 37.8% |
+| Pañcappakaraṇa-aṭṭhakathā (Dhātukathā to Paṭṭhāna) | 22,164 | <mark>240</mark> | 9,504 | 44.0% |
 | **All books added** | **76,668** | **781** | **29,552** | **39.6%** |
 
 ## Most frequent missing words
@@ -316,27 +318,27 @@ No missing words.
 
 **Milindapañha**
 
-1. visuddhikāmānaṃ (27)
-2. assagutto (18)
-3. dāsabhogena (15)
-4. khīḷito (12)
-5. assaguttaṃ (11)
+1. opammakathāpañha (68)
+2. meṇḍakapañha (51)
+3. anumānapañha (33)
+4. visuddhikāmānaṃ (27)
+5. assagutto (18)
 
 **Nettippakaraṇa**
 
-1. hārasampāto (26)
-2. anissitacittā (14)
-3. nikkhepapaññatti (13)
-4. nissitacittā (13)
-5. bhāvanāpaññatti (11)
+1. paṭiniddesavāra (32)
+2. saṅkilesabhāgiyaṃ (28)
+3. hārasampāto (26)
+4. saṅkilesabhāgiyañca (20)
+5. anissitacittā (14)
 
 **Peṭakopadesa**
 
 1. catubyūho (24)
-2. padaṭṭhāno (12)
-3. parivattano (12)
-4. channamativassatīti (11)
-5. jhānabhūmi (9)
+2. kiṅkāraṇaṃ (17)
+3. padaṭṭhāno (12)
+4. parivattano (12)
+5. channamativassatīti (11)
 
 ### Abhidhamma
 

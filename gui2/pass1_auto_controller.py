@@ -39,6 +39,20 @@ if TYPE_CHECKING:
     from tools.ai_manager import AIManager
 
 
+# The message box is one line wide, so a long list of failed words is cut short.
+MAX_FAILED_SHOWN = 3
+
+
+def run_summary(saved: int, failed: list[str]) -> str:
+    """How a run went: words saved, and the words that failed."""
+    text = f"{saved} saved, {len(failed)} failed"
+    if failed:
+        shown = ", ".join(failed[:MAX_FAILED_SHOWN])
+        more = len(failed) - MAX_FAILED_SHOWN
+        text += f" ({shown}, +{more} more)" if more > 0 else f" ({shown})"
+    return text
+
+
 class Pass1AutoController:
     def __init__(
         self,
@@ -189,11 +203,15 @@ class Pass1AutoController:
             self.ui.update_message(f"No unknown words in {self.book}")
             return
 
+        saved = 0
+        failed: list[str] = []
         for self.word_in_text, self.sentence_data in self.missing_words_dict.items():
             # Stop can arrive during the setup or after a failed word.
             if self.stop_flag:
                 self.ui.clear_all_fields()
-                self.ui.update_message(f"Stopped processing {self.book}")
+                self.ui.update_message(
+                    f"Stopped processing {self.book}: {run_summary(saved, failed)}"
+                )
                 self.unbroken_loop = False
                 break
             if self.word_in_text in self.unknown_words:
@@ -222,23 +240,32 @@ class Pass1AutoController:
             self.ai_status_message = ai_resp.status_message
             self.ui.update_message(ai_resp.status_message)
             if self.response is None:
+                failed.append(self.word_in_text)
                 self.unbroken_loop = False
-                self.ui.update_message(f"Error processing {self.book}")
+                self.ui.update_message(
+                    f"Error processing {self.book}: {run_summary(saved, failed)}"
+                )
                 break
 
             elif not self.update_auto_processed(provider_preference, model_name):
-                self.ui.update_message(f"Error processing {self.book}")
-                pass
+                failed.append(self.word_in_text)
+                self.ui.update_message(f"Error processing {self.word_in_text}")
+            else:
+                saved += 1
 
             if self.stop_flag:
                 self.ui.clear_all_fields()
-                self.ui.update_message(f"Stopped processing {self.book}")
+                self.ui.update_message(
+                    f"Stopped processing {self.book}: {run_summary(saved, failed)}"
+                )
                 self.unbroken_loop = False
                 break
 
         if self.unbroken_loop:
             what = "unknown words in" if unknown_only else "processing"
-            self.ui.update_message(f"Finished {what} {self.book}")
+            self.ui.update_message(
+                f"Finished {what} {self.book}: {run_summary(saved, failed)}"
+            )
 
     async def auto_process_text(self, text: str) -> None:
         if self._run_in_progress:
@@ -280,11 +307,15 @@ class Pass1AutoController:
 
         self.ui.update_message(f"Found {self.total_missing} missing words in text")
 
+        saved = 0
+        failed: list[str] = []
         for self.word_in_text, self.sentence_data in self.missing_words_dict.items():
             # Stop can arrive during the setup or after a failed word.
             if self.stop_flag:
                 self.ui.clear_all_fields()
-                self.ui.update_message(f"Stopped processing {self.book}")
+                self.ui.update_message(
+                    f"Stopped processing {self.book}: {run_summary(saved, failed)}"
+                )
                 self.unbroken_loop = False
                 break
             self.ui.update_message(f"Processing {self.word_in_text}")
@@ -310,24 +341,32 @@ class Pass1AutoController:
             self.ai_status_message = ai_resp.status_message
             self.ui.update_message(ai_resp.status_message)
             if self.response is None:
+                failed.append(self.word_in_text)
                 self.ui.update_message(
                     f"Error processing {self.word_in_text}, skipping"
                 )
                 continue
 
             elif not self.update_auto_processed(provider_preference, model_name):
+                failed.append(self.word_in_text)
                 self.ui.update_message(
                     f"Error processing {self.word_in_text}, skipping"
                 )
+            else:
+                saved += 1
 
             if self.stop_flag:
                 self.ui.clear_all_fields()
-                self.ui.update_message("Stopped processing text")
+                self.ui.update_message(
+                    f"Stopped processing text: {run_summary(saved, failed)}"
+                )
                 self.unbroken_loop = False
                 break
 
         if self.unbroken_loop:
-            self.ui.update_message("Finished processing text")
+            self.ui.update_message(
+                f"Finished processing text: {run_summary(saved, failed)}"
+            )
 
     def is_missing(self, word: str):
         if (

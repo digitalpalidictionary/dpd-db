@@ -348,7 +348,7 @@ def test_unknown_only_run_sends_only_unknown_words(
     assert processed == ["m2", "m4"]
     assert ctrl.total_missing == 2
     assert "Unknown words (not in lookup): 2 of 4" in ctrl.ui.messages
-    assert ctrl.ui.messages[-1] == "Finished unknown words in ap"
+    assert ctrl.ui.messages[-1] == "Finished unknown words in ap: 2 saved, 0 failed"
 
 
 def test_unknown_only_then_normal_run_sends_the_rest(
@@ -363,7 +363,7 @@ def test_unknown_only_then_normal_run_sends_the_rest(
     asyncio.run(ctrl.auto_process_book("ap"))
 
     assert processed == ["m1", "m3"]
-    assert ctrl.ui.messages[-1] == "Finished processing ap"
+    assert ctrl.ui.messages[-1] == "Finished processing ap: 2 saved, 0 failed"
 
 
 def test_unknown_only_with_no_unknown_words_ends_at_once(
@@ -391,3 +391,30 @@ def test_unknown_only_counter_counts_only_unknown_words(
     assert ctrl.progress_text() == "1 / 2"
     ctrl.unknown_only_run = False
     assert ctrl.progress_text() == "6 / 7"
+
+
+def test_run_summary_lists_failed_words_and_cuts_a_long_list() -> None:
+    from gui2.pass1_auto_controller import run_summary
+
+    assert run_summary(94, []) == "94 saved, 0 failed"
+    assert run_summary(94, ["okappayi"]) == "94 saved, 1 failed (okappayi)"
+    assert run_summary(5, ["a", "b", "c"]) == "5 saved, 3 failed (a, b, c)"
+    assert run_summary(5, ["a", "b", "c", "d", "e"]) == (
+        "5 saved, 5 failed (a, b, c, +2 more)"
+    )
+
+
+def test_a_failed_word_shows_in_the_final_message(
+    monkeypatch: pytest.MonkeyPatch, tmp_path
+) -> None:
+    ctrl, processed = setup_unknown_run(monkeypatch, tmp_path, ["m1", "m2", "m3", "m4"])
+    monkeypatch.setattr(
+        ctrl, "update_auto_processed", lambda *a, **k: ctrl.word_in_text != "m4"
+    )
+
+    asyncio.run(ctrl.auto_process_book("ap", unknown_only=True))
+
+    assert processed == ["m2", "m4"]
+    assert (
+        ctrl.ui.messages[-1] == "Finished unknown words in ap: 1 saved, 1 failed (m4)"
+    )

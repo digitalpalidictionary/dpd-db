@@ -64,10 +64,17 @@ BOOK_NAMES: dict[str, str] = {
     "cp": "Cariyāpiṭaka (verse)",
     "ja": "Jātaka (verse)",
     "nidd1&2": "Niddesa (commentarial prose)",
+    "ps": "Paṭisambhidāmagga (prose)",
+    "mil": "Milindapañha (prose)",
+    "ne": "Nettippakaraṇa (prose)",
+    "pe": "Peṭakopadesa (prose)",
     "kva": "Kaṅkhāvitaraṇī (commentary)",
+    "dna": "Dīgha Nikāya commentary",
+    "mna": "Majjhima Nikāya commentary",
+    "sna": "Saṃyutta Nikāya commentary",
+    "ana": "Aṅguttara Nikāya commentary",
     "dhpa": "Dhammapada commentary (prose stories)",
     "jaa": "Jātaka commentary (prose stories)",
-    "dna": "Dīgha Nikāya commentary",
 }
 
 POS_DESCRIPTIONS: dict[str, str] = {

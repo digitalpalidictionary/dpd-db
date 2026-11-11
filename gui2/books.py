@@ -3,6 +3,7 @@ from collections import defaultdict, namedtuple
 from functools import cached_property
 from json import load
 from pathlib import Path
+from re import sub
 
 from tools.clean_machine import clean_machine
 from tools.pali_alphabet import pali_alphabet
@@ -77,7 +78,9 @@ class SuttaCentralSource:
     def word_dict(self) -> defaultdict[str, list[SuttaCentralSegment]]:
         word_dict: defaultdict[str, list[SuttaCentralSegment]] = defaultdict(list)
         for segment in self.segment_dict.values():
-            pali: str = clean_machine(segment.pali)
+            # SC bolds a quoted word and leaves the closing "ti" outside the tag:
+            # "<b>agāran</b>ti". Splitting at the tag makes junk words.
+            pali: str = clean_machine(sub(r"</?b>", "", segment.pali))
             for word in pali.split():
                 word_dict[word].append(segment)
         return word_dict
@@ -175,20 +178,6 @@ sutta_central_books: dict[str, SuttaCentralSource] = {
         "resources/sc-data/sc_bilara_data/translation/en/sujato/sutta/kn/snp",
         is_commentary=False,
     ),
-    "th": SuttaCentralSource(
-        "th",
-        ["kn8"],
-        "resources/sc-data/sc_bilara_data/root/pli/ms/sutta/kn/thag",
-        "resources/sc-data/sc_bilara_data/translation/en/sujato/sutta/kn/thag",
-        is_commentary=False,
-    ),
-    "thi": SuttaCentralSource(
-        "thi",
-        ["kn9"],
-        "resources/sc-data/sc_bilara_data/root/pli/ms/sutta/kn/thig",
-        "resources/sc-data/sc_bilara_data/translation/en/sujato/sutta/kn/thig",
-        is_commentary=False,
-    ),
     "vv": SuttaCentralSource(
         "vv",
         ["kn6"],
@@ -201,6 +190,20 @@ sutta_central_books: dict[str, SuttaCentralSource] = {
         ["kn7"],
         "resources/sc-data/sc_bilara_data/root/pli/ms/sutta/kn/pv",
         "resources/sc-data/sc_bilara_data/translation/en/kovilo/sutta/kn/pv",
+        is_commentary=False,
+    ),
+    "th": SuttaCentralSource(
+        "th",
+        ["kn8"],
+        "resources/sc-data/sc_bilara_data/root/pli/ms/sutta/kn/thag",
+        "resources/sc-data/sc_bilara_data/translation/en/sujato/sutta/kn/thag",
+        is_commentary=False,
+    ),
+    "thi": SuttaCentralSource(
+        "thi",
+        ["kn9"],
+        "resources/sc-data/sc_bilara_data/root/pli/ms/sutta/kn/thig",
+        "resources/sc-data/sc_bilara_data/translation/en/sujato/sutta/kn/thig",
         is_commentary=False,
     ),
     "ap": SuttaCentralSource(
@@ -244,9 +247,65 @@ sutta_central_books: dict[str, SuttaCentralSource] = {
         None,
         is_commentary=False,
     ),
+    "ps": SuttaCentralSource(
+        "ps",
+        ["kn17"],
+        "resources/sc-data/sc_bilara_data/root/pli/ms/sutta/kn/ps",
+        None,
+        is_commentary=False,
+    ),
+    "mil": SuttaCentralSource(
+        "mil",
+        ["kn18"],
+        "resources/sc-data/sc_bilara_data/root/pli/ms/sutta/kn/mil",
+        "resources/sc-data/sc_bilara_data/translation/en/kelly/sutta/kn/mil",
+        is_commentary=False,
+    ),
+    "ne": SuttaCentralSource(
+        "ne",
+        ["kn19"],
+        "resources/sc-data/sc_bilara_data/root/pli/ms/sutta/kn/ne",
+        None,
+        is_commentary=False,
+    ),
+    "pe": SuttaCentralSource(
+        "pe",
+        ["kn20"],
+        "resources/sc-data/sc_bilara_data/root/pli/ms/sutta/kn/pe",
+        None,
+        is_commentary=False,
+    ),
     "kva": SuttaCentralSource(
         "kva",
         ["kva"],
+        None,
+        None,
+        is_commentary=True,
+    ),
+    "dna": SuttaCentralSource(
+        "dna",
+        ["dna"],
+        None,
+        None,
+        is_commentary=True,
+    ),
+    "mna": SuttaCentralSource(
+        "mna",
+        ["mna"],
+        None,
+        None,
+        is_commentary=True,
+    ),
+    "sna": SuttaCentralSource(
+        "sna",
+        ["sna"],
+        None,
+        None,
+        is_commentary=True,
+    ),
+    "ana": SuttaCentralSource(
+        "ana",
+        ["ana"],
         None,
         None,
         is_commentary=True,
@@ -261,13 +320,6 @@ sutta_central_books: dict[str, SuttaCentralSource] = {
     "jaa": SuttaCentralSource(
         "jaa",
         ["kn14a"],
-        None,
-        None,
-        is_commentary=True,
-    ),
-    "dna": SuttaCentralSource(
-        "dna",
-        ["dna"],
         None,
         None,
         is_commentary=True,

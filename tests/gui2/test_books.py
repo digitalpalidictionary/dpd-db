@@ -91,7 +91,20 @@ def test_none_path_source_stays_lazy_and_empty(load_calls: list[str]) -> None:
 
 @pytest.mark.parametrize(
     ("book", "expected"),
-    [("dna", True), ("jaa", True), ("kva", True), ("ja", False), ("mn", False)],
+    [
+        ("dna", True),
+        ("mna", True),
+        ("sna", True),
+        ("ana", True),
+        ("jaa", True),
+        ("kva", True),
+        ("ja", False),
+        ("mn", False),
+        ("ps", False),
+        ("mil", False),
+        ("ne", False),
+        ("pe", False),
+    ],
 )
 def test_commentary_books_are_flagged(book: str, expected: bool) -> None:
     # "ja" ends in "a" but is the Jātaka itself, not its commentary
@@ -144,3 +157,29 @@ def test_real_two_folder_books_read_both_folders(book: str, folders: set[str]) -
     source = books.sutta_central_books[book]
 
     assert {p.parent.name for p in source.pali_file_list} == folders
+
+
+def test_bold_tags_do_not_split_words(tmp_path: Path) -> None:
+    """SC bolds a quoted word and leaves the closing "ti" outside the tag."""
+    write_segments(
+        tmp_path,
+        "ps1.json",
+        {
+            "ps1:1.1": "<b>agāran</b>ti vihāro.",
+            "ps1:1.2": "<b>dvīhi balehī</b>ti dve balāni.",
+        },
+    )
+
+    source = SuttaCentralSource(
+        "ps", ["kn17"], str(tmp_path), None, is_commentary=False
+    )
+
+    assert set(source.word_dict) == {
+        "agāranti",
+        "vihāro",
+        "dvīhi",
+        "balehīti",
+        "dve",
+        "balāni",
+    }
+    assert "<b>" in source.segment_dict["ps1:1.1"].pali
