@@ -216,3 +216,21 @@
     /* code highlight to */
     /* --md-code-hl-color: yellow; */
 }
+
+/* Missing Words page: every table the same full width */
+.md-typeset .missing-words .md-typeset__table {
+    display: block;
+    width: 100%;
+}
+.md-typeset .missing-words table:not([class]) {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+.md-typeset .missing-words th:first-child {
+    width: 28%;
+}
+.md-typeset .missing-words th {
+    overflow-wrap: normal;
+    word-break: normal;
+}

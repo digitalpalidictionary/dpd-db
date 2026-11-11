@@ -66,6 +66,7 @@ nav:
       - Pāḷi: "contributing/pali.md"
       - Code: "contributing/code.md"
       - Resources: "contributing/resources.md"
+  - Missing Words: "missing_words.md"
   - Other Dictionaries: other_dicts.md
   - What Users Say: users_say.md
   - Abbreviations: "abbreviations.md"
@@ -144,6 +145,9 @@ extra:
 markdown_extensions:
   # allows adding {target="_blank"} after links
   - attr_list
+
+  # lets a div with a markdown attribute hold markdown, used by docs/missing_words.md
+  - md_in_html
 
   - pymdownx.highlight:
       anchor_linenums: true

@@ -252,6 +252,10 @@ find_comm:
 an-remaining:
     uv run python scripts/find/pass2pre_an_counts.py
 
+# Update the Missing Words docs page and its PDF
+unknown:
+    uv run python tools/docs_update_missing_words.py
+
 # ===== AUDIO =====
 
 # Generate missing audio files
@@ -350,6 +354,7 @@ docs-update:
     uv run python tools/docs_update_bibliography.py
     uv run python tools/docs_update_thanks.py
     uv run python tools/docs_update_how_to_cite.py
+    uv run python tools/docs_update_missing_words.py
     uv run python tools/docs_changelog_and_release_notes.py
 
 # Open most recent log file in browser
@@ -445,5 +450,5 @@ config:
 
 # Open transcription hotwords in fresh
 hotwords:
-    fresh /home/bodhirasa/.config/transcribe/hotwords.txt
+    fresh ~/.config/transcribe/hotwords.txt
     transcribe -r

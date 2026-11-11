@@ -159,6 +159,8 @@ class ProjectPaths:
         self.docs_bibliography_md_path = base_dir / "docs/bibliography.md"
         self.docs_changelog_md_path = base_dir / "docs/changelog.md"
         self.docs_how_to_cite_md_path = base_dir / "docs/how_to_cite.md"
+        self.docs_missing_words_md_path = base_dir / "docs/missing_words.md"
+        self.docs_missing_words_pdf_path = base_dir / "docs/missing_words.pdf"
         self.docs_newsletters_md_path = base_dir / "docs/newsletters.md"
         self.docs_thanks_md_path = base_dir / "docs/thanks.md"
 
