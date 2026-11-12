@@ -276,3 +276,13 @@ class TestReconcileAll:
             reconcile_all(project, data_dir)
 
         assert (data_dir / "additions_alice.json").read_text() == "{broken"
+
+
+def test_reconcile_all_leaves_a_removed_list_alone(
+    project: Path, data_dir: Path
+) -> None:
+    path = data_dir / "pass1_auto_removed_alice.json"
+    path.write_text('{"vv": ["a"]}', encoding="utf-8")
+    before = path.read_bytes()
+    reconcile_all(project, data_dir)
+    assert path.read_bytes() == before

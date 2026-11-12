@@ -55,6 +55,9 @@ GOOD_CONTENT: dict[str, bytes] = {
     "variant_readings": "variant\tmain\r\nabc\tabd\r\n".encode(),
     "spelling_mistakes": "mistake\tcorrection\r\nabc\tabd\r\n".encode(),
     "db_test_exceptions": b"construction: needs na\t10000005\n",
+    "pass1_auto_removed": json.dumps(
+        {"vv": ["saṅkha"], "nidd1&2": ["upāgato"]}, ensure_ascii=False
+    ).encode(),
 }
 
 GOOD_NAMES: dict[str, str] = {
@@ -66,6 +69,7 @@ GOOD_NAMES: dict[str, str] = {
     "variant_readings": "variant_readings_alice.tsv",
     "spelling_mistakes": "spelling_mistakes_alice.tsv",
     "db_test_exceptions": "db_test_exceptions_alice.tsv",
+    "pass1_auto_removed": "pass1_auto_removed_alice.json",
 }
 
 
@@ -1089,3 +1093,136 @@ def test_main_writes_a_failed_notice_back_to_the_status_file(
     assert contrib_pull.main() == 1
     assert "notice_error:" in setup.status_path.read_text()
     assert "outcome: failed: boom" in capsys.readouterr().out
+
+
+@pytest.mark.parametrize(
+    "content, reason",
+    [
+        (b'{"a": ', "not valid JSON"),
+        (b"[]", "JSON top level is not an object"),
+        (b'{"../x": []}', "a book name is not allowed"),
+        (b'{"vv": "abc"}', "a book's words are not a list"),
+        (b'{"vv": [""]}', "a word is not text"),
+        (b'{"vv": [1]}', "a word is not text"),
+        (b'{"vv": ["a\\u0001b"]}', "a word is not text"),
+    ],
+)
+def test_a_bad_removed_list_names_its_reason(
+    tmp_path: Path, content: bytes, reason: str
+) -> None:
+    path = write(tmp_path, "pass1_auto_removed", content)
+    assert check_content(path, "pass1_auto_removed") == reason
+
+
+def test_the_push_file_set_does_not_include_removed_lists(tmp_path: Path) -> None:
+    from tools.contrib_entry import DELIVERED_KINDS, delivered_files
+
+    # The push copies every delivered file to the contributions branch.
+    delivered = {pattern for pattern, _ in DELIVERED_KINDS}
+    assert not delivered & {pattern for pattern, _ in contrib_pull.PULL_ONLY_KINDS}
+    write(tmp_path, "pass1_auto_removed", GOOD_CONTENT["pass1_auto_removed"])
+    assert not any(delivered_files(tmp_path).values())
+
+
+BOOK_ROWS = {"a": {"meaning_1": "x"}, "b": {"meaning_1": "y"}}
+
+
+def put_book(setup: Setup, book: str, data: dict) -> Path:
+    path = setup.data / f"pass1_auto_{book}.json"
+    path.write_text(json.dumps(data, ensure_ascii=False, indent=4), encoding="utf-8")
+    return path
+
+
+def put_removed(folder: Path, user: str, content: str) -> None:
+    (folder / f"pass1_auto_removed_{user}.json").write_text(content, encoding="utf-8")
+
+
+def log_text(setup: Setup) -> str:
+    return (setup.status_path.parent / "contrib_pull.log").read_text(encoding="utf-8")
+
+
+def test_a_removed_word_is_deleted_from_the_book_file(setup: Setup) -> None:
+    book = put_book(setup, "vv", BOOK_ROWS)
+    put_removed(setup.server, "alice", json.dumps({"vv": ["a"]}))
+    status = setup.go()
+    assert json.loads(book.read_text(encoding="utf-8")) == {"b": BOOK_ROWS["b"]}
+    assert book.read_text(encoding="utf-8") == json.dumps(
+        {"b": BOOK_ROWS["b"]}, ensure_ascii=False, indent=4
+    )
+    assert status.pass1_words_removed == 1
+    assert "pass1 removed vv: a" in log_text(setup)
+    assert (setup.data / "pass1_auto_removed_alice.json").exists()
+
+
+def test_a_book_with_none_of_the_words_is_left_byte_identical(setup: Setup) -> None:
+    book = put_book(setup, "vv", BOOK_ROWS)
+    before = book.read_bytes()
+    put_removed(setup.server, "alice", json.dumps({"vv": ["zzz"]}))
+    status = setup.go()
+    assert book.read_bytes() == before
+    assert status.pass1_words_removed == 0
+
+
+def test_a_bad_book_key_deletes_nothing_and_creates_no_file(setup: Setup) -> None:
+    text_book = put_book(setup, "text", BOOK_ROWS)
+    before = text_book.read_bytes()
+    put_removed(
+        setup.server, "alice", json.dumps({"text": ["a"], "zz": ["a"], "dn": ["a"]})
+    )
+    status = setup.go()
+    assert text_book.read_bytes() == before
+    assert not (setup.data / "pass1_auto_zz.json").exists()
+    assert not (setup.data / "pass1_auto_dn.json").exists()
+    assert status.pass1_words_removed == 0
+    assert log_text(setup).count("pass1 skipped book key:") == 3
+
+
+def test_a_word_two_contributors_listed_is_removed_once(setup: Setup) -> None:
+    book = put_book(setup, "vv", BOOK_ROWS)
+    put_removed(setup.server, "alice", json.dumps({"vv": ["a"]}))
+    put_removed(setup.server, "bob", json.dumps({"vv": ["a"]}))
+    status = setup.go()
+    assert list(json.loads(book.read_text(encoding="utf-8"))) == ["b"]
+    assert status.pass1_words_removed == 1
+
+
+def test_an_open_editor_deletes_nothing(
+    setup: Setup, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    book = put_book(setup, "vv", BOOK_ROWS)
+    before = book.read_bytes()
+    put_removed(setup.server, "alice", json.dumps({"vv": ["a"]}))
+    monkeypatch.setattr(contrib_pull, "editor_running", lambda: True)
+    setup.go()
+    assert book.read_bytes() == before
+
+
+def test_an_editor_that_opens_after_the_copy_in_deletes_nothing(
+    setup: Setup, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    book = put_book(setup, "vv", BOOK_ROWS)
+    before = book.read_bytes()
+    put_removed(setup.server, "alice", json.dumps({"vv": ["a"]}))
+    editor_opens_at_check(3, monkeypatch)
+    status = setup.go()
+    assert status.outcome == "partial"
+    assert book.read_bytes() == before
+
+
+def test_a_bad_removed_list_skips_that_contributor(setup: Setup) -> None:
+    book = put_book(setup, "vv", BOOK_ROWS)
+    before = book.read_bytes()
+    put_good_files(setup.server, "alice", "zzpulltestword")
+    put_removed(setup.server, "alice", json.dumps({"vv": "abc"}))
+    status = setup.go()
+    assert "a book's words are not a list" in " ".join(status.contributors)
+    assert book.read_bytes() == before
+
+
+def test_a_dry_run_deletes_nothing_and_reports_zero(setup: Setup) -> None:
+    book = put_book(setup, "vv", BOOK_ROWS)
+    before = book.read_bytes()
+    put_removed(setup.server, "alice", json.dumps({"vv": ["a"]}))
+    status = setup.go(dry_run=True)
+    assert book.read_bytes() == before
+    assert "pass1_words_removed: 0" in status.text()

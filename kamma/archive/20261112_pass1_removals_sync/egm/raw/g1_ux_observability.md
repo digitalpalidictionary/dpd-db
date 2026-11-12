@@ -1,0 +1,24 @@
+I have what I need.
+
+# Findings
+
+## 1. Blocker — `_check_json` rejects the removals kind, so a pull kills the contributor's real work
+Next to `tools/contrib_entry.py:13` (JSON kinds are `additions`, `corrections`) and `scripts/server_contrib/contrib_pull.py:139-147`: `_check_json` demands every value be a dict. A removals file is `{book: [word, ...]}`. The moment `pass1_auto_removed_*.json` is added to `DELIVERED_KINDS`, the pull reports "a JSON entry is not an object" for that user, and `remove_users` (`contrib_pull.py:290`) drops **all** their files — their additions included. A contributor's whole day vanishes, and the status line reads `alice: skipped, pass1_auto_removed_alice.json: a JSON entry is not an object`. Fix: give the new kind its own validator (`dict[str, list[str]]`, book names taken from `sutta_central_books` + "text", each word a `str`), and never let one bad kind drop sibling kinds.
+
+## 2. Blocker — the deletion is applied to the laptop's tracked file behind the owner's back, with no undo and no conflict path
+The hypothesis writes into `gui2/data/pass1_auto_<book>.json`, which is a git-tracked file the owner edits in Pass1 Auto. When the pull runs, a word silently disappears from the queue the owner is looking at, and—if gui2 is *not* open—into a file he has uncommitted changes on. A `git pull --ff-only` in the nightly window then fails on the dirty tree, and the local deletion is invisible until he diffs. Worse, the pull deletes on the strength of an *untrusted* server file, and that deletion is then committed by the owner's data update — a contributor can delete any word from the owner's queue, permanently, with one edit to their list. Fix: the pull should not edit tracked files. Write the words to an ignored `gui2/data/pass1_auto_tainted.json` (or similar) and have `Pass1FileManager.read` on the laptop subtract that set, showing "N hidden from contributors" — the same mechanism the server already uses. Deletion stays a deliberate act, with a button and a message.
+
+## 3. Major — the contributor sees the wrong count and a word that re-appears on the next load
+`gui2/pass1_file_manager.py:47-51` filters only the caller's own list; `pass1_add_controller.py:88-96` sets the remaining count from a fresh read but then iterates `auto_processed_dict_copy`, a snapshot taken at `load_json` (`:77-78`). Scenario: alice opens book `mn`, sees 40. bob finishes 3 words while she is working. Alice's counter still says 40, and she is still offered bob's 3 words — she saves them a second time, writing duplicate `additions_alice.json` entries that the reconcile then has to sort out. Fix: intersect every contributor's list into `_read_view` and re-take the snapshot on each `get_next_item`.
+
+## 4. Major — "deleted" is a lie, and there is no message when the shared list changes the view
+`pass1_add_controller.py:283` says `f"{self.word_in_text} deleted"` on the server, where nothing was deleted — a one-word entry was appended to a file the contributor has never seen and cannot open. And when another contributor's removal hides a word from the queue, the counter drops between two clicks with no explanation. Fix: on a contributor, say `"<word> finished and hidden from the shared queue"`, and when another user's removal hides something, add a one-line note (`"3 words hidden: added by bob, carol"`) when the book is loaded.
+
+## 5. Major — no trace exists for either direction
+`contrib_pull.py:319-323` logs one line per run; the removal application would be the only step that mutates a tracked file, and it is unlogged. If a word is wrongly removed the owner has: a `git diff` and no reason. If a word is *not* removed (bad file, dropped user, `editor_running`, `already done today`), the counter is the only symptom. Nothing records which user removed which word from which book when. Fix: append to `logs/contrib_pull.log` one line per applied removal — `2026-11-12 removed mn:kāya from alice (bob also listed)` — and add `pass1_removals: 12 applied, 0 skipped` to the `Status` text (`contrib_pull.py:327-345`) so the owner sees it in `just contrib-pull` and in the notice. Two conflict cases need their own line: a word listed by two users, and a word no longer in any tracked file (stale list).
+
+## 6. Nit — the server list grows forever
+`pass1_file_manager.py:73-82` never prunes. Within a year the laptop globs dozens of `pass1_auto_removed_*.json`, most for words long gone. Not a blocker, but a `prune` step in the pull (drop entries no longer in any tracked file, rewrite) keeps the observable surface small — as long as each dropped entry is logged first.
+
+## 7. Nit — the status/notice vocabulary hides the new step
+`contrib_pull.py:180-186` will report `pulled 5 files, 12 entries` — the removals count is not an "entry" and inflates the number the owner reads. Count them separately.

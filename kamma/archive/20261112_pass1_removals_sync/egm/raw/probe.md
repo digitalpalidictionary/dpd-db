@@ -1,0 +1,1 @@
+# Brief — 20261112_pass1_removals_sync (GitHub issue #215)

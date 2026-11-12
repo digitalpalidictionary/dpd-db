@@ -105,6 +105,7 @@ class Pass1AutoController:
         self.total_missing: int = 0
         self.unknown_only_run: bool = False
         self.unknown_words: set[str] = set()
+        self.removed_words: set[str] = set()
 
     @cached_property
     def ai_manager(self) -> "AIManager":
@@ -135,6 +136,7 @@ class Pass1AutoController:
 
     def load_auto_processed(self):
         self.ui.update_message(f"Loading auto processed data for {self.book}")
+        self.removed_words = self.file_manager.all_removed_words()
         self.auto_processed_dict = self.get_auto_processed_dict(self.book)
         self.auto_processed_keys = list(self.auto_processed_dict.keys())
         self.ui.update_auto_processed_count("0 / 0")
@@ -373,6 +375,9 @@ class Pass1AutoController:
             word not in self.db.all_inflections
             and word not in self.db.sandhi_ok_list
             and word not in self.auto_processed_keys
+            # A word a contributor finished is deleted from the book file by the
+            # pull but is in no db until the owner processes the addition.
+            and word not in self.removed_words
             and word not in self.variant_readings.variants_dict
             and word not in self.spelling_mistakes.spelling_mistakes_dict
         ):

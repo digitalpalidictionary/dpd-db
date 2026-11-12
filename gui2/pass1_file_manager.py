@@ -7,6 +7,32 @@ from typing import Any, Callable, Dict
 from gui2.paths import Gui2Paths
 
 
+def _valid_lists(folder: Path) -> list[dict[str, list[str]]]:
+    """One cleaned dict per removed list in the folder.
+
+    A list from a contributor is untrusted: a file that is not a JSON object is
+    skipped, and an entry that is not a list of strings is dropped."""
+    lists: list[dict[str, list[str]]] = []
+    for path in sorted(folder.glob("pass1_auto_removed_*.json")):
+        try:
+            with path.open("r", encoding="utf-8") as f:
+                raw = json.load(f)
+        except (OSError, ValueError, RecursionError):
+            continue
+        if not isinstance(raw, dict):
+            continue
+        lists.append(
+            {
+                book: words
+                for book, words in raw.items()
+                if isinstance(book, str)
+                and isinstance(words, list)
+                and all(isinstance(word, str) for word in words)
+            }
+        )
+    return lists
+
+
 class Pass1FileManager:
     # NOTE (contributor web server, #215): pass1_auto_{book}.json is a shared,
     # read-modify-written work queue. self._lock is intra-process only, so if two
@@ -23,6 +49,24 @@ class Pass1FileManager:
 
     def _get_filepath(self, book: str) -> Path:
         return self.gui2_data_path / f"pass1_auto_{book}.json"
+
+    def _list_folder(self) -> Path:
+        if self.removed_path is not None:
+            return self.removed_path.parent
+        return self.gui2_data_path
+
+    def _hidden_words(self, book: str) -> set[str]:
+        hidden: set[str] = set()
+        for removed in _valid_lists(self._list_folder()):
+            hidden.update(removed.get(book, []))
+        return hidden
+
+    def all_removed_words(self) -> set[str]:
+        words: set[str] = set()
+        for removed in _valid_lists(self._list_folder()):
+            for book_words in removed.values():
+                words.update(book_words)
+        return words
 
     def _read_removed(self) -> dict[str, list[str]]:
         if self.removed_path is None or not self.removed_path.exists():
@@ -47,8 +91,8 @@ class Pass1FileManager:
     def _read_view(self, book: str) -> Dict[str, Any]:
         data = self._read_file(book)
         if self.removed_path is not None:
-            removed = set(self._read_removed().get(book, []))
-            data = {word: v for word, v in data.items() if word not in removed}
+            hidden = self._hidden_words(book)
+            data = {word: v for word, v in data.items() if word not in hidden}
         return data
 
     def read(self, book: str) -> Dict[str, Any]:

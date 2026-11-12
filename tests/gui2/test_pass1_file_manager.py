@@ -158,3 +158,53 @@ class TestContributor:
         with pytest.raises(PermissionError):
             fm.update("vv", lambda d: d)
         assert path.read_bytes() == before
+
+
+def _write_list(folder: Path, user: str, content: str) -> Path:
+    folder.mkdir(parents=True, exist_ok=True)
+    path = folder / f"pass1_auto_removed_{user}.json"
+    path.write_text(content, encoding="utf-8")
+    return path
+
+
+class TestSharedRemovedLists:
+    def test_contributor_read_hides_every_contributors_words(
+        self, tmp_path: Path, monkeypatch
+    ):
+        fm = _contributor(tmp_path, monkeypatch)
+        _write_tracked(fm, "vv", {"a": 1, "b": 2, "c": 3, "d": 4})
+        folder = tmp_path / "server_data"
+        _write_list(folder, "alice", json.dumps({"vv": ["a"]}))
+        _write_list(folder, "bob", json.dumps({"vv": ["b"], "pv": ["c"]}))
+        assert fm.read("vv") == {"c": 3, "d": 4}
+
+    def test_remove_writes_only_the_own_list(self, tmp_path: Path, monkeypatch):
+        fm = _contributor(tmp_path, monkeypatch)
+        _write_tracked(fm, "vv", {"a": 1, "x": 2})
+        folder = tmp_path / "server_data"
+        bob = _write_list(folder, "bob", json.dumps({"vv": ["a"]}))
+        before = bob.read_bytes()
+        fm.remove("vv", "x")
+        assert bob.read_bytes() == before
+        assert json.loads((folder / "pass1_auto_removed_alice.json").read_text()) == {
+            "vv": ["x"]
+        }
+
+    @pytest.mark.parametrize("content", ["{not json", '{"vv": "abc"}', '{"vv": [1]}'])
+    def test_a_bad_list_hides_nothing(self, tmp_path: Path, monkeypatch, content: str):
+        fm = _contributor(tmp_path, monkeypatch)
+        _write_tracked(fm, "vv", {"a": 1})
+        _write_list(tmp_path / "server_data", "bob", content)
+        assert fm.read("vv") == {"a": 1}
+
+    def test_the_laptop_read_ignores_pulled_lists(self, tmp_path: Path):
+        fm = _manager(tmp_path)
+        fm.write("vv", {"a": 1})
+        _write_list(fm.gui2_data_path, "alice", json.dumps({"vv": ["a"]}))
+        assert fm.read("vv") == {"a": 1}
+
+    def test_all_removed_words_spans_lists_and_books(self, tmp_path: Path):
+        fm = _manager(tmp_path)
+        _write_list(fm.gui2_data_path, "alice", json.dumps({"vv": ["a"]}))
+        _write_list(fm.gui2_data_path, "bob", json.dumps({"pv": ["b"], "vv": ["c"]}))
+        assert fm.all_removed_words() == {"a", "b", "c"}

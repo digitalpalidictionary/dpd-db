@@ -266,11 +266,12 @@ Runs on the maintainer's laptop, by itself. A systemd user timer starts it every
 3. One bad file drops all the files of that contributor for today. The others go on.
 4. It drops what you already processed (`contrib_reconcile.py`) and any test exception whose id is not a reserved id.
 5. It copies the rest into `gui2/data`, then runs `merge_contrib_files.py` for the flag files.
-6. It does nothing while the editor (gui2) is open.
+6. It also copies each contributor's `pass1_auto_removed_<user>.json` (the Pass1 Auto words they finished) and deletes those words from your `gui2/data/pass1_auto_<book>.json` files, so they show in your git diff. Your next data commit takes them off the server's queue. A word stays on the contributor's list for good; to bring it back into the queue, remove it from their list on the server first.
+7. It does nothing while the editor (gui2) is open.
 
 - **Status:** `logs/contrib_pull_status.txt`. **Log:** `logs/contrib_pull.log`. A skipped run writes neither, so the status keeps the last real result.
 - **By hand:** `cd ~/MyFiles/3_Active/dpd-db && just contrib-pull` (to see what it would do without changing anything, run `uv run scripts/server_contrib/contrib_pull.py --dry-run`).
-- **Reading `outcome:`:** `pulled` is good. `pulled with problems` means a contributor was skipped; the line below names the file and the reason. `partial` means the editor opened mid-run; the next run repeats it. `failed: ...` gives the error. `pulled with problems` sends a desktop notice at once. A `failed` or `partial` run sends one only on the last run of the day (22:30), because a later run may repair it.
+- **Reading `outcome:`:** `pulled` is good. `pulled with problems` means a contributor was skipped; the line below names the file and the reason. `partial` means the editor opened mid-run; the next run repeats it. `pass1_words_removed` is the number of words deleted from the Pass1 Auto book files in this run. `failed: ...` gives the error. `pulled with problems` sends a desktop notice at once. A `failed` or `partial` run sends one only on the last run of the day (22:30), because a later run may repair it.
 - **Undo a bad run:** restore a named shared file with `git restore <file>` (you, not an agent). The contributor files in `gui2/data` are copies; the next pull brings them back.
 - **Do not run `just contrib-merge` as well.** The pull replaces it.
 - A new server: see `NEW_SERVER_RUNBOOK.md`.

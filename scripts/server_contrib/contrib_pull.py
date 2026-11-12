@@ -26,6 +26,8 @@ from pathlib import Path
 
 import psutil
 
+from gui2.books import sutta_central_books
+from gui2.pass1_file_manager import Pass1FileManager
 from gui2.paths import Gui2Paths
 from scripts.server_contrib.contrib_reconcile import (
     _read_lines,
@@ -36,6 +38,7 @@ from scripts.server_contrib.contrib_reconcile import (
 from scripts.server_contrib.merge_contrib_files import SharedFiles, merge_all
 from tools.configger import config_read
 from tools.contrib_entry import DELIVERED_KINDS
+from tools.pali_sort_key import pali_sort_key
 
 USER_PATTERN = re.compile(r"[a-z][a-z0-9_]{0,31}")
 MAX_LINE_LENGTH = 500
@@ -47,6 +50,13 @@ KEY_PATH = Path.home() / ".ssh" / "dpd_contrib_pull"
 NOTICE_FROM = time(22, 30)
 EDITOR_OPEN = "skipped: editor open"
 JSON_KINDS = ("additions", "corrections")
+# Not in DELIVERED_KINDS: the push copies every delivered file to the
+# `contributions` branch, and these lists are gitignored on purpose.
+PULL_ONLY_KINDS: tuple[tuple[str, str], ...] = (
+    ("pass1_auto_removed_*.json", "pass1_auto_removed"),
+)
+BOOK_KEY = re.compile(r"[a-z0-9&-]{1,32}")
+MAX_WORD_LENGTH = 200
 # The merge step drops line 1 of these files as the header, so a file without
 # the header would lose its first pair without a word.
 TWO_COLUMN_HEADERS = {
@@ -95,7 +105,7 @@ def glob_parts(name: str) -> tuple[str, str] | None:
     """(kind, user part) of a name that matches a delivered pattern, with no
     check on the user part. The user part is what the pattern's `*` covers, cut
     out by the literal prefix and suffix, not found by a second regex."""
-    for pattern, kind in DELIVERED_KINDS:
+    for pattern, kind in (*DELIVERED_KINDS, *PULL_ONLY_KINDS):
         if fnmatch.fnmatchcase(name, pattern):
             prefix, _, suffix = pattern.partition("*")
             return kind, name[len(prefix) : len(name) - len(suffix)]
@@ -126,6 +136,8 @@ def check_content(path: Path, kind: str) -> str | None:
         text = path.read_bytes().decode("utf-8")
     except UnicodeDecodeError:
         return "not valid UTF-8"
+    if kind == "pass1_auto_removed":
+        return _check_removed(text)
     if kind in JSON_KINDS:
         return _check_json(text)
     return _check_lines(text, kind)
@@ -149,6 +161,29 @@ def _check_json(text: str) -> str | None:
             # The reconcile step turns an id into an int, and a huge or odd
             # digit string raises there and stops the run for everyone.
             return "an entry id is not a plain number"
+    return None
+
+
+def _check_removed(text: str) -> str | None:
+    try:
+        data = json.loads(text)
+    except (ValueError, RecursionError):
+        return "not valid JSON"
+    if not isinstance(data, dict):
+        return "JSON top level is not an object"
+    for book, words in data.items():
+        if not isinstance(book, str) or not BOOK_KEY.fullmatch(book):
+            return "a book name is not allowed"
+        if not isinstance(words, list):
+            return "a book's words are not a list"
+        for word in words:
+            if (
+                not isinstance(word, str)
+                or not word
+                or len(word) > MAX_WORD_LENGTH
+                or CONTROL_CHARACTERS.search(word)
+            ):
+                return "a word is not text"
     return None
 
 
@@ -367,6 +402,7 @@ class Status:
     lines_added: int = 0
     test_lines_dropped: int = 0
     ignored_names: int = 0
+    pass1_words_removed: int = 0
     notice_error: str | None = None
 
     def text(self) -> str:
@@ -378,6 +414,7 @@ class Status:
             f"lines_added: {self.lines_added}",
             f"test_lines_dropped: {self.test_lines_dropped}",
             f"ignored_names: {self.ignored_names}",
+            f"pass1_words_removed: {self.pass1_words_removed}",
         ]
         if self.notice_error:
             lines.append(f"notice_error: {self.notice_error}")
@@ -449,6 +486,36 @@ def _summarise(scratch: Path, bad: dict[str, str], verb: str) -> list[str]:
     return [lines[user] for user in sorted(lines)]
 
 
+def apply_pass1_removals(scratch: Path, repo: Path, source: str, log_path: Path) -> int:
+    """Delete the words the contributors finished from the laptop's Pass1 Auto
+    book files, so the owner's data commit takes them off the server's queue.
+    Returns the number of words deleted."""
+    wanted: dict[str, set[str]] = {}
+    for path in sorted(scratch.glob("pass1_auto_removed_*.json")):
+        for book, words in json.loads(path.read_text(encoding="utf-8")).items():
+            wanted.setdefault(book, set()).update(words)
+    paths = Gui2Paths(repo)
+    fm = Pass1FileManager(paths)
+    removed = 0
+    for book in sorted(wanted):
+        # A book name comes from a contributor's file: it reaches a path only
+        # after it matches a known book that already has a file.
+        if (
+            book not in sutta_central_books
+            or not (paths.gui2_data_path / f"pass1_auto_{book}.json").is_file()
+        ):
+            _log(log_path, f"pass1 skipped book key: {redact(book[:40], source)!r}")
+            continue
+        present = wanted[book] & fm.read(book).keys()
+        if not present:
+            continue
+        fm.update(book, lambda data: [data.pop(word, None) for word in present])
+        removed += len(present)
+        words_text = ", ".join(sorted(present, key=pali_sort_key))
+        _log(log_path, f"pass1 removed {book}: {words_text}")
+    return removed
+
+
 def _pull(
     source: str,
     repo: Path,
@@ -487,6 +554,7 @@ def _pull(
         status.outcome = "partial"
         return
     report = merge_all(data_dir, shared, Gui2Paths(repo).contrib_lines_merged_path)
+    status.pass1_words_removed = apply_pass1_removals(scratch, repo, source, log_path)
     status.lines_added = sum(
         1
         for items in report.values()

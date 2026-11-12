@@ -1,6 +1,7 @@
 """The Pass1Auto loop must let the screen redraw and read Stop while it runs."""
 
 import asyncio
+import threading
 import time
 from typing import Any
 from types import SimpleNamespace
@@ -50,6 +51,7 @@ def make_controller(monkeypatch: pytest.MonkeyPatch, tmp_path) -> Any:
     ctrl.epitaka_dict = {}
     ctrl.allowed = AllowedValues([], [], [], [])
     ctrl.unknown_words = set()
+    ctrl.removed_words = set()
     ctrl.sentence_data = []
     ctrl.response = None
     ctrl.ai_status_message = ""
@@ -418,3 +420,24 @@ def test_a_failed_word_shows_in_the_final_message(
     assert (
         ctrl.ui.messages[-1] == "Finished unknown words in ap: 1 saved, 1 failed (m4)"
     )
+
+
+def test_a_word_a_contributor_finished_is_not_missing(
+    monkeypatch: pytest.MonkeyPatch, tmp_path
+) -> None:
+    ctrl = make_controller(monkeypatch, tmp_path)
+    ctrl.removed_words = {"xyz"}
+    assert ctrl.is_missing("xyz") is False
+    assert ctrl.is_missing("abc") is True
+
+
+def test_load_auto_processed_refills_the_removed_words(
+    monkeypatch: pytest.MonkeyPatch, tmp_path
+) -> None:
+    ctrl = make_controller(monkeypatch, tmp_path)
+    ctrl.file_manager = SimpleNamespace(
+        all_removed_words=lambda: {"xyz"}, read=lambda book: {}
+    )
+    ctrl._lock = threading.Lock()
+    Pass1AutoController.load_auto_processed(ctrl)
+    assert ctrl.removed_words == {"xyz"}
