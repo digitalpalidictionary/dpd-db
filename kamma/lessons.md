@@ -568,3 +568,4 @@
 - 2026-11-11 [POSITIVE] Measuring the effect of the SuttaCentral words before changing the code (about 700 words in the Khuddaka books, almost none elsewhere) made the owner's choice of row layout a quick, informed decision.
 - 2026-11-12 [WORKFLOW] A review by a pi reviewer padded its report with self-retracted findings; validate each against the code before listing, and drop the retractions.
 - 2026-11-12 [POSITIVE] Reverting the change in one command and restoring it (delete step off, server view own-list only) proved the new tests guard behaviour; it also exposed a vacuous test that a reviewer later confirmed.
+- 2026-11-12 [REPEATED] In /kamma:quick I asked the user to test before the review; they wanted the pi deepseek review first, as their memory order says (build, review, fix, finalize, commit).

@@ -782,7 +782,16 @@ class App:
     def _add_web_canvas(self) -> None:
         """Put the header and the tabs on a vertically scrolling canvas."""
         self._web_canvas = ft.Container(
-            content=ft.Column([self._web_header, self.tabs], spacing=0, expand=True),
+            content=ft.Column(
+                [
+                    self._web_header,
+                    # The page padding is 0 so the header spans the full width.
+                    # This gives every tab the 10 px margin the desktop page has.
+                    ft.Container(content=self.tabs, padding=10, expand=True),
+                ],
+                spacing=0,
+                expand=True,
+            ),
             height=self._WEB_CANVAS_MIN_HEIGHT,
         )
 

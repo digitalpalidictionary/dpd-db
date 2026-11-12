@@ -1047,7 +1047,11 @@ def test_web_page_scrolls_with_header_inside_canvas(
     canvas = page.add.call_args.args[0]
     assert page.scroll == ft.ScrollMode.AUTO
     assert canvas.height == App._WEB_CANVAS_MIN_HEIGHT
-    assert canvas.content.controls == [app._web_header, app.tabs]  # pyright: ignore[reportAttributeAccessIssue]
+    header, body = canvas.content.controls
+    assert header is app._web_header  # pyright: ignore[reportAttributeAccessIssue]
+    assert body.content is app.tabs
+    assert body.padding == 10
+    assert body.expand is True
 
 
 def test_web_canvas_grows_with_a_tall_window_and_never_shrinks(
