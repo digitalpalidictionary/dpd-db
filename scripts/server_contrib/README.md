@@ -164,7 +164,7 @@ finishes normally: the status file never decides the window's outcome.
 ## The contributor dashboard (`/dashboard/`)
 
 `contrib_dashboard.py` writes one page that shows the server right now: words
-added today and in total, disk, memory, swap and CPU load, and one lane per
+added today and in total, disk, memory, swap and CPU use, and one lane per
 contributor with a status dot (online, going to sleep, asleep, down). A toggle
 picks the period: Day and Week are timelines of single visits, with "now" at
 the right edge; Month, Year and All are bar charts of minutes online (one bar
@@ -177,7 +177,11 @@ follow the toggle; the browser remembers the choice. It reads:
 - unit state and memory from `systemctl show`, for every user in `/etc/dpd/*.env`;
 - words from each `daily_log_<user>.json` in the data folder (the same count as
   the editor's top bar);
-- disk, memory, swap and load from `psutil`.
+- disk, memory, swap and CPU from `psutil`. The CPU meter shows the share of
+  time the CPU was busy since the previous run (counters saved in
+  `/var/lib/dpd/dashboard_cpu.json`, `--cpu-file`), with the 5-minute load as
+  small text. Load alone also counts processes that only wait: it spiked to 10
+  about every 7 hours while the CPU stayed about 92 % idle (2026-11-13).
 
 The journal is deleted from the oldest end once it reaches its size limit, so
 the script saves time online (in seconds) per user per day in

@@ -66,7 +66,14 @@ Read `spec.md` first.
   → fixed: a recent day missing from a shrunk or failed journal read was erased from the saved history (both reviewers) — now only whole days the read covers are recounted; bad text in the saved file was not caught (CodeRabbit); a failed save stopped the page, and the set-aside rename could crash or overwrite an older damaged copy (DeepSeek); no test ran `main()` (DeepSeek); the All note said the 1st of the month while the total said the first day (DeepSeek).
   → not fixed: Day/Week minutes and the bars can differ by under a second a day; the 4 % minimum bar height is on purpose; style and wording nits.
   → 37 tests. Undoing each fix fails its test: save not wired, coverage ignored, bad text not caught, second-level set-aside name.
-- [ ] Commit, push, pull, live check.
+- [x] Commit, push, pull, live check.
+  → done: `0f9ba222` pushed and pulled on the server without restarting an editor; the page shows the five views and the saved history file holds bdhrs's days and the first real contributor's first visit. The owner looked at the live page.
+
+## CPU meter — 2026-11-13
+
+- The live page showed "CPU load 100 %" (load 5.31 on 2 cores). The server's own history (`sar`) showed the load near 10 at 16:00 while the CPU was about 92 % idle, with no disk wait and no new processes. The same spike recurs about every 7 hours since 7 Nov, before any contributor; the cause is outside what the server logs (not the editors, not the dashboard, not the hourly host telemetry).
+- [x] The meter now shows the CPU's busy share since the previous run (saved counters in `/var/lib/dpd/dashboard_cpu.json`; steal counts as not busy; a 1-second sample on the first run or after a gap over 10 minutes). The 5-minute load stays as small text.
+  → done: 2 tests (39 in all); putting the load figure back fails 1. Real meter on the laptop: 5 % then 6 %.
 
 ## Phase 3 — Server install — *Fast* (needs the owner's go-ahead)
 
@@ -79,9 +86,15 @@ Read `spec.md` first.
 - [x] Copy the new `asleep.html` to `/var/www/dpd-pages/` with a backup (runbook step 6e).
   → verify: `curl` of `/<user>/_dpd/asleep.html` holds the logo.
   → done: 200, logo present, wake time still 20 seconds.
-- [ ] The loading image reaches the server with the next nightly pull after the commit.
+- [x] The loading image reaches the server with the next nightly pull after the commit.
   → pulled by hand on 2026-11-13 (`c800ded2`, no editor restart: the pull held no code the editors run). Owner to confirm the logo on the next editor load.
   → verify: the next day, `/<user>/icons/loading-animation.png` is the DPD logo.
-- [ ] Phase check: `just typecheck`; `scripts/server_contrib/README.md` names the page and the cron line.
+- [x] Phase check: `just typecheck`; `scripts/server_contrib/README.md` names the page and the cron line.
   → verify: typecheck clean; the README names both.
   → README section, install record and runbook Step 7f written 2026-11-13; typecheck clean. Tick after the owner's browser check.
+
+## Open after finalize
+
+- The CPU meter change is committed with this finalize but not yet pulled on the server. Pull it like the earlier rounds (no editor restart needed).
+- The owner has not yet confirmed the DPD logo on the editor's loading screen; the file is on the server since `c800ded2`.
+- The 7-hour load spikes have no known cause inside the server; ask the hosting company if they matter.

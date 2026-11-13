@@ -16,6 +16,7 @@ Four main parts: **db** (build and populate tables), **db_tests** (data integrit
 - When the work left after a thread's code is reviewed is only text (an outcome, notes, docs), finalize at once; don't propose another review (rejected 2026-11-01 on contrib_6).
 - Never pause a thread to ask for commit permission at phase checkpoints. The user commits everything at the end; checkpoint steps are report-only.
 - Review artifacts under `kamma/threads/*/egm/` (`prompts/`, `raw/`) quote the absolute repo path and raw reviewer output. Scan them for home paths before the FIRST commit, not at finalize — a leaked path in a pushed commit cannot be force-pushed away, since `main` is protected.
+- Sample data in thread screenshots, specs and fixtures uses made-up user names, never the contributor server's real logins. Six real logins next to invented activity were pushed before the finalize privacy scan found them (2026-11-13, contributor dashboard).
 - Server-side config cannot be verified in the dev clone: no nginx runs here, and `nginx -t` passes on a broken unix-socket `proxy_pass` (it needs a second colon, `unix:/path.sock:/`). Anything touching nginx or systemd gets verified on the live host with `curl` before it is called done (2026-11-07, contrib password gate).
 
 ## Concurrent Threads (working tree safety)

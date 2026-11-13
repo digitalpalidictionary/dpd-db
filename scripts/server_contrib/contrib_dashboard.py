@@ -3,7 +3,7 @@ was online, how many words they added, and how full the server is.
 
 Run by cron every minute on the contributor server. The page is one static
 HTML file that nginx serves at /dashboard/ behind the maintainer's login.
-Design: kamma/threads/20261113_contrib_usage_page/spec.md.
+Design: kamma/archive/20261113_contrib_usage_page/spec.md.
 """
 
 import argparse
@@ -60,6 +60,8 @@ WARN_PERCENT = 70
 BAD_PERCENT = 90
 # A visit that is a few seconds long would be invisible on a 24-hour track.
 MIN_BLOCK_PERCENT = 0.35
+# An earlier CPU reading older than this is too stale to average over.
+CPU_SAMPLE_MAX_SECONDS = 600
 
 LOGO_SOURCE = Path("identity/logo/dpd-logo-dark.svg")
 FONT_SOURCE = Path("identity/fonts/Inter-VariableFont_opsz,wght.ttf")
@@ -159,6 +161,8 @@ class Meter:
     used: float
     total: float
     unit: str
+    # Replaces the "used of total" line when set.
+    detail: str = ""
 
     @property
     def percent(self) -> float:
@@ -659,19 +663,83 @@ def read_journal(since: datetime) -> list[str]:
     return result.stdout.splitlines()
 
 
-def read_meters() -> list[Meter]:
+def cpu_snapshot(at: datetime) -> dict[str, float]:
+    """The CPU time counters since boot: busy time, all time, and when read.
+    Steal (time the host gave to other machines) counts as not busy."""
+    times = psutil.cpu_times()
+    busy = sum(
+        getattr(times, name, 0.0)
+        for name in ("user", "nice", "system", "irq", "softirq")
+    )
+    waiting = sum(getattr(times, name, 0.0) for name in ("idle", "iowait", "steal"))
+    return {"busy": busy, "total": busy + waiting, "at": at.timestamp()}
+
+
+def busy_percent(
+    previous: dict[str, float] | None, current: dict[str, float]
+) -> float | None:
+    """The share of CPU time spent busy between two snapshots, or None when
+    there is no usable earlier one (first run, a reboot, or a long gap)."""
+    if previous is None:
+        return None
+    try:
+        busy = current["busy"] - previous["busy"]
+        total = current["total"] - previous["total"]
+        gap = current["at"] - previous["at"]
+    except KeyError:
+        return None
+    if total <= 0 or busy < 0 or not 0 < gap <= CPU_SAMPLE_MAX_SECONDS:
+        return None
+    return min(100.0, 100.0 * busy / total)
+
+
+def read_cpu_meter(path: Path, now: datetime) -> Meter:
+    """CPU use since the previous run (a minute under cron), not the load
+    average: load also counts processes that only wait, and it showed 100 %
+    red for spikes during which the CPU sat about 92 % idle."""
+    current = cpu_snapshot(now)
+    previous: dict[str, float] | None = None
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+        if isinstance(data, dict):
+            previous = {
+                key: float(value)
+                for key, value in data.items()
+                if isinstance(value, int | float)
+            }
+    except (OSError, UnicodeDecodeError, json.JSONDecodeError):
+        previous = None
+    try:
+        path.parent.mkdir(parents=True, exist_ok=True)
+        tmp = path.with_name(f"{path.name}.{os.getpid()}.tmp")
+        tmp.write_text(json.dumps(current), encoding="utf-8")
+        tmp.replace(path)
+    except OSError as exc:
+        print(f"could not save {path}: {exc}")
+    percent = busy_percent(previous, current)
+    span = "since last run"
+    if percent is None:
+        percent = psutil.cpu_percent(interval=1.0)
+        span = "last second"
+    cores = psutil.cpu_count() or 1
+    load = psutil.getloadavg()[1]
+    return Meter(
+        "CPU", percent, 100.0, "%", f"busy, {span} · load {load:.2f} on {cores} cores"
+    )
+
+
+def read_meters(cpu_file: Path, now: datetime) -> list[Meter]:
     gib = 1024**3
     disk = psutil.disk_usage("/")
     memory = psutil.virtual_memory()
     swap = psutil.swap_memory()
-    cores = psutil.cpu_count() or 1
     return [
         Meter("Disk", disk.used / gib, disk.total / gib, "GB"),
         Meter(
             "Memory", (memory.total - memory.available) / gib, memory.total / gib, "GB"
         ),
         Meter("Swap", swap.used / gib, swap.total / gib, "GB"),
-        Meter("CPU load", psutil.getloadavg()[1], cores, "cores"),
+        read_cpu_meter(cpu_file, now),
     ]
 
 
@@ -1108,10 +1176,7 @@ def _render_lane(
 def _render_meter(meter: Meter) -> str:
     percent = meter.percent
     level = "bad" if percent > BAD_PERCENT else "warn" if percent > WARN_PERCENT else ""
-    if meter.unit == "cores":
-        detail = f"{meter.used:.2f} of {meter.total:.0f} cores (5 min)"
-    else:
-        detail = f"{meter.used:,.1f} of {meter.total:,.1f} {meter.unit}"
+    detail = meter.detail or f"{meter.used:,.1f} of {meter.total:,.1f} {meter.unit}"
     return (
         f'<div class="card meter {level}">'
         f'<div class="top"><span class="name">{_esc(meter.label)}</span>'
@@ -1310,6 +1375,9 @@ def main() -> None:
     parser.add_argument(
         "--seconds-file", type=Path, default=Path("/var/lib/dpd/dashboard_seconds.json")
     )
+    parser.add_argument(
+        "--cpu-file", type=Path, default=Path("/var/lib/dpd/dashboard_cpu.json")
+    )
     args = parser.parse_args()
 
     now = datetime.now().astimezone()
@@ -1345,7 +1413,9 @@ def main() -> None:
         now,
         read_added(args.env_dir, users, tz),
     )
-    dashboard = build_dashboard(lanes, read_meters(), words, seconds, test_users, now)
+    dashboard = build_dashboard(
+        lanes, read_meters(args.cpu_file, now), words, seconds, test_users, now
+    )
     css_variables = (args.project_root / CSS_VARIABLES_SOURCE).read_text(
         encoding="utf-8"
     )

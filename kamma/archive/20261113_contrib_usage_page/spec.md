@@ -16,7 +16,7 @@ While in this area, two small editor-side changes: the DPD logo replaces the Fle
 - **Two big numbers:**
   - words added today, by all real contributors together;
   - words added in total, by all real contributors together.
-- **Server row:** one horizontal row of meters. Each meter is a bar that fills left to right: empty = little use, full = lots. Meters: disk, memory, swap, CPU load (5-minute average divided by the core count). Each meter shows its percent and the amounts (`19 of 96 GB`). The bar colour turns amber above 70 % and red above 90 %.
+- **Server row:** one horizontal row of meters. Each meter is a bar that fills left to right: empty = little use, full = lots. Meters: disk, memory, swap, CPU (share of time busy since the previous run; the 5-minute load as small text, because load also counts waiting processes and spiked to 10 while the CPU sat idle). Each meter shows its percent and the amounts (`19 of 96 GB`). The bar colour turns amber above 70 % and red above 90 %.
 - **One lane per contributor:**
   - a status dot with a word: **online** (green, pulsing): the editor holds an open page; **going to sleep** (amber): the idle countdown is showing; **asleep** (grey): the editor runs empty; **down** (red): the unit is not running.
   - a timeline of the last 24 hours, with "now" at the right edge, one block per visit, a tick every 3 clock hours, and a stronger line at midnight labelled with the new day. Hovering a block shows its start, end and minutes. (Changed 2026-11-13 at the owner's request: the first version showed 00:00 to 24:00 of today.)
@@ -37,7 +37,7 @@ While in this area, two small editor-side changes: the DPD logo replaces the Fle
 
 ## Current behaviour (verified 2026-11-13 on the live server, read-only)
 
-- Each contributor runs as a systemd unit `dpd-gui@<user>`; users and ports live in `/etc/dpd/<user>.env`. Eight units today: test users `bdhrs`, `deva`; real contributors `antonio`, `cjyeh`, `danz`, `meg`, `panya`, `suddhassaddho` (all added 2026-11-13).
+- Each contributor runs as a systemd unit `dpd-gui@<user>`; users and ports live in `/etc/dpd/<user>.env`. Eight units today: test users `bdhrs`, `deva`; six real contributors (all added 2026-11-13).
 - The editor prints `lifecycle: ...` lines to the unit's journal (`gui2/server_lifecycle.py`). In `journalctl -o json` these lines carry `_SYSTEMD_UNIT=dpd-gui@<user>.service`. The systemd lines (`Started ...`, `Stopped ...`) carry `UNIT=dpd-gui@<user>.service`. The short text output does not name the unit on editor lines, so the JSON output is needed.
 - Lines that matter, all seen in the real journal:
   - `lifecycle: page connected` and `lifecycle: page reconnected`: a page is open. One process can log several `page connected` lines (a second tab or a reload).
@@ -60,7 +60,7 @@ While in this area, two small editor-side changes: the DPD logo replaces the Fle
   1. `journalctl -u 'dpd-gui@*' --since <14 days ago> -o json`. Fourteen days give each lane a "last seen" time, and a visit open at midnight keeps its start.
   2. `systemctl show -p Id -p ActiveState -p MemoryCurrent` for every unit named by `/etc/dpd/*.env`.
   3. Every `daily_log_<user>.json` in the data folder.
-  4. `psutil` for disk, memory, swap and load.
+  4. `psutil` for disk, memory, swap and CPU (counters saved between runs in `/var/lib/dpd/dashboard_cpu.json`).
 - Visits come from the journal: a visit starts at the first `page connected`/`reconnected` with no visit open, and ends at `asleep` time minus its idle minutes, or at `Stopped`/`Started`. A visit with no end is open; on the timeline it runs to now. Visits are cut to the last 24 hours.
 - Periods (added 2026-11-13 at the owner's request): a toggle Day · Week · Month · Year · All. Day = last 24 hours and Week = last 7 days, as visit timelines. Month = last 30 days (bar per day), Year = last 52 weeks (bar per Monday-start week), All = every month since the first day with words or minutes (bar per month). Bar heights share one scale across lanes. The big words number and each lane's minutes and words follow the period; "total" stays all-time. The browser keeps the choice in local storage across the 60-second reload; without it the page shows Day.
 - Time online per day is saved, in seconds, in `/var/lib/dpd/dashboard_seconds.json`, because the journal is deleted from its oldest end at its size limit. Each run recounts the last 7 days from the journal (it surely still holds them, and an open visit can shrink when it closes) and keeps older days as saved. A day is only recounted when the journal read covers all of it (the read's first line is at or before that midnight), so a cleared journal or a failed read never erases saved days. A visit across midnight counts on both days. A damaged file (bad JSON, bad text, wrong shape) is set aside as `.corrupt.<time>`; a failed save is logged and the page is still written.

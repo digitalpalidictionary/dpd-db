@@ -23,6 +23,7 @@ from scripts.server_contrib.contrib_dashboard import (
     Unit,
     Visit,
     blocks_in_window,
+    busy_percent,
     bar_buckets,
     build_dashboard,
     build_lanes,
@@ -35,6 +36,7 @@ from scripts.server_contrib.contrib_dashboard import (
     parse_journal,
     parse_systemctl_show,
     read_journal,
+    read_cpu_meter,
     read_seconds,
     render_page,
     tick_times,
@@ -551,7 +553,7 @@ def test_a_full_run_keeps_old_history_and_writes_the_page(
     ]
     monkeypatch.setattr(contrib_dashboard, "read_journal", lambda since: lines)
     monkeypatch.setattr(contrib_dashboard, "read_units", lambda users: {})
-    monkeypatch.setattr(contrib_dashboard, "read_meters", lambda: [])
+    monkeypatch.setattr(contrib_dashboard, "read_meters", lambda cpu_file, now: [])
     out_dir = tmp_path / "out"
     monkeypatch.setattr(
         "sys.argv",
@@ -577,3 +579,40 @@ def test_a_full_run_keeps_old_history_and_writes_the_page(
     page = (out_dir / "index.html").read_text(encoding="utf-8")
     assert '<div class="value" data-for="day">7</div>' in page
     assert "alice" in page
+
+
+def test_busy_percent_between_two_readings() -> None:
+    before = {"busy": 100.0, "total": 1000.0, "at": 0.0}
+    after = {"busy": 112.0, "total": 1120.0, "at": 60.0}
+    assert busy_percent(before, after) == 10.0
+    assert busy_percent(None, after) is None
+    # A reboot resets the counters; an old reading is too stale to use.
+    assert busy_percent({"busy": 500.0, "total": 9000.0, "at": 0.0}, after) is None
+    assert busy_percent({**before, "at": -1000.0}, after) is None
+
+
+def test_cpu_meter_shows_busy_share_not_load(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    # The live case: load 5.31 on 2 cores while the CPU was mostly idle.
+    readings = iter(
+        [
+            {"busy": 100.0, "total": 1000.0, "at": 0.0},
+            {"busy": 106.0, "total": 1120.0, "at": 60.0},
+        ]
+    )
+    monkeypatch.setattr(contrib_dashboard, "cpu_snapshot", lambda at: next(readings))
+    monkeypatch.setattr(
+        contrib_dashboard.psutil, "getloadavg", lambda: (1.0, 5.31, 4.0)
+    )
+    monkeypatch.setattr(contrib_dashboard.psutil, "cpu_count", lambda: 2)
+    monkeypatch.setattr(contrib_dashboard.psutil, "cpu_percent", lambda interval: 50.0)
+    path = tmp_path / "dashboard_cpu.json"
+    now = _at("2026-11-13T16:00:00")
+    first = read_cpu_meter(path, now)
+    assert first.used == 50.0 and "last second" in first.detail
+    second = read_cpu_meter(path, now)
+    assert second.used == 5.0
+    assert second.detail == "busy, since last run · load 5.31 on 2 cores"
+    page = render_page(build_dashboard([], [second], {}, {}, set(), now), "")
+    assert 'class="card meter "' in page and ">5%</span>" in page
