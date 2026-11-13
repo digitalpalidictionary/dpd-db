@@ -1,5 +1,5 @@
 """Write the contributor dashboard: who is in the editor, when each contributor
-was online today, how many words they added, and how full the server is.
+was online, how many words they added, and how full the server is.
 
 Run by cron every minute on the contributor server. The page is one static
 HTML file that nginx serves at /dashboard/ behind the maintainer's login.
@@ -15,7 +15,7 @@ import shutil
 import subprocess
 from collections.abc import Iterable
 from dataclasses import dataclass, field
-from datetime import UTC, datetime, timedelta, tzinfo
+from datetime import UTC, date, datetime, time, timedelta, tzinfo
 from enum import Enum
 from pathlib import Path
 
@@ -30,11 +30,31 @@ ASLEEP_PATTERN = re.compile(r"lifecycle: asleep: ([0-9]+(?:\.[0-9]+)?) min idle"
 CONNECT_MESSAGES = ("lifecycle: page connected", "lifecycle: page reconnected")
 TEST_USERS: tuple[str, ...] = ("bdhrs", "deva")
 HISTORY_DAYS = 14
-# The timeline always shows the 24 hours up to now, with now at the right edge.
-WINDOW = timedelta(hours=24)
+# Day and Week are drawn as timelines of single visits, ending now at the
+# right edge. Month, Year and All are bar charts of saved minutes per day.
+TIMELINE_SPANS: dict[str, timedelta] = {
+    "day": timedelta(hours=24),
+    "week": timedelta(days=7),
+}
+BAR_PERIODS: tuple[str, ...] = ("month", "year", "all")
+PERIODS: tuple[str, ...] = ("day", "week", "month", "year", "all")
+PERIOD_NAMES: dict[str, str] = {
+    "day": "today",
+    "week": "last 7 days",
+    "month": "last 30 days",
+    "year": "last 12 months",
+    "all": "all time",
+}
+MONTH_DAYS = 30
+YEAR_WEEKS = 52
+# The journal still holds these days, so each run counts them again. Older
+# days keep what an earlier run saved, so history outlives the journal.
+REFRESH_DAYS = 7
 TICK_HOURS = 3
-# Keeps an hour label clear of the "now" label at the right edge.
-LABEL_CLEAR_PERCENT = 4.0
+# The most labels a bar ruler shows; more would run into each other.
+MAX_BAR_LABELS = 8
+# Keeps a label clear of the "now" label at the right edge.
+LABEL_CLEAR_PERCENT = 8.0
 RELOAD_SECONDS = 60
 WARN_PERCENT = 70
 BAD_PERCENT = 90
@@ -96,13 +116,35 @@ class Block:
 
 
 @dataclass(frozen=True)
+class Bucket:
+    label: str
+    title: str
+    first: date
+    last: date
+
+
+@dataclass(frozen=True)
+class Bar:
+    bucket: Bucket
+    minutes: int
+    words: int
+
+
+@dataclass(frozen=True)
+class LaneView:
+    """One lane in one period: blocks for a timeline, bars for a bar chart."""
+
+    minutes: int
+    words: int
+    blocks: list[Block] = field(default_factory=list)
+    bars: list[Bar] = field(default_factory=list)
+
+
+@dataclass(frozen=True)
 class Lane:
     user: str
     state: State
-    blocks: list[Block]
-    # Minutes online in the last 24 hours, the same span as the timeline.
-    minutes: int
-    words_today: int
+    views: dict[str, LaneView]
     words_total: int
     memory_bytes: int | None
     is_test: bool
@@ -130,7 +172,8 @@ class Dashboard:
     now: datetime
     lanes: list[Lane]
     meters: list[Meter]
-    words_today: int
+    period_words: dict[str, int]
+    period_starts: dict[str, date]
     words_total: int
     first_day: str | None
     test_users: list[str] = field(default_factory=list)
@@ -253,37 +296,249 @@ def lane_state(unit: Unit | None, open_visit: Visit | None) -> State:
     return State.ONLINE
 
 
+def seconds_per_day(
+    visits: Iterable[Visit], now: datetime
+) -> dict[str, dict[str, int]]:
+    """Seconds online per user per calendar day. A visit across midnight
+    counts on both days; an open visit counts up to now. Seconds, not minutes:
+    rounding each day to a minute made a month add up to less than its week."""
+    seconds: dict[str, dict[str, float]] = {}
+    for visit in visits:
+        start = visit.start
+        end = visit.end or now
+        while start < end:
+            midnight = datetime.combine(
+                start.date() + timedelta(days=1), time(), start.tzinfo
+            )
+            piece_end = min(end, midnight)
+            days = seconds.setdefault(visit.user, {})
+            day = start.date().isoformat()
+            days[day] = days.get(day, 0.0) + (piece_end - start).total_seconds()
+            start = piece_end
+    whole: dict[str, dict[str, int]] = {}
+    for user, days in seconds.items():
+        kept = {day: round(value) for day, value in days.items() if round(value)}
+        if kept:
+            whole[user] = kept
+    return whole
+
+
+def journal_start(lines: Iterable[str], tz: tzinfo) -> datetime | None:
+    """The time of the first line the journal read returned, or None when it
+    returned nothing (a failed read, or a journal that was cleared)."""
+    for line in lines:
+        try:
+            record = json.loads(line)
+        except json.JSONDecodeError:
+            continue
+        stamp = record.get("__REALTIME_TIMESTAMP") if isinstance(record, dict) else None
+        if isinstance(stamp, str) and stamp.isdigit():
+            return datetime.fromtimestamp(int(stamp) / 1_000_000, tz)
+    return None
+
+
+def merge_seconds(
+    stored: dict[str, dict[str, int]],
+    fresh: dict[str, dict[str, int]],
+    now: datetime,
+    covered_from: datetime | None,
+) -> dict[str, dict[str, int]]:
+    """A day is counted again from this run's journal read only when the read
+    covered the whole day (it began at or before that midnight). The last
+    REFRESH_DAYS covered days are always recounted: an open visit can shrink
+    when it ends. An older covered day is filled only when nothing was saved
+    for it. Every day the read did not cover keeps what was saved, so a
+    rotated or failed journal never erases history. Never "keep the larger":
+    a sleep line rightly shortens an earlier estimate."""
+
+    def covered(day: str) -> bool:
+        if covered_from is None:
+            return False
+        midnight = datetime.combine(
+            date.fromisoformat(day), time(), covered_from.tzinfo
+        )
+        return covered_from <= midnight
+
+    recent = {
+        (now.date() - timedelta(days=back)).isoformat() for back in range(REFRESH_DAYS)
+    }
+    refresh = {day for day in recent if covered(day)}
+    merged: dict[str, dict[str, int]] = {}
+    for user in sorted(set(stored) | set(fresh)):
+        days = {
+            day: value
+            for day, value in stored.get(user, {}).items()
+            if day not in refresh
+        }
+        for day, value in fresh.get(user, {}).items():
+            if day in refresh or (day not in days and covered(day)):
+                days[day] = value
+        if days:
+            merged[user] = dict(sorted(days.items()))
+    return merged
+
+
+def read_seconds(path: Path) -> dict[str, dict[str, int]]:
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except FileNotFoundError:
+        return {}
+    except (OSError, UnicodeDecodeError, json.JSONDecodeError) as exc:
+        _set_aside(path, str(exc))
+        return {}
+    if not isinstance(data, dict):
+        _set_aside(path, f"top level is {type(data).__name__}, not an object")
+        return {}
+    seconds: dict[str, dict[str, int]] = {}
+    for user, days in data.items():
+        if isinstance(user, str) and isinstance(days, dict):
+            seconds[user] = {
+                day: value
+                for day, value in days.items()
+                if isinstance(day, str) and isinstance(value, int)
+            }
+    return seconds
+
+
+def _set_aside(path: Path, reason: str) -> None:
+    """Keep a damaged file for a look, under a name of its own so an older
+    damaged copy is never overwritten; a fresh file starts from the journal."""
+    corrupt = path.with_name(f"{path.name}.corrupt.{datetime.now():%Y%m%d%H%M%S%f}")
+    try:
+        path.replace(corrupt)
+    except OSError as exc:
+        print(f"{path.name} unreadable ({reason}); could not set it aside: {exc}")
+        return
+    print(f"{path.name} unreadable ({reason}), kept as {corrupt.name}")
+
+
+def write_seconds(path: Path, seconds: dict[str, dict[str, int]]) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    tmp = path.with_name(f"{path.name}.{os.getpid()}.tmp")
+    tmp.write_text(json.dumps(seconds, indent=1, sort_keys=True), encoding="utf-8")
+    tmp.replace(path)
+
+
+def first_day(
+    words: dict[str, dict[str, int]], seconds: dict[str, dict[str, int]], today: date
+) -> date:
+    """The earliest day any user has words or time online; the start of All."""
+    days = [
+        day
+        for source in (words, seconds)
+        for per_day in source.values()
+        for day in per_day
+    ]
+    parsed: list[date] = []
+    for day in days:
+        try:
+            parsed.append(date.fromisoformat(day))
+        except ValueError:
+            continue
+    return min([today, *parsed])
+
+
+def period_starts(today: date, start_of_all: date) -> dict[str, date]:
+    """The first calendar day each period counts words (and bar minutes) from."""
+    monday = today - timedelta(days=today.weekday())
+    return {
+        "day": today,
+        "week": today - timedelta(days=6),
+        "month": today - timedelta(days=MONTH_DAYS - 1),
+        "year": monday - timedelta(weeks=YEAR_WEEKS - 1),
+        "all": start_of_all.replace(day=1),
+    }
+
+
+def bar_buckets(period: str, today: date, start_of_all: date) -> list[Bucket]:
+    if period == "month":
+        days = [today - timedelta(days=back) for back in range(MONTH_DAYS - 1, -1, -1)]
+        return [Bucket(f"{d.day} {d:%b}", f"{d:%a} {d.day} {d:%b}", d, d) for d in days]
+    if period == "year":
+        monday = today - timedelta(days=today.weekday())
+        weeks = [
+            monday - timedelta(weeks=back) for back in range(YEAR_WEEKS - 1, -1, -1)
+        ]
+        return [
+            Bucket(
+                f"{w:%b}", f"week of {w.day} {w:%b} {w:%Y}", w, w + timedelta(days=6)
+            )
+            for w in weeks
+        ]
+    buckets: list[Bucket] = []
+    month = start_of_all.replace(day=1)
+    while month <= today:
+        following = (month.replace(day=28) + timedelta(days=4)).replace(day=1)
+        label = f"{month:%b %y}"
+        buckets.append(
+            Bucket(label, f"{month:%B %Y}", month, following - timedelta(days=1))
+        )
+        month = following
+    return buckets
+
+
+def _sum_days(per_day: dict[str, int], first: date, last: date) -> int:
+    low, high = first.isoformat(), last.isoformat()
+    return sum(value for day, value in per_day.items() if low <= day <= high)
+
+
 def build_lanes(
     users: list[str],
     units: dict[str, Unit],
     visits: list[Visit],
     words: dict[str, dict[str, int]],
+    seconds: dict[str, dict[str, int]],
     test_users: set[str],
     now: datetime,
     added: dict[str, datetime] | None = None,
 ) -> list[Lane]:
     """One lane per user: real contributors first, test users last, each group
     by name, so a lane never moves between reloads."""
-    window_start = now - WINDOW
-    today = now.date().isoformat()
+    today = now.date()
+    start_of_all = first_day(words, seconds, today)
+    starts = period_starts(today, start_of_all)
+    buckets = {
+        period: bar_buckets(period, today, start_of_all) for period in BAR_PERIODS
+    }
     lanes: list[Lane] = []
     for user in sorted(users, key=lambda name: (name in test_users, name)):
         own = [visit for visit in visits if visit.user == user]
         open_visit = next((visit for visit in own if visit.end is None), None)
         unit = units.get(user)
-        state = lane_state(unit, open_visit)
-        blocks = blocks_in_window(own, window_start, now)
-        seconds = sum((block.end - block.start).total_seconds() for block in blocks)
         ended = [visit.end for visit in own if visit.end is not None]
-        per_day = words.get(user, {})
+        user_words = words.get(user, {})
+        user_seconds = seconds.get(user, {})
+        views: dict[str, LaneView] = {}
+        for period, span in TIMELINE_SPANS.items():
+            blocks = blocks_in_window(own, now - span, now)
+            online = sum((block.end - block.start).total_seconds() for block in blocks)
+            views[period] = LaneView(
+                minutes=round(online / 60),
+                words=_sum_days(user_words, starts[period], today),
+                blocks=blocks,
+            )
+        for period in BAR_PERIODS:
+            bars = [
+                Bar(
+                    bucket,
+                    round(_sum_days(user_seconds, bucket.first, bucket.last) / 60),
+                    _sum_days(user_words, bucket.first, bucket.last),
+                )
+                for bucket in buckets[period]
+            ]
+            first, last = buckets[period][0].first, buckets[period][-1].last
+            views[period] = LaneView(
+                # Rounded once over the whole period, like the timelines.
+                minutes=round(_sum_days(user_seconds, first, last) / 60),
+                words=sum(bar.words for bar in bars),
+                bars=bars,
+            )
         lanes.append(
             Lane(
                 user=user,
-                state=state,
-                blocks=blocks,
-                minutes=round(seconds / 60),
-                words_today=per_day.get(today, 0),
-                words_total=sum(per_day.values()),
+                state=lane_state(unit, open_visit),
+                views=views,
+                words_total=sum(user_words.values()),
                 memory_bytes=unit.memory_bytes if unit else None,
                 is_test=user in test_users,
                 online_since=open_visit.start if open_visit else None,
@@ -424,12 +679,14 @@ def build_dashboard(
     lanes: list[Lane],
     meters: list[Meter],
     words: dict[str, dict[str, int]],
+    seconds: dict[str, dict[str, int]],
     test_users: set[str],
     now: datetime,
 ) -> Dashboard:
     """The big numbers count real contributors only, including any who no
     longer have a lane."""
-    today = now.date().isoformat()
+    today = now.date()
+    starts = period_starts(today, first_day(words, seconds, today))
     real = {user: days for user, days in words.items() if user not in test_users}
     days_with_words = sorted(
         day for days in real.values() for day, count in days.items() if count
@@ -438,7 +695,13 @@ def build_dashboard(
         now=now,
         lanes=lanes,
         meters=meters,
-        words_today=sum(days.get(today, 0) for days in real.values()),
+        period_words={
+            period: sum(
+                _sum_days(days, starts[period], today) for days in real.values()
+            )
+            for period in PERIODS
+        },
+        period_starts=starts,
         words_total=sum(sum(days.values()) for days in real.values()),
         first_day=days_with_words[0] if days_with_words else None,
         test_users=sorted(test_users),
@@ -629,6 +892,41 @@ header .presence {
 }
 .empty { color: var(--muted); padding: 16px 0; }
 
+.view, [data-for] { display: none; }
+.section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin: 32px 0 12px;
+}
+.section-head .section-title { margin: 0; }
+.views {
+  display: inline-flex;
+  gap: 4px;
+  padding: 4px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--card);
+}
+.views button {
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--muted);
+  background: none;
+  border: 0;
+  border-radius: 999px;
+  padding: 6px 14px;
+  cursor: pointer;
+}
+.views button:hover { color: var(--text); }
+.views button[aria-pressed="true"] { background: var(--primary); color: var(--dark); }
+.track.bars { display: flex; align-items: flex-end; gap: 2px; padding: 4px 6px; }
+.bar-slot { flex: 1; height: 100%; display: flex; align-items: flex-end; }
+.vbar { width: 100%; border-radius: 2px 2px 0 0; background: var(--primary); }
+
 @media (max-width: 860px) {
   .row { grid-template-columns: 1fr; gap: 10px; }
   .row.ruler .who, .row.ruler .stats { display: none; }
@@ -693,33 +991,77 @@ def _state_text(lane: Lane, now: datetime) -> str:
     return f"{text} · {memory}" if memory and lane.state is not State.DOWN else text
 
 
-def _percent(at: datetime, window_start: datetime) -> float:
-    return 100.0 * (at - window_start) / WINDOW
+def _percent(at: datetime, window_start: datetime, span: timedelta) -> float:
+    return 100.0 * (at - window_start) / span
 
 
-def tick_times(window_start: datetime, now: datetime) -> list[datetime]:
-    """Every clock hour divisible by TICK_HOURS inside the window."""
+def tick_times(
+    window_start: datetime, now: datetime, every_hours: int = TICK_HOURS
+) -> list[datetime]:
+    """Every clock hour divisible by every_hours inside the window (24 gives
+    the midnights)."""
     tick = window_start.replace(minute=0, second=0, microsecond=0) + timedelta(hours=1)
     ticks: list[datetime] = []
     while tick < now:
-        if tick.hour % TICK_HOURS == 0:
+        if tick.hour % every_hours == 0:
             ticks.append(tick)
         tick += timedelta(hours=1)
     return ticks
 
 
-def _render_track(lane: Lane, window_start: datetime, ticks: list[datetime]) -> str:
+def _now_label() -> str:
+    return '<span class="now-label" style="left:100%">now</span>'
+
+
+def _timeline_ruler(period: str, window_start: datetime, ticks: list[datetime]) -> str:
+    span = TIMELINE_SPANS[period]
+    labels: list[str] = []
+    for tick in ticks:
+        if period == "day":
+            left = _percent(tick, window_start, span)
+            # Midnight shows the day that starts there.
+            text, css = (
+                (f"{tick:%a}", "midnight")
+                if tick.hour == 0
+                else (f"{tick.hour:02d}", "")
+            )
+        else:
+            # A week label sits in the middle of its day.
+            left = _percent(tick + timedelta(hours=12), window_start, span)
+            text, css = f"{tick:%a} {tick.day}", ""
+        if left > 100 - LABEL_CLEAR_PERCENT:
+            continue
+        labels.append(f'<span class="{css}" style="left:{left:.3f}%">{text}</span>')
+    return "".join(labels) + _now_label()
+
+
+def _bars_ruler(buckets: list[Bucket]) -> str:
+    count = len(buckets)
+    step = max(1, -(-count // MAX_BAR_LABELS))
+    labels: list[str] = []
+    for index, bucket in enumerate(buckets):
+        left = 100.0 * (index + 0.5) / count
+        if index % step or left > 100 - LABEL_CLEAR_PERCENT:
+            continue
+        labels.append(f'<span style="left:{left:.3f}%">{_esc(bucket.label)}</span>')
+    return "".join(labels) + _now_label()
+
+
+def _render_timeline(
+    blocks: list[Block], window_start: datetime, span: timedelta, ticks: list[datetime]
+) -> str:
+    time_format = "%H:%M" if span <= timedelta(hours=24) else "%a %H:%M"
     parts: list[str] = [
         f'<div class="tick{" midnight" if tick.hour == 0 else ""}" '
-        f'style="left:{_percent(tick, window_start):.3f}%"></div>'
+        f'style="left:{_percent(tick, window_start, span):.3f}%"></div>'
         for tick in ticks
     ]
-    for block in lane.blocks:
-        left = _percent(block.start, window_start)
-        width = max(MIN_BLOCK_PERCENT, _percent(block.end, window_start) - left)
+    for block in blocks:
+        left = _percent(block.start, window_start, span)
+        width = max(MIN_BLOCK_PERCENT, _percent(block.end, window_start, span) - left)
         minutes = round((block.end - block.start).total_seconds() / 60)
         end_text = "now" if block.is_open else _clock(block.end)
-        title = f"{_clock(block.start)} – {end_text} · {minutes} min"
+        title = f"{block.start.strftime(time_format)} – {end_text} · {minutes} min"
         css = "block open" if block.is_open else "block"
         parts.append(
             f'<div class="{css}" style="left:{left:.3f}%;width:{width:.3f}%" '
@@ -728,26 +1070,36 @@ def _render_track(lane: Lane, window_start: datetime, ticks: list[datetime]) -> 
     return f'<div class="track">{"".join(parts)}</div>'
 
 
+def _render_bars(bars: list[Bar], top: int) -> str:
+    parts: list[str] = []
+    for bar in bars:
+        height = max(4.0, 100.0 * bar.minutes / top) if bar.minutes else 0.0
+        title = f"{bar.bucket.title}: {bar.minutes:,} min, {bar.words:,} words"
+        parts.append(
+            f'<div class="bar-slot" title="{_esc(title)}">'
+            f'<div class="vbar" style="height:{height:.1f}%"></div></div>'
+        )
+    return f'<div class="track bars">{"".join(parts)}</div>'
+
+
 def _render_lane(
-    lane: Lane,
-    first_test: bool,
-    window_start: datetime,
-    ticks: list[datetime],
-    now: datetime,
+    lane: Lane, period: str, first_test: bool, track: str, now: datetime
 ) -> str:
+    view = lane.views[period]
     state_css = lane.state.name.lower().replace("_", "-")
     classes = f"row {state_css}" + (" test-first" if first_test else "")
     tag = '<span class="tag">test</span>' if lane.is_test else ""
+    words_label = "today" if period == "day" else "words"
     return (
         f'<div class="{classes}">'
         f'<div class="who"><span class="dot"></span><div>'
         f'<div class="name">{_esc(lane.user)}{tag}</div>'
         f'<div class="state">{_esc(_state_text(lane, now))}</div>'
         f"</div></div>"
-        f"{_render_track(lane, window_start, ticks)}"
+        f"{track}"
         f'<div class="stats">'
-        f"<div><b>{lane.minutes:,}</b><span>min</span></div>"
-        f"<div><b>{lane.words_today:,}</b><span>today</span></div>"
+        f"<div><b>{view.minutes:,}</b><span>min</span></div>"
+        f"<div><b>{view.words:,}</b><span>{words_label}</span></div>"
         f"<div><b>{lane.words_total:,}</b><span>total</span></div>"
         f"</div></div>"
     )
@@ -770,49 +1122,114 @@ def _render_meter(meter: Meter) -> str:
     )
 
 
+def _render_period(dashboard: Dashboard, period: str) -> str:
+    """The lanes of one period, with its ruler on top."""
+    now = dashboard.now
+    lanes = dashboard.lanes
+    if not lanes:
+        return '<div class="empty">No contributors yet.</div>'
+    if period in TIMELINE_SPANS:
+        span = TIMELINE_SPANS[period]
+        window_start = now - span
+        ticks = tick_times(window_start, now, TICK_HOURS if period == "day" else 24)
+        ruler = _timeline_ruler(period, window_start, ticks)
+        tracks = [
+            _render_timeline(lane.views[period].blocks, window_start, span, ticks)
+            for lane in lanes
+        ]
+    else:
+        ruler = _bars_ruler([bar.bucket for bar in lanes[0].views[period].bars])
+        # One scale for every lane, so bar heights compare across people.
+        top = max(
+            [1] + [bar.minutes for lane in lanes for bar in lane.views[period].bars]
+        )
+        tracks = [_render_bars(lane.views[period].bars, top) for lane in lanes]
+    has_real = any(not lane.is_test for lane in lanes)
+    rows: list[str] = [
+        '<div class="row ruler"><div class="who"></div>'
+        f'<div class="hours">{ruler}</div>'
+        '<div class="stats"></div></div>'
+    ]
+    seen_test = False
+    for lane, track in zip(lanes, tracks, strict=True):
+        first_test = lane.is_test and not seen_test and has_real
+        seen_test = seen_test or lane.is_test
+        rows.append(_render_lane(lane, period, first_test, track, now))
+    return "".join(rows)
+
+
+def _view_css() -> str:
+    shown = ",\n".join(
+        f"body[data-view={p}] .view[data-view={p}], body[data-view={p}] [data-for={p}]"
+        for p in PERIODS
+    )
+    return f"{shown} {{ display: block; }}\n"
+
+
+VIEW_SCRIPT = """<script>
+// The chosen period survives the once-a-minute reload.
+const VIEWS = ["day", "week", "month", "year", "all"];
+let chosen = null;
+try { chosen = localStorage.getItem("dpd-dashboard-view"); } catch (e) {}
+function show(view) {
+  if (!VIEWS.includes(view)) view = "day";
+  document.body.dataset.view = view;
+  document.querySelectorAll(".views button").forEach(
+    (b) => b.setAttribute("aria-pressed", String(b.dataset.view === view)));
+  try { localStorage.setItem("dpd-dashboard-view", view); } catch (e) {}
+}
+document.querySelectorAll(".views button").forEach(
+  (b) => b.addEventListener("click", () => show(b.dataset.view)));
+show(chosen);
+</script>"""
+
+
 def render_page(dashboard: Dashboard, css_variables: str) -> str:
     now = dashboard.now
-    window_start = now - WINDOW
-    ticks = tick_times(window_start, now)
     real_lanes = [lane for lane in dashboard.lanes if not lane.is_test]
     online = sum(
         lane.state in (State.ONLINE, State.SLEEPING_SOON) for lane in real_lanes
     )
     online_css = "online" if online else ""
+    test_note = f"test users ({', '.join(dashboard.test_users)}) not counted"
 
-    rows: list[str] = []
-    seen_test = False
-    for lane in dashboard.lanes:
-        first_test = lane.is_test and not seen_test and bool(real_lanes)
-        seen_test = seen_test or lane.is_test
-        rows.append(_render_lane(lane, first_test, window_start, ticks, now))
+    total_note = "none yet"
+    if dashboard.first_day:
+        first = date.fromisoformat(dashboard.first_day)
+        total_note = f"since {first.day} {first:%b %Y}"
+    values: list[str] = []
     labels: list[str] = []
-    for tick in ticks:
-        left = _percent(tick, window_start)
-        if left > 100 - LABEL_CLEAR_PERCENT:
-            continue
-        # Midnight shows the day that starts there.
-        if tick.hour == 0:
-            labels.append(
-                f'<span class="midnight" style="left:{left:.3f}%">{tick.strftime("%a")}</span>'
-            )
+    notes: list[str] = []
+    for period in PERIODS:
+        start = dashboard.period_starts[period]
+        values.append(
+            f'<div class="value" data-for="{period}">{dashboard.period_words[period]:,}</div>'
+        )
+        label = (
+            "words added today"
+            if period == "day"
+            else f"words added, {PERIOD_NAMES[period]}"
+        )
+        labels.append(f'<div class="label" data-for="{period}">{label}</div>')
+        if period == "day":
+            when = f"{now:%A %d %B}"
+        elif period == "all":
+            # The first day with words, as under the total, not the 1st of
+            # that month the All bars start from.
+            when = total_note
         else:
-            labels.append(f'<span style="left:{left:.3f}%">{tick.hour:02d}</span>')
-    labels.append('<span class="now-label" style="left:100%">now</span>')
-    hours = "".join(labels)
-    ruler = (
-        '<div class="row ruler"><div class="who"></div>'
-        f'<div class="hours">{hours}</div>'
-        '<div class="stats"><div></div><div></div><div></div></div></div>'
+            when = f"since {start.day} {start:%b %Y}"
+        notes.append(
+            f'<div class="note" data-for="{period}">{_esc(when)} · {_esc(test_note)}</div>'
+        )
+    buttons = "".join(
+        f'<button type="button" data-view="{p}" aria-pressed="{str(p == "day").lower()}">{p.title()}</button>'
+        for p in PERIODS
     )
-    lanes_html = (
-        ruler + "".join(rows)
-        if rows
-        else '<div class="empty">No contributors yet.</div>'
+    sections = "".join(
+        f'<section class="card lanes view" data-view="{p}">{_render_period(dashboard, p)}</section>'
+        for p in PERIODS
     )
-
-    test_note = ", ".join(dashboard.test_users)
-    total_note = f"since {dashboard.first_day}" if dashboard.first_day else "none yet"
     meters_html = "".join(_render_meter(meter) for meter in dashboard.meters)
 
     return f"""<!doctype html>
@@ -826,9 +1243,10 @@ def render_page(dashboard: Dashboard, css_variables: str) -> str:
 <style>
 {css_variables}
 {PAGE_CSS}
+{_view_css()}
 </style>
 </head>
-<body>
+<body data-view="day">
 <main>
 <header>
   <img src="{LOGO_NAME}" alt="DPD">
@@ -841,9 +1259,9 @@ def render_page(dashboard: Dashboard, css_variables: str) -> str:
 
 <section class="numbers">
   <div class="card number">
-    <div class="value">{dashboard.words_today:,}</div>
-    <div class="label">words added today</div>
-    <div class="note">{now.strftime("%A %d %B")} · test users ({_esc(test_note)}) not counted</div>
+    {"".join(values)}
+    {"".join(labels)}
+    {"".join(notes)}
   </div>
   <div class="card number">
     <div class="value">{dashboard.words_total:,}</div>
@@ -855,9 +1273,13 @@ def render_page(dashboard: Dashboard, css_variables: str) -> str:
 <div class="section-title">Server</div>
 <section class="meters">{meters_html}</section>
 
-<div class="section-title">Contributors, last 24 hours</div>
-<section class="card lanes">{lanes_html}</section>
+<div class="section-head">
+  <div class="section-title">Contributors</div>
+  <div class="views">{buttons}</div>
+</div>
+{sections}
 </main>
+{VIEW_SCRIPT}
 </body>
 </html>
 """
@@ -885,6 +1307,9 @@ def main() -> None:
     parser.add_argument("--env-dir", type=Path, default=Path("/etc/dpd"))
     parser.add_argument("--project-root", type=Path, default=Path("."))
     parser.add_argument("--test-user", action="append", default=None)
+    parser.add_argument(
+        "--seconds-file", type=Path, default=Path("/var/lib/dpd/dashboard_seconds.json")
+    )
     args = parser.parse_args()
 
     now = datetime.now().astimezone()
@@ -894,18 +1319,33 @@ def main() -> None:
     )
 
     users = read_users(args.env_dir)
-    events = parse_journal(read_journal(now - timedelta(days=HISTORY_DAYS)), tz)
+    # From midnight, so the oldest day read is a whole day.
+    since = datetime.combine(now.date() - timedelta(days=HISTORY_DAYS), time(), tz)
+    lines = read_journal(since)
+    visits = build_visits(parse_journal(lines, tz))
+    seconds = merge_seconds(
+        read_seconds(args.seconds_file),
+        seconds_per_day(visits, now),
+        now,
+        journal_start(lines, tz),
+    )
+    # A failed save must not stop the page: the next run tries again.
+    try:
+        write_seconds(args.seconds_file, seconds)
+    except OSError as exc:
+        print(f"could not save {args.seconds_file}: {exc}")
     words = read_daily_logs(args.data_dir)
     lanes = build_lanes(
         users,
         read_units(users),
-        build_visits(events),
+        visits,
         words,
+        seconds,
         test_users,
         now,
         read_added(args.env_dir, users, tz),
     )
-    dashboard = build_dashboard(lanes, read_meters(), words, test_users, now)
+    dashboard = build_dashboard(lanes, read_meters(), words, seconds, test_users, now)
     css_variables = (args.project_root / CSS_VARIABLES_SOURCE).read_text(
         encoding="utf-8"
     )

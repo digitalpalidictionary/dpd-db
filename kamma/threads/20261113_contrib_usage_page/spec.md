@@ -56,12 +56,14 @@ While in this area, two small editor-side changes: the DPD logo replaces the Fle
 ## Design
 
 - One script, `scripts/server_contrib/contrib_dashboard.py`, run by cron every minute on the server.
-- Each run reads everything again. There is no state file and no cursor:
+- Each run reads everything again, plus one saved file of minutes per day (below):
   1. `journalctl -u 'dpd-gui@*' --since <14 days ago> -o json`. Fourteen days give each lane a "last seen" time, and a visit open at midnight keeps its start.
   2. `systemctl show -p Id -p ActiveState -p MemoryCurrent` for every unit named by `/etc/dpd/*.env`.
   3. Every `daily_log_<user>.json` in the data folder.
   4. `psutil` for disk, memory, swap and load.
 - Visits come from the journal: a visit starts at the first `page connected`/`reconnected` with no visit open, and ends at `asleep` time minus its idle minutes, or at `Stopped`/`Started`. A visit with no end is open; on the timeline it runs to now. Visits are cut to the last 24 hours.
+- Periods (added 2026-11-13 at the owner's request): a toggle Day · Week · Month · Year · All. Day = last 24 hours and Week = last 7 days, as visit timelines. Month = last 30 days (bar per day), Year = last 52 weeks (bar per Monday-start week), All = every month since the first day with words or minutes (bar per month). Bar heights share one scale across lanes. The big words number and each lane's minutes and words follow the period; "total" stays all-time. The browser keeps the choice in local storage across the 60-second reload; without it the page shows Day.
+- Time online per day is saved, in seconds, in `/var/lib/dpd/dashboard_seconds.json`, because the journal is deleted from its oldest end at its size limit. Each run recounts the last 7 days from the journal (it surely still holds them, and an open visit can shrink when it closes) and keeps older days as saved. A day is only recounted when the journal read covers all of it (the read's first line is at or before that midnight), so a cleared journal or a failed read never erases saved days. A visit across midnight counts on both days. A damaged file (bad JSON, bad text, wrong shape) is set aside as `.corrupt.<time>`; a failed save is logged and the page is still written.
 - The page goes to `<out-dir>/index.html`, written to a temp file and then renamed, so nginx never serves half a page. The script copies the logo and the Inter font into `<out-dir>` when they are missing.
 - nginx serves `<out-dir>` at `/dashboard/`, behind the maintainer's htpasswd file, like `/status`.
 
@@ -69,7 +71,7 @@ While in this area, two small editor-side changes: the DPD logo replaces the Fle
 
 - Address `/dashboard/`; output folder `/var/lib/dpd/dashboard/`.
 - Cron every minute, page reload every 60 seconds.
-- The last 24 hours on the timeline. No week table (the first draft had one; the new brief does not ask for it).
+- Day, Week, Month, Year and All through a toggle (replaces the earlier "last 24 hours only").
 - Test users are shown, tagged, last, and left out of the two big numbers.
 - "Words" = new words saved, the same count as the editor's own counter in its top bar.
 - Time shown is server time, which is the owner's time (both +05:30).
@@ -101,7 +103,6 @@ While in this area, two small editor-side changes: the DPD logo replaces the Fle
 
 ## What's not included
 
-- A history beyond the last 24 hours, or a week table.
 - Alerts, emails or notifications.
 - Changes to how the editor logs actions.
 - The offline page (not in the brief).

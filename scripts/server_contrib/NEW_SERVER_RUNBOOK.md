@@ -495,7 +495,7 @@ CHECK: `ssh SSH_TARGET 'grep -c "location = /_dpd_pw_check" /etc/nginx/sites-ava
 
 EXPECT: `1`, the number of users added through 7a or reset with `set_password.sh` (users copied in 7b have none), then `660`.
 
-**7f. The `/dashboard/` page.** One page with who is in the editor, visits in the last 24 hours, words added, and how full the server is (`scripts/server_contrib/contrib_dashboard.py`). The template is `scripts/server_contrib/nginx_dashboard.conf.template`, with `@MAINTAINER@` as `MAINTAINER_USER`: the same login as `/status`. The block goes inside the `server { ... }` of `/etc/nginx/sites-available/dpd-contrib`, before its closing `}`. **WHO:** AGENT.
+**7f. The `/dashboard/` page.** One page with who is in the editor, visits and words by day, week, month, year or all time, and how full the server is. The script also keeps `/var/lib/dpd/dashboard_seconds.json` (seconds online per day; created on the first run) (`scripts/server_contrib/contrib_dashboard.py`). The template is `scripts/server_contrib/nginx_dashboard.conf.template`, with `@MAINTAINER@` as `MAINTAINER_USER`: the same login as `/status`. The block goes inside the `server { ... }` of `/etc/nginx/sites-available/dpd-contrib`, before its closing `}`. **WHO:** AGENT.
 
 ```
 ssh SSH_TARGET 'cp -a /etc/nginx/sites-available/dpd-contrib /root/mem/dpd-contrib.before_dashboard'

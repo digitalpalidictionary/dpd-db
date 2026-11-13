@@ -6,12 +6,15 @@ The fixture is real `journalctl -o json` output of the test users' units
 
 import json
 import subprocess
+from dataclasses import replace
+from datetime import date
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
+import pytest
+
 from scripts.server_contrib import contrib_dashboard
 from scripts.server_contrib.contrib_dashboard import (
-    Dashboard,
     Event,
     Kind,
     Lane,
@@ -20,16 +23,22 @@ from scripts.server_contrib.contrib_dashboard import (
     Unit,
     Visit,
     blocks_in_window,
+    bar_buckets,
     build_dashboard,
     build_lanes,
     build_visits,
+    journal_start,
     lane_state,
+    merge_seconds,
+    seconds_per_day,
     parse_daily_log,
     parse_journal,
     parse_systemctl_show,
     read_journal,
+    read_seconds,
     render_page,
     tick_times,
+    write_seconds,
 )
 
 SERVER_TZ = timezone(timedelta(hours=5, minutes=30))
@@ -184,9 +193,9 @@ def test_lane_counts_yesterday_evening_inside_the_last_24_hours() -> None:
     now = _at("2026-11-13T10:00:00")
     visits = [Visit("alice", _at("2026-11-12T20:00:00"), _at("2026-11-12T21:00:00"))]
     lanes = build_lanes(
-        ["alice"], {"alice": Unit("alice", True, None)}, visits, {}, set(), now
+        ["alice"], {"alice": Unit("alice", True, None)}, visits, {}, {}, set(), now
     )
-    assert lanes[0].minutes == 60
+    assert lanes[0].views["day"].minutes == 60
 
 
 def test_ticks_sit_on_clock_hours_with_midnight_inside() -> None:
@@ -211,13 +220,16 @@ def test_lanes_put_test_users_last_and_count_words_and_minutes() -> None:
         Visit("alice", _at("2026-11-13T09:30:00")),
     ]
     words = {"alice": {"2026-11-12": 5, "2026-11-13": 3}, "bdhrs": {"2026-11-13": 7}}
-    lanes = build_lanes(["bdhrs", "zed", "alice"], units, visits, words, {"bdhrs"}, now)
+    lanes = build_lanes(
+        ["bdhrs", "zed", "alice"], units, visits, words, {}, {"bdhrs"}, now
+    )
 
     assert [lane.user for lane in lanes] == ["alice", "zed", "bdhrs"]
     alice = lanes[0]
     assert alice.state is State.ONLINE
-    assert alice.minutes == 75
-    assert (alice.words_today, alice.words_total) == (3, 8)
+    assert alice.views["day"].minutes == 75
+    assert (alice.views["day"].words, alice.words_total) == (3, 8)
+    assert alice.views["week"].words == 8
     assert alice.online_since == _at("2026-11-13T09:30:00")
     assert alice.last_seen == _at("2026-11-13T08:45:00")
     assert lanes[1].state is State.ASLEEP
@@ -231,8 +243,9 @@ def test_big_numbers_leave_out_test_users() -> None:
         "gone": {"2026-11-13": 2},
         "bdhrs": {"2026-11-01": 50, "2026-11-13": 9},
     }
-    dashboard = build_dashboard([], [], words, {"bdhrs"}, now)
-    assert (dashboard.words_today, dashboard.words_total) == (5, 9)
+    dashboard = build_dashboard([], [], words, {}, {"bdhrs"}, now)
+    assert (dashboard.period_words["day"], dashboard.words_total) == (5, 9)
+    assert dashboard.period_words["week"] == 9
     assert dashboard.first_day == "2026-11-10"
 
 
@@ -260,28 +273,18 @@ def test_meter_percent_is_capped() -> None:
 
 def test_page_shows_lanes_numbers_and_meters() -> None:
     now = _at("2026-11-13T10:00:00")
-    lane = Lane(
-        user="alice",
-        state=State.ONLINE,
-        blocks=[],
-        minutes=12,
-        words_today=3,
+    lane = _lane(
+        "alice",
+        State.ONLINE,
+        now=now,
         words_total=1234,
         memory_bytes=800 * 1024**2,
-        is_test=False,
         online_since=_at("2026-11-13T09:48:00"),
-        last_seen=None,
     )
-    dashboard = Dashboard(
-        now=now,
-        lanes=[lane],
-        meters=[Meter("Disk", 95.0, 100.0, "GB")],
-        words_today=3,
-        words_total=1234,
-        first_day="2026-11-13",
-        test_users=["bdhrs"],
+    page = render_page(
+        build_dashboard([lane], [Meter("Disk", 95.0, 100.0, "GB")], {}, {}, set(), now),
+        ":root { --primary: blue; }",
     )
-    page = render_page(dashboard, ":root { --primary: blue; }")
     assert "1,234" in page
     assert "online since 09:48" in page
     assert "1 of 1 online" in page
@@ -329,20 +332,37 @@ def test_journal_failure_still_gives_a_page(monkeypatch) -> None:
 
 
 def _lane(
-    user: str, state: State, is_test: bool = False, last_seen: datetime | None = None
+    user: str,
+    state: State,
+    is_test: bool = False,
+    last_seen: datetime | None = None,
+    now: datetime = _at("2026-11-13T10:00:00"),
+    *,
+    online_since: datetime | None = None,
+    added: datetime | None = None,
+    memory_bytes: int | None = None,
+    words_total: int = 0,
 ) -> Lane:
-    return Lane(
-        user=user,
+    """A lane with empty views for every period, built the way the script
+    builds one, then given the state the test needs."""
+    base = build_lanes([user], {}, [], {}, {}, set(), now)[0]
+    if online_since is None and state is State.ONLINE:
+        online_since = _at("2026-11-13T09:00:00")
+    return replace(
+        base,
         state=state,
-        blocks=[],
-        minutes=0,
-        words_today=0,
-        words_total=0,
-        memory_bytes=None,
         is_test=is_test,
-        online_since=_at("2026-11-13T09:00:00") if state is State.ONLINE else None,
         last_seen=last_seen,
+        online_since=online_since,
+        added=added,
+        memory_bytes=memory_bytes,
+        words_total=words_total,
     )
+
+
+def _page(lanes: list[Lane], now: datetime = _at("2026-11-13T10:00:00")) -> str:
+    test_users = {lane.user for lane in lanes if lane.is_test}
+    return render_page(build_dashboard(lanes, [], {}, {}, test_users, now), "")
 
 
 def test_page_says_when_an_asleep_lane_was_last_seen() -> None:
@@ -352,7 +372,7 @@ def test_page_says_when_an_asleep_lane_was_last_seen() -> None:
         _lane("bob", State.ASLEEP, last_seen=_at("2026-11-09T08:00:00")),
         _lane("carol", State.ASLEEP),
     ]
-    page = render_page(Dashboard(now, lanes, [], 0, 0, None), "")
+    page = _page(lanes, now)
     assert "asleep, last seen yesterday 16:20" in page
     assert "asleep, last seen 9 Nov" in page
     assert "asleep, not seen in 14 days" in page
@@ -361,38 +381,199 @@ def test_page_says_when_an_asleep_lane_was_last_seen() -> None:
 def test_test_users_do_not_count_as_online() -> None:
     now = _at("2026-11-13T10:00:00")
     lanes = [_lane("alice", State.ASLEEP), _lane("bdhrs", State.ONLINE, is_test=True)]
-    page = render_page(Dashboard(now, lanes, [], 0, 0, None), "")
+    page = _page(lanes, now)
     assert "0 of 1 online" in page
 
 
 def test_a_new_account_says_when_it_was_added() -> None:
     now = _at("2026-11-13T10:00:00")
-    new = Lane(
-        **{**_lane("alice", State.ASLEEP).__dict__, "added": _at("2026-11-13T09:00:00")}
-    )
-    old = Lane(
-        **{**_lane("bob", State.ASLEEP).__dict__, "added": _at("2026-10-01T09:00:00")}
-    )
-    page = render_page(Dashboard(now, [new, old], [], 0, 0, None), "")
+    new = _lane("alice", State.ASLEEP, added=_at("2026-11-13T09:00:00"))
+    old = _lane("bob", State.ASLEEP, added=_at("2026-10-01T09:00:00"))
+    page = _page([new, old], now)
     assert "added today, not seen yet" in page
     assert "asleep, not seen in 14 days" in page
 
 
 def test_memory_and_its_unit_stay_together() -> None:
     now = _at("2026-11-13T10:00:00")
-    lane = Lane(
-        **{**_lane("alice", State.ASLEEP).__dict__, "memory_bytes": 74 * 1024**2}
-    )
-    page = render_page(Dashboard(now, [lane], [], 0, 0, None), "")
+    lane = _lane("alice", State.ASLEEP, memory_bytes=74 * 1024**2)
+    page = _page([lane], now)
     assert "74\u00a0MB" in page
 
 
 def test_ruler_ends_at_now_and_names_the_day_at_midnight() -> None:
-    page = render_page(
-        Dashboard(
-            _at("2026-11-13T14:20:00"), [_lane("alice", State.ASLEEP)], [], 0, 0, None
-        ),
-        "",
-    )
+    now = _at("2026-11-13T14:20:00")
+    page = _page([_lane("alice", State.ASLEEP, now=now)], now)
     assert '<span class="now-label" style="left:100%">now</span>' in page
     assert '<span class="midnight"' in page and ">Fri</span>" in page
+
+
+def test_seconds_per_day_splits_at_midnight_and_counts_an_open_visit() -> None:
+    now = _at("2026-11-13T10:00:00")
+    visits = [
+        Visit("alice", _at("2026-11-12T23:30:00"), _at("2026-11-13T00:45:00")),
+        Visit("alice", _at("2026-11-13T09:40:00")),
+    ]
+    assert seconds_per_day(visits, now) == {
+        "alice": {"2026-11-12": 30 * 60, "2026-11-13": 65 * 60}
+    }
+
+
+def test_merge_keeps_old_days_and_redoes_the_recent_ones() -> None:
+    now = _at("2026-11-13T10:00:00")
+    covered_from = _at("2026-10-15T01:00:00")
+    stored = {"alice": {"2026-10-01": 40, "2026-11-12": 99}, "bob": {"2026-11-13": 5}}
+    fresh = {"alice": {"2026-10-20": 15, "2026-11-12": 30}}
+    assert merge_seconds(stored, fresh, now, covered_from) == {
+        # 1 Oct is gone from the journal but kept; 20 Oct is new and filled;
+        # 12 Nov is recent and counted again; bob's recent day had no visit.
+        "alice": {"2026-10-01": 40, "2026-10-20": 15, "2026-11-12": 30},
+    }
+
+
+def test_merge_never_erases_days_the_journal_read_did_not_cover() -> None:
+    now = _at("2026-11-13T10:00:00")
+    stored = {"alice": {"2026-11-08": 500, "2026-11-12": 99}}
+    # The journal now starts on 12 Nov at 09:00: 8 Nov and 12 Nov are not
+    # whole days in it, so both keep what was saved; 13 Nov is recounted.
+    fresh = {"alice": {"2026-11-12": 20, "2026-11-13": 60}}
+    assert merge_seconds(stored, fresh, now, _at("2026-11-12T09:00:00")) == {
+        "alice": {"2026-11-08": 500, "2026-11-12": 99, "2026-11-13": 60}
+    }
+    # A failed or empty read covers nothing: everything saved stays.
+    assert merge_seconds(stored, {}, now, None) == stored
+
+
+def test_journal_start_is_the_first_line_read() -> None:
+    lines = ["", "not json", _line(_at("2026-11-01T01:00:00"), "anything")]
+    assert journal_start(lines, SERVER_TZ) == _at("2026-11-01T01:00:00")
+    assert journal_start([], SERVER_TZ) is None
+
+
+def test_minutes_file_round_trip_and_damaged_file(tmp_path: Path) -> None:
+    path = tmp_path / "dashboard_seconds.json"
+    assert read_seconds(path) == {}
+    write_seconds(path, {"alice": {"2026-11-13": 12}})
+    assert read_seconds(path) == {"alice": {"2026-11-13": 12}}
+    path.write_text("{not json", encoding="utf-8")
+    assert read_seconds(path) == {}
+    path.write_bytes(b"\xff\xfe not text")
+    assert read_seconds(path) == {}
+    path.write_text("[1, 2]", encoding="utf-8")
+    assert read_seconds(path) == {}
+    # Every damaged copy is kept; none overwrites another.
+    assert len(list(tmp_path.glob("dashboard_seconds.json.corrupt.*"))) == 3
+    assert not path.exists()
+
+
+def test_bar_buckets_for_month_year_and_all() -> None:
+    today = date(2026, 11, 13)  # a Friday
+    month = bar_buckets("month", today, today)
+    assert (len(month), month[0].first, month[-1].last) == (
+        30,
+        date(2026, 10, 15),
+        today,
+    )
+    year = bar_buckets("year", today, today)
+    assert len(year) == 52
+    assert year[-1].first == date(2026, 11, 9)  # this week's Monday
+    assert year[0].first == date(2025, 11, 17)
+    every = bar_buckets("all", today, date(2026, 9, 20))
+    assert [b.label for b in every] == ["Sep 26", "Oct 26", "Nov 26"]
+    assert every[0].first == date(2026, 9, 1) and every[0].last == date(2026, 9, 30)
+
+
+def test_bar_views_sum_saved_minutes_and_words_per_bucket() -> None:
+    now = _at("2026-11-13T10:00:00")
+    seconds = {"alice": {"2026-11-12": 1800, "2026-11-13": 1200, "2026-09-02": 6000}}
+    words = {"alice": {"2026-11-13": 4, "2026-09-02": 6}}
+    lane = build_lanes(["alice"], {}, [], words, seconds, set(), now)[0]
+    month = lane.views["month"]
+    assert (month.minutes, month.words) == (50, 4)
+    assert [bar.minutes for bar in month.bars][-2:] == [30, 20]
+    every = lane.views["all"]
+    assert [(bar.bucket.label, bar.minutes) for bar in every.bars] == [
+        ("Sep 26", 100),
+        ("Oct 26", 0),
+        ("Nov 26", 50),
+    ]
+    assert (every.minutes, every.words) == (150, 10)
+
+
+def test_page_has_a_toggle_and_one_section_per_period() -> None:
+    now = _at("2026-11-13T10:00:00")
+    seconds = {"alice": {"2026-11-12": 1800}, "bob": {"2026-11-12": 3600}}
+    lanes = build_lanes(["alice", "bob"], {}, [], {}, seconds, set(), now)
+    page = render_page(build_dashboard(lanes, [], {}, seconds, set(), now), "")
+    assert '<body data-view="day">' in page
+    for period in ("day", "week", "month", "year", "all"):
+        assert f'<button type="button" data-view="{period}"' in page
+        assert f'<section class="card lanes view" data-view="{period}">' in page
+        assert f'<div class="value" data-for="{period}">' in page
+    # One scale for all lanes: bob's 60 minutes is the full height, alice's half.
+    assert 'style="height:100.0%"' in page
+    assert 'style="height:50.0%"' in page
+
+
+def test_a_month_never_counts_less_than_its_week() -> None:
+    # Three visits of 40.4 min on three days: rounding each day to a minute
+    # would give the month 120 while the week's exact sum is 121.
+    now = _at("2026-11-13T10:00:00")
+    visits = [
+        Visit("alice", _at(f"2026-11-{day}T08:00:00"), _at(f"2026-11-{day}T08:40:24"))
+        for day in (10, 11, 12)
+    ]
+    seconds = seconds_per_day(visits, now)
+    lane = build_lanes(["alice"], {}, visits, {}, seconds, set(), now)[0]
+    assert lane.views["week"].minutes == lane.views["month"].minutes == 121
+
+
+def test_a_full_run_keeps_old_history_and_writes_the_page(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    now = datetime.now().astimezone()
+    old_day = (now.date() - timedelta(days=40)).isoformat()
+    seconds_file = tmp_path / "dashboard_seconds.json"
+    write_seconds(seconds_file, {"alice": {old_day: 6000}})
+    env_dir = tmp_path / "env"
+    env_dir.mkdir()
+    (env_dir / "alice.env").write_text("FLET_SERVER_PORT=8551\n", encoding="utf-8")
+    data_dir = tmp_path / "data"
+    data_dir.mkdir()
+    (data_dir / "daily_log_alice.json").write_text(
+        json.dumps({now.date().isoformat(): {"pass1": 7}}), encoding="utf-8"
+    )
+    since = now.replace(hour=1, minute=0) - timedelta(days=13)
+    lines = [
+        _line(since, "Started dpd-gui@alice.service - DPD gui2"),
+        _line(now - timedelta(hours=2), "lifecycle: page connected"),
+        _line(now - timedelta(hours=1), "Stopped dpd-gui@alice.service - DPD gui2"),
+    ]
+    monkeypatch.setattr(contrib_dashboard, "read_journal", lambda since: lines)
+    monkeypatch.setattr(contrib_dashboard, "read_units", lambda users: {})
+    monkeypatch.setattr(contrib_dashboard, "read_meters", lambda: [])
+    out_dir = tmp_path / "out"
+    monkeypatch.setattr(
+        "sys.argv",
+        [
+            "contrib_dashboard.py",
+            "--out-dir",
+            str(out_dir),
+            "--data-dir",
+            str(data_dir),
+            "--env-dir",
+            str(env_dir),
+            "--seconds-file",
+            str(seconds_file),
+            "--test-user",
+            "nobody",
+        ],
+    )
+    contrib_dashboard.main()
+
+    saved = read_seconds(seconds_file)["alice"]
+    assert saved[old_day] == 6000
+    assert sum(value for day, value in saved.items() if day != old_day) == 3600
+    page = (out_dir / "index.html").read_text(encoding="utf-8")
+    assert '<div class="value" data-for="day">7</div>' in page
+    assert "alice" in page

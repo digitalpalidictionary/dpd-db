@@ -165,9 +165,11 @@ finishes normally: the status file never decides the window's outcome.
 
 `contrib_dashboard.py` writes one page that shows the server right now: words
 added today and in total, disk, memory, swap and CPU load, and one lane per
-contributor with a status dot (online, going to sleep, asleep, down) and a
-timeline of the last 24 hours, with "now" at the right edge. It reads everything again on each run, so it keeps
-no state file:
+contributor with a status dot (online, going to sleep, asleep, down). A toggle
+picks the period: Day and Week are timelines of single visits, with "now" at
+the right edge; Month, Year and All are bar charts of minutes online (one bar
+per day, per week, per month). The big words number and each lane's numbers
+follow the toggle; the browser remembers the choice. It reads:
 
 - visits from the editors' journal (`journalctl -u 'dpd-gui@*' -o json`): a
   visit starts at `page connected`/`page reconnected` and ends at the last
@@ -176,6 +178,15 @@ no state file:
 - words from each `daily_log_<user>.json` in the data folder (the same count as
   the editor's top bar);
 - disk, memory, swap and load from `psutil`.
+
+The journal is deleted from the oldest end once it reaches its size limit, so
+the script saves time online (in seconds) per user per day in
+`/var/lib/dpd/dashboard_seconds.json` (`--seconds-file`). Each run counts the
+last 7 days again from the journal and keeps every older day as saved. A day
+is only counted again when the journal read covers all of it, so a cleared
+journal or a failed read never erases saved days. A damaged file is set aside
+as `.corrupt.<time>` and a new one starts from the journal; a failed save is
+logged and the page is still written.
 
 Test users (`bdhrs`, `deva`, or `--test-user` repeated) get a lane marked
 "test" and are left out of the two big numbers.

@@ -5,7 +5,7 @@ Read `spec.md` first.
 ## Architecture Decisions
 
 - One script, `scripts/server_contrib/contrib_dashboard.py`, run by cron every minute (`uv run --no-sync` from `/root/dpd-db`, like `maintenance_window.py`).
-- It reads everything again each run: no state file. It reads the last 14 days of the journal, so a lane can say when that person was last seen (1,903 lines on 2026-11-13, parsed in 8 ms).
+- It reads everything again each run, plus a saved seconds-online-per-day file for Month, Year and All. It reads the last 14 days of the journal, so a lane can say when that person was last seen (1,903 lines on 2026-11-13, parsed in 8 ms).
 - Pure functions for the parts that can be tested without a server: journal lines → events → visits → lane states, and data → HTML. The systemctl, journalctl and psutil calls stay in thin readers.
 - One static HTML page with inline CSS; the DPD variables are read from `identity/css/dpd-variables.css` at run time, so a palette change reaches the page. No JavaScript libraries.
 
@@ -51,6 +51,22 @@ Read `spec.md` first.
 - A never-seen account says "added today, not seen yet" (env file time) instead of "not seen in 14 days".
 - The memory figure keeps its number and unit on one line.
 - 5 tests added (27 in all). Reverting the window fails 1; dropping the added wording fails 1.
+
+## Period toggle — 2026-11-13
+
+- [x] Toggle Day · Week · Month · Year · All; Month, Year and All as bar charts of saved time online per day; big number and lane numbers follow the period.
+  → verify: preview with sample data, screenshot of every view and phone width.
+  → done: screenshots checked; the last bar label was moved clear of "now".
+- [x] Save time online per day (`/var/lib/dpd/dashboard_seconds.json`), recount the last 7 days each run, keep older days.
+  → verify: tests for the split at midnight, the merge, the round trip and a damaged file.
+  → done: 33 tests pass. Dropping saved old days fails 1; giving each lane its own bar scale fails 1.
+- [x] Saved time is kept in seconds, rounded once per period. Per-day minutes made a month add up to less than its week (102 vs 101 on the real journal).
+  → done: test added (34 in all); per-day rounding fails it. Real journal now gives 102 for week, month, year and all.
+- [x] Review: CodeRabbit (script and test folders) and pi DeepSeek (deepseek-flash, thinking off), run in parallel.
+  → fixed: a recent day missing from a shrunk or failed journal read was erased from the saved history (both reviewers) — now only whole days the read covers are recounted; bad text in the saved file was not caught (CodeRabbit); a failed save stopped the page, and the set-aside rename could crash or overwrite an older damaged copy (DeepSeek); no test ran `main()` (DeepSeek); the All note said the 1st of the month while the total said the first day (DeepSeek).
+  → not fixed: Day/Week minutes and the bars can differ by under a second a day; the 4 % minimum bar height is on purpose; style and wording nits.
+  → 37 tests. Undoing each fix fails its test: save not wired, coverage ignored, bad text not caught, second-level set-aside name.
+- [ ] Commit, push, pull, live check.
 
 ## Phase 3 — Server install — *Fast* (needs the owner's go-ahead)
 
