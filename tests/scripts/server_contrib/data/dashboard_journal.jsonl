@@ -1,0 +1,239 @@
+{"__REALTIME_TIMESTAMP": "1794166203920913", "MESSAGE": "Stopping dpd-gui@bdhrs.service - DPD gui2 contributor instance for bdhrs...", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794166234192588", "MESSAGE": "dpd-gui@bdhrs.service: Main process exited, code=killed, status=9/KILL", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794166234192925", "MESSAGE": "dpd-gui@bdhrs.service: Failed with result 'timeout'.", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794166234198236", "MESSAGE": "Stopped dpd-gui@bdhrs.service - DPD gui2 contributor instance for bdhrs.", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794166234246738", "MESSAGE": "Stopping dpd-gui@deva.service - DPD gui2 contributor instance for deva...", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@deva.service"}
+{"__REALTIME_TIMESTAMP": "1794166235211734", "MESSAGE": "dpd-gui@deva.service: Main process exited, code=exited, status=143/n/a", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@deva.service"}
+{"__REALTIME_TIMESTAMP": "1794166235212201", "MESSAGE": "dpd-gui@deva.service: Failed with result 'exit-code'.", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@deva.service"}
+{"__REALTIME_TIMESTAMP": "1794166235214496", "MESSAGE": "Stopped dpd-gui@deva.service - DPD gui2 contributor instance for deva.", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@deva.service"}
+{"__REALTIME_TIMESTAMP": "1794166285849087", "MESSAGE": "Started dpd-gui@bdhrs.service - DPD gui2 contributor instance for bdhrs.", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794166285865485", "MESSAGE": "Started dpd-gui@deva.service - DPD gui2 contributor instance for deva.", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@deva.service"}
+{"__REALTIME_TIMESTAMP": "1794217353900030", "MESSAGE": "Stopping dpd-gui@deva.service - DPD gui2 contributor instance for deva...", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@deva.service"}
+{"__REALTIME_TIMESTAMP": "1794217354234287", "MESSAGE": "dpd-gui@deva.service: Main process exited, code=exited, status=143/n/a", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@deva.service"}
+{"__REALTIME_TIMESTAMP": "1794217354234635", "MESSAGE": "dpd-gui@deva.service: Failed with result 'exit-code'.", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@deva.service"}
+{"__REALTIME_TIMESTAMP": "1794217354237384", "MESSAGE": "Stopped dpd-gui@deva.service - DPD gui2 contributor instance for deva.", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@deva.service"}
+{"__REALTIME_TIMESTAMP": "1794217354245792", "MESSAGE": "Started dpd-gui@deva.service - DPD gui2 contributor instance for deva.", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@deva.service"}
+{"__REALTIME_TIMESTAMP": "1794224775021662", "MESSAGE": "Stopping dpd-gui@bdhrs.service - DPD gui2 contributor instance for bdhrs...", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794224775308687", "MESSAGE": "dpd-gui@bdhrs.service: Main process exited, code=exited, status=143/n/a", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794224775309424", "MESSAGE": "dpd-gui@bdhrs.service: Failed with result 'exit-code'.", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794224775311266", "MESSAGE": "Stopped dpd-gui@bdhrs.service - DPD gui2 contributor instance for bdhrs.", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794224775319601", "MESSAGE": "Started dpd-gui@bdhrs.service - DPD gui2 contributor instance for bdhrs.", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794224822453458", "MESSAGE": "lifecycle: process start: pid 664420, user bdhrs, idle 30 min (default)", "_SYSTEMD_UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794224822454104", "MESSAGE": "lifecycle: page connected", "_SYSTEMD_UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794224824277894", "MESSAGE": "lifecycle: app built 46.9s after process start", "_SYSTEMD_UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794224836967675", "MESSAGE": "lifecycle: tabs ready after 59.6s since process start", "_SYSTEMD_UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794224837454214", "MESSAGE": "lifecycle: notice file: absent", "_SYSTEMD_UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794224851251620", "MESSAGE": "Stopping dpd-gui@bdhrs.service - DPD gui2 contributor instance for bdhrs...", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794224851519955", "MESSAGE": "dpd-gui@bdhrs.service: Main process exited, code=exited, status=143/n/a", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794224851520304", "MESSAGE": "dpd-gui@bdhrs.service: Failed with result 'exit-code'.", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794224851520742", "MESSAGE": "Stopped dpd-gui@bdhrs.service - DPD gui2 contributor instance for bdhrs.", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794224851526094", "MESSAGE": "Started dpd-gui@bdhrs.service - DPD gui2 contributor instance for bdhrs.", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794224859603162", "MESSAGE": "lifecycle: process start: pid 664980, user bdhrs, idle 30 min (default)", "_SYSTEMD_UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794224859603835", "MESSAGE": "lifecycle: page connected", "_SYSTEMD_UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794224861183874", "MESSAGE": "lifecycle: app built 9.0s after process start", "_SYSTEMD_UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794224868980351", "MESSAGE": "Stopping dpd-gui@bdhrs.service - DPD gui2 contributor instance for bdhrs...", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794224870445253", "MESSAGE": "lifecycle: tabs ready after 18.3s since process start", "_SYSTEMD_UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794224873386923", "MESSAGE": "dpd-gui@bdhrs.service: Deactivated successfully.", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794224873387828", "MESSAGE": "Stopped dpd-gui@bdhrs.service - DPD gui2 contributor instance for bdhrs.", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794224873393333", "MESSAGE": "Started dpd-gui@bdhrs.service - DPD gui2 contributor instance for bdhrs.", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794224881294572", "MESSAGE": "lifecycle: process start: pid 665209, user bdhrs, idle 30 min (default)", "_SYSTEMD_UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794224881295691", "MESSAGE": "lifecycle: page connected", "_SYSTEMD_UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794224883241464", "MESSAGE": "lifecycle: app built 9.3s after process start", "_SYSTEMD_UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794224893120388", "MESSAGE": "lifecycle: tabs ready after 19.2s since process start", "_SYSTEMD_UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794224896295896", "MESSAGE": "lifecycle: notice file: absent", "_SYSTEMD_UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794225172730765", "MESSAGE": "Stopping dpd-gui@bdhrs.service - DPD gui2 contributor instance for bdhrs...", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794225172952615", "MESSAGE": "dpd-gui@bdhrs.service: Main process exited, code=exited, status=143/n/a", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794225172953019", "MESSAGE": "dpd-gui@bdhrs.service: Failed with result 'exit-code'.", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794225172954775", "MESSAGE": "Stopped dpd-gui@bdhrs.service - DPD gui2 contributor instance for bdhrs.", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794225172959411", "MESSAGE": "Started dpd-gui@bdhrs.service - DPD gui2 contributor instance for bdhrs.", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794225180362822", "MESSAGE": "lifecycle: process start: pid 666606, user bdhrs, idle 30 min (default)", "_SYSTEMD_UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794225180364501", "MESSAGE": "lifecycle: page connected", "_SYSTEMD_UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794225182302946", "MESSAGE": "lifecycle: app built 8.7s after process start", "_SYSTEMD_UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794225191617999", "MESSAGE": "lifecycle: tabs ready after 18.1s since process start", "_SYSTEMD_UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794225195364040", "MESSAGE": "lifecycle: notice file: absent", "_SYSTEMD_UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794225225155261", "MESSAGE": "Stopping dpd-gui@bdhrs.service - DPD gui2 contributor instance for bdhrs...", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794225225372792", "MESSAGE": "dpd-gui@bdhrs.service: Main process exited, code=exited, status=143/n/a", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794225225373009", "MESSAGE": "dpd-gui@bdhrs.service: Failed with result 'exit-code'.", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794225225373617", "MESSAGE": "Stopped dpd-gui@bdhrs.service - DPD gui2 contributor instance for bdhrs.", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794225225378272", "MESSAGE": "Started dpd-gui@bdhrs.service - DPD gui2 contributor instance for bdhrs.", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794225232338824", "MESSAGE": "lifecycle: process start: pid 667014, user bdhrs, idle 2 min (env)", "_SYSTEMD_UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794225232339410", "MESSAGE": "lifecycle: page connected", "_SYSTEMD_UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794225233974896", "MESSAGE": "lifecycle: app built 8.1s after process start", "_SYSTEMD_UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794225243426292", "MESSAGE": "lifecycle: tabs ready after 17.5s since process start", "_SYSTEMD_UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794225247339379", "MESSAGE": "lifecycle: notice file: absent", "_SYSTEMD_UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794225952351800", "MESSAGE": "lifecycle: asleep: 2.1 min idle, 0 page(s) sent away, connected=False", "_SYSTEMD_UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794225955443912", "MESSAGE": "dpd-gui@bdhrs.service: Deactivated successfully.", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794225965631086", "MESSAGE": "Started dpd-gui@bdhrs.service - DPD gui2 contributor instance for bdhrs.", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794226231261657", "MESSAGE": "Stopping dpd-gui@bdhrs.service - DPD gui2 contributor instance for bdhrs...", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794226231419906", "MESSAGE": "dpd-gui@bdhrs.service: Main process exited, code=exited, status=143/n/a", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794226231420117", "MESSAGE": "dpd-gui@bdhrs.service: Failed with result 'exit-code'.", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794226231420607", "MESSAGE": "Stopped dpd-gui@bdhrs.service - DPD gui2 contributor instance for bdhrs.", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794226475979326", "MESSAGE": "Started dpd-gui@bdhrs.service - DPD gui2 contributor instance for bdhrs.", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794226567280871", "MESSAGE": "lifecycle: process start: pid 672668, user bdhrs, idle 30 min (default)", "_SYSTEMD_UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794226567281550", "MESSAGE": "lifecycle: page connected", "_SYSTEMD_UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794226568966244", "MESSAGE": "lifecycle: app built 92.4s after process start", "_SYSTEMD_UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794226578138183", "MESSAGE": "lifecycle: tabs ready after 101.6s since process start", "_SYSTEMD_UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794226582281549", "MESSAGE": "lifecycle: notice file: absent", "_SYSTEMD_UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794228442314495", "MESSAGE": "lifecycle: asleep: 30.2 min idle, 0 page(s) sent away, connected=False", "_SYSTEMD_UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794228445398191", "MESSAGE": "dpd-gui@bdhrs.service: Deactivated successfully.", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794228455629020", "MESSAGE": "Started dpd-gui@bdhrs.service - DPD gui2 contributor instance for bdhrs.", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794252629596219", "MESSAGE": "Stopping dpd-gui@bdhrs.service - DPD gui2 contributor instance for bdhrs...", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794252630009692", "MESSAGE": "dpd-gui@bdhrs.service: Main process exited, code=exited, status=143/n/a", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794252630009914", "MESSAGE": "dpd-gui@bdhrs.service: Failed with result 'exit-code'.", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794252630012218", "MESSAGE": "Stopped dpd-gui@bdhrs.service - DPD gui2 contributor instance for bdhrs.", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794252630060407", "MESSAGE": "Stopping dpd-gui@deva.service - DPD gui2 contributor instance for deva...", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@deva.service"}
+{"__REALTIME_TIMESTAMP": "1794252630634576", "MESSAGE": "dpd-gui@deva.service: Main process exited, code=exited, status=143/n/a", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@deva.service"}
+{"__REALTIME_TIMESTAMP": "1794252630635605", "MESSAGE": "dpd-gui@deva.service: Failed with result 'exit-code'.", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@deva.service"}
+{"__REALTIME_TIMESTAMP": "1794252630639202", "MESSAGE": "Stopped dpd-gui@deva.service - DPD gui2 contributor instance for deva.", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@deva.service"}
+{"__REALTIME_TIMESTAMP": "1794254336424842", "MESSAGE": "Started dpd-gui@bdhrs.service - DPD gui2 contributor instance for bdhrs.", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794254336456650", "MESSAGE": "Started dpd-gui@deva.service - DPD gui2 contributor instance for deva.", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@deva.service"}
+{"__REALTIME_TIMESTAMP": "1794266216511913", "MESSAGE": "Stopping dpd-gui@bdhrs.service - DPD gui2 contributor instance for bdhrs...", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794266217051438", "MESSAGE": "dpd-gui@bdhrs.service: Deactivated successfully.", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794266217051789", "MESSAGE": "Stopped dpd-gui@bdhrs.service - DPD gui2 contributor instance for bdhrs.", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794266824083603", "MESSAGE": "Started dpd-gui@bdhrs.service - DPD gui2 contributor instance for bdhrs.", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794266825679395", "MESSAGE": "lifecycle: process start: pid 813954, user bdhrs, idle 30 min (default)", "_SYSTEMD_UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794266825680186", "MESSAGE": "lifecycle: page connected", "_SYSTEMD_UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794266827386206", "MESSAGE": "lifecycle: app built 2.7s after process start", "_SYSTEMD_UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794266836465273", "MESSAGE": "lifecycle: tabs ready after 11.8s since process start", "_SYSTEMD_UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794266840683714", "MESSAGE": "lifecycle: notice file: absent", "_SYSTEMD_UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794266855683962", "MESSAGE": "lifecycle: page reconnected", "_SYSTEMD_UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794267306762775", "MESSAGE": "Stopping dpd-gui@bdhrs.service - DPD gui2 contributor instance for bdhrs...", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794267309921027", "MESSAGE": "dpd-gui@bdhrs.service: Deactivated successfully.", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794267309921814", "MESSAGE": "Stopped dpd-gui@bdhrs.service - DPD gui2 contributor instance for bdhrs.", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794267334330367", "MESSAGE": "Started dpd-gui@bdhrs.service - DPD gui2 contributor instance for bdhrs.", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794267341151579", "MESSAGE": "lifecycle: process start: pid 815902, user bdhrs, idle 30 min (default)", "_SYSTEMD_UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794267341152381", "MESSAGE": "lifecycle: page connected", "_SYSTEMD_UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794267342767309", "MESSAGE": "lifecycle: app built 7.9s after process start", "_SYSTEMD_UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794267351807208", "MESSAGE": "lifecycle: tabs ready after 16.9s since process start", "_SYSTEMD_UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794267356152240", "MESSAGE": "lifecycle: notice file: absent", "_SYSTEMD_UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794269156181745", "MESSAGE": "lifecycle: countdown shown after 30.0 min idle", "_SYSTEMD_UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794269276183964", "MESSAGE": "lifecycle: asleep: 32.0 min idle, 1 page(s) sent away, connected=True", "_SYSTEMD_UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794269279277824", "MESSAGE": "dpd-gui@bdhrs.service: Deactivated successfully.", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794269289380198", "MESSAGE": "Started dpd-gui@bdhrs.service - DPD gui2 contributor instance for bdhrs.", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794339030703487", "MESSAGE": "Stopping dpd-gui@bdhrs.service - DPD gui2 contributor instance for bdhrs...", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794339031035619", "MESSAGE": "dpd-gui@bdhrs.service: Main process exited, code=exited, status=143/n/a", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794339031035850", "MESSAGE": "dpd-gui@bdhrs.service: Failed with result 'exit-code'.", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794339031039460", "MESSAGE": "Stopped dpd-gui@bdhrs.service - DPD gui2 contributor instance for bdhrs.", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794339031080767", "MESSAGE": "Stopping dpd-gui@deva.service - DPD gui2 contributor instance for deva...", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@deva.service"}
+{"__REALTIME_TIMESTAMP": "1794339031460771", "MESSAGE": "dpd-gui@deva.service: Main process exited, code=exited, status=143/n/a", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@deva.service"}
+{"__REALTIME_TIMESTAMP": "1794339031460952", "MESSAGE": "dpd-gui@deva.service: Failed with result 'exit-code'.", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@deva.service"}
+{"__REALTIME_TIMESTAMP": "1794339031464651", "MESSAGE": "Stopped dpd-gui@deva.service - DPD gui2 contributor instance for deva.", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@deva.service"}
+{"__REALTIME_TIMESTAMP": "1794340844032094", "MESSAGE": "Started dpd-gui@bdhrs.service - DPD gui2 contributor instance for bdhrs.", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794340844070006", "MESSAGE": "Started dpd-gui@deva.service - DPD gui2 contributor instance for deva.", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@deva.service"}
+{"__REALTIME_TIMESTAMP": "1794371939721358", "MESSAGE": "Stopping dpd-gui@bdhrs.service - DPD gui2 contributor instance for bdhrs...", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794371939727603", "MESSAGE": "Stopping dpd-gui@deva.service - DPD gui2 contributor instance for deva...", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@deva.service"}
+{"__REALTIME_TIMESTAMP": "1794371940245100", "MESSAGE": "dpd-gui@bdhrs.service: Main process exited, code=exited, status=143/n/a", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794371940245277", "MESSAGE": "dpd-gui@bdhrs.service: Failed with result 'exit-code'.", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794371940250209", "MESSAGE": "Stopped dpd-gui@bdhrs.service - DPD gui2 contributor instance for bdhrs.", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794371940254545", "MESSAGE": "dpd-gui@deva.service: Main process exited, code=exited, status=143/n/a", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@deva.service"}
+{"__REALTIME_TIMESTAMP": "1794371940254888", "MESSAGE": "dpd-gui@deva.service: Failed with result 'exit-code'.", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@deva.service"}
+{"__REALTIME_TIMESTAMP": "1794371940257532", "MESSAGE": "Stopped dpd-gui@deva.service - DPD gui2 contributor instance for deva.", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@deva.service"}
+{"__REALTIME_TIMESTAMP": "1794371944014516", "MESSAGE": "Started dpd-gui@bdhrs.service - DPD gui2 contributor instance for bdhrs.", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794371944029704", "MESSAGE": "Started dpd-gui@deva.service - DPD gui2 contributor instance for deva.", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@deva.service"}
+{"__REALTIME_TIMESTAMP": "1794372019021246", "MESSAGE": "Stopping dpd-gui@bdhrs.service - DPD gui2 contributor instance for bdhrs...", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794372019028595", "MESSAGE": "Stopping dpd-gui@deva.service - DPD gui2 contributor instance for deva...", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@deva.service"}
+{"__REALTIME_TIMESTAMP": "1794372019201192", "MESSAGE": "dpd-gui@bdhrs.service: Main process exited, code=exited, status=143/n/a", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794372019201474", "MESSAGE": "dpd-gui@bdhrs.service: Failed with result 'exit-code'.", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794372019202511", "MESSAGE": "Stopped dpd-gui@bdhrs.service - DPD gui2 contributor instance for bdhrs.", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794372019212528", "MESSAGE": "Started dpd-gui@bdhrs.service - DPD gui2 contributor instance for bdhrs.", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794372019608885", "MESSAGE": "dpd-gui@deva.service: Deactivated successfully.", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@deva.service"}
+{"__REALTIME_TIMESTAMP": "1794372019609968", "MESSAGE": "Stopped dpd-gui@deva.service - DPD gui2 contributor instance for deva.", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@deva.service"}
+{"__REALTIME_TIMESTAMP": "1794372019619899", "MESSAGE": "Started dpd-gui@deva.service - DPD gui2 contributor instance for deva.", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@deva.service"}
+{"__REALTIME_TIMESTAMP": "1794373795294813", "MESSAGE": "lifecycle: process start: pid 1190741, user bdhrs, idle 30 min (default)", "_SYSTEMD_UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794373795296127", "MESSAGE": "lifecycle: page connected", "_SYSTEMD_UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794373807840489", "MESSAGE": "lifecycle: app built 1788.3s after process start", "_SYSTEMD_UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794373810296895", "MESSAGE": "lifecycle: notice file: absent", "_SYSTEMD_UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794373825805877", "MESSAGE": "lifecycle: tabs ready after 1806.3s since process start", "_SYSTEMD_UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794373934009320", "MESSAGE": "lifecycle: page connected", "_SYSTEMD_UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794373934894303", "MESSAGE": "lifecycle: app built 1915.4s after process start", "_SYSTEMD_UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794373940984298", "MESSAGE": "lifecycle: tabs ready after 1921.5s since process start", "_SYSTEMD_UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794374036792605", "MESSAGE": "lifecycle: page connected", "_SYSTEMD_UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794374037629184", "MESSAGE": "lifecycle: app built 2018.1s after process start", "_SYSTEMD_UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794374043429156", "MESSAGE": "lifecycle: tabs ready after 2023.9s since process start", "_SYSTEMD_UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794374076073408", "MESSAGE": "lifecycle: page connected", "_SYSTEMD_UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794374077104142", "MESSAGE": "lifecycle: app built 2057.6s after process start", "_SYSTEMD_UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794374083470518", "MESSAGE": "lifecycle: tabs ready after 2064.0s since process start", "_SYSTEMD_UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794375910354497", "MESSAGE": "lifecycle: asleep: 30.1 min idle, 0 page(s) sent away, connected=False", "_SYSTEMD_UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794375913451457", "MESSAGE": "dpd-gui@bdhrs.service: Deactivated successfully.", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794375923632075", "MESSAGE": "Started dpd-gui@bdhrs.service - DPD gui2 contributor instance for bdhrs.", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794389374599609", "MESSAGE": "lifecycle: process start: pid 1205362, user bdhrs, idle 30 min (default)", "_SYSTEMD_UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794389374601768", "MESSAGE": "lifecycle: page connected", "_SYSTEMD_UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794389387479016", "MESSAGE": "lifecycle: app built 13463.6s after process start", "_SYSTEMD_UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794389389601336", "MESSAGE": "lifecycle: notice file: absent", "_SYSTEMD_UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794389412938519", "MESSAGE": "lifecycle: tabs ready after 13489.1s since process start", "_SYSTEMD_UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794390888631370", "MESSAGE": "Stopping dpd-gui@bdhrs.service - DPD gui2 contributor instance for bdhrs...", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794390888636381", "MESSAGE": "Stopping dpd-gui@deva.service - DPD gui2 contributor instance for deva...", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@deva.service"}
+{"__REALTIME_TIMESTAMP": "1794390888960450", "MESSAGE": "dpd-gui@bdhrs.service: Main process exited, code=exited, status=143/n/a", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794390888960695", "MESSAGE": "dpd-gui@bdhrs.service: Failed with result 'exit-code'.", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794390888961916", "MESSAGE": "Stopped dpd-gui@bdhrs.service - DPD gui2 contributor instance for bdhrs.", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794390888964850", "MESSAGE": "dpd-gui@deva.service: Main process exited, code=exited, status=143/n/a", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@deva.service"}
+{"__REALTIME_TIMESTAMP": "1794390888964919", "MESSAGE": "dpd-gui@deva.service: Failed with result 'exit-code'.", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@deva.service"}
+{"__REALTIME_TIMESTAMP": "1794390888965696", "MESSAGE": "Stopped dpd-gui@deva.service - DPD gui2 contributor instance for deva.", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@deva.service"}
+{"__REALTIME_TIMESTAMP": "1794390889895896", "MESSAGE": "Started dpd-gui@bdhrs.service - DPD gui2 contributor instance for bdhrs.", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794390889910112", "MESSAGE": "Started dpd-gui@deva.service - DPD gui2 contributor instance for deva.", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@deva.service"}
+{"__REALTIME_TIMESTAMP": "1794390893289177", "MESSAGE": "lifecycle: process start: pid 1259724, user bdhrs, idle 30 min (default)", "_SYSTEMD_UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794390893289177", "MESSAGE": "lifecycle: page connected", "_SYSTEMD_UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794390894901041", "MESSAGE": "lifecycle: app built 4.3s after process start", "_SYSTEMD_UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794390901874878", "MESSAGE": "lifecycle: tabs ready after 11.3s since process start", "_SYSTEMD_UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794390908288880", "MESSAGE": "lifecycle: notice file: absent", "_SYSTEMD_UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794391007658214", "MESSAGE": "lifecycle: page connected", "_SYSTEMD_UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794391008609413", "MESSAGE": "lifecycle: app built 118.1s after process start", "_SYSTEMD_UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794391014981902", "MESSAGE": "lifecycle: tabs ready after 124.4s since process start", "_SYSTEMD_UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794393083371642", "MESSAGE": "lifecycle: countdown shown after 30.2 min idle", "_SYSTEMD_UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794393203378722", "MESSAGE": "lifecycle: asleep: 32.2 min idle, 2 page(s) sent away, connected=True", "_SYSTEMD_UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794393206498166", "MESSAGE": "dpd-gui@bdhrs.service: Deactivated successfully.", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794393216633039", "MESSAGE": "Started dpd-gui@bdhrs.service - DPD gui2 contributor instance for bdhrs.", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794425430095586", "MESSAGE": "Stopping dpd-gui@bdhrs.service - DPD gui2 contributor instance for bdhrs...", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794425430410703", "MESSAGE": "dpd-gui@bdhrs.service: Main process exited, code=exited, status=143/n/a", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794425430411399", "MESSAGE": "dpd-gui@bdhrs.service: Failed with result 'exit-code'.", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794425430414834", "MESSAGE": "Stopped dpd-gui@bdhrs.service - DPD gui2 contributor instance for bdhrs.", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794425430470006", "MESSAGE": "Stopping dpd-gui@deva.service - DPD gui2 contributor instance for deva...", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@deva.service"}
+{"__REALTIME_TIMESTAMP": "1794425430697350", "MESSAGE": "dpd-gui@deva.service: Main process exited, code=exited, status=143/n/a", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@deva.service"}
+{"__REALTIME_TIMESTAMP": "1794425430697486", "MESSAGE": "dpd-gui@deva.service: Failed with result 'exit-code'.", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@deva.service"}
+{"__REALTIME_TIMESTAMP": "1794425430702046", "MESSAGE": "Stopped dpd-gui@deva.service - DPD gui2 contributor instance for deva.", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@deva.service"}
+{"__REALTIME_TIMESTAMP": "1794427414732383", "MESSAGE": "Started dpd-gui@bdhrs.service - DPD gui2 contributor instance for bdhrs.", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794427414772404", "MESSAGE": "Started dpd-gui@deva.service - DPD gui2 contributor instance for deva.", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@deva.service"}
+{"__REALTIME_TIMESTAMP": "1794476332210191", "MESSAGE": "lifecycle: process start: pid 1391688, user bdhrs, idle 30 min (default)", "_SYSTEMD_UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794476332212246", "MESSAGE": "lifecycle: page connected", "_SYSTEMD_UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794476347000354", "MESSAGE": "lifecycle: app built 48931.8s after process start", "_SYSTEMD_UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794476347220546", "MESSAGE": "lifecycle: notice file: absent", "_SYSTEMD_UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794476368713378", "MESSAGE": "lifecycle: tabs ready after 48953.5s since process start", "_SYSTEMD_UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794476946924425", "MESSAGE": "Stopping dpd-gui@bdhrs.service - DPD gui2 contributor instance for bdhrs...", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794476946930104", "MESSAGE": "Stopping dpd-gui@deva.service - DPD gui2 contributor instance for deva...", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@deva.service"}
+{"__REALTIME_TIMESTAMP": "1794476947184850", "MESSAGE": "dpd-gui@deva.service: Main process exited, code=exited, status=143/n/a", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@deva.service"}
+{"__REALTIME_TIMESTAMP": "1794476947185381", "MESSAGE": "dpd-gui@deva.service: Failed with result 'exit-code'.", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@deva.service"}
+{"__REALTIME_TIMESTAMP": "1794476947186990", "MESSAGE": "Stopped dpd-gui@deva.service - DPD gui2 contributor instance for deva.", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@deva.service"}
+{"__REALTIME_TIMESTAMP": "1794476947189148", "MESSAGE": "dpd-gui@bdhrs.service: Main process exited, code=exited, status=143/n/a", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794476947189262", "MESSAGE": "dpd-gui@bdhrs.service: Failed with result 'exit-code'.", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794476947192662", "MESSAGE": "Stopped dpd-gui@bdhrs.service - DPD gui2 contributor instance for bdhrs.", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794476948120096", "MESSAGE": "Started dpd-gui@bdhrs.service - DPD gui2 contributor instance for bdhrs.", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794476948132130", "MESSAGE": "Started dpd-gui@deva.service - DPD gui2 contributor instance for deva.", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@deva.service"}
+{"__REALTIME_TIMESTAMP": "1794476952111380", "MESSAGE": "lifecycle: process start: pid 1569120, user bdhrs, idle 30 min (default)", "_SYSTEMD_UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794476952113460", "MESSAGE": "lifecycle: page connected", "_SYSTEMD_UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794476954413279", "MESSAGE": "lifecycle: app built 5.7s after process start", "_SYSTEMD_UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794476962365811", "MESSAGE": "lifecycle: tabs ready after 13.6s since process start", "_SYSTEMD_UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794476967112907", "MESSAGE": "lifecycle: notice file: absent", "_SYSTEMD_UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794480507186314", "MESSAGE": "lifecycle: countdown shown after 30.1 min idle", "_SYSTEMD_UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794480627188952", "MESSAGE": "lifecycle: asleep: 32.1 min idle, 1 page(s) sent away, connected=True", "_SYSTEMD_UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794480630278370", "MESSAGE": "dpd-gui@bdhrs.service: Deactivated successfully.", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794480640383141", "MESSAGE": "Started dpd-gui@bdhrs.service - DPD gui2 contributor instance for bdhrs.", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794511829463588", "MESSAGE": "Stopping dpd-gui@bdhrs.service - DPD gui2 contributor instance for bdhrs...", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794511829722413", "MESSAGE": "dpd-gui@bdhrs.service: Main process exited, code=exited, status=143/n/a", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794511829722587", "MESSAGE": "dpd-gui@bdhrs.service: Failed with result 'exit-code'.", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794511829726496", "MESSAGE": "Stopped dpd-gui@bdhrs.service - DPD gui2 contributor instance for bdhrs.", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794511829776271", "MESSAGE": "Stopping dpd-gui@deva.service - DPD gui2 contributor instance for deva...", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@deva.service"}
+{"__REALTIME_TIMESTAMP": "1794511830000834", "MESSAGE": "dpd-gui@deva.service: Main process exited, code=exited, status=143/n/a", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@deva.service"}
+{"__REALTIME_TIMESTAMP": "1794511830001005", "MESSAGE": "dpd-gui@deva.service: Failed with result 'exit-code'.", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@deva.service"}
+{"__REALTIME_TIMESTAMP": "1794511830004925", "MESSAGE": "Stopped dpd-gui@deva.service - DPD gui2 contributor instance for deva.", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@deva.service"}
+{"__REALTIME_TIMESTAMP": "1794513611106717", "MESSAGE": "Started dpd-gui@bdhrs.service - DPD gui2 contributor instance for bdhrs.", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794513611142749", "MESSAGE": "Started dpd-gui@deva.service - DPD gui2 contributor instance for deva.", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@deva.service"}
+{"__REALTIME_TIMESTAMP": "1794532726402161", "MESSAGE": "Stopping dpd-gui@bdhrs.service - DPD gui2 contributor instance for bdhrs...", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794532726407255", "MESSAGE": "Stopping dpd-gui@deva.service - DPD gui2 contributor instance for deva...", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@deva.service"}
+{"__REALTIME_TIMESTAMP": "1794532727004708", "MESSAGE": "dpd-gui@bdhrs.service: Main process exited, code=exited, status=143/n/a", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794532727004828", "MESSAGE": "dpd-gui@bdhrs.service: Failed with result 'exit-code'.", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794532727015333", "MESSAGE": "Stopped dpd-gui@bdhrs.service - DPD gui2 contributor instance for bdhrs.", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794532727015523", "MESSAGE": "dpd-gui@deva.service: Main process exited, code=exited, status=143/n/a", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@deva.service"}
+{"__REALTIME_TIMESTAMP": "1794532727015586", "MESSAGE": "dpd-gui@deva.service: Failed with result 'exit-code'.", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@deva.service"}
+{"__REALTIME_TIMESTAMP": "1794532727015627", "MESSAGE": "Stopped dpd-gui@deva.service - DPD gui2 contributor instance for deva.", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@deva.service"}
+{"__REALTIME_TIMESTAMP": "1794532727023109", "MESSAGE": "Started dpd-gui@bdhrs.service - DPD gui2 contributor instance for bdhrs.", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@bdhrs.service"}
+{"__REALTIME_TIMESTAMP": "1794532727030186", "MESSAGE": "Started dpd-gui@deva.service - DPD gui2 contributor instance for deva.", "_SYSTEMD_UNIT": "init.scope", "UNIT": "dpd-gui@deva.service"}

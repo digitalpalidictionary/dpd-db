@@ -161,6 +161,35 @@ The block is kept in `nginx_status.conf.template` in this folder. A run that
 cannot write the status file logs `could not write the status file` and still
 finishes normally: the status file never decides the window's outcome.
 
+## The contributor dashboard (`/dashboard/`)
+
+`contrib_dashboard.py` writes one page that shows the server right now: words
+added today and in total, disk, memory, swap and CPU load, and one lane per
+contributor with a status dot (online, going to sleep, asleep, down) and a
+timeline of today's visits. It reads everything again on each run, so it keeps
+no state file:
+
+- visits from the editors' journal (`journalctl -u 'dpd-gui@*' -o json`): a
+  visit starts at `page connected`/`page reconnected` and ends at the last
+  action before `asleep`, or at a `Stopped`/`Started` line;
+- unit state and memory from `systemctl show`, for every user in `/etc/dpd/*.env`;
+- words from each `daily_log_<user>.json` in the data folder (the same count as
+  the editor's top bar);
+- disk, memory, swap and load from `psutil`.
+
+Test users (`bdhrs`, `deva`, or `--test-user` repeated) get a lane marked
+"test" and are left out of the two big numbers.
+
+Cron, every minute, on the server:
+
+```bash
+* * * * * cd /root/dpd-db && /root/.local/bin/uv run --no-sync scripts/server_contrib/contrib_dashboard.py --out-dir /var/lib/dpd/dashboard >> /root/mem/dashboard_cron.log 2>&1
+```
+
+nginx serves the folder behind the maintainer's login, in the same realm as
+`/status`: the block is in `nginx_dashboard.conf.template`. A contributor named
+`dashboard` would clash with this location.
+
 ## Keep the database file in memory
 
 The first page after a cold file cache reads the whole `dpd.db` (about 880 MB)

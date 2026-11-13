@@ -1,0 +1,20 @@
+# The contributor dashboard: /dashboard/ on the contributor host.
+# Copied into the site config by hand on the server, next to /status.
+# scripts/server_contrib/contrib_dashboard.py rewrites index.html every minute
+# from cron, and copies the logo and font into the same folder.
+
+location = /dashboard {
+    return 301 /dashboard/;
+}
+
+location /dashboard/ {
+    # The same realm as /status, so one login opens both.
+    auth_basic "DPD maintenance status";
+    auth_basic_user_file /etc/nginx/dpd/@MAINTAINER@.htpasswd;
+
+    alias /var/lib/dpd/dashboard/;
+    index index.html;
+    # no-cache, not no-store: the page is asked for again on every reload,
+    # but the 850 KB font comes back as a 304 instead of a fresh download.
+    add_header Cache-Control "no-cache";
+}
