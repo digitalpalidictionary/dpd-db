@@ -166,7 +166,7 @@ finishes normally: the status file never decides the window's outcome.
 `contrib_dashboard.py` writes one page that shows the server right now: words
 added today and in total, disk, memory, swap and CPU load, and one lane per
 contributor with a status dot (online, going to sleep, asleep, down) and a
-timeline of today's visits. It reads everything again on each run, so it keeps
+timeline of the last 24 hours, with "now" at the right edge. It reads everything again on each run, so it keeps
 no state file:
 
 - visits from the editors' journal (`journalctl -u 'dpd-gui@*' -o json`): a
@@ -189,6 +189,18 @@ Cron, every minute, on the server:
 nginx serves the folder behind the maintainer's login, in the same realm as
 `/status`: the block is in `nginx_dashboard.conf.template`. A contributor named
 `dashboard` would clash with this location.
+
+The steps for a new server are runbook Step 7f. Installed on the live server
+on 2026-11-13 (`c800ded2`): the block went in before the closing `}` of
+`/etc/nginx/sites-available/dpd-contrib`, the new `asleep.html` went to
+`/var/www/dpd-pages/`, and the cron line was added. Backups in `/root/mem/`:
+`dpd-contrib.before_20261113`, `asleep.html.before_20261113`,
+`crontab.before_20261113_dashboard`. Checked: `/dashboard/` answers 401 without
+a login, and cron rewrote the page within a minute with an empty cron log.
+
+The address is `https://<server-ip with dashes>.sslip.io/dashboard/`. The
+certificate names the dashed form; the dotted IP fails with
+`NET::ERR_CERT_COMMON_NAME_INVALID`.
 
 ## Keep the database file in memory
 

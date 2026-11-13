@@ -45,16 +45,27 @@ Read `spec.md` first.
 - 5 tests added (22 in all). Undoing each fix fails its test.
 - Lane labels shortened to "min", "today", "total" at the owner's request.
 
+## Owner changes after the live look — 2026-11-13
+
+- The timeline shows the last 24 hours, now at the right edge; ticks on clock hours, midnight labelled with the day. Minutes count the same 24 hours.
+- A never-seen account says "added today, not seen yet" (env file time) instead of "not seen in 14 days".
+- The memory figure keeps its number and unit on one line.
+- 5 tests added (27 in all). Reverting the window fails 1; dropping the added wording fails 1.
+
 ## Phase 3 — Server install — *Fast* (needs the owner's go-ahead)
 
-- [ ] Add `scripts/server_contrib/nginx_dashboard.conf.template`; install it on the server with a backup; `nginx -t`; reload.
+- [x] Add `scripts/server_contrib/nginx_dashboard.conf.template`; install it on the server with a backup; `nginx -t`; reload.
   → verify: `curl` on the host answers 401 without a login and 200 with the maintainer login.
-- [ ] Add the cron line with a backup of the crontab.
+  → done 2026-11-13: `nginx -t` ok, reloaded; 401 without a login, `/dashboard` → 301 to `/dashboard/`. The 200 with a login is the owner's browser check (no password on the agent side).
+- [x] Add the cron line with a backup of the crontab.
   → verify: after 2 minutes the page time has moved.
-- [ ] Copy the new `asleep.html` to `/var/www/dpd-pages/` with a backup (runbook step 6e).
+  → done: page rewritten at 14:33:02, cron log empty.
+- [x] Copy the new `asleep.html` to `/var/www/dpd-pages/` with a backup (runbook step 6e).
   → verify: `curl` of `/<user>/_dpd/asleep.html` holds the logo.
+  → done: 200, logo present, wake time still 20 seconds.
 - [ ] The loading image reaches the server with the next nightly pull after the commit.
+  → pulled by hand on 2026-11-13 (`c800ded2`, no editor restart: the pull held no code the editors run). Owner to confirm the logo on the next editor load.
   → verify: the next day, `/<user>/icons/loading-animation.png` is the DPD logo.
 - [ ] Phase check: `just typecheck`; `scripts/server_contrib/README.md` names the page and the cron line.
   → verify: typecheck clean; the README names both.
-  → README section and `nginx_dashboard.conf.template` written 2026-11-13; typecheck clean. Tick after the install.
+  → README section, install record and runbook Step 7f written 2026-11-13; typecheck clean. Tick after the owner's browser check.

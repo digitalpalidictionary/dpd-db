@@ -19,7 +19,7 @@ from scripts.server_contrib.contrib_dashboard import (
     State,
     Unit,
     Visit,
-    blocks_for_day,
+    blocks_in_window,
     build_dashboard,
     build_lanes,
     build_visits,
@@ -29,6 +29,7 @@ from scripts.server_contrib.contrib_dashboard import (
     parse_systemctl_show,
     read_journal,
     render_page,
+    tick_times,
 )
 
 SERVER_TZ = timezone(timedelta(hours=5, minutes=30))
@@ -162,18 +163,43 @@ def test_other_lines_and_byte_messages_are_skipped() -> None:
     assert parse_journal(lines, SERVER_TZ) == []
 
 
-def test_blocks_are_cut_to_today_and_an_open_visit_runs_to_now() -> None:
-    day_start = _at("2026-11-13T00:00:00")
+def test_blocks_are_cut_to_the_window_and_an_open_visit_runs_to_now() -> None:
+    window_start = _at("2026-11-12T10:00:00")
     now = _at("2026-11-13T10:00:00")
     visits = [
-        Visit("alice", _at("2026-11-12T23:40:00"), _at("2026-11-13T00:20:00")),
+        Visit("alice", _at("2026-11-12T08:00:00"), _at("2026-11-12T09:00:00")),
+        Visit("alice", _at("2026-11-12T09:00:00"), _at("2026-11-12T11:00:00")),
         Visit("alice", _at("2026-11-12T20:00:00"), _at("2026-11-12T21:00:00")),
         Visit("alice", _at("2026-11-13T09:15:00")),
     ]
-    blocks = blocks_for_day(visits, day_start, now)
+    blocks = blocks_in_window(visits, window_start, now)
     assert [(b.start, b.end, b.is_open) for b in blocks] == [
-        (day_start, _at("2026-11-13T00:20:00"), False),
+        (window_start, _at("2026-11-12T11:00:00"), False),
+        (_at("2026-11-12T20:00:00"), _at("2026-11-12T21:00:00"), False),
         (_at("2026-11-13T09:15:00"), now, True),
+    ]
+
+
+def test_lane_counts_yesterday_evening_inside_the_last_24_hours() -> None:
+    now = _at("2026-11-13T10:00:00")
+    visits = [Visit("alice", _at("2026-11-12T20:00:00"), _at("2026-11-12T21:00:00"))]
+    lanes = build_lanes(
+        ["alice"], {"alice": Unit("alice", True, None)}, visits, {}, set(), now
+    )
+    assert lanes[0].minutes == 60
+
+
+def test_ticks_sit_on_clock_hours_with_midnight_inside() -> None:
+    ticks = tick_times(_at("2026-11-12T14:20:00"), _at("2026-11-13T14:20:00"))
+    assert [t.strftime("%d %H") for t in ticks] == [
+        "12 15",
+        "12 18",
+        "12 21",
+        "13 00",
+        "13 03",
+        "13 06",
+        "13 09",
+        "13 12",
     ]
 
 
@@ -190,7 +216,7 @@ def test_lanes_put_test_users_last_and_count_words_and_minutes() -> None:
     assert [lane.user for lane in lanes] == ["alice", "zed", "bdhrs"]
     alice = lanes[0]
     assert alice.state is State.ONLINE
-    assert alice.minutes_today == 75
+    assert alice.minutes == 75
     assert (alice.words_today, alice.words_total) == (3, 8)
     assert alice.online_since == _at("2026-11-13T09:30:00")
     assert alice.last_seen == _at("2026-11-13T08:45:00")
@@ -238,7 +264,7 @@ def test_page_shows_lanes_numbers_and_meters() -> None:
         user="alice",
         state=State.ONLINE,
         blocks=[],
-        minutes_today=12,
+        minutes=12,
         words_today=3,
         words_total=1234,
         memory_bytes=800 * 1024**2,
@@ -309,7 +335,7 @@ def _lane(
         user=user,
         state=state,
         blocks=[],
-        minutes_today=0,
+        minutes=0,
         words_today=0,
         words_total=0,
         memory_bytes=None,
@@ -337,3 +363,36 @@ def test_test_users_do_not_count_as_online() -> None:
     lanes = [_lane("alice", State.ASLEEP), _lane("bdhrs", State.ONLINE, is_test=True)]
     page = render_page(Dashboard(now, lanes, [], 0, 0, None), "")
     assert "0 of 1 online" in page
+
+
+def test_a_new_account_says_when_it_was_added() -> None:
+    now = _at("2026-11-13T10:00:00")
+    new = Lane(
+        **{**_lane("alice", State.ASLEEP).__dict__, "added": _at("2026-11-13T09:00:00")}
+    )
+    old = Lane(
+        **{**_lane("bob", State.ASLEEP).__dict__, "added": _at("2026-10-01T09:00:00")}
+    )
+    page = render_page(Dashboard(now, [new, old], [], 0, 0, None), "")
+    assert "added today, not seen yet" in page
+    assert "asleep, not seen in 14 days" in page
+
+
+def test_memory_and_its_unit_stay_together() -> None:
+    now = _at("2026-11-13T10:00:00")
+    lane = Lane(
+        **{**_lane("alice", State.ASLEEP).__dict__, "memory_bytes": 74 * 1024**2}
+    )
+    page = render_page(Dashboard(now, [lane], [], 0, 0, None), "")
+    assert "74\u00a0MB" in page
+
+
+def test_ruler_ends_at_now_and_names_the_day_at_midnight() -> None:
+    page = render_page(
+        Dashboard(
+            _at("2026-11-13T14:20:00"), [_lane("alice", State.ASLEEP)], [], 0, 0, None
+        ),
+        "",
+    )
+    assert '<span class="now-label" style="left:100%">now</span>' in page
+    assert '<span class="midnight"' in page and ">Fri</span>" in page

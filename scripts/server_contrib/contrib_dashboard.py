@@ -15,7 +15,7 @@ import shutil
 import subprocess
 from collections.abc import Iterable
 from dataclasses import dataclass, field
-from datetime import UTC, datetime, time, timedelta, tzinfo
+from datetime import UTC, datetime, timedelta, tzinfo
 from enum import Enum
 from pathlib import Path
 
@@ -30,6 +30,11 @@ ASLEEP_PATTERN = re.compile(r"lifecycle: asleep: ([0-9]+(?:\.[0-9]+)?) min idle"
 CONNECT_MESSAGES = ("lifecycle: page connected", "lifecycle: page reconnected")
 TEST_USERS: tuple[str, ...] = ("bdhrs", "deva")
 HISTORY_DAYS = 14
+# The timeline always shows the 24 hours up to now, with now at the right edge.
+WINDOW = timedelta(hours=24)
+TICK_HOURS = 3
+# Keeps an hour label clear of the "now" label at the right edge.
+LABEL_CLEAR_PERCENT = 4.0
 RELOAD_SECONDS = 60
 WARN_PERCENT = 70
 BAD_PERCENT = 90
@@ -95,13 +100,15 @@ class Lane:
     user: str
     state: State
     blocks: list[Block]
-    minutes_today: int
+    # Minutes online in the last 24 hours, the same span as the timeline.
+    minutes: int
     words_today: int
     words_total: int
     memory_bytes: int | None
     is_test: bool
     online_since: datetime | None
     last_seen: datetime | None
+    added: datetime | None = None
 
 
 @dataclass(frozen=True)
@@ -222,15 +229,15 @@ def build_visits(events: Iterable[Event]) -> list[Visit]:
     return visits
 
 
-def blocks_for_day(
-    visits: Iterable[Visit], day_start: datetime, now: datetime
+def blocks_in_window(
+    visits: Iterable[Visit], window_start: datetime, now: datetime
 ) -> list[Block]:
-    """The visits cut to the part between day_start and now."""
+    """The visits cut to the part between window_start and now."""
     blocks: list[Block] = []
     for visit in visits:
         end = now if visit.end is None else min(visit.end, now)
-        start = max(visit.start, day_start)
-        if end < start or (visit.end is not None and end <= day_start):
+        start = max(visit.start, window_start)
+        if end < start or (visit.end is not None and end <= window_start):
             continue
         blocks.append(Block(start, end, visit.end is None))
     return blocks
@@ -253,10 +260,11 @@ def build_lanes(
     words: dict[str, dict[str, int]],
     test_users: set[str],
     now: datetime,
+    added: dict[str, datetime] | None = None,
 ) -> list[Lane]:
     """One lane per user: real contributors first, test users last, each group
     by name, so a lane never moves between reloads."""
-    day_start = datetime.combine(now.date(), time(), now.tzinfo)
+    window_start = now - WINDOW
     today = now.date().isoformat()
     lanes: list[Lane] = []
     for user in sorted(users, key=lambda name: (name in test_users, name)):
@@ -264,7 +272,7 @@ def build_lanes(
         open_visit = next((visit for visit in own if visit.end is None), None)
         unit = units.get(user)
         state = lane_state(unit, open_visit)
-        blocks = blocks_for_day(own, day_start, now)
+        blocks = blocks_in_window(own, window_start, now)
         seconds = sum((block.end - block.start).total_seconds() for block in blocks)
         ended = [visit.end for visit in own if visit.end is not None]
         per_day = words.get(user, {})
@@ -273,13 +281,14 @@ def build_lanes(
                 user=user,
                 state=state,
                 blocks=blocks,
-                minutes_today=round(seconds / 60),
+                minutes=round(seconds / 60),
                 words_today=per_day.get(today, 0),
                 words_total=sum(per_day.values()),
                 memory_bytes=unit.memory_bytes if unit else None,
                 is_test=user in test_users,
                 online_since=open_visit.start if open_visit else None,
                 last_seen=max(ended) if ended else None,
+                added=(added or {}).get(user),
             )
         )
     return lanes
@@ -320,6 +329,21 @@ def read_users(env_dir: Path) -> list[str]:
     return sorted(
         path.stem for path in env_dir.glob("*.env") if USER_PATTERN.fullmatch(path.stem)
     )
+
+
+def read_added(env_dir: Path, users: list[str], tz: tzinfo) -> dict[str, datetime]:
+    """When each account was added: its env file's time. Editing the file (the
+    idle kill switch) moves it, which only changes the "added" wording of a
+    lane that was never seen."""
+    added: dict[str, datetime] = {}
+    for user in users:
+        try:
+            added[user] = datetime.fromtimestamp(
+                (env_dir / f"{user}.env").stat().st_mtime, tz
+            )
+        except OSError:
+            continue
+    return added
 
 
 def parse_systemctl_show(text: str) -> dict[str, Unit]:
@@ -577,10 +601,10 @@ header .presence {
   position: relative;
   height: 34px;
   border-radius: 9px;
-  background:
-    repeating-linear-gradient(90deg, var(--tick) 0 1px, transparent 1px 12.5%),
-    var(--track);
+  background: var(--track);
 }
+.tick { position: absolute; top: 0; bottom: 0; width: 1px; background: var(--tick); }
+.tick.midnight { background: var(--muted); opacity: 0.6; }
 .block {
   position: absolute;
   top: 6px; bottom: 6px;
@@ -588,19 +612,10 @@ header .presence {
   background: var(--primary);
 }
 .block.open { background: var(--ok); box-shadow: 0 0 12px hsla(150, 80%, 45%, 0.55); }
-.now {
-  position: absolute;
-  top: -4px; bottom: -4px;
-  width: 2px;
-  margin-left: -1px;
-  background: var(--text);
-  opacity: 0.55;
-  border-radius: 2px;
-}
 .hours { position: relative; height: 16px; font-size: 11px; color: var(--muted); }
 .hours span { position: absolute; transform: translateX(-50%); font-variant-numeric: tabular-nums; }
-.hours span:first-child { transform: none; }
-.hours span:last-child { transform: translateX(-100%); }
+.hours span.midnight { color: var(--text); font-weight: 600; }
+.hours span.now-label { transform: translateX(-100%); color: var(--text); font-weight: 600; }
 
 .sleeping-soon .block.open { background: var(--warn); box-shadow: none; }
 .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; text-align: right; }
@@ -646,10 +661,19 @@ def _when(at: datetime, now: datetime) -> str:
     return f"{at.day} {at.strftime('%b')}"
 
 
+def _day(at: datetime, now: datetime) -> str:
+    if at.date() == now.date():
+        return "today"
+    if at.date() == now.date() - timedelta(days=1):
+        return "yesterday"
+    return f"{at.day} {at.strftime('%b')}"
+
+
 def _megabytes(value: int | None) -> str:
     if value is None:
         return ""
-    return f"{value / 1024**2:,.0f} MB"
+    # A no-break space, so the number and its unit never split across lines.
+    return f"{value / 1024**2:,.0f}\u00a0MB"
 
 
 def _state_text(lane: Lane, now: datetime) -> str:
@@ -662,20 +686,37 @@ def _state_text(lane: Lane, now: datetime) -> str:
         text = "down"
     elif lane.last_seen:
         text = f"asleep, last seen {_when(lane.last_seen, now)}"
+    elif lane.added and now - lane.added <= timedelta(days=HISTORY_DAYS):
+        text = f"added {_day(lane.added, now)}, not seen yet"
     else:
         text = f"asleep, not seen in {HISTORY_DAYS} days"
     return f"{text} · {memory}" if memory and lane.state is not State.DOWN else text
 
 
-def _percent_of_day(at: datetime, day_start: datetime) -> float:
-    return 100.0 * (at - day_start).total_seconds() / 86400
+def _percent(at: datetime, window_start: datetime) -> float:
+    return 100.0 * (at - window_start) / WINDOW
 
 
-def _render_track(lane: Lane, day_start: datetime, now: datetime) -> str:
-    parts: list[str] = []
+def tick_times(window_start: datetime, now: datetime) -> list[datetime]:
+    """Every clock hour divisible by TICK_HOURS inside the window."""
+    tick = window_start.replace(minute=0, second=0, microsecond=0) + timedelta(hours=1)
+    ticks: list[datetime] = []
+    while tick < now:
+        if tick.hour % TICK_HOURS == 0:
+            ticks.append(tick)
+        tick += timedelta(hours=1)
+    return ticks
+
+
+def _render_track(lane: Lane, window_start: datetime, ticks: list[datetime]) -> str:
+    parts: list[str] = [
+        f'<div class="tick{" midnight" if tick.hour == 0 else ""}" '
+        f'style="left:{_percent(tick, window_start):.3f}%"></div>'
+        for tick in ticks
+    ]
     for block in lane.blocks:
-        left = _percent_of_day(block.start, day_start)
-        width = max(MIN_BLOCK_PERCENT, _percent_of_day(block.end, day_start) - left)
+        left = _percent(block.start, window_start)
+        width = max(MIN_BLOCK_PERCENT, _percent(block.end, window_start) - left)
         minutes = round((block.end - block.start).total_seconds() / 60)
         end_text = "now" if block.is_open else _clock(block.end)
         title = f"{_clock(block.start)} – {end_text} · {minutes} min"
@@ -684,14 +725,15 @@ def _render_track(lane: Lane, day_start: datetime, now: datetime) -> str:
             f'<div class="{css}" style="left:{left:.3f}%;width:{width:.3f}%" '
             f'title="{_esc(title)}"></div>'
         )
-    parts.append(
-        f'<div class="now" style="left:{_percent_of_day(now, day_start):.3f}%"></div>'
-    )
     return f'<div class="track">{"".join(parts)}</div>'
 
 
 def _render_lane(
-    lane: Lane, first_test: bool, day_start: datetime, now: datetime
+    lane: Lane,
+    first_test: bool,
+    window_start: datetime,
+    ticks: list[datetime],
+    now: datetime,
 ) -> str:
     state_css = lane.state.name.lower().replace("_", "-")
     classes = f"row {state_css}" + (" test-first" if first_test else "")
@@ -702,9 +744,9 @@ def _render_lane(
         f'<div class="name">{_esc(lane.user)}{tag}</div>'
         f'<div class="state">{_esc(_state_text(lane, now))}</div>'
         f"</div></div>"
-        f"{_render_track(lane, day_start, now)}"
+        f"{_render_track(lane, window_start, ticks)}"
         f'<div class="stats">'
-        f"<div><b>{lane.minutes_today:,}</b><span>min</span></div>"
+        f"<div><b>{lane.minutes:,}</b><span>min</span></div>"
         f"<div><b>{lane.words_today:,}</b><span>today</span></div>"
         f"<div><b>{lane.words_total:,}</b><span>total</span></div>"
         f"</div></div>"
@@ -730,7 +772,8 @@ def _render_meter(meter: Meter) -> str:
 
 def render_page(dashboard: Dashboard, css_variables: str) -> str:
     now = dashboard.now
-    day_start = datetime.combine(now.date(), time(), now.tzinfo)
+    window_start = now - WINDOW
+    ticks = tick_times(window_start, now)
     real_lanes = [lane for lane in dashboard.lanes if not lane.is_test]
     online = sum(
         lane.state in (State.ONLINE, State.SLEEPING_SOON) for lane in real_lanes
@@ -742,11 +785,21 @@ def render_page(dashboard: Dashboard, css_variables: str) -> str:
     for lane in dashboard.lanes:
         first_test = lane.is_test and not seen_test and bool(real_lanes)
         seen_test = seen_test or lane.is_test
-        rows.append(_render_lane(lane, first_test, day_start, now))
-    hours = "".join(
-        f'<span style="left:{hour / 24 * 100:.3f}%">{hour:02d}</span>'
-        for hour in range(0, 25, 3)
-    )
+        rows.append(_render_lane(lane, first_test, window_start, ticks, now))
+    labels: list[str] = []
+    for tick in ticks:
+        left = _percent(tick, window_start)
+        if left > 100 - LABEL_CLEAR_PERCENT:
+            continue
+        # Midnight shows the day that starts there.
+        if tick.hour == 0:
+            labels.append(
+                f'<span class="midnight" style="left:{left:.3f}%">{tick.strftime("%a")}</span>'
+            )
+        else:
+            labels.append(f'<span style="left:{left:.3f}%">{tick.hour:02d}</span>')
+    labels.append('<span class="now-label" style="left:100%">now</span>')
+    hours = "".join(labels)
     ruler = (
         '<div class="row ruler"><div class="who"></div>'
         f'<div class="hours">{hours}</div>'
@@ -802,7 +855,7 @@ def render_page(dashboard: Dashboard, css_variables: str) -> str:
 <div class="section-title">Server</div>
 <section class="meters">{meters_html}</section>
 
-<div class="section-title">Contributors today</div>
+<div class="section-title">Contributors, last 24 hours</div>
 <section class="card lanes">{lanes_html}</section>
 </main>
 </body>
@@ -844,7 +897,13 @@ def main() -> None:
     events = parse_journal(read_journal(now - timedelta(days=HISTORY_DAYS)), tz)
     words = read_daily_logs(args.data_dir)
     lanes = build_lanes(
-        users, read_units(users), build_visits(events), words, test_users, now
+        users,
+        read_units(users),
+        build_visits(events),
+        words,
+        test_users,
+        now,
+        read_added(args.env_dir, users, tz),
     )
     dashboard = build_dashboard(lanes, read_meters(), words, test_users, now)
     css_variables = (args.project_root / CSS_VARIABLES_SOURCE).read_text(

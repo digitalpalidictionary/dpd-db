@@ -64,7 +64,7 @@ Every command in Steps 2 to 9 runs on the new server: `ssh SSH_TARGET '<command>
 4. `config.ini` with the API keys.
 5. First database build.
 6. Service unit, nginx and the certificate.
-7. Contributors, and the `/status` page.
+7. Contributors, and the `/status` and `/dashboard/` pages.
 8. Deploy key and the nightly cron job.
 9. Restricted read-only key for the laptop pull.
 10. Laptop side: point the pull at the new server.
@@ -356,7 +356,7 @@ CHECK: `ssh SSH_TARGET 'ls -l /var/www/dpd-pages; grep -Eo "about [0-9]+ seconds
 
 EXPECT: two files with mode `-rw-r--r--`, then one line `about N seconds` where N is the measured number, a nonzero multiple of 10 (not the letter N).
 
-## Step 7. Contributors, and the `/status` page
+## Step 7. Contributors, and the `/status` and `/dashboard/` pages
 
 **WHO:** AGENT, except where it says OWNER.
 
@@ -494,6 +494,33 @@ ssh SSH_TARGET 'nginx -t && systemctl reload nginx && systemctl is-active nginx'
 CHECK: `ssh SSH_TARGET 'grep -c "location = /_dpd_pw_check" /etc/nginx/sites-available/dpd-contrib; ls /etc/nginx/dpd/*.initial 2>/dev/null | wc -l; stat -c "%a" /run/dpd-password.sock'`
 
 EXPECT: `1`, the number of users added through 7a or reset with `set_password.sh` (users copied in 7b have none), then `660`.
+
+**7f. The `/dashboard/` page.** One page with who is in the editor, visits in the last 24 hours, words added, and how full the server is (`scripts/server_contrib/contrib_dashboard.py`). The template is `scripts/server_contrib/nginx_dashboard.conf.template`, with `@MAINTAINER@` as `MAINTAINER_USER`: the same login as `/status`. The block goes inside the `server { ... }` of `/etc/nginx/sites-available/dpd-contrib`, before its closing `}`. **WHO:** AGENT.
+
+```
+ssh SSH_TARGET 'cp -a /etc/nginx/sites-available/dpd-contrib /root/mem/dpd-contrib.before_dashboard'
+ssh SSH_TARGET 'python3 - <<EOF
+import io
+site = "/etc/nginx/sites-available/dpd-contrib"
+block = io.open("/root/dpd-db/scripts/server_contrib/nginx_dashboard.conf.template", encoding="utf-8").read().replace("@MAINTAINER@", "MAINTAINER_USER")
+text = io.open(site, encoding="utf-8").read()
+assert text.rstrip().endswith("}") and "location /dashboard/" not in text
+indented = "".join("    " + line if line.strip() else line for line in block.splitlines(True))
+io.open(site, "w", encoding="utf-8").write(text.rstrip()[:-1] + "\n" + indented + "}\n")
+EOF'
+ssh SSH_TARGET 'nginx -t && systemctl reload nginx && systemctl is-active nginx'
+ssh SSH_TARGET 'cd /root/dpd-db && /root/.local/bin/uv run --no-sync scripts/server_contrib/contrib_dashboard.py --out-dir /var/lib/dpd/dashboard && ls /var/lib/dpd/dashboard'
+```
+
+Then add the cron line, every minute, after a crontab backup:
+
+```
+ssh SSH_TARGET 'crontab -l > /root/mem/crontab.before_dashboard; { cat /root/mem/crontab.before_dashboard; echo "* * * * * cd /root/dpd-db && /root/.local/bin/uv run --no-sync scripts/server_contrib/contrib_dashboard.py --out-dir /var/lib/dpd/dashboard >> /root/mem/dashboard_cron.log 2>&1"; } | crontab -'
+```
+
+CHECK: `ssh SSH_TARGET 'H=DOMAIN; curl -s -o /dev/null -w "%{http_code}\n" https://$H/dashboard/; sleep 70; stat -c %y /var/lib/dpd/dashboard/index.html; cat /root/mem/dashboard_cron.log'`
+
+EXPECT: `401` (no login), a time within the last minute, and an empty cron log. The OWNER opens `https://DOMAIN/dashboard/` with the maintainer login and sees one lane per contributor.
 
 ## Step 8. Deploy key and the nightly cron job
 

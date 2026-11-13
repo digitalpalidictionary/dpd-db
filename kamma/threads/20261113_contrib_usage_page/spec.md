@@ -4,7 +4,7 @@ Status: rewritten 2026-11-13 from the owner's brief. Replaces the first draft (a
 
 ## Overview
 
-The owner wants one page that shows, at a glance, the state of the contributor web server right now: who is in the editor, when each contributor was online today, how many words they added, and how full the server is. The page uses the DPD look (`identity/`).
+The owner wants one page that shows, at a glance, the state of the contributor web server right now: who is in the editor, when each contributor was online in the last 24 hours, how many words they added, and how full the server is. The page uses the DPD look (`identity/`).
 
 While in this area, two small editor-side changes: the DPD logo replaces the Flet logo on the editor's loading screen, and the DPD logo appears on the "asleep" page.
 
@@ -19,9 +19,9 @@ While in this area, two small editor-side changes: the DPD logo replaces the Fle
 - **Server row:** one horizontal row of meters. Each meter is a bar that fills left to right: empty = little use, full = lots. Meters: disk, memory, swap, CPU load (5-minute average divided by the core count). Each meter shows its percent and the amounts (`19 of 96 GB`). The bar colour turns amber above 70 % and red above 90 %.
 - **One lane per contributor:**
   - a status dot with a word: **online** (green, pulsing): the editor holds an open page; **going to sleep** (amber): the idle countdown is showing; **asleep** (grey): the editor runs empty; **down** (red): the unit is not running.
-  - a 24-hour timeline for today (00:00 to 24:00) with one block per visit, a "now" marker, and hour ticks. Hovering a block shows its start, end and minutes.
-  - the minutes online today, words today and words in total for that contributor;
-  - a line under the name: "online since 13:02", "asleep, last seen 10:31" (or "yesterday", or a date, up to 14 days back), with the editor's memory.
+  - a timeline of the last 24 hours, with "now" at the right edge, one block per visit, a tick every 3 clock hours, and a stronger line at midnight labelled with the new day. Hovering a block shows its start, end and minutes. (Changed 2026-11-13 at the owner's request: the first version showed 00:00 to 24:00 of today.)
+  - the minutes online in the last 24 hours, words today and words in total for that contributor. Words stay per calendar day, because the editor counts them per date;
+  - a line under the name: "online since 13:02", "added today, not seen yet" (account date from its env file, within 14 days), "asleep, last seen 10:31" (or "yesterday", or a date, up to 14 days back), with the editor's memory.
 - Test users (`bdhrs`, `deva`) get a lane with a "test" tag, below the real contributors. Their words do not count in the two big numbers.
 - The page reloads itself every 60 seconds.
 - Dark and light themes follow the browser setting, with the DPD colours from `identity/css/dpd-variables.css` and the Inter font from `identity/fonts/`.
@@ -61,7 +61,7 @@ While in this area, two small editor-side changes: the DPD logo replaces the Fle
   2. `systemctl show -p Id -p ActiveState -p MemoryCurrent` for every unit named by `/etc/dpd/*.env`.
   3. Every `daily_log_<user>.json` in the data folder.
   4. `psutil` for disk, memory, swap and load.
-- Visits come from the journal: a visit starts at the first `page connected`/`reconnected` with no visit open, and ends at `asleep` time minus its idle minutes, or at `Stopped`/`Started`. A visit with no end is open; on the timeline it runs to now. Visits are cut to today.
+- Visits come from the journal: a visit starts at the first `page connected`/`reconnected` with no visit open, and ends at `asleep` time minus its idle minutes, or at `Stopped`/`Started`. A visit with no end is open; on the timeline it runs to now. Visits are cut to the last 24 hours.
 - The page goes to `<out-dir>/index.html`, written to a temp file and then renamed, so nginx never serves half a page. The script copies the logo and the Inter font into `<out-dir>` when they are missing.
 - nginx serves `<out-dir>` at `/dashboard/`, behind the maintainer's htpasswd file, like `/status`.
 
@@ -69,7 +69,7 @@ While in this area, two small editor-side changes: the DPD logo replaces the Fle
 
 - Address `/dashboard/`; output folder `/var/lib/dpd/dashboard/`.
 - Cron every minute, page reload every 60 seconds.
-- Only today on the timeline. No week table (the first draft had one; the new brief does not ask for it).
+- The last 24 hours on the timeline. No week table (the first draft had one; the new brief does not ask for it).
 - Test users are shown, tagged, last, and left out of the two big numbers.
 - "Words" = new words saved, the same count as the editor's own counter in its top bar.
 - Time shown is server time, which is the owner's time (both +05:30).
@@ -101,7 +101,7 @@ While in this area, two small editor-side changes: the DPD logo replaces the Fle
 
 ## What's not included
 
-- A history beyond today, or a week table.
+- A history beyond the last 24 hours, or a week table.
 - Alerts, emails or notifications.
 - Changes to how the editor logs actions.
 - The offline page (not in the brief).
