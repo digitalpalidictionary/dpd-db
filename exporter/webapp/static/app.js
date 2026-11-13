@@ -299,8 +299,7 @@ async function performSearch(addHistory = true, syncTerms = true) {
         appState.dpd.panels = data.panels || {};
         for (const panel of dpdDiv.querySelectorAll(".hidden[id]")) {
           if (Object.prototype.hasOwnProperty.call(appState.dpd.panels, panel.id)) {
-            // The niggahīta toggle rewrites DOM ids. Keep an ASCII key that
-            // survives those changes and serialization into resultsHTML.
+            // Keep the encoded lookup key when serializing lazy panels.
             panel.dataset.panelId = encodeURIComponent(panel.id);
           }
         }
@@ -1331,6 +1330,13 @@ function updateHistoryPanel() {
     ul.appendChild(li);
   });
 
+  // Stored history terms stay unchanged; normalize only the displayed list.
+  if (document.getElementById("niggahita-toggle")?.checked) {
+    niggahitaUp(ul);
+  } else {
+    niggahitaDown(ul);
+  }
+
   // Add the list to the history panel
   historyListPane.appendChild(ul);
 }
@@ -1436,9 +1442,14 @@ function restoreHistoryState(index) {
 
 // Apply the current text form to both restored results and newly built panels.
 function applyNiggahitaPreference(html) {
-  return document.getElementById("niggahita-toggle")?.checked
-    ? html.replace(/ṃ/g, "ṁ")
-    : html.replace(/ṁ/g, "ṃ");
+  const content = document.createElement("div");
+  content.innerHTML = html;
+  if (document.getElementById("niggahita-toggle")?.checked) {
+    niggahitaUp(content);
+  } else {
+    niggahitaDown(content);
+  }
+  return content.innerHTML;
 }
 
 // Hidden panels arrive empty, with their contents in appState.dpd.panels (see
@@ -1477,7 +1488,12 @@ function highlightInflections(searchTerm) {
   // Normalize the incoming searchTerm to text
   const tempDiv = document.createElement("div");
   tempDiv.textContent = searchTerm;
-  const normalizedSearch = applyNiggahitaPreference(tempDiv.textContent);
+  if (document.getElementById("niggahita-toggle")?.checked) {
+    niggahitaUp(tempDiv);
+  } else {
+    niggahitaDown(tempDiv);
+  }
+  const normalizedSearch = tempDiv.textContent;
 
   // Find all inflection tables
   const inflectionTables = document.querySelectorAll("table.inflection");
