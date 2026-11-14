@@ -109,6 +109,7 @@
             <form id="search-form">
                 <div class="search-input-container">
                     <input class="search-box" type="text" name="search" id="search-box" value="{{ search }}"
+                        aria-label="search"
                         autocomplete="off" inputmode="text" autocapitalize="off" autofocus />
                     <div id="search-dropdown" class="search-dropdown" style="display: none;"></div>
                 </div>
@@ -179,63 +180,63 @@
                 </p>
                 <p>
                     <label class="switch">
-                        <input type="checkbox" id="theme-toggle" />
+                        <input type="checkbox" id="theme-toggle" aria-label="light / dark mode" />
                         <span class="slider round"></span>
                     </label>
                     light / dark mode
                 </p>
                 <p>
                     <label class="switch">
-                        <input type="checkbox" id="sans-serif-toggle" />
+                        <input type="checkbox" id="sans-serif-toggle" aria-label="sans / serif font" />
                         <span class="slider round"></span>
                     </label>
                     sans / serif font
                 </p>
                 <p>
                     <label class="switch">
-                        <input type="checkbox" id="niggahita-toggle" />
+                        <input type="checkbox" id="niggahita-toggle" aria-label="niggahīta ṃ / ṁ" />
                         <span class="slider round"></span>
                     </label>
                     niggahīta ṃ / ṁ
                 </p>
                 <p>
                     <label class="switch">
-                        <input type="checkbox" id="grammar-toggle" />
+                        <input type="checkbox" id="grammar-toggle" aria-label="grammar closed / open" />
                         <span class="slider round"></span>
                     </label>
                     grammar closed / open
                 </p>
                 <p>
                     <label class="switch">
-                        <input type="checkbox" id="example-toggle" />
+                        <input type="checkbox" id="example-toggle" aria-label="example closed / open" />
                         <span class="slider round"></span>
                     </label>
                     example closed / open
                 </p>
                 <p>
                     <label class="switch">
-                        <input type="checkbox" id="one-button-toggle" />
+                        <input type="checkbox" id="one-button-toggle" aria-label="one button at a time off / on" />
                         <span class="slider round"></span>
                     </label>
                     one button at a time off / on
                 </p>
                 <p>
                     <label class="switch">
-                        <input type="checkbox" id="summary-toggle" checked />
+                        <input type="checkbox" id="summary-toggle" checked aria-label="summary hide / show" />
                         <span class="slider round"></span>
                     </label>
                     summary hide / show
                 </p>
                 <p>
                     <label class="switch">
-                        <input type="checkbox" id="sandhi-toggle" checked />
+                        <input type="checkbox" id="sandhi-toggle" checked aria-label="sandhi ' hide / show" />
                         <span class="slider round"></span>
                     </label>
                     sandhi ' hide / show
                 </p>
                 <p>
                     <label class="switch">
-                        <input type="checkbox" id="audio-toggle" />
+                        <input type="checkbox" id="audio-toggle" aria-label="audio male / female" />
                         <span class="slider round"></span>
                     </label>
                     audio male / female
@@ -280,19 +281,21 @@
                 bold defined terms in the Chaṭṭha Saṅgāyana Tipiṭaka
             </p>
             <div class="bd-search-pane">
-                <h4>Search for definitions of the term</h4>
+                <h4 id="bd-search-label-1">Search for definitions of the term</h4>
                 <form id="bd-search-form-1">
                     <input class="search-box bd-search-box" type="text" name="bd-search-1" id="bd-search-box-1"
+                        aria-labelledby="bd-search-label-1"
                         value="{{ search }}" autocomplete="off" inputmode="text" autocapitalize="off" autofocus />
                 </form>
-                <h4>which contain</h4>
+                <h4 id="bd-search-label-2">which contain</h4>
                 <form id="bd-search-form-2">
                     <input class="search-box bd-search-box" type="text" name="bd-search-2" id="bd-search-box-2"
+                        aria-labelledby="bd-search-label-2"
                         value="{{ search }}" autocomplete="off" inputmode="text" autocapitalize="off" autofocus />
                 </form>
                 <h4>within them.</h4>
                 <button class="search-button" id="bd-search-button">search</button>
-                <button class="help small-button" id="search-help-button">
+                <button class="help small-button" id="bd-search-help-button">
                     ?
                     <span class="tooltip velthuis">
                         <b>Velthuis typing:</b>
@@ -356,10 +359,10 @@
             <div class="bd-search-pane">
                 <form id="tt-search-form">
                     <div class="tt-search-row">
-                        <label class="tt-label">Search for</label>
+                        <label class="tt-label" for="tt-search-box">Search for</label>
                         <input class="search-box tt-search-box" type="text" id="tt-search-box" autocomplete="off"
                             inputmode="text" autocapitalize="off" placeholder="use plain text or regex" autofocus />
-                        <label class="tt-label">in</label>
+                        <label class="tt-label" for="tt-lang-select">in</label>
                         <select id="tt-lang-select" class="tt-select">
                             <option value="Pāḷi">Pāḷi texts</option>
                             <option value="English">English translations</option>
@@ -387,7 +390,7 @@
                         <button class="search-button clear-button" id="tt-clear-button">clear</button>
                     </div>
                     <div class="tt-search-row">
-                        <label class="tt-label">Only show results</label>
+                        <label class="tt-label" for="tt-filter-mode">Only show results</label>
                         <select id="tt-filter-mode" class="tt-select">
                             <option value="with">with</option>
                             <option value="without">without</option>
