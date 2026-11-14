@@ -286,6 +286,41 @@ def test_one_missing_folder_of_two_stops_the_count(
         finder.count_book(mw.Book("Row", ["kn10", "kn11"], ["ap"]))
 
 
+def test_a_row_with_a_story_range_counts_only_those_cst_stories(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    asked: list[range] = []
+
+    def jataka_words(story_range: range, **_k: Any) -> list[str]:
+        asked.append(story_range)
+        return ["storyword"] * 3
+
+    monkeypatch.setattr(mw, "make_cst_jataka_text_list", jataka_words)
+    monkeypatch.setattr(
+        mw, "make_cst_text_list", lambda *_a, **_k: pytest.fail("whole book read")
+    )
+    monkeypatch.setattr(mw, "sutta_central_books", {"part": sc_source({"other": 1})})
+    finder = make_finder()
+
+    words, unknown, _needs, top = finder.count_book(
+        mw.Book("Row", ["kn14"], ["part"], range(1, 11))
+    )
+
+    assert asked == [range(1, 11)]
+    assert words == 2
+    assert (unknown, top[0]) == (2, ("storyword", 3))
+
+
+def test_the_jataka_rows_cover_every_story_once() -> None:
+    stories = [
+        number for book in mw.JATAKA_ROOT for number in (book.story_range or range(0))
+    ]
+
+    assert sorted(stories) == list(range(1, 548))
+    assert len(mw.JATAKA_ROOT) == 5
+    assert all(book.cst_codes == ["kn14"] for book in mw.JATAKA_ROOT)
+
+
 def test_every_suttacentral_book_named_in_a_table_exists() -> None:
     from gui2.books import sutta_central_books
 

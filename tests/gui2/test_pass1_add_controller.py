@@ -1,12 +1,17 @@
 """Pass1Add must offer AI output as `_add` suggestions, never fill the fields."""
 
+import json
+from pathlib import Path
 from types import SimpleNamespace
+from typing import cast
 from unittest.mock import MagicMock
 
 import pytest
 
 import gui2.pass1_add_controller as controller_module
 from gui2.pass1_add_controller import Pass1AddController
+from gui2.pass1_file_manager import Pass1FileManager
+from gui2.paths import Gui2Paths
 
 AI_DATA = {
     "lemma_1": "narena",
@@ -182,6 +187,82 @@ def test_hand_typed_save_after_the_last_book_word_loads_nothing(
     assert loaded == []
 
 
+# --- a word another contributor finished since the book opened is skipped ---
+
+
+def _next_ctrl(
+    words: list[str], finished: set[str]
+) -> tuple[Pass1AddController, MagicMock]:
+    ctrl = object.__new__(Pass1AddController)
+    ctrl.book_to_process = "book"
+    ctrl.pass1_auto_controller = MagicMock()
+    ctrl.pass1_auto_controller.file_manager.finished_words.return_value = finished
+    ctrl.pass1_auto_controller.get_auto_processed_dict.return_value = {
+        word: {"pos": "x"} for word in words
+    }
+    ctrl.auto_processed_iter = iter([(word, {"pos": "x"}) for word in words])
+    ctrl.ui = MagicMock()
+    return ctrl, ctrl.ui
+
+
+def test_next_item_skips_words_finished_by_others() -> None:
+    ctrl, _ = _next_ctrl(["a", "b", "c"], finished={"b"})
+
+    assert ctrl.get_next_item() is True
+    assert ctrl.word_in_text == "a"
+    assert ctrl.get_next_item() is True
+    assert ctrl.word_in_text == "c"
+
+
+def test_next_item_ends_when_every_word_was_finished_by_others() -> None:
+    ctrl, ui = _next_ctrl(["a", "b"], finished={"a", "b"})
+
+    assert ctrl.get_next_item() is False
+    ui.update_message.assert_called_with("No more words to process.")
+    ui.update_remaining.assert_called_with(0)
+
+
+def test_remaining_count_leaves_out_words_finished_by_others() -> None:
+    ctrl, ui = _next_ctrl(["a", "b", "c"], finished={"b"})
+
+    ctrl.get_next_item()
+
+    ui.update_remaining.assert_called_with(2)
+
+
+def test_a_word_another_contributor_finishes_after_the_book_opened_is_skipped(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    monkeypatch.setenv("DPD_GUI2_DATA_DIR", str(tmp_path / "server_data"))
+
+    def manager(user: str) -> Pass1FileManager:
+        paths = Gui2Paths.for_user(user, base_dir=tmp_path)
+        paths.gui2_data_path.mkdir(parents=True, exist_ok=True)
+        return Pass1FileManager(paths)
+
+    alice, bob = manager("alice"), manager("bob")
+    (alice.gui2_data_path / "pass1_auto_vv.json").write_text(
+        json.dumps({word: {"pos": "x"} for word in ("a", "b", "c")}), encoding="utf-8"
+    )
+    auto = MagicMock()
+    auto.file_manager = alice
+    auto.get_auto_processed_dict.side_effect = alice.read
+    ctrl = object.__new__(Pass1AddController)
+    ctrl.book_to_process = "vv"
+    ctrl.pass1_auto_controller = auto
+    ctrl.ui = MagicMock()
+    # alice opens the book: the queue is copied once, as process_book does
+    ctrl.auto_processed_iter = iter(dict(alice.read("vv")).items())
+
+    bob.remove("vv", "b")
+
+    assert ctrl.get_next_item() is True
+    assert ctrl.word_in_text == "a"
+    assert ctrl.get_next_item() is True
+    assert ctrl.word_in_text == "c"
+    assert ctrl.get_next_item() is False
+
+
 def test_a_committed_new_word_notes_the_lemma_without_a_full_reread(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
@@ -189,8 +270,9 @@ def test_a_committed_new_word_notes_the_lemma_without_a_full_reread(
 
     ctrl._save_previewed_word(MagicMock(id=1, lemma_1="zzz 1"), "", False)
 
-    ctrl.db.note_new_lemma.assert_called_once_with("zzz 1")
-    ctrl.db.get_all_lemma_1_and_lemma_clean.assert_not_called()
+    db = cast(MagicMock, ctrl.db)
+    db.note_new_lemma.assert_called_once_with("zzz 1")
+    db.get_all_lemma_1_and_lemma_clean.assert_not_called()
 
 
 def test_a_committed_edit_still_rereads_the_lemmas(
@@ -200,5 +282,6 @@ def test_a_committed_edit_still_rereads_the_lemmas(
 
     ctrl._save_previewed_word(MagicMock(id=1, lemma_1="zzz 1"), "", True)
 
-    ctrl.db.get_all_lemma_1_and_lemma_clean.assert_called_once_with()
-    ctrl.db.note_new_lemma.assert_not_called()
+    db = cast(MagicMock, ctrl.db)
+    db.get_all_lemma_1_and_lemma_clean.assert_called_once_with()
+    db.note_new_lemma.assert_not_called()

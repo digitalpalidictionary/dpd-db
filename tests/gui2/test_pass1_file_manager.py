@@ -203,6 +203,29 @@ class TestSharedRemovedLists:
         _write_list(fm.gui2_data_path, "alice", json.dumps({"vv": ["a"]}))
         assert fm.read("vv") == {"a": 1}
 
+    def test_finished_words_spans_contributors_for_one_book(
+        self, tmp_path: Path, monkeypatch
+    ):
+        fm = _contributor(tmp_path, monkeypatch)
+        folder = tmp_path / "server_data"
+        _write_list(folder, "alice", json.dumps({"vv": ["a"]}))
+        _write_list(folder, "bob", json.dumps({"vv": ["b"], "pv": ["c"]}))
+        assert fm.finished_words("vv") == {"a", "b"}
+        assert fm.finished_words("dn") == set()
+
+    def test_finished_words_sees_a_list_written_after_the_manager_was_built(
+        self, tmp_path: Path, monkeypatch
+    ):
+        fm = _contributor(tmp_path, monkeypatch)
+        assert fm.finished_words("vv") == set()
+        _write_list(tmp_path / "server_data", "bob", json.dumps({"vv": ["b"]}))
+        assert fm.finished_words("vv") == {"b"}
+
+    def test_finished_words_is_empty_on_the_laptop(self, tmp_path: Path):
+        fm = _manager(tmp_path)
+        _write_list(fm.gui2_data_path, "alice", json.dumps({"vv": ["a"]}))
+        assert fm.finished_words("vv") == set()
+
     def test_all_removed_words_spans_lists_and_books(self, tmp_path: Path):
         fm = _manager(tmp_path)
         _write_list(fm.gui2_data_path, "alice", json.dumps({"vv": ["a"]}))

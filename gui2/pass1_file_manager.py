@@ -61,6 +61,15 @@ class Pass1FileManager:
             hidden.update(removed.get(book, []))
         return hidden
 
+    def finished_words(self, book: str) -> set[str]:
+        """Words any contributor finished in this book, read fresh from disk.
+
+        The laptop ignores pulled contributor lists, so it gets an empty set."""
+        if self.removed_path is None:
+            return set()
+        with self._lock:
+            return self._hidden_words(book)
+
     def all_removed_words(self) -> set[str]:
         words: set[str] = set()
         for removed in _valid_lists(self._list_folder()):

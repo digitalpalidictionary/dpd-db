@@ -98,7 +98,8 @@ def test_none_path_source_stays_lazy_and_empty(load_calls: list[str]) -> None:
         ("ana", True),
         ("jaa", True),
         ("kva", True),
-        ("ja", False),
+        ("ja-1", False),
+        ("ja-5", False),
         ("mn", False),
         ("ps", False),
         ("mil", False),
@@ -107,7 +108,7 @@ def test_none_path_source_stays_lazy_and_empty(load_calls: list[str]) -> None:
     ],
 )
 def test_commentary_books_are_flagged(book: str, expected: bool) -> None:
-    # "ja" ends in "a" but is the Jātaka itself, not its commentary
+    # "ja-1" is the Jātaka itself, not its commentary
     assert books.sutta_central_books[book].is_commentary is expected
 
 
@@ -150,13 +151,55 @@ def test_single_folder_string_still_works(tmp_path: Path) -> None:
 
 @needs_sc_data
 @pytest.mark.parametrize(
-    ("book", "folders"),
-    [("ap", {"tha-ap", "thi-ap"}), ("nidd1&2", {"mnd", "cnd"})],
+    ("book", "cst_books"),
+    [
+        ("tha-ap", ["kn10"]),
+        ("thi-ap", ["kn11"]),
+        ("mnd", ["kn15"]),
+        ("cnd", ["kn16"]),
+    ],
 )
-def test_real_two_folder_books_read_both_folders(book: str, folders: set[str]) -> None:
+def test_real_split_books_read_their_own_folder(
+    book: str, cst_books: list[str]
+) -> None:
     source = books.sutta_central_books[book]
 
-    assert {p.parent.name for p in source.pali_file_list} == folders
+    assert {p.parent.name for p in source.pali_file_list} == {book}
+    assert source.cst_books == cst_books
+    assert "ap" not in books.sutta_central_books
+    assert "nidd1&2" not in books.sutta_central_books
+
+
+def test_story_range_keeps_only_the_files_inside_it(tmp_path: Path) -> None:
+    for number in (1, 2, 10, 11, 100):
+        write_segments(
+            tmp_path, f"ja{number}_root-pli-ms.json", {f"ja{number}:1.1": "x"}
+        )
+
+    source = SuttaCentralSource(
+        "ja-1",
+        ["kn14"],
+        str(tmp_path),
+        None,
+        is_commentary=False,
+        story_range=range(2, 11),
+    )
+
+    assert [p.name for p in source.pali_file_list] == [
+        "ja2_root-pli-ms.json",
+        "ja10_root-pli-ms.json",
+    ]
+
+
+@needs_sc_data
+def test_the_five_jataka_parts_read_every_story_once() -> None:
+    parts = [books.sutta_central_books[f"ja-{i}"] for i in range(1, 6)]
+    names = [p.name for part in parts for p in part.pali_file_list]
+
+    assert len(names) == 547
+    assert len(set(names)) == 547
+    assert "ja" not in books.sutta_central_books
+    assert [len(part.pali_file_list) for part in parts] == [350, 104, 42, 14, 37]
 
 
 def test_bold_tags_do_not_split_words(tmp_path: Path) -> None:

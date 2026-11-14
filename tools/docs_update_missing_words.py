@@ -44,7 +44,7 @@ from sqlalchemy import ColumnElement, func, or_
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword, Lookup
 from gui2.books import sutta_central_books
-from tools.cst_sc_text_sets import make_cst_text_list
+from tools.cst_sc_text_sets import make_cst_jataka_text_list, make_cst_text_list
 from tools.pali_sort_key import pali_sort_key
 from tools.pali_text_files import cst_texts
 from tools.paths import ProjectPaths
@@ -92,6 +92,8 @@ class Book(NamedTuple):
     name: str
     cst_codes: list[str]
     sc_books: list[str]  # keys of gui2.books.sutta_central_books
+    # Only the CST stories in this range: the Jātaka is one CST book cut by story.
+    story_range: range | None = None
 
 
 def cst_only(pairs: list[tuple[str, str]]) -> list[Book]:
@@ -113,6 +115,17 @@ SUTTA_ROOT = [
         ["an"],
     ),
 ]
+# The five Jātaka parts of Pass1, cut at whole nipātas (see gui2/books.py).
+JATAKA_ROOT = [
+    Book(name, ["kn14"], [key], sutta_central_books[key].story_range)
+    for name, key in (
+        ("Jātaka 1: 1-350", "ja-1"),
+        ("Jātaka 2: 351-454", "ja-2"),
+        ("Jātaka 3: 455-496", "ja-3"),
+        ("Jātaka 4: 497-510", "ja-4"),
+        ("Jātaka 5: 511-547", "ja-5"),
+    )
+]
 # Order and codes follow the Chaṭṭha Saṅgāyana, which puts Milindapañha before
 # Nettippakaraṇa and Peṭakopadesa.
 KHUDDAKA_ROOT = [
@@ -125,11 +138,13 @@ KHUDDAKA_ROOT = [
     Book("Petavatthu", ["kn7"], ["pv"]),
     Book("Theragāthā", ["kn8"], ["th"]),
     Book("Therīgāthā", ["kn9"], ["thi"]),
-    Book("Apadāna (Therāpadāna, Therīapadāna)", ["kn10", "kn11"], ["ap"]),
+    Book("Therāpadāna", ["kn10"], ["tha-ap"]),
+    Book("Therīapadāna", ["kn11"], ["thi-ap"]),
     Book("Buddhavaṃsa", ["kn12"], ["bv"]),
     Book("Cariyāpiṭaka", ["kn13"], ["cp"]),
-    Book("Jātaka", ["kn14"], ["ja"]),
-    Book("Niddesa (Mahāniddesa, Cūḷaniddesa)", ["kn15", "kn16"], ["nidd1&2"]),
+    *JATAKA_ROOT,
+    Book("Mahāniddesa", ["kn15"], ["mnd"]),
+    Book("Cūḷaniddesa", ["kn16"], ["cnd"]),
     Book("Paṭisambhidāmagga", ["kn17"], ["ps"]),
     Book("Milindapañha", ["kn18"], ["mil"]),
     Book("Nettippakaraṇa", ["kn19"], ["ne"]),
@@ -310,9 +325,15 @@ class MissingWordFinder:
         The words are the CST words plus the words only SuttaCentral has. A word
         is counted in the CST text when it has one, as both texts hold the same
         suttas and adding them would double every count."""
-        occurrences = Counter(
-            make_cst_text_list(book.cst_codes, dedupe=False, show_errors=False)
-        )
+        if book.story_range is None:
+            cst_words = make_cst_text_list(
+                book.cst_codes, dedupe=False, show_errors=False
+            )
+        else:
+            cst_words = make_cst_jataka_text_list(
+                book.story_range, dedupe=False, show_errors=False
+            )
+        occurrences = Counter(cst_words)
         sc_counts: Counter[str] = Counter()
         for sc_book in book.sc_books:
             sc_counts.update(self.sc_word_counts(sc_book))

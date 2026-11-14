@@ -48,6 +48,8 @@ Multiple kamma threads regularly run against this repo in the same working tree 
 - The daily contributor pull (timer, or `just contrib-pull`) skips while gui2 is open, and a skip writes no status or log line. To force a second pull on the same day, close gui2 and move `logs/contrib_pull_status.txt` aside.
 - To sweep the Pass1 Auto drafts, list `gui2/data/pass1_auto_*.json` with `ls`, not `git ls-files` (skip `pass1_auto_removed_*`, the pulled contributor lists): a run writes a new book's file untracked, and a tracked-only sweep misses it (the kva book, 2026-11-08).
 - Any git-tracked data file written by code (e.g. `tools/speech_marks.json`) must be saved in canonical sort order — `pali_sort_key` for Pāḷi strings, applied to both keys and value lists. Insertion order turns every regeneration into a full-file reorder diff.
+- Pass1 draft files (`gui2/data/pass1_auto_*.json`) hold words from both CST and SuttaCentral. To place a draft word in a book part, check both texts: SuttaCentral alone left 134 of 341 Apadāna and 548 of 702 Niddesa words unplaced. Finished-word lists are keyed by book key, and the pull skips a key whose draft file is gone, so renaming or splitting a book orphans entries under the old key.
+- The Jātaka Pass1 books `ja-1` to `ja-5` are cut by story number: SuttaCentral files by the number in the file name (`story_range` on `SuttaCentralSource`), CST text by numbered story heading (`make_cst_jataka_text_list`). The Missing Words page rows follow `JATAKA_ROOT` in `tools/docs_update_missing_words.py`.
 
 ## Database Model (`db/models.py`)
 

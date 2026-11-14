@@ -2,7 +2,7 @@
 
 If you would like to contribute to the dictionary, please fill in the [contribution form](https://forms.gle/Z7ENe8CVFpe2yQqKA){target="_blank"} and let us know which books you are interested in.
 
-**Date: 2026-11-11**
+**Date: 2026-11-14**
 
 [Download as PDF](missing_words.pdf)
 
@@ -62,16 +62,22 @@ An unrecognised count of 20 or more is highlighted.
 | Petavatthu | 4,637 | 4 | 686 | 14.9% |
 | Theragāthā | 7,766 | 12 | 20 | 0.4% |
 | Therīgāthā | 3,539 | 5 | 9 | 0.4% |
-| Apadāna (Therāpadāna, Therīapadāna) | 21,437 | <mark>953</mark> | 7,809 | 40.9% |
+| Therāpadāna | 17,532 | <mark>776</mark> | 6,212 | 39.9% |
+| Therīapadāna | 10,824 | <mark>334</mark> | 3,379 | 34.3% |
 | Buddhavaṃsa | 3,679 | <mark>72</mark> | 842 | 24.8% |
 | Cariyāpiṭaka | 2,477 | <mark>33</mark> | 501 | 21.6% |
-| Jātaka | 30,022 | <mark>1,222</mark> | 8,136 | 31.2% |
-| Niddesa (Mahāniddesa, Cūḷaniddesa) | 19,828 | <mark>228</mark> | 3,435 | 18.5% |
+| Jātaka 1: 1-350 | 6,529 | <mark>158</mark> | 1,273 | 21.9% |
+| Jātaka 2: 351-454 | 6,208 | <mark>159</mark> | 1,088 | 20.1% |
+| Jātaka 3: 455-496 | 4,969 | <mark>125</mark> | 853 | 19.7% |
+| Jātaka 4: 497-510 | 3,080 | <mark>91</mark> | 495 | 19.0% |
+| Jātaka 5: 511-547 | 18,600 | <mark>738</mark> | 4,859 | 30.1% |
+| Mahāniddesa | 14,497 | <mark>161</mark> | 2,342 | 17.3% |
+| Cūḷaniddesa | 11,710 | <mark>90</mark> | 1,742 | 15.6% |
 | Paṭisambhidāmagga | 9,001 | <mark>41</mark> | 2,515 | 28.4% |
 | Milindapañha | 18,150 | <mark>343</mark> | 4,379 | 26.0% |
 | Nettippakaraṇa | 8,049 | <mark>95</mark> | 1,149 | 15.5% |
 | Peṭakopadesa | 9,291 | <mark>182</mark> | 1,996 | 23.4% |
-| **All books added** | **163,221** | **3,201** | **32,703** | **22.0%** |
+| **All books added** | **185,883** | **3,430** | **35,566** | **21.0%** |
 
 ### Abhidhamma
 
@@ -268,13 +274,21 @@ No missing words.
 4. upaṭṭhahituṃ (1)
 5. chuṭṭhūna (1)
 
-**Apadāna (Therāpadāna, Therīapadāna)**
+**Therāpadāna**
 
-1. puññakammassidaṃ (20)
-2. candabhāgānadītīre (19)
-3. atthadhammaniruttīsu (17)
-4. phalamadadiṃ (17)
-5. sabbamevetaṃ (17)
+1. nupapajjahaṃ (16)
+2. sabbamevetaṃ (16)
+3. puññakammassidaṃ (15)
+4. candabhāgānadītīre (14)
+5. pupphapūjāyidaṃ (14)
+
+**Therīapadāna**
+
+1. atthadhammaniruttīsu (17)
+2. sabbamevetaṃ (17)
+3. ṭhānamabhipatthayiṃ (11)
+4. ekūposathikavagga (10)
+5. kuṇḍalakesīvagga (10)
 
 **Buddhavaṃsa**
 
@@ -292,21 +306,61 @@ No missing words.
 4. sineruvanavaṭaṃsakā (7)
 5. idamabraviṃ (3)
 
-**Jātaka**
+**Jātaka 1: 1-350**
 
-1. cūḷakuṇālavagga (20)
-2. catudvāravagga (16)
-3. guyhamatthaṃ (14)
-4. mātaṅgavagga (14)
-5. sālikedāravagga (13)
+1. atthakāmavagga (10)
+2. apāyimhavagga (10)
+3. abbhantaravagga (10)
+4. asadisavagga (10)
+5. asampadānavagga (10)
 
-**Niddesa (Mahāniddesa, Cūḷaniddesa)**
+**Jātaka 2: 351-454**
+
+1. catudvāravagga (16)
+2. gijjhavagga (12)
+3. gandhāravagga (11)
+4. avāriyavagga (10)
+5. kaccānivagga (10)
+
+**Jātaka 3: 455-496**
+
+1. sālikedāravagga (13)
+2. ambavagga (10)
+3. cūḷakuṇālavagga (10)
+4. mātuposakavagga (9)
+5. kurukacchā (6)
+
+**Jātaka 4: 497-510**
+
+1. mātaṅgavagga (14)
+2. guyhamatthaṃ (8)
+3. nindiyamatthaṃ (6)
+4. mānusadehavaṇṇe (5)
+5. vāvīkareyya (5)
+
+**Jātaka 5: 511-547**
+
+1. agalucandanavilittā (12)
+2. saccenayaṃ (12)
+3. tedāni (11)
+4. vesiyānā (11)
+5. kiṃchandavagga (10)
+
+**Mahāniddesa**
+
+1. paṭinissaṭṭhattā (20)
+2. ekaccariyaṃ (19)
+3. pesitattassa (17)
+4. saṅgajālamaticca (17)
+5. acittīkārakato (16)
+
+**Cūḷaniddesa**
 
 1. gāravādhivacanametaṃ (27)
-2. padānupubbatāpetaṃ (27)
-3. saṅgajālamaticca (26)
-4. paṭinissaṭṭhattā (24)
-5. cūḷaniddesa (23)
+2. cūḷaniddesa (23)
+3. pārāyanavagganiddesa (18)
+4. pucchāniddesa (16)
+5. padānupubbatāpetaṃ (15)
 
 **Paṭisambhidāmagga**
 

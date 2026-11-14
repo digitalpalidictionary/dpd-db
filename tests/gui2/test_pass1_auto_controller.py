@@ -290,7 +290,7 @@ def test_book_run_processes_unknown_words_first(
     monkeypatch.setattr(ctrl, "send_prompt", fake_send_prompt)
     monkeypatch.setattr(ctrl, "update_auto_processed", fake_update)
 
-    asyncio.run(ctrl.auto_process_book("ap"))
+    asyncio.run(ctrl.auto_process_book("tha-ap"))
 
     # Unknown words first, original order kept inside each group.
     assert processed == ["m2", "m4", "m1", "m3"]
@@ -345,12 +345,12 @@ def test_unknown_only_run_sends_only_unknown_words(
 ) -> None:
     ctrl, processed = setup_unknown_run(monkeypatch, tmp_path, ["m1", "m2", "m3", "m4"])
 
-    asyncio.run(ctrl.auto_process_book("ap", unknown_only=True))
+    asyncio.run(ctrl.auto_process_book("tha-ap", unknown_only=True))
 
     assert processed == ["m2", "m4"]
     assert ctrl.total_missing == 2
     assert "Unknown words (not in lookup): 2 of 4" in ctrl.ui.messages
-    assert ctrl.ui.messages[-1] == "Finished unknown words in ap: 2 saved, 0 failed"
+    assert ctrl.ui.messages[-1] == "Finished unknown words in tha-ap: 2 saved, 0 failed"
 
 
 def test_unknown_only_then_normal_run_sends_the_rest(
@@ -360,12 +360,12 @@ def test_unknown_only_then_normal_run_sends_the_rest(
     # load_auto_processed reads a file; keep the words saved by the first run.
     monkeypatch.setattr(ctrl, "load_auto_processed", lambda: None)
 
-    asyncio.run(ctrl.auto_process_book("ap", unknown_only=True))
+    asyncio.run(ctrl.auto_process_book("tha-ap", unknown_only=True))
     processed.clear()
-    asyncio.run(ctrl.auto_process_book("ap"))
+    asyncio.run(ctrl.auto_process_book("tha-ap"))
 
     assert processed == ["m1", "m3"]
-    assert ctrl.ui.messages[-1] == "Finished processing ap: 2 saved, 0 failed"
+    assert ctrl.ui.messages[-1] == "Finished processing tha-ap: 2 saved, 0 failed"
 
 
 def test_unknown_only_with_no_unknown_words_ends_at_once(
@@ -373,10 +373,10 @@ def test_unknown_only_with_no_unknown_words_ends_at_once(
 ) -> None:
     ctrl, processed = setup_unknown_run(monkeypatch, tmp_path, ["m1", "m3"])
 
-    asyncio.run(ctrl.auto_process_book("ap", unknown_only=True))
+    asyncio.run(ctrl.auto_process_book("tha-ap", unknown_only=True))
 
     assert processed == []
-    assert ctrl.ui.messages[-1] == "No unknown words in ap"
+    assert ctrl.ui.messages[-1] == "No unknown words in tha-ap"
 
 
 def test_unknown_only_counter_counts_only_unknown_words(
@@ -387,7 +387,7 @@ def test_unknown_only_counter_counts_only_unknown_words(
     ctrl.auto_processed_dict = {f"old{i}": {} for i in range(5)}
     monkeypatch.setattr(ctrl, "load_auto_processed", lambda: None)
 
-    asyncio.run(ctrl.auto_process_book("ap", unknown_only=True))
+    asyncio.run(ctrl.auto_process_book("tha-ap", unknown_only=True))
     ctrl.current_book_processed = 1
 
     assert ctrl.progress_text() == "1 / 2"
@@ -414,11 +414,12 @@ def test_a_failed_word_shows_in_the_final_message(
         ctrl, "update_auto_processed", lambda *a, **k: ctrl.word_in_text != "m4"
     )
 
-    asyncio.run(ctrl.auto_process_book("ap", unknown_only=True))
+    asyncio.run(ctrl.auto_process_book("tha-ap", unknown_only=True))
 
     assert processed == ["m2", "m4"]
     assert (
-        ctrl.ui.messages[-1] == "Finished unknown words in ap: 1 saved, 1 failed (m4)"
+        ctrl.ui.messages[-1]
+        == "Finished unknown words in tha-ap: 1 saved, 1 failed (m4)"
     )
 
 

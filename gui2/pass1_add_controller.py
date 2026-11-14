@@ -96,13 +96,22 @@ class Pass1AddController(SandhiOK, SnackBarMixin):
         if self.book_to_process is None:
             self.ui.update_message("Please select a book to process first.")
             return False
+        # The queue was copied when the book opened, so a word another
+        # contributor finished since then is still in it. Read fresh each time.
+        finished = self.pass1_auto_controller.file_manager.finished_words(
+            self.book_to_process
+        )
         try:
             self.word_in_text, self.sentence_data = next(self.auto_processed_iter)
+            while self.word_in_text in finished:
+                self.word_in_text, self.sentence_data = next(self.auto_processed_iter)
             # Update from the current file state to show accurate remaining count
             current_dict = self.pass1_auto_controller.get_auto_processed_dict(
                 self.book_to_process
             )
-            self.ui.update_remaining(len(current_dict))
+            self.ui.update_remaining(
+                len([word for word in current_dict if word not in finished])
+            )
             print(self.word_in_text)
             print(self.sentence_data)
             return True
@@ -111,7 +120,9 @@ class Pass1AddController(SandhiOK, SnackBarMixin):
             current_dict = self.pass1_auto_controller.get_auto_processed_dict(
                 self.book_to_process
             )
-            self.ui.update_remaining(len(current_dict))
+            self.ui.update_remaining(
+                len([word for word in current_dict if word not in finished])
+            )
             self.ui.clear_all_fields()
             # The last word is done; a later hand-typed save must not reload it.
             self.word_in_text = ""

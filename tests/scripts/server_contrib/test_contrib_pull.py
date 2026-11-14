@@ -56,7 +56,7 @@ GOOD_CONTENT: dict[str, bytes] = {
     "spelling_mistakes": "mistake\tcorrection\r\nabc\tabd\r\n".encode(),
     "db_test_exceptions": b"construction: needs na\t10000005\n",
     "pass1_auto_removed": json.dumps(
-        {"vv": ["saṅkha"], "nidd1&2": ["upāgato"]}, ensure_ascii=False
+        {"vv": ["saṅkha"], "mnd": ["upāgato"]}, ensure_ascii=False
     ).encode(),
 }
 

@@ -3,7 +3,7 @@ from collections import defaultdict, namedtuple
 from functools import cached_property
 from json import load
 from pathlib import Path
-from re import sub
+from re import match, sub
 
 from tools.clean_machine import clean_machine
 from tools.pali_alphabet import pali_alphabet
@@ -20,9 +20,11 @@ class SuttaCentralSource:
         pali_path: str | list[str] | None,
         english_path: str | list[str] | None,
         is_commentary: bool,
+        story_range: range | None = None,
     ) -> None:
         self.sc_book: str = book
         self.is_commentary: bool = is_commentary
+        self.story_range: range | None = story_range
         self.cst_books: list[str] = cst_books
         self.pali_paths: list[Path] = self.to_paths(pali_path)
         self.english_paths: list[Path] = self.to_paths(english_path)
@@ -46,7 +48,16 @@ class SuttaCentralSource:
     def make_file_list(self, folder: Path | None) -> list[Path]:
         if not folder or not folder.exists() or not folder.is_dir():
             return []
-        return natural_sort([p for p in folder.rglob("*") if p.is_file()])
+        files = [p for p in folder.rglob("*") if p.is_file()]
+        if self.story_range is not None:
+            # SuttaCentral names a story's file by its number: ja123_root-pli-ms.json
+            files = [
+                p
+                for p in files
+                if (m := match(r"\D*(\d+)_", p.name))
+                and int(m.group(1)) in self.story_range
+            ]
+        return natural_sort(files)
 
     @cached_property
     def segment_dict(self) -> dict[str, SuttaCentralSegment]:
@@ -206,13 +217,17 @@ sutta_central_books: dict[str, SuttaCentralSource] = {
         "resources/sc-data/sc_bilara_data/translation/en/sujato/sutta/kn/thig",
         is_commentary=False,
     ),
-    "ap": SuttaCentralSource(
-        "ap",
-        ["kn10", "kn11"],
-        [
-            "resources/sc-data/sc_bilara_data/root/pli/ms/sutta/kn/tha-ap",
-            "resources/sc-data/sc_bilara_data/root/pli/ms/sutta/kn/thi-ap",
-        ],
+    "tha-ap": SuttaCentralSource(
+        "tha-ap",
+        ["kn10"],
+        "resources/sc-data/sc_bilara_data/root/pli/ms/sutta/kn/tha-ap",
+        None,
+        is_commentary=False,
+    ),
+    "thi-ap": SuttaCentralSource(
+        "thi-ap",
+        ["kn11"],
+        "resources/sc-data/sc_bilara_data/root/pli/ms/sutta/kn/thi-ap",
         None,
         is_commentary=False,
     ),
@@ -230,20 +245,57 @@ sutta_central_books: dict[str, SuttaCentralSource] = {
         "resources/sc-data/sc_bilara_data/translation/en/sujato/sutta/kn/cp",
         is_commentary=False,
     ),
-    "ja": SuttaCentralSource(
-        "ja",
+    "ja-1": SuttaCentralSource(
+        "ja-1",
         ["kn14"],
         "resources/sc-data/sc_bilara_data/root/pli/ms/sutta/kn/ja",
         "resources/sc-data/sc_bilara_data/translation/en/sujato/sutta/kn/ja",
         is_commentary=False,
+        story_range=range(1, 351),
     ),
-    "nidd1&2": SuttaCentralSource(
-        "nidd1&2",
-        ["kn15", "kn16"],
-        [
-            "resources/sc-data/sc_bilara_data/root/pli/ms/sutta/kn/mnd",
-            "resources/sc-data/sc_bilara_data/root/pli/ms/sutta/kn/cnd",
-        ],
+    "ja-2": SuttaCentralSource(
+        "ja-2",
+        ["kn14"],
+        "resources/sc-data/sc_bilara_data/root/pli/ms/sutta/kn/ja",
+        "resources/sc-data/sc_bilara_data/translation/en/sujato/sutta/kn/ja",
+        is_commentary=False,
+        story_range=range(351, 455),
+    ),
+    "ja-3": SuttaCentralSource(
+        "ja-3",
+        ["kn14"],
+        "resources/sc-data/sc_bilara_data/root/pli/ms/sutta/kn/ja",
+        "resources/sc-data/sc_bilara_data/translation/en/sujato/sutta/kn/ja",
+        is_commentary=False,
+        story_range=range(455, 497),
+    ),
+    "ja-4": SuttaCentralSource(
+        "ja-4",
+        ["kn14"],
+        "resources/sc-data/sc_bilara_data/root/pli/ms/sutta/kn/ja",
+        "resources/sc-data/sc_bilara_data/translation/en/sujato/sutta/kn/ja",
+        is_commentary=False,
+        story_range=range(497, 511),
+    ),
+    "ja-5": SuttaCentralSource(
+        "ja-5",
+        ["kn14"],
+        "resources/sc-data/sc_bilara_data/root/pli/ms/sutta/kn/ja",
+        "resources/sc-data/sc_bilara_data/translation/en/sujato/sutta/kn/ja",
+        is_commentary=False,
+        story_range=range(511, 548),
+    ),
+    "mnd": SuttaCentralSource(
+        "mnd",
+        ["kn15"],
+        "resources/sc-data/sc_bilara_data/root/pli/ms/sutta/kn/mnd",
+        None,
+        is_commentary=False,
+    ),
+    "cnd": SuttaCentralSource(
+        "cnd",
+        ["kn16"],
+        "resources/sc-data/sc_bilara_data/root/pli/ms/sutta/kn/cnd",
         None,
         is_commentary=False,
     ),

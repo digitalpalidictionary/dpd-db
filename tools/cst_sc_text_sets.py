@@ -110,26 +110,39 @@ def make_cst_text_list(
 
     for book in cst_texts_list:
         with open(pth.cst_txt_dir.joinpath(book), "r", encoding="utf-8") as f:
-            text_string = f.read()
-            # remove all brackets
-            text_string = re.sub(r"\(.+?\)", "", text_string)
+            words_list.extend(
+                _text_to_words(f.read(), niggahita, add_hyphenated_parts, show_errors)
+            )
 
-            if add_hyphenated_parts:
-                # dont remove the hyphen, deal with it later
-                text_string = clean_machine(
-                    text_string,
-                    niggahita=niggahita,
-                    remove_hyphen=False,
-                    show_errors=show_errors,
-                )
-            else:
-                # remove the hyphen immediately
-                text_string = clean_machine(
-                    text_string, niggahita=niggahita, remove_hyphen=True
-                )
+    return _finish_words(words_list, add_hyphenated_parts, dedupe)
 
-            words_list.extend(text_string.split())
 
+def _text_to_words(
+    text_string: str, niggahita: str, add_hyphenated_parts: bool, show_errors: bool
+) -> list[str]:
+    # remove all brackets
+    text_string = re.sub(r"\(.+?\)", "", text_string)
+
+    if add_hyphenated_parts:
+        # dont remove the hyphen, deal with it later
+        text_string = clean_machine(
+            text_string,
+            niggahita=niggahita,
+            remove_hyphen=False,
+            show_errors=show_errors,
+        )
+    else:
+        # remove the hyphen immediately
+        text_string = clean_machine(
+            text_string, niggahita=niggahita, remove_hyphen=True
+        )
+
+    return text_string.split()
+
+
+def _finish_words(
+    words_list: list[str], add_hyphenated_parts: bool, dedupe: bool
+) -> list[str]:
     if add_hyphenated_parts:
         for index, word in enumerate(words_list):
             if "-" in word:
@@ -152,6 +165,45 @@ def make_cst_text_list(
         return reduced_list
     else:
         return words_list
+
+
+# "1. apaṇṇakajātakaṃ", and from story 151 on "151. rājovādajātakaṃ (2-1-1)"
+JATAKA_STORY_HEADING = re.compile(r"^(\d+)\. .*jātakaṃ(?:\s*\([^)]*\))?\s*$")
+
+
+def make_cst_jataka_text_list(
+    story_range: range,
+    niggahita="ṃ",
+    dedupe=True,
+    add_hyphenated_parts=True,
+    show_errors=True,
+) -> list[str]:
+    """
+    Make a list of words in the CST Jātaka root text (kn14) for the stories in a range.
+    - A story starts at its numbered heading and runs to the next heading.
+    - The lines before the first heading count with story 1.
+    - A story whose heading has another shape counts with the story before it.
+    """
+
+    words_list: list[str] = []
+    current = 1
+
+    for book in cst_texts["kn14"]:
+        kept: list[str] = []
+        with open(pth.cst_txt_dir.joinpath(book), "r", encoding="utf-8") as f:
+            for line in f.read().splitlines():
+                heading = JATAKA_STORY_HEADING.match(line.strip())
+                if heading:
+                    current = int(heading.group(1))
+                if current in story_range:
+                    kept.append(line)
+        words_list.extend(
+            _text_to_words(
+                "\n".join(kept), niggahita, add_hyphenated_parts, show_errors
+            )
+        )
+
+    return _finish_words(words_list, add_hyphenated_parts, dedupe)
 
 
 def make_sc_text_set(

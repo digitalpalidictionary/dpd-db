@@ -408,7 +408,10 @@ root on the server, in `/root/dpd-db`. The target comes from
 
 The data folder is shared and flat (`additions_<user>.json` and so on), so
 nothing is created per user there. Give each contributor a different Pass1
-book, as the note in `gui2/pass1_file_manager.py` asks.
+book, as the note in `gui2/pass1_file_manager.py` asks. The long books are split
+into parts (Apadāna `tha-ap` and `thi-ap`, Niddesa `mnd` and `cnd`, Jātaka `ja-1`
+to `ja-5`), so contributors can take one part each. Pass1 Add also skips a word
+another contributor finished since the book was opened.
 
 ## Removing a contributor
 
