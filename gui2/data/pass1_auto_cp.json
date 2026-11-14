@@ -1,23 +1,4 @@
 {
-    "sanigamaṃ": {
-        "lemma_1": "sanigama",
-        "lemma_2": "sanigama",
-        "pos": "adj",
-        "grammar": "adj, comp",
-        "meaning_2": "together with the market towns; including the towns",
-        "root_key": "",
-        "root_sign": "",
-        "root_base": "",
-        "family_root": "",
-        "construction": "sa + nigama",
-        "stem": "sanigam",
-        "pattern": "a adj",
-        "comment": "[deepseek: deepseek-v4-flash] Accusative singular in the text, agreeing with saraṭṭhakaṃ. sa- here is the prefix saha (with). PEU gives it as an adjective.",
-        "example_1": "saraṭṭhakaṃ sanigamaṃ, ",
-        "translation_1": "Having bowed to the citizens of country and town, ",
-        "example_2": "26. ‘‘ Saraṭṭhakaṃ sanigamaṃ, sajanaṃ vanditva khattiyaṃ;",
-        "translation_2": "Having bowed to the king, to the people, and to the citizens of country and town;"
-    },
     "kapirājacariyā": {
         "lemma_1": "kapirājacariyā",
         "lemma_2": "kapirājacariyā",
