@@ -454,12 +454,23 @@ function swopSansSerif() {
 
 //// niggahita
 
+// Change display text in place, keeping controls, listeners and lookup keys intact.
+function replaceNiggahitaText(element, from, to) {
+  const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT);
+  let node;
+  while ((node = walker.nextNode())) {
+    if (node.nodeValue.includes(from)) {
+      node.nodeValue = node.nodeValue.replaceAll(from, to);
+    }
+  }
+}
+
 function niggahitaUp(element) {
-  element.innerHTML = element.innerHTML.replace(/ṃ/g, "ṁ");
+  replaceNiggahitaText(element, "ṃ", "ṁ");
 }
 
 function niggahitaDown(element) {
-  element.innerHTML = element.innerHTML.replace(/ṁ/g, "ṃ");
+  replaceNiggahitaText(element, "ṁ", "ṃ");
 }
 
 niggahitaToggle.addEventListener("change", function () {
@@ -590,7 +601,6 @@ searchBox.addEventListener("input", function () {
 
 function clearSearch() {
   searchBox.value = "";
-  // The niggahita toggle replaces these elements, so find the current ones.
   // Double-clicking the title removes them, so they may be missing.
   for (const id of ["dpd-results", "summary-results"]) {
     const element = document.getElementById(id);
