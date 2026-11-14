@@ -189,6 +189,14 @@ See the [Quick Start Guide](https://digitalpalidictionary.github.io/technical/qu
 
 ### Running the Webapp
 
+Besides `dpd.db`, the webapp needs the audio index (a small TSV). Without it, searches fail with an Internal Server Error:
+
+```bash
+uv run python audio/index_release_download.py
+```
+
+To also play audio and search the Tipiṭaka translations, download the audio and translations databases as described in [Local Server Setup](https://digitalpalidictionary.github.io/technical/local_server_setup/).
+
 ```bash
 # Start the dev server
 just webapp
