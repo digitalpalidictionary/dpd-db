@@ -16,23 +16,6 @@
         "example_1": "44. Dhammavimalamādāsaṃ, ṭhapayitvā mahājane;",
         "translation_1": "Having placed the pure Dhamma-mirror for the multitudes of beings,"
     },
-    "nidassayi": {
-        "lemma_1": "nidassayati",
-        "lemma_2": "nidassayati",
-        "pos": "pr",
-        "grammar": "pr, caus of nidassati",
-        "meaning_2": "shows; displays; exhibits; makes visible",
-        "root_key": "√dis 1",
-        "root_sign": "*aya",
-        "root_base": "√dis + *aya > dassaya (caus)",
-        "family_root": "ni √dis",
-        "construction": "ni + dassaya + ti",
-        "stem": "nidassaya",
-        "pattern": "ati pr",
-        "comment": "[deepseek: deepseek-v4-flash] Aorist 3rd singular nidassayi in the verse, from the causative stem nidassayati (ni + dis + *aya). The PEU entry nidassayi [ni+disa+ṇaya+ī] is a different analysis; the reading is aorist here.",
-        "example_1": "47. ‘‘ Lokappasādanaṃ nāma, pāṭihīraṃ nidassayi;",
-        "translation_1": "47. “He displayed a miracle called 'World-Clarifying';"
-    },
     "laḷanto": {
         "lemma_1": "laḷanta",
         "lemma_2": "laḷanta",

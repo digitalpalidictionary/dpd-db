@@ -33,23 +33,6 @@
         "example_1": "166. ‘‘ Ālambo gaggaro [gaggamo (syā.), bhaggaro (ka.)] bhīmo [bhimmo (ka.)], sādhuvādī ca saṃsayo;",
         "translation_1": "“Ālamba, Gaggaro, Bhīmo, Sādhuvādī, and Saṃsayo;"
     },
-    "kakkārikadāyikāvimānavatthu": {
-        "lemma_1": "kakkārikadāyikāvimānavatthu",
-        "lemma_2": "kakkārikadāyikāvimānavatthu",
-        "pos": "nt",
-        "grammar": "nt, comp",
-        "meaning_2": "story of the giver of kakkarikā (cucumber/gourd-plant); title of the fifteenth Vimānavatthu story",
-        "root_key": "",
-        "root_sign": "",
-        "root_base": "",
-        "family_root": "",
-        "construction": "kakkārikā + dāyikā + vimānavatthu",
-        "stem": "-",
-        "pattern": "",
-        "comment": "[deepseek: deepseek-v4-flash] Title of a Vimānavatthu story, treated here as an indeclinable title; the final member vatthu is neuter, but the whole title is undeclined in the text.",
-        "example_1": "15. kakkārikadāyikāvimānavatthu ",
-        "translation_1": ""
-    },
     "sujaka": {
         "lemma_1": "sujaka",
         "lemma_2": "sujako",
