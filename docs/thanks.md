@@ -12,6 +12,7 @@ Thank you, appreciation and <i>anumodana</i> to the following people who have co
 - **Ven. Sujāto** in Australia for detailed feedback
 - **Prof. Aleix Ruiz Falqués** in Spain for internet classes on the classical Pāḷi grammars during Covid
 - **Prof. Bryan Levman** in Canada for detailed grammatical analysis of Dīgha Nikāya and Theragāthā
+- **Bharath S** for supporting <a href="https://www.dpdict.net">www.dpdict.net</a>
 - **CJ Yeh** in Taiwan for detailed grammatical feedback
 - **Deepika** in Australia for the laptop in 2024
 - **Falko** in Germany for setting up <a href=”www.dpdict.net”>www.dpdict.net</a>
@@ -21,6 +22,7 @@ Thank you, appreciation and <i>anumodana</i> to the following people who have co
 - **Ramakrishnan Suryanarayanan** in England for all the Sanskrit cognates
 - **Son Tu** in California for detailed grammatical feedback
 - **Sumukha** in India for the Python technical support helpline 
+- **Vinod** in India for the internet connection
 - **Everyone** around the world who has made suggestions through the <a href=”https://docs.google.com/forms/d/e/1FAIpQLSf9boBe7k5tCwq7LdWgBHHGIPVc4ROO5yjVDo1X5LDAxkmGWQ/viewform”>feedback form</a>
 - **Anyone** who I have erroneously forgotten to thank 
 ## Monasteries
