@@ -1,5 +1,5 @@
 abbrev	meaning	pāli	example	explanation	ru_abbrev	ru_meaning
-3	declined in all three gender					cклоняется во всех трех родах
+3	declined in all three genders					cклоняется во всех трех родах
 ･	root has verbs which are derived from it					корень имеет глаголы, которые происходят от него
 ()	letters deleted from construction		√dhā > <b>(</b>da<b>)</b>h + ita > hita			буквы удаленные из конструкции
 []	letters added to construction		pari + <b>[</b>y<b>]</b> + √i > āy + *a > pariyāya			буквы добавленные в конструкцию
@@ -10,7 +10,7 @@ abbrev	meaning	pāli	example	explanation	ru_abbrev	ru_meaning
 ◑	word data is partially complete with a meaning in context but minimal other information.					как полна информация о слове?<br/><span class='gray'>✔</span> данные о слове полностью завершены с контекстуальным значением, грамматикой, примерами из сутт и другой актуальной информацией<br/><span class='gray'>◑</span> данные о слове частично завершены со значением в контексте, но минимальным количеством другой информации<br/><span class='gray'>✘</span> данные о слове все еще находятся в стадии разработки
 ✔	word data is complete with contextual meaning, grammar, sutta example and other relevant information. 					как полна информация о слове?<br/><span class='gray'>✔</span> данные о слове полностью завершены с контекстуальным значением, грамматикой, примерами из сутт и другой актуальной информацией<br/><span class='gray'>◑</span> данные о слове частично завершены со значением в контексте, но минимальным количеством другой информации<br/><span class='gray'>✘</span> данные о слове все еще находятся в стадии разработки
 ✘	word data is still under construction.  					как полна информация о слове?<br/><span class='gray'>✔</span> данные о слове полностью завершены с контекстуальным значением, грамматикой, примерами из сутт и другой актуальной информацией<br/><span class='gray'>◑</span> данные о слове частично завершены со значением в контексте, но минимальным количеством другой информации<br/><span class='gray'>✘</span> данные о слове все еще находятся в стадии разработки
-1st	first person	uttama; uttamapurisa	mayaṃ - pron <b>1st</b> nom sg of ahaṃ	I; we	1	первое лицо
+1st	first person	uttama; uttamapurisa	mayaṃ - pron <b>1st</b> nom pl of ahaṃ	I; we	1	первое лицо
 2nd	second person	majjhima; majjhimapurisa	ehi - verb imp <b>2nd</b> sg from eti	you; you all	2	второе лицо
 3rd	third person	paṭhama; paṭhamapurisa	hontu - verb imp <b>3rd</b> pl from hoti	he; they	3	третье лицо
 abbrev	abbreviation				сокращ	сокращённая форма
@@ -29,7 +29,7 @@ adv	adverb	kriyāvisesana	idha - ind <b>adv</b>	The word class that qualifies ve
 agent	agent noun	kattar; kattukāraka; kattuvācakapada	bhāsitar; cora; sāvaka	A person who does the action of the verbal root (e.g. speaker; thief; hearer)	деятель	существительное деятель, кто совершает действие
 AN	Aṅguttara Nikāya			Book 4 of the Sutta Piṭaka; Numbered Discourses; lit. one part more collection		Ангуттара Никая
 ANa	Aṅguttara Nikāya Aṭṭhakathā	Manorathapūraṇī		Commentary on the Aṅguttara Nikāya compiled by Ven. Buddhaghosa; the “Fulfiller of Wishes”; lit. which fills with mental delight		Ангуттара Никая Комментарий
-ANt	Aṅguttara Nikāya Tīkā	Sāratthamañjūsā				Ангуттара Никая Подкомментарий
+ANt	Aṅguttara Nikāya Ṭīkā	Sāratthamañjūsā				Ангуттара Никая Подкомментарий
 aor	aorist verb	ajjatanī; atītakāla	ahosi; nisīdi; udapādi	A form of a verb that, in the indicative mood, expresses past action. (e.g. was; sat down; arose)	аор	аорист, прошедшее время
 AP	Abhidhānappadīpikāpāṭha, by Ven. Moggallāna			A fourteenth century Pāḷi thesaurus.		Абхидха̄наппадӣпика̄па̄т̣ха
 APA	Therāpadāna			Book 10 of the Khuddaka Nikāya; Legends of the Elder Monks		Тхерападана
@@ -71,7 +71,7 @@ derog	derogatory				умал	умаляющая форма
 desid	desiderative verb	tumicchattha			дезид	дезидеративная форма
 DHK	Dhātukathāpāḷi					Дхаммапада
 DHP	Dhammapada			Book 2 of the Khuddaka Nikāya; Dhamma Verses		Дхаммапада Комментарий
-DHPa	Dhammapada Aṭṭhakathā,			Commentary to Dhammapada compiled by Ven. Buddhaghosa; part of  “Illumination of the Ultimate Truth”		Дхаммапада Подкомментарий
+DHPa	Dhammapada Aṭṭhakathā			Commentary to Dhammapada compiled by Ven. Buddhaghosa; part of  “Illumination of the Ultimate Truth”		Дхаммапада Подкомментарий
 DHS	Dhammasaṅgaṇīpāḷi					
 DhS	Dhammasaṅgaṇī			Book 1 of the Abhidhamma Piṭaka; enumeration of phenomena		Дхаммасан̇ган̣ӣ
 DhSa	Dhammasaṅgaṇī aṭṭhakathā			Commentary on the Dhammasaṅgaṇi compiled by Ven. Buddhaghosa;  “Exposition of Meaning”		Комментарий к Дхаммасан̇ган̣ӣ; Ат̣т̣хаса̄линӣ
@@ -126,8 +126,8 @@ matr	matronymic		sāriputta; mantāṇiputta; vedehiputta	A name derived from a 
 MD	Maṅgaladīpanī, Thai commentary on the Maṅgalasutta					
 MIL	Milindapañha			Book 19 of the Khuddaka Nikāya; the “Questions of Milinda”		Вопросы Милинды
 MLDB	Middle Length Discourses of the Buddha, translated by Bhikkhu Bodhi			Book 19 of the Khuddaka Nikāya; the “Questions of Milinda”		
-MN	Majjhimā Nikāya			Book 2 of the Sutta Piṭaka; Collection of Middle-length Discourses; lit. middle collection 		Мадджхима Никая
-MNa	Majjhimā Nikāya Aṭṭhakathā, Papañcasūdanī			Commentary on the Majjhima Nikāya compiled by Ven. Buddhaghosa; “Destruction of Obstacles [to Progress]”; lit. setting mental proliferation in order		Мадджхима Никая Комментарий
+MN	Majjhima Nikāya			Book 2 of the Sutta Piṭaka; Collection of Middle-length Discourses; lit. middle collection 		Мадджхима Никая
+MNa	Majjhima Nikāya Aṭṭhakathā, Papañcasūdanī			Commentary on the Majjhima Nikāya compiled by Ven. Buddhaghosa; “Destruction of Obstacles [to Progress]”; lit. setting mental proliferation in order		Мадджхима Никая Комментарий
 MNt	Majjhima Nikāya Ṭīkā					Мадджхима Никая Подкомментарий
 MOGG	Moggallāna Byākaraṇaṃ					Моггалланабйакаранан
 MST	Mahāsaṅgīti Tipiṭaka (Sutta Central)					
@@ -213,7 +213,7 @@ VINa	Vinaya Piṭaka Aṭṭhakathā, Samantapāsādikā			Ven. Buddhaghosa's co
 VINt	Vinaya Piṭaka Ṭīkā, Sāratthadīpanīṭīkā					Виная Питака Подкомментарий
 VISM	Visuddhimagga			Path of purification; commentarial treatise by Ven. Buddhaghosa		Висуддхимагга
 VISMa	Visuddhimagga Aṭṭhakathā			Commentary to Visuddhimagga 		Комментарий к Висуддхимагга
-VMVt	Vimativinodanī Tīkā, Vinaya sub-commentary					Вимативинодани Подкомментарий
+VMVt	Vimativinodanī Ṭīkā, Vinaya sub-commentary					Вимативинодани Подкомментарий
 voc	vocative case	āmantaṇavacana, ālapanavacana, sambodhana	āvuso - ind, <b>voc</b> sg and pl	Addressing form	зват	звательный падеж
 VSa	Vinayasaṅgaha Aṭṭhakathā, Vinaya sub-commentary					
 VV	Vimānavatthu			Book 6 of the Khuddaka Nikāya; story about Celestial Abodes		Вимана Ваттху
