@@ -8,6 +8,7 @@ import flet as ft
 from sqlalchemy import or_
 
 from db.models import DpdHeadword, Lookup
+from gui2.additions_manager import _contributor_from_origin
 from gui2.contributor_proposal import proposal_fields
 from gui2.dpd_fields import DpdFields
 from gui2.dpd_fields_commentary import DpdCommentaryField
@@ -1302,8 +1303,11 @@ class Pass2AddView(ft.Column, PopUpMixin):
 
             # Update message with lemma if available
             lemma = addition_data.get("lemma_1", "unknown")
+            # the queue merges every contributor's file: name this word's sender
+            contributor = _contributor_from_origin(origin, prefix="additions_")
             self.update_message(
-                f"Loaded addition for {lemma}. {additions_remaining} additions remaining."
+                f"{contributor}: Loaded {lemma}. "
+                f"{additions_remaining} additions remaining."
             )
 
         except Exception as ex:  # noqa: BLE001
