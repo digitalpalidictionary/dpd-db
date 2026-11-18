@@ -1,3 +1,5 @@
+import json
+
 import flet as ft
 from rich import print
 
@@ -201,6 +203,12 @@ class Pass1AddView(ft.Column, PopUpMixin):
                                 on_click=self.handle_delete_click,
                                 width=BUTTON_WIDTH,
                             ),
+                            ft.Button(
+                                "Stash",
+                                tooltip="Save the whole form and the word in the text, to bring back later with Unstash.",
+                                on_click=self._click_stash,
+                                width=BUTTON_WIDTH,
+                            ),
                         ],
                     ),
                     ft.Row(
@@ -227,6 +235,12 @@ class Pass1AddView(ft.Column, PopUpMixin):
                                 "Add to Spelling",
                                 tooltip="Save this word as a spelling mistake. A box asks you to type the correct spelling.",
                                 on_click=self.handle_add_to_spelling_mistakes_click,
+                                width=BUTTON_WIDTH,
+                            ),
+                            ft.Button(
+                                "Unstash",
+                                tooltip="Empty the form, then bring back the form and the word in the text saved by Stash.",
+                                on_click=self._click_unstash,
                                 width=BUTTON_WIDTH,
                             ),
                         ],
@@ -500,6 +514,56 @@ class Pass1AddView(ft.Column, PopUpMixin):
             finally:
                 self._history_dropdown.value = None  # Reset dropdown selection
                 self.page.update()
+
+    def _click_stash(self, e: ft.ControlEvent) -> None:
+        """Save all field values and the word in the text to the stash file."""
+        values = self.dpd_fields.get_current_values()
+        if not values.get("lemma_1"):
+            self.update_message("Nothing to stash")
+            return
+
+        # get_current_values fills an empty id with the next free one. Stashed,
+        # that id would make a new word look like an existing one on unstash.
+        if not self.dpd_fields.fields["id"].value:
+            values["id"] = ""
+        values["word_in_text"] = self.word_in_text.value or ""
+        stash_path = self.toolkit.paths.pass1_stash_json_path
+        try:
+            stash_path.parent.mkdir(parents=True, exist_ok=True)
+            with open(stash_path, "w", encoding="utf-8") as f:
+                json.dump(values, f, indent=4, ensure_ascii=False)
+        except (OSError, TypeError, ValueError) as ex:
+            self.update_message(f"Stash failed: {ex}")
+            return
+
+        self.update_message(f"Stashed: {values['lemma_1']}")
+
+    def _click_unstash(self, e: ft.ControlEvent) -> None:
+        """Restore the field values and the word in the text from the stash."""
+        stash_path = self.toolkit.paths.pass1_stash_json_path
+        if not stash_path.exists():
+            self.update_message("No stash found")
+            return
+
+        try:
+            with open(stash_path, "r", encoding="utf-8") as f:
+                values = json.load(f)
+        except (json.JSONDecodeError, OSError) as ex:
+            self.update_message(f"Failed to read stash: {ex}")
+            return
+
+        if not isinstance(values, dict) or not values:
+            self.update_message("Stash is empty or invalid")
+            return
+
+        self.clear_all_fields()
+        for name, value in values.items():
+            if name in self.dpd_fields.fields:
+                self.dpd_fields.fields[name].value = value
+        self.word_in_text.value = values.get("word_in_text", "")
+
+        self.update_message(f"Unstashed: {values.get('lemma_1', '')}")
+        self.page.update()
 
     def _click_clone_headword(self, e: ft.ControlEvent) -> None:
         """Fetches a headword and adds its data to empty fields in the current view,

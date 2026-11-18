@@ -31,6 +31,9 @@ class Gui2Paths:
         self.headword_stash_json_path: Path = (
             self.gui2_data_path / "headword_stash.json"
         )
+        # Own file: Pass1 also keeps the word in the text, and must not
+        # overwrite the Pass2 stash.
+        self.pass1_stash_json_path: Path = self.gui2_data_path / "pass1_stash.json"
         self.corrections_path: Path = self.gui2_data_path / "corrections.json"
         self.corrections_added_path: Path = (
             self.gui2_data_path / "corrections_added.json"
@@ -92,6 +95,7 @@ class Gui2Paths:
             # / the commentary + example stash managers. Shared across instances
             # they'd clobber each other, so route per-user too.
             paths.headword_stash_json_path = data / f"headword_stash_{username}.json"
+            paths.pass1_stash_json_path = data / f"pass1_stash_{username}.json"
             paths.example_stash_json_path = data / f"example_stash_{username}.json"
             paths.commentary_stash_json_path = (
                 data / f"commentary_stash_{username}.json"

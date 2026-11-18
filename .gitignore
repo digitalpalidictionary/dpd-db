@@ -104,6 +104,7 @@ gui2/data/find_words_with_examples_no.json
 gui2/data/headword_stash.json
 gui2/data/history.json
 gui2/data/pass1_auto_removed_*.json
+gui2/data/pass1_stash*.json
 gui2/data/pass1_auto_retired/
 gui2/data/pass1_auto_text.json
 gui2/data/user_dictionary_*.txt

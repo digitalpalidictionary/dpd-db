@@ -70,6 +70,7 @@ class TestForUser:
         paths = Gui2Paths.for_user("alice", base_dir=tmp_path)
         data = tmp_path / "gui2" / "data"
         assert paths.headword_stash_json_path == data / "headword_stash_alice.json"
+        assert paths.pass1_stash_json_path == data / "pass1_stash_alice.json"
         assert paths.example_stash_json_path == data / "example_stash_alice.json"
         assert paths.commentary_stash_json_path == data / "commentary_stash_alice.json"
 
@@ -80,6 +81,7 @@ class TestForUser:
         assert paths.history_json_path == data / "history.json"
         assert paths.filter_presets_path == data / "filter_presets.json"
         assert paths.headword_stash_json_path == data / "headword_stash.json"
+        assert paths.pass1_stash_json_path == data / "pass1_stash.json"
         assert paths.example_stash_json_path == data / "example_stash.json"
         assert paths.commentary_stash_json_path == data / "commentary_stash.json"
 
@@ -159,6 +161,7 @@ class TestDataDirOverride:
         "history_json_path",
         "filter_presets_path",
         "headword_stash_json_path",
+        "pass1_stash_json_path",
         "example_stash_json_path",
         "commentary_stash_json_path",
         "user_dictionary_path",
