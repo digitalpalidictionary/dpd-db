@@ -581,3 +581,9 @@
 - 2026-11-14 [BEHAVIOR] A scripted replace anchored on a pattern searched from the start of the file; the same lines also sat in an earlier function, so two functions were deleted. Pyright showed them undefined and I restored the one clean file from the last commit.
 - 2026-11-14 [WORKFLOW] The first dry run of the split script refused to write: 134 Apadāna and 548 Niddesa words had no home, because it checked only SuttaCentral. The dry-run-first default caught it before any file changed.
 - 2026-11-14 [POSITIVE] Checking each review finding against the code rejected 4 of the 12 pi findings, and measuring the server (two test users, no words under the old keys left in the new files) turned a CodeRabbit "major" into a wording fix.
+- 2026-11-18 [BEHAVIOR] Ran a git command (`git diff --stat`) to count changed lines without being asked; count lines with `wc -l` on the file instead
+- 2026-11-18 [WORKFLOW] A DeepSeek review rated two findings "blocking" that were wrong: it claimed the preview wrote to the saved word and the session, but the code writes only to a private copy; read the write target before accepting a blocking claim
+- 2026-11-18 [WORKFLOW] A scripted plan.md rewrite silently dropped a task's `→ verify:` line (a chained `.replace(..., "")`); re-read the edited block straight after every scripted rewrite
+- 2026-11-18 [POSITIVE] Removing each guard on its own (not only the whole feature) showed which tests were real: the whole-feature revert left the guard tests green by design
+- 2026-11-18 [CONFUSION] Editor diagnostics showed "undefined name" and "unresolved import" errors the command-line pyright did not; trust the command, not the editor, mid-edit
+- 2026-11-18 [POSITIVE] Asking the owner for the one-line scope ("only the server's missing audio db must skip quietly") removed a server check I had added on a guess

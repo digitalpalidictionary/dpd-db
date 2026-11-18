@@ -6,6 +6,7 @@
 import json
 import pickle
 import re
+from collections.abc import Set
 
 from sqlalchemy.orm.session import Session
 
@@ -18,6 +19,85 @@ from tools.paths import ProjectPaths
 from tools.pos import CONJUGATIONS, DECLENSIONS
 from tools.printer import printer as pr
 from tools.superscripter import superscripter_uni
+
+
+def make_inflection_table(
+    i: DpdHeadword,
+    template: InflectionTemplates,
+    tipitaka_words: Set[str] | None,
+) -> tuple[str, list[str]]:
+    """Generate the inflection table based on stem + pattern and template.
+
+    With `tipitaka_words` None no cell is greyed out."""
+    # data is a nest of lists
+    # list[] table
+    # list[[]] row
+    # list[[[]]] cell
+    # row 0 is the top header
+    # column 0 is the grammar header
+    # odd rows > 0 are inflections
+    # even rows > 0 are grammar info
+    table_data = json.loads(template.data)
+    current_inflections_list: list[str] = [i.lemma_clean]
+    html: str = "<p class='heading'>"
+    html += f"<b>{superscripter_uni(i.lemma_1)}</b> is <b>{i.pattern}</b> "
+    if template.like != "irreg":
+        if i.pos in CONJUGATIONS:
+            html += "conjugation "
+        elif i.pos in DECLENSIONS:
+            html += "declension "
+        html += f"(like <b>{template.like}</b>)"
+    else:
+        if i.pos in CONJUGATIONS:
+            html += "conjugation "
+        if i.pos in DECLENSIONS:
+            html += "declension "
+        html += "(irregular)"
+    html += "</p>"
+
+    html += "<table class='inflection'>"
+    stem = re.sub(r"\!|\*", "", i.stem)
+
+    for row_number, row_data in enumerate(table_data):
+        html += "<tr>"
+        for column_number, cell_data in enumerate(row_data):
+            if row_number == 0:
+                if column_number == 0:
+                    html += "<th></th>"
+                if column_number % 2 == 1:
+                    html += f"<th>{cell_data[0]}</th>"
+            elif row_number > 0:
+                if column_number == 0:
+                    html += f"<th>{cell_data[0]}</th>"
+                elif column_number % 2 == 1 and column_number > 0:
+                    title: str = row_data[column_number + 1][0]
+
+                    for inflection in cell_data:
+                        if not inflection:
+                            html += f"<td title='{title}'></td>"
+                        else:
+                            word_clean = f"{stem}{inflection}"
+                            if tipitaka_words is None or word_clean in tipitaka_words:
+                                word = f"{stem}<b>{inflection}</b>"
+                            else:
+                                word = f"<span class='gray'>{stem}<b>{inflection}</b></span>"
+
+                            if len(cell_data) == 1:
+                                html += f"<td title='{title}'>{word}</td>"
+                            else:
+                                if inflection == cell_data[0]:
+                                    html += f"<td title='{title}'>{word}<br>"
+                                elif inflection != cell_data[-1]:
+                                    html += f"{word}<br>"
+                                else:
+                                    html += f"{word}</td>"
+                            if word_clean not in current_inflections_list:
+                                current_inflections_list.append(word_clean)
+
+        html += "</tr>"
+    html += "</table>"
+
+    return html, current_inflections_list
 
 
 class InflectionsManager:
@@ -144,76 +224,9 @@ class InflectionsManager:
             self.inflections_list = []
             return
 
-        # data is a nest of lists
-        # list[] table
-        # list[[]] row
-        # list[[[]]] cell
-        # row 0 is the top header
-        # column 0 is the grammar header
-        # odd rows > 0 are inflections
-        # even rows > 0 are grammar info
-        table_data = json.loads(i.it.data)
-        current_inflections_list: list[str] = [i.lemma_clean]
-        html: str = "<p class='heading'>"
-        html += f"<b>{superscripter_uni(i.lemma_1)}</b> is <b>{i.pattern}</b> "
-        if i.it.like != "irreg":
-            if i.pos in CONJUGATIONS:
-                html += "conjugation "
-            elif i.pos in DECLENSIONS:
-                html += "declension "
-            html += f"(like <b>{i.it.like}</b>)"
-        else:
-            if i.pos in CONJUGATIONS:
-                html += "conjugation "
-            if i.pos in DECLENSIONS:
-                html += "declension "
-            html += "(irregular)"
-        html += "</p>"
-
-        html += "<table class='inflection'>"
-        stem = re.sub(r"\!|\*", "", i.stem)
-
-        for row_number, row_data in enumerate(table_data):
-            html += "<tr>"
-            for column_number, cell_data in enumerate(row_data):
-                if row_number == 0:
-                    if column_number == 0:
-                        html += "<th></th>"
-                    if column_number % 2 == 1:
-                        html += f"<th>{cell_data[0]}</th>"
-                elif row_number > 0:
-                    if column_number == 0:
-                        html += f"<th>{cell_data[0]}</th>"
-                    elif column_number % 2 == 1 and column_number > 0:
-                        title: str = row_data[column_number + 1][0]
-
-                        for inflection in cell_data:
-                            if not inflection:
-                                html += f"<td title='{title}'></td>"
-                            else:
-                                word_clean = f"{stem}{inflection}"
-                                if word_clean in self.all_tipitaka_words:
-                                    word = f"{stem}<b>{inflection}</b>"
-                                else:
-                                    word = f"<span class='gray'>{stem}<b>{inflection}</b></span>"
-
-                                if len(cell_data) == 1:
-                                    html += f"<td title='{title}'>{word}</td>"
-                                else:
-                                    if inflection == cell_data[0]:
-                                        html += f"<td title='{title}'>{word}<br>"
-                                    elif inflection != cell_data[-1]:
-                                        html += f"{word}<br>"
-                                    else:
-                                        html += f"{word}</td>"
-                                if word_clean not in current_inflections_list:
-                                    current_inflections_list.append(word_clean)
-
-            html += "</tr>"
-        html += "</table>"
-
-        self.inflections_html = html
-        self.inflections_list = current_inflections_list
+        self.inflections_html, self.inflections_list = make_inflection_table(
+            i, i.it, self.all_tipitaka_words
+        )
 
     def run_tests(self) -> None:
         """Run all the tests."""

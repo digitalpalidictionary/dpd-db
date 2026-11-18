@@ -22,7 +22,7 @@ def make_all_tipitaka_word_set():
     with open(pth.sya_wordlist, encoding="utf-8") as f:
         sya_wordlist = set(json.load(f))
 
-    with open(pth.sya_wordlist, encoding="utf-8") as f:
+    with open(pth.sc_wordlist, encoding="utf-8") as f:
         sc_wordlist = set(json.load(f))
 
     return cst_wordlist | bjt_wordlist | sya_wordlist | sc_wordlist

@@ -1,12 +1,18 @@
 """render_preview builds the webapp page of an unsaved word from a copy."""
 
 import asyncio
+import base64
+import json
 import random
+import re
+import shutil
+import subprocess
 from pathlib import Path
 from types import SimpleNamespace
 
 import pytest
 
+from audio.db.db_helpers import get_audio_record
 from db.db_helpers import get_db_session
 from db.models import DpdHeadword
 import gui2.pass1_add_controller as controller_module
@@ -14,6 +20,7 @@ import gui2.preview as preview_module
 from gui2.dpd_fields_functions import make_dpd_headword_from_dict
 from gui2.pass1_add_controller import Pass1AddController
 from gui2.preview import preview_url, render_preview, write_preview
+from tools.paths import ProjectPaths
 
 MARKER = "zzpreviewmarkerzz"
 # 8 has a root and a root family, 7 has a compound family, 7281 has sutta info
@@ -25,6 +32,21 @@ def db_session():
     session = get_db_session(Path("dpd.db"))
     yield session
     session.close()
+
+
+@pytest.fixture(autouse=True, scope="module")
+def load_word_lists_once():
+    """Each preview reads about 50 MB of word lists. The tests share one read."""
+    real = preview_module.make_all_tipitaka_word_set
+    try:
+        words = real()
+    except FileNotFoundError:
+        # generated files: the preview itself copes without them
+        yield
+        return
+    preview_module.make_all_tipitaka_word_set = lambda: words
+    yield
+    preview_module.make_all_tipitaka_word_set = real
 
 
 def edited_copy(session, word_id: int) -> tuple[DpdHeadword, str]:
@@ -64,6 +86,58 @@ def test_new_word_renders(db_session):
     assert not db_session.new
 
 
+def test_new_word_gets_an_inflection_table(db_session):
+    word = make_dpd_headword_from_dict(
+        {
+            "lemma_1": "zzzword 1",
+            "pos": "masc",
+            "meaning_1": MARKER,
+            "stem": "zzzword",
+            "pattern": "a masc",
+        }
+    )
+    html = render_preview(db_session, word)
+    assert "<table class='inflection'>" in html
+    assert "is <b>a masc</b> declension" in html
+    assert "zzzword<b>assa</b>" in html
+    assert not db_session.new
+
+
+def test_changed_pattern_replaces_the_stored_table(db_session):
+    word, _ = edited_copy(db_session, 7)
+    assert "is <b>a adj</b>" in word.inflections_html
+    word.pattern = "a nt"
+    html = render_preview(db_session, word)
+    assert "is <b>a nt</b>" in html
+    assert "is <b>a adj</b>" not in html
+
+
+def test_new_word_frequency_says_not_yet_built(db_session):
+    word = make_dpd_headword_from_dict(
+        {"lemma_1": "zzzword 1", "pos": "masc", "meaning_1": MARKER}
+    )
+    html = render_preview(db_session, word)
+    assert "Not yet built" in html
+    assert "There are no matches" not in html
+
+
+def test_existing_word_without_matches_keeps_the_webapp_text(db_session):
+    # word 108 is saved with an empty freq_html: it was counted and has no matches
+    word, _ = edited_copy(db_session, 108)
+    assert not word.freq_html
+    html = render_preview(db_session, word)
+    assert "There are no matches" in html
+    assert "Not yet built" not in html
+
+
+def test_stored_frequency_is_kept(db_session):
+    word, _ = edited_copy(db_session, 7)
+    assert word.freq_html
+    html = render_preview(db_session, word)
+    assert "Not yet built" not in html
+    assert word.freq_html in html
+
+
 def test_random_real_words_render(db_session):
     ids = [row[0] for row in db_session.query(DpdHeadword.id).all()]
     for word_id in random.Random(1).sample(ids, 20):
@@ -85,12 +159,108 @@ def test_preview_url_shapes(tmp_path):
     assert web.startswith("preview/preview_alice.html?t=")
 
 
-def test_page_is_dark_opens_grammar_and_hides_audio(db_session):
+def test_page_is_dark_and_opens_grammar(db_session):
     word, _ = edited_copy(db_session, 8)
     html = render_preview(db_session, word)
     assert 'class="dark-mode"' in html
     assert 'a[name="grammar-button"]' in html
-    assert ".dpd-button.play{display:none}" in html
+
+
+# --- audio: word 7 (akakkasa) has all three voices in the audio index ---
+
+HIDE_PLAY = ".dpd-button.play{display:none}"
+needs_audio_db = pytest.mark.skipif(
+    not (
+        ProjectPaths().dpd_audio_db_path.exists()
+        and ProjectPaths().dpd_audio_index_tsv_path.exists()
+    ),
+    reason="audio db and index not downloaded",
+)
+NO_AUDIO_WORD = {"lemma_1": "zzzword 1", "pos": "masc", "meaning_1": MARKER}
+
+
+@needs_audio_db
+def test_word_with_audio_embeds_it_and_shows_the_button(db_session):
+    word, _ = edited_copy(db_session, 7)
+    html = render_preview(db_session, word)
+    assert html.count("data:audio/mpeg;base64,") == 3
+    assert HIDE_PLAY not in html
+
+
+def test_word_without_audio_keeps_the_button_hidden(db_session):
+    html = render_preview(db_session, make_dpd_headword_from_dict(NO_AUDIO_WORD))
+    assert HIDE_PLAY in html
+    assert "data:audio" not in html
+
+
+def test_missing_audio_db_is_skipped_without_creating_it(
+    db_session, monkeypatch, tmp_path
+):
+    missing = tmp_path / "dpd_audio.db"
+    calls: list[str] = []
+
+    class PathsWithoutAudioDb(ProjectPaths):
+        def __init__(self) -> None:
+            super().__init__()
+            self.dpd_audio_db_path = missing
+
+    monkeypatch.setattr(preview_module, "ProjectPaths", PathsWithoutAudioDb)
+    monkeypatch.setattr(
+        preview_module, "get_audio_record", lambda *args: calls.append(args[0])
+    )
+    word, _ = edited_copy(db_session, 7)
+    html = render_preview(db_session, word)
+    assert MARKER in html
+    assert HIDE_PLAY in html
+    assert calls == []
+    assert not missing.exists()
+
+
+def test_missing_audio_index_leaves_the_preview_working(db_session, monkeypatch):
+    def no_index() -> dict:
+        raise FileNotFoundError("no audio index")
+
+    monkeypatch.setattr(preview_module, "load_audio_dict", no_index)
+    word, _ = edited_copy(db_session, 7)
+    html = render_preview(db_session, word)
+    assert MARKER in html
+    assert HIDE_PLAY in html
+
+
+@needs_audio_db
+@pytest.mark.skipif(shutil.which("node") is None, reason="node is not installed")
+def test_audio_script_answers_the_webapp_audio_urls(db_session):
+    word, _ = edited_copy(db_session, 7)
+    html = render_preview(db_session, word)
+    script = re.search(r'<script id="preview-audio">(.*?)</script>', html, re.S)
+    assert script
+    harness = (
+        "globalThis.window = {};"
+        "window.Audio = class { constructor(url) { this.url = url; } };"
+        + script.group(1)
+        + "const urls = ['male', 'female', 'male1', 'male2', 'female1', 'bogus']"
+        ".map(g => new window.Audio("
+        "'/audio/' + encodeURIComponent('akakkasa 1') + '?gender=' + g).url);"
+        "urls.push(new window.Audio('/audio/other?gender=male').url);"
+        "console.log(JSON.stringify(urls));"
+    )
+    out = subprocess.run(
+        ["node", "-e", harness], capture_output=True, text=True, check=True
+    )
+    male, female, male1, male2, female1, bogus, other = json.loads(out.stdout)
+
+    def recording(gender: str) -> str:
+        data = get_audio_record("akakkasa", gender)
+        assert data
+        return "data:audio/mpeg;base64," + base64.b64encode(data).decode("ascii")
+
+    assert male1 == recording("male1")
+    assert male2 == recording("male2")
+    assert female1 == recording("female1")
+    assert male == bogus == recording("male1")
+    assert female == recording("female1")
+    assert male1 != male2 and male1 != female1
+    assert other == "/audio/other?gender=male"
 
 
 def test_body_is_a_normal_scrolling_page(db_session):

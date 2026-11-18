@@ -4,6 +4,8 @@
 The word is rendered from a transient copy: nothing is added to a session
 and nothing is committed."""
 
+import base64
+import json
 import re
 import time
 from collections.abc import Awaitable, Callable
@@ -12,8 +14,11 @@ from typing import Any
 
 import flet as ft
 from jinja2 import Environment, FileSystemLoader
+from sqlalchemy.exc import OperationalError
 from sqlalchemy.orm import Session
 
+from audio.db.db_helpers import get_audio_record
+from db.inflections.generate_inflection_tables import make_inflection_table
 from db.models import (
     DpdHeadword,
     DpdRoot,
@@ -22,14 +27,23 @@ from db.models import (
     FamilyRoot,
     FamilySet,
     FamilyWord,
+    InflectionTemplates,
     SuttaInfo,
     _load_sutta_alias_map,
 )
 from exporter.webapp.data_classes import HeadwordData
+from tools.all_tipitaka_words import make_all_tipitaka_word_set
+from tools.cache_load import load_audio_dict
 from tools.configger import config_test
 from tools.paths import ProjectPaths
 
 PREVIEW_DIR = Path("gui2/assets/preview")
+
+# The counts come from the Go frequency tool, which runs in the db build. The
+# webapp's own text for an empty box ("no matches") would be false here.
+FREQUENCY_NOT_BUILT = (
+    "<br>Not yet built. The frequency is worked out when the dictionary is built."
+)
 
 
 class _WordWithRelations:
@@ -95,6 +109,71 @@ def _family_lists(
     )
 
 
+def _inflection_table(db_session: Session, word: DpdHeadword) -> str:
+    """The table the db build would write for this stem and pattern. Empty when
+    the pattern has no template, as in the build."""
+    template = db_session.get(InflectionTemplates, word.pattern)
+    if template is None or not template.data:
+        return ""
+    try:
+        # loaded per preview and dropped, so gui2 does not hold the set in memory
+        tipitaka_words: set[str] | None = make_all_tipitaka_word_set()
+    except FileNotFoundError:
+        # generated files, absent on some machines: no cell is greyed out
+        tipitaka_words = None
+    return make_inflection_table(word, template, tipitaka_words)[0]
+
+
+# dpd.js plays a word with `new Audio('/audio/<word>?gender=<g>')`, a url that only
+# the webapp server answers. This swaps in the embedded recordings; the fallbacks
+# are those of audio.db.db_helpers.get_audio_record.
+_AUDIO_SHIM = """
+(function () {
+  var word = %(word)s, voices = %(voices)s, RealAudio = window.Audio;
+  function pick(gender) {
+    if (gender === "male1" || gender === "male2" || gender === "female1")
+      return voices[gender];
+    if (gender === "female") return voices.female1 || voices.male1;
+    return voices.male1 || voices.female1;
+  }
+  window.Audio = function (url) {
+    var match = /^\\/audio\\/([^?]*)\\?gender=(.*)$/.exec(url);
+    if (match && decodeURIComponent(match[1]).replace(/ \\d.*$/, "") === word)
+      url = pick(match[2]) || url;
+    return new RealAudio(url);
+  };
+})();
+"""
+
+
+def _audio_script(word: DpdHeadword) -> str:
+    """A script tag with the word's recordings embedded, or "" when there is
+    nothing to play. Opening a missing sqlite file would create an empty one, so
+    the file is checked first: the contributor server does not download it."""
+    if not ProjectPaths().dpd_audio_db_path.exists():
+        return ""
+    try:
+        availability = load_audio_dict().get(word.lemma_clean)
+        if not availability:
+            return ""
+        voices = {
+            gender: "data:audio/mpeg;base64,"
+            + base64.b64encode(recording).decode("ascii")
+            for gender, present in zip(("male1", "male2", "female1"), availability)
+            if present and (recording := get_audio_record(word.lemma_clean, gender))
+        }
+    except (FileNotFoundError, OperationalError):
+        # the index or the db is not downloaded on this machine
+        return ""
+    if not voices:
+        return ""
+    shim = _AUDIO_SHIM % {
+        "word": json.dumps(word.lemma_clean),
+        "voices": json.dumps(voices),
+    }
+    return f'<script id="preview-audio">{shim.replace("</", "<\\/")}</script>'
+
+
 def render_preview(db_session: Session, word: DpdHeadword) -> str:
     """The webapp headword HTML of an unsaved word, wrapped in a page with the
     webapp's css and js inlined."""
@@ -117,6 +196,13 @@ def render_preview(db_session: Session, word: DpdHeadword) -> str:
         canonical = _load_sutta_alias_map().get(copy.lemma_1)
         su = db_session.get(SuttaInfo, canonical) if canonical else None
         fc, fi, fs = _family_lists(db_session, copy)
+        if copy.pattern:
+            copy.inflections_html = _inflection_table(db_session, copy)
+        # a saved word with no matches was counted: the webapp's own text is true for it
+        if not copy.freq_html and (
+            not copy.id or db_session.get(DpdHeadword, copy.id) is None
+        ):
+            copy.freq_html = FREQUENCY_NOT_BUILT
 
     d = HeadwordData(_WordWithRelations(copy, rt, fr, fw, su), fc, fi, fs)  # type: ignore[arg-type]
 
@@ -132,18 +218,19 @@ def render_preview(db_session: Session, word: DpdHeadword) -> str:
         for name in ("dpd.css", "home.css", "switch.css", "tt.css")
     )
     js = (pth.webapp_static_dir / "dpd.js").read_text(encoding="utf-8")
+    audio_script = _audio_script(copy)
     return (
         '<!DOCTYPE html><html lang="en" class="dark-mode"><head><meta charset="utf-8">'
         '<meta name="viewport" content="width=device-width, initial-scale=1">'
         "<title>Preview</title>"
         f"<style>{css}"
-        # the audio comes from the webapp server, which a preview does not use
-        ".dpd-button.play{display:none}"
+        # without embedded audio the play button would ask a server that is not there
+        f"{'' if audio_script else '.dpd-button.play{display:none}'}"
         # home.css makes body a fixed-height flex column, which squeezes the
         # summary box when a long section opens
         "body{height:auto;overflow:auto;display:block;"
         "max-width:700px;margin:0 auto;padding:1em}</style>"
-        f"<script>{js}</script></head><body>{body}"
+        f"<script>{js}</script>{audio_script}</head><body>{body}"
         "<script>document.querySelector('a[name=\"grammar-button\"]')?.click()</script>"
         "</body></html>"
     )
