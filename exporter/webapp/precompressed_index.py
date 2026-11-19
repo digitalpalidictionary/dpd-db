@@ -10,7 +10,7 @@ from tempfile import NamedTemporaryFile
 
 from anyio import to_thread
 import brotli
-from starlette.datastructures import Headers
+from starlette.datastructures import Headers, QueryParams
 from starlette.responses import Response
 from starlette.staticfiles import StaticFiles
 from starlette.types import Scope
@@ -48,8 +48,18 @@ def publish_index(path: Path, data: bytes) -> None:
     atomic_write(Path(f"{path}.encodings.json"), json.dumps(manifest).encode())
 
 
+IMMUTABLE = "public, max-age=31536000, immutable"
+
+
 class IndexStaticFiles(StaticFiles):
-    """Keep all other static URLs and cache policies unchanged."""
+    """Keep all other static URLs and cache policies unchanged, except that
+    URLs carrying the current asset version are cached for a year."""
+
+    # The ?v= token home.html adds to its scripts and styles, set at startup.
+    # It changes whenever one of those files does, so a URL with it never
+    # needs revalidating. Old tokens, other tokens and unversioned URLs keep
+    # heuristic freshness.
+    asset_version: str | None = None
 
     def compressed_response(self, path: str, scope: Scope) -> Response | None:
         request_headers = Headers(scope=scope)
@@ -98,6 +108,16 @@ class IndexStaticFiles(StaticFiles):
         return None
 
     async def get_response(self, path: str, scope: Scope) -> Response:
+        response = await self.static_response(path, scope)
+        if (
+            self.asset_version
+            and response.status_code in (200, 304)
+            and QueryParams(scope["query_string"]).get("v") == self.asset_version
+        ):
+            response.headers["Cache-Control"] = IMMUTABLE
+        return response
+
+    async def static_response(self, path: str, scope: Scope) -> Response:
         if path != "search_index.json" or scope["method"] not in ("GET", "HEAD"):
             return await super().get_response(path, scope)
         response = await to_thread.run_sync(self.compressed_response, path, scope)
