@@ -50,12 +50,15 @@
 
 <body>
     <div class="top-controls">
-        <div class="tab-buttons">
-            <button class="tab-link active" data-tab="dpd-tab">DPD</button>
-            <button class="tab-link" data-tab="bold-def-tab">
+        <div class="tab-buttons" role="tablist" aria-label="search">
+            <button class="tab-link active" data-tab="dpd-tab" id="dpd-tab-link"
+                role="tab" aria-selected="true" aria-controls="dpd-tab">DPD</button>
+            <button class="tab-link" data-tab="bold-def-tab" id="bold-def-tab-link"
+                role="tab" aria-selected="false" aria-controls="bold-def-tab" tabindex="-1">
                 CST Bold Definitions
             </button>
-            <button class="tab-link" data-tab="tt-tab">
+            <button class="tab-link" data-tab="tt-tab" id="tt-tab-link"
+                role="tab" aria-selected="false" aria-controls="tt-tab" tabindex="-1">
                 Tipiṭaka Translations
             </button>
         </div>
@@ -97,7 +100,7 @@
             </div>
         </div>
     </div>
-    <div id="dpd-tab" class="tab-content active">
+    <div id="dpd-tab" class="tab-content active" role="tabpanel" aria-labelledby="dpd-tab-link">
         <div class="header-pane">
             <div class="logo-title">
                 <a href="/" id="logo-link">
@@ -173,10 +176,10 @@
                     </button>
                 </div>
                 <p>
-                    <button class="small-button" id="font-size-down">-</button>
-                    <button class="small-button" id="font-size-up">+</button>
+                    <button class="small-button" id="font-size-down" aria-label="smaller font size">-</button>
+                    <button class="small-button" id="font-size-up" aria-label="larger font size">+</button>
                     font size
-                    <span id="font-size-display"></span>
+                    <span id="font-size-display" aria-live="polite"></span>
                 </p>
                 <p>
                     <label class="switch">
@@ -269,7 +272,7 @@
         </div>
     </div>
 
-    <div id="bold-def-tab" class="tab-content">
+    <div id="bold-def-tab" class="tab-content" role="tabpanel" aria-labelledby="bold-def-tab-link">
         <div class="header-pane bd-header-pane">
             <div class="logo-title">
                 <h2 class="title" id="bd-title-clear">CST Bold
@@ -348,7 +351,7 @@
         </div>
     </div>
 
-    <div id="tt-tab" class="tab-content">
+    <div id="tt-tab" class="tab-content" role="tabpanel" aria-labelledby="tt-tab-link">
         <div class="header-pane bd-header-pane">
             <div class="logo-title">
                 <h2 class="title" id="tt-title-clear">Tipiṭaka Translations</h2>

@@ -472,6 +472,13 @@ function render(keepForm = false) {
     if (ttTabLink) ttTabLink.classList.remove("active");
   }
 
+  // Screen readers announce the selected tab, and Tab reaches only that one
+  document.querySelectorAll(".tab-link[role='tab']").forEach(function (link) {
+    const selected = link.classList.contains("active");
+    link.setAttribute("aria-selected", selected ? "true" : "false");
+    link.tabIndex = selected ? 0 : -1;
+  });
+
   // Update the content of the search input fields
   // A failed search leaves the form as it was, as before.
   if (!keepForm) {
@@ -876,6 +883,25 @@ document.addEventListener("DOMContentLoaded", function () {
     ttTabLink.addEventListener("click", function (e) {
       e.preventDefault();
       switchTab("tt");
+    });
+  }
+
+  // Arrow keys, Home and End move between the tabs; Enter or Space opens one
+  const tabList = document.querySelector(".tab-buttons[role='tablist']");
+  if (tabList) {
+    tabList.addEventListener("keydown", function (e) {
+      const tabs = Array.from(tabList.querySelectorAll("[role='tab']"));
+      const current = tabs.indexOf(document.activeElement);
+      if (current < 0) return;
+      const next = {
+        ArrowRight: (current + 1) % tabs.length,
+        ArrowLeft: (current - 1 + tabs.length) % tabs.length,
+        Home: 0,
+        End: tabs.length - 1,
+      }[e.key];
+      if (next === undefined) return;
+      e.preventDefault();
+      tabs[next].focus();
     });
   }
 
