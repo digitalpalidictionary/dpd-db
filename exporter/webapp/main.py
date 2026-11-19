@@ -55,9 +55,8 @@ app.add_middleware(
     expose_headers=["Link"],
 )
 app.add_middleware(GZipMiddleware, minimum_size=500)
-app.mount(
-    "/static", IndexStaticFiles(directory=str(pth.webapp_static_dir)), name="static"
-)
+static_files = IndexStaticFiles(directory=str(pth.webapp_static_dir))
+app.mount("/static", static_files, name="static")
 
 # Create session factory for database connections
 SessionLocal = sessionmaker(
@@ -126,6 +125,8 @@ templates.env.globals.update(
         ),
     }
 )
+# URLs with this version are cached for a year without revalidating (#285).
+static_files.asset_version = str(templates.env.globals["webapp_asset_version"])
 
 # Global CSS and JS
 with open(pth.webapp_css_path, encoding="utf-8") as f:

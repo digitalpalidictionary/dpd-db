@@ -10,7 +10,11 @@ from fastapi import FastAPI
 from fastapi.testclient import TestClient
 from starlette.middleware.gzip import GZipMiddleware
 
-from exporter.webapp.precompressed_index import IndexStaticFiles, publish_index
+from exporter.webapp.precompressed_index import (
+    IMMUTABLE,
+    IndexStaticFiles,
+    publish_index,
+)
 
 
 @pytest.fixture
@@ -130,3 +134,48 @@ def test_other_files_errors_and_range(
     )
     assert response.status_code == 206
     assert len(response.content) == 10
+
+
+def versioned_client(tmp_path: Path) -> TestClient:
+    (tmp_path / "app.js").write_text("console.log('dpd');" * 50)
+    static_files = IndexStaticFiles(directory=tmp_path)
+    static_files.asset_version = "abc123"
+    app = FastAPI()
+    app.add_middleware(GZipMiddleware, minimum_size=500)
+    app.mount("/static", static_files)
+    return TestClient(app)
+
+
+def test_current_asset_version_is_immutable(tmp_path: Path) -> None:
+    client = versioned_client(tmp_path)
+    response = client.get("/static/app.js?v=abc123")
+    assert response.status_code == 200
+    assert response.headers["cache-control"] == IMMUTABLE
+    # A browser that still revalidates keeps the year-long lifetime.
+    cached = client.get(
+        "/static/app.js?v=abc123", headers={"If-None-Match": response.headers["etag"]}
+    )
+    assert cached.status_code == 304
+    assert cached.headers["cache-control"] == IMMUTABLE
+    assert client.head("/static/app.js?v=abc123").headers["cache-control"] == IMMUTABLE
+
+
+@pytest.mark.parametrize(
+    "url",
+    [
+        "/static/app.js",
+        "/static/app.js?v=old",
+        "/static/app.js?v=",
+        "/static/app.js?version=abc123",
+    ],
+)
+def test_other_urls_keep_heuristic_freshness(tmp_path: Path, url: str) -> None:
+    response = versioned_client(tmp_path).get(url)
+    assert response.status_code == 200
+    assert "cache-control" not in response.headers
+
+
+def test_missing_versioned_file_is_not_cached(tmp_path: Path) -> None:
+    response = versioned_client(tmp_path).get("/static/gone.js?v=abc123")
+    assert response.status_code == 404
+    assert "cache-control" not in response.headers
