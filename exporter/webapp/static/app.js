@@ -18,6 +18,8 @@ const appState = {
     books: ["all"],
     resultsHTML: "",
   },
+  // The Database Query tab keeps its own state, in db_query.js
+  dq: {},
   history: [], // An array of state snapshots
   historyIndex: -1, // Current position in the history stack
   // History panel entries - simpler list of search terms for persistence
@@ -37,7 +39,7 @@ function navigationState(source = appState) {
     ? source.tt.books.filter(book => typeof book === "string") : ["all"];
   return {
     version: 1,
-    activeTab: ["dpd", "bd", "tt"].includes(source?.activeTab) ? source.activeTab : "dpd",
+    activeTab: ["dpd", "bd", "tt", "dq"].includes(source?.activeTab) ? source.activeTab : "dpd",
     dpd: {
       searchTerm: text(source?.dpd?.searchTerm),
       hasResults: hadResults(source?.dpd),
@@ -438,38 +440,13 @@ function showSearchError(tabName, message) {
 
 // Render the UI based on the current state
 function render(keepForm = false) {
-  // Set the active tab
-  const dpdTab = document.getElementById("dpd-tab");
-  const bdTab = document.getElementById("bold-def-tab");
-  const dpdTabLink = document.querySelector(".tab-link:nth-child(1)");
-  const bdTabLink = document.querySelector(".tab-link:nth-child(2)");
-
-  if (appState.activeTab === "dpd") {
-    dpdTab.classList.add("active");
-    bdTab.classList.remove("active");
-    dpdTabLink.classList.add("active");
-    bdTabLink.classList.remove("active");
-  } else {
-    dpdTab.classList.remove("active");
-    bdTab.classList.add("active");
-    dpdTabLink.classList.remove("active");
-    bdTabLink.classList.add("active");
-  }
-
-  const ttTab = document.getElementById("tt-tab");
-  const ttTabLink = document.querySelector(".tab-link[data-tab='tt-tab']");
-
-  if (appState.activeTab === "tt") {
-    ttTab.classList.add("active");
-    if (ttTabLink) ttTabLink.classList.add("active");
-
-    dpdTab.classList.remove("active");
-    bdTab.classList.remove("active");
-    dpdTabLink.classList.remove("active");
-    bdTabLink.classList.remove("active");
-  } else {
-    ttTab.classList.remove("active");
-    if (ttTabLink) ttTabLink.classList.remove("active");
+  // Set the active tab. Any tab name other than these shows BD, as before.
+  const panels = { dpd: "dpd-tab", bd: "bold-def-tab", tt: "tt-tab", dq: "dq-tab" };
+  const activePanel = panels[appState.activeTab] || panels.bd;
+  for (const panel of Object.values(panels)) {
+    const active = panel === activePanel;
+    document.getElementById(panel)?.classList.toggle("active", active);
+    document.querySelector(`.tab-link[data-tab='${panel}']`)?.classList.toggle("active", active);
   }
 
   // Screen readers announce the selected tab, and Tab reaches only that one
@@ -883,6 +860,14 @@ document.addEventListener("DOMContentLoaded", function () {
     ttTabLink.addEventListener("click", function (e) {
       e.preventDefault();
       switchTab("tt");
+    });
+  }
+
+  const dqTabLink = document.querySelector(".tab-link[data-tab='dq-tab']");
+  if (dqTabLink) {
+    dqTabLink.addEventListener("click", function (e) {
+      e.preventDefault();
+      switchTab("dq");
     });
   }
 
@@ -1735,6 +1720,9 @@ function focusActiveTabSearchBox() {
   } else if (appState.activeTab === "tt") {
     const ttSearchBox = document.getElementById("tt-search-box");
     if (ttSearchBox) ttSearchBox.focus();
+  } else if (appState.activeTab === "dq") {
+    const dqValueBox = document.querySelector("#dq-filters .dq-value");
+    if (dqValueBox) dqValueBox.focus();
   }
 }
 

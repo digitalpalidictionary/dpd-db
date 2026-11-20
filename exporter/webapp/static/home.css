@@ -476,6 +476,14 @@ a {
 }
 
 @media (max-width: 576px) {
+  /* Four tabs and the header buttons do not fit a phone: the tabs scroll
+     sideways instead of pushing the buttons off the screen */
+  .tab-buttons {
+    min-width: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
   #search-form {
     flex-wrap: wrap;
     width: 100%;
