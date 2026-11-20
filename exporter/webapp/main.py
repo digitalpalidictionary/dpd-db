@@ -148,9 +148,13 @@ templates.env.globals.update(
 static_files.asset_version = str(templates.env.globals["webapp_asset_version"])
 
 # The Database Query tab lists every DpdHeadword field
-templates.env.globals.update(
-    dq_columns=COLUMNS, dq_default_columns=DEFAULT_COLUMNS, dq_max_limit=MAX_LIMIT
-)
+dq_globals = {
+    "dq_columns": COLUMNS,
+    "dq_default_columns": DEFAULT_COLUMNS,
+    "dq_max_limit": MAX_LIMIT,
+}
+# pyrefly: ignore  # Environment.globals is unannotated, as in the update above
+templates.env.globals.update(dq_globals)
 
 # Global CSS and JS
 with open(pth.webapp_css_path, encoding="utf-8") as f:
