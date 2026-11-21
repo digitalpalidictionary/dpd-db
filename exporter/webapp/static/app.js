@@ -1721,8 +1721,11 @@ function focusActiveTabSearchBox() {
     const ttSearchBox = document.getElementById("tt-search-box");
     if (ttSearchBox) ttSearchBox.focus();
   } else if (appState.activeTab === "dq") {
+    // A search finishing on another tab renders again: leave the cursor in
+    // whichever query field the user is typing in
+    const dqTab = document.getElementById("dq-tab");
     const dqValueBox = document.querySelector("#dq-filters .dq-value");
-    if (dqValueBox) dqValueBox.focus();
+    if (dqValueBox && !dqTab?.contains(document.activeElement)) dqValueBox.focus();
   }
 }
 

@@ -9,6 +9,8 @@
 
   const filterList = document.getElementById("dq-filters");
   const filterTemplate = document.getElementById("dq-filter-template");
+  const addFilterButton = document.getElementById("dq-add-filter");
+  const maxFilters = Number(addFilterButton.dataset.max) || 10;
   const columnsButton = document.getElementById("dq-columns-btn");
   const columnsMenu = document.getElementById("dq-columns-menu");
   const columnsSearch = document.getElementById("dq-columns-search");
@@ -43,8 +45,10 @@
   function writeStorage(key, value) {
     try {
       localStorage.setItem(key, value);
+      return true;
     } catch (e) {
       // Storage can be full or blocked; the tab still works without it.
+      return false;
     }
   }
 
@@ -75,6 +79,8 @@
       row.classList.toggle("dq-or", i > 0 && logic.value === "or");
       row.querySelector(".dq-remove").disabled = rows.length === 1;
     });
+    // The server refuses more filters than this
+    addFilterButton.disabled = rows.length >= maxFilters;
   }
 
   function setFilters(filters) {
@@ -110,7 +116,7 @@
     if (e.target.classList.contains("dq-field")) e.target.removeAttribute("aria-invalid");
   });
 
-  document.getElementById("dq-add-filter").addEventListener("click", function () {
+  addFilterButton.addEventListener("click", function () {
     addFilter({ field: "" }).querySelector(".dq-field").focus();
   });
 
@@ -217,6 +223,9 @@
       if (bad && !invalid) invalid = field;
     });
     if (invalid) {
+      // The old results are no longer on screen, so they must not export
+      lastResult = null;
+      updateExportButtons();
       showMessage(invalid.value.trim() === ""
         ? "Choose a field for each filter with a value."
         : `Unknown field: "${invalid.value.trim()}". Choose one from the list.`, true);
@@ -227,12 +236,19 @@
     const limit = readLimit();
     limitInput.value = limit;
     const params = new URLSearchParams();
+    // An empty "or" row still starts a new group, as its dashed line shows,
+    // so its "or" passes to the next filter that is sent
+    let startsGroup = false;
     for (const filter of filters) {
-      if (filter.value === "") continue;
+      if (filter.value === "") {
+        startsGroup = startsGroup || filter.logic === "or";
+        continue;
+      }
       params.append("field", filter.field);
       params.append("search", filter.search);
       params.append("value", filter.value);
-      params.append("logic", filter.logic);
+      params.append("logic", startsGroup ? "or" : filter.logic);
+      startsGroup = false;
     }
     params.set("columns", (responsiveBox.checked ? allColumns : selectedColumns()).join(","));
     params.set("limit", limit);
@@ -448,7 +464,11 @@
       limit: readLimit(),
       fetchAllFields: responsiveBox.checked,
     };
-    writeStorage(PRESETS_KEY, JSON.stringify(presets));
+    if (!writeStorage(PRESETS_KEY, JSON.stringify(presets))) {
+      // Keep the name, so the user can try again once storage is allowed
+      showMessage("The preset was not saved: this browser does not allow saving.", true);
+      return;
+    }
     presetName.value = "";
     updatePresetSelect(name);
   });

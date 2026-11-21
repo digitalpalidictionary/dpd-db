@@ -9,6 +9,7 @@ import exporter.webapp.main as webapp_main
 from exporter.webapp.db_query import (
     COLUMNS,
     DEFAULT_COLUMNS,
+    MAX_FILTERS,
     MAX_LIMIT,
     QueryError,
     QueryFilter,
@@ -67,7 +68,8 @@ def as_dicts(data: dict) -> list[dict]:
 def test_search_types_become_regex_patterns() -> None:
     assert to_pattern("contains", "a.b") == r"a\.b"
     assert to_pattern("starts_with", "dhamma") == "^dhamma"
-    assert to_pattern("ends_with", "(gram)") == r"\(gram\)$"
+    assert to_pattern("ends_with", "(gram)") == r"\(gram\)\Z"
+    assert re.search(to_pattern("ends_with", "peace"), "peace\n") is None
     assert to_pattern("regex", "^a.b$") == "^a.b$"
 
 
@@ -223,6 +225,22 @@ def test_invalid_regex_is_reported(client: TestClient) -> None:
     assert data["status"] == 200
     assert data["rows"] == []
     assert data["error"] == INVALID_MESSAGE
+
+
+def test_the_most_filters_allowed_run_within_the_budget(client: TestClient) -> None:
+    # OR runs every filter on every row, so each pattern must stay compiled
+    filters = [("meaning_1", "contains", f"zzqx{i}", "or") for i in range(MAX_FILTERS)]
+    data = query(client, filters, ["id"])
+    assert data["status"] == 200
+    assert "error" not in data
+    assert data["rows"] == []
+
+
+def test_too_many_filters_are_refused(client: TestClient) -> None:
+    filters = [("lemma_1", "contains", "a", "and")] * (MAX_FILTERS + 1)
+    data = query(client, filters, ["id"])
+    assert data["status"] == 400
+    assert data["error"] == f"Use at most {MAX_FILTERS} filters."
 
 
 def test_slow_regex_stops_at_the_budget(client: TestClient, short_budget: None) -> None:

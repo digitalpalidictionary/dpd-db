@@ -15,6 +15,10 @@ from sqlalchemy.orm import Session
 from db.models import DpdHeadword
 
 MAX_LIMIT = 100
+# Each filter is one regex run on every row, and the shared compile cache in
+# tools/search_deadline.py holds 16 patterns. Around 1000 filters SQLite also
+# refuses the query as too deep.
+MAX_FILTERS = 10
 SEARCH_TYPES = ("contains", "starts_with", "ends_with", "regex")
 LOGIC = ("and", "or")
 COLUMNS: list[str] = [column.key for column in inspect(DpdHeadword).columns]
@@ -51,6 +55,8 @@ def make_filters(
         raise QueryError(
             "Each filter needs a field, a search type, a value and a logic."
         )
+    if len(columns) > MAX_FILTERS:
+        raise QueryError(f"Use at most {MAX_FILTERS} filters.")
     filters: list[QueryFilter] = []
     for column, search_type, value, joiner in zip(columns, search_types, values, logic):
         if column not in COLUMNS:
@@ -83,7 +89,8 @@ def to_pattern(search_type: str, value: str) -> str:
     if search_type == "starts_with":
         return f"^{escaped}"
     if search_type == "ends_with":
-        return f"{escaped}$"
+        # $ also matches before a final line break, and freq_data ends in one
+        return rf"{escaped}\Z"
     return escaped
 
 

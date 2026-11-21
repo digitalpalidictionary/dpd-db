@@ -1,5 +1,7 @@
 # Database Query Tab Implementation Plan
 
+> Written as a conductor track and moved to kamma at finalize (2026-11-21). The contributor delivered it in PR #297 without ticking the boxes below; `review.md` records what was checked and fixed.
+
 ## Phase 1: Research and Planning
 
 - [ ] Task: Research webapp structure and existing query patterns

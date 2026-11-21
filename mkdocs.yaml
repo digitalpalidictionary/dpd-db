@@ -42,6 +42,7 @@ nav:
       - Dictionary display: "webapp/dictionary_display.md"
       - Settings: "webapp/settings.md"
       - CST Bold Definitions: "webapp/cst_bold_def.md"
+      - Database Query: "webapp/database_query.md"
       - API in GoldenDict: "webapp/api_goldendict.md"
       - API in DictTango: "webapp/api_dicttango.md"
   - Software Integrations:

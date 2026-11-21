@@ -26,6 +26,7 @@ from audio.db.db_helpers import get_audio_record
 from exporter.webapp.db_query import (
     COLUMNS,
     DEFAULT_COLUMNS,
+    MAX_FILTERS,
     MAX_LIMIT,
     QueryError,
     check_columns,
@@ -152,6 +153,7 @@ dq_globals = {
     "dq_columns": COLUMNS,
     "dq_default_columns": DEFAULT_COLUMNS,
     "dq_max_limit": MAX_LIMIT,
+    "dq_max_filters": MAX_FILTERS,
 }
 # pyrefly: ignore  # Environment.globals is unannotated, as in the update above
 templates.env.globals.update(dq_globals)
