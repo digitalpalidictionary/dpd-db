@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 from contextlib import contextmanager
+from typing import Annotated
 
 import anyio
 import uvicorn
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, Query, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.middleware.gzip import GZipMiddleware
 from fastapi.responses import (
@@ -22,6 +23,17 @@ import re
 from db.db_helpers import get_db_session
 from db.models import BoldDefinition, DbInfo
 from audio.db.db_helpers import get_audio_record
+from exporter.webapp.db_query import (
+    COLUMNS,
+    DEFAULT_COLUMNS,
+    MAX_FILTERS,
+    MAX_LIMIT,
+    QueryError,
+    check_columns,
+    clamp_limit,
+    make_filters,
+    run_query,
+)
 from exporter.webapp.lazy_panels import split_hidden_panels
 from exporter.webapp.response_encoding import encode_search_response
 from exporter.webapp.preloads import (
@@ -37,7 +49,13 @@ from exporter.webapp.toolkit import (
 from tools.css_manager import CSSManager
 from tools.paths import ProjectPaths
 from tools.pali_text_files import cst_texts
-from tools.search_deadline import BUSY_MESSAGE, SearchStopped, regex_deadline, sub
+from tools.search_deadline import (
+    BUSY_MESSAGE,
+    SearchStopped,
+    install_regexp,
+    regex_deadline,
+    sub,
+)
 from tools.tipitaka_db import search_all_cst_texts, search_books
 from tools.configger import config_test
 from tools.translit import auto_translit_to_roman
@@ -114,10 +132,12 @@ templates.env.globals.update(
                     "home.css",
                     "switch.css",
                     "tt.css",
+                    "db_query.css",
                     "app.js",
                     "home.js",
                     "bold_definitions.js",
                     "tipitaka_translations.js",
+                    "db_query.js",
                     "dpd.js",
                     "sorter.js",
                 )
@@ -127,6 +147,16 @@ templates.env.globals.update(
 )
 # URLs with this version are cached for a year without revalidating (#285).
 static_files.asset_version = str(templates.env.globals["webapp_asset_version"])
+
+# The Database Query tab lists every DpdHeadword field
+dq_globals = {
+    "dq_columns": COLUMNS,
+    "dq_default_columns": DEFAULT_COLUMNS,
+    "dq_max_limit": MAX_LIMIT,
+    "dq_max_filters": MAX_FILTERS,
+}
+# pyrefly: ignore  # Environment.globals is unannotated, as in the update above
+templates.env.globals.update(dq_globals)
 
 # Global CSS and JS
 with open(pth.webapp_css_path, encoding="utf-8") as f:
@@ -380,6 +410,57 @@ def tt_search(request: Request, q: str, book: str, lang: str):
             )
 
     return JSONResponse(content=response_data)
+
+
+@app.get("/dq_search", response_class=JSONResponse)
+def dq_search(
+    field: Annotated[list[str] | None, Query()] = None,
+    search: Annotated[list[str] | None, Query()] = None,
+    value: Annotated[list[str] | None, Query()] = None,
+    logic: Annotated[list[str] | None, Query()] = None,
+    columns: str = "",
+    limit: int = MAX_LIMIT,
+):
+    """Database Query tab: headwords whose columns match the filters.
+
+    Filter i is field[i], search[i], value[i] and logic[i], where logic joins
+    it to the filter before it and "or" starts a new group of filters."""
+
+    try:
+        filters = make_filters(field or [], search or [], value or [], logic or [])
+        shown = check_columns([column for column in columns.split(",") if column])
+    except QueryError as error:
+        return JSONResponse(
+            content={"columns": [], "rows": [], "more": False, "error": str(error)},
+            status_code=400,
+        )
+
+    with regex_deadline() as deadline, get_db() as db_session:
+        install_regexp(db_session)
+        try:
+            rows, more = run_query(db_session, filters, shown, clamp_limit(limit))
+        except (SearchStopped, OperationalError):
+            # SQLite wraps an error raised inside REGEXP, so ask the deadline
+            if deadline.stopped is None:
+                raise
+            return JSONResponse(
+                content={
+                    "columns": shown,
+                    "rows": [],
+                    "more": False,
+                    "error": deadline.stopped.message,
+                }
+            )
+
+    return JSONResponse(
+        content={
+            "columns": shown,
+            "rows": rows,
+            "more": more,
+            "license": LICENSE_NOTICE,
+        },
+        headers=LICENSE_LINK_HEADER,
+    )
 
 
 @app.get("/audio/{headword}", response_class=Response)

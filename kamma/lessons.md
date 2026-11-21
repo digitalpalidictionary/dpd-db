@@ -587,3 +587,8 @@
 - 2026-11-18 [POSITIVE] Removing each guard on its own (not only the whole feature) showed which tests were real: the whole-feature revert left the guard tests green by design
 - 2026-11-18 [CONFUSION] Editor diagnostics showed "undefined name" and "unresolved import" errors the command-line pyright did not; trust the command, not the editor, mid-edit
 - 2026-11-18 [POSITIVE] Asking the owner for the one-line scope ("only the server's missing audio db must skip quietly") removed a server check I had added on a guess
+- 2026-11-21 [WORKFLOW] The local post-checkout hook copies the health-check script into a hermes folder that no longer exists, so it exits 1; pre-commit's stash-and-restore runs a checkout, so every commit made while another session has unstaged files aborts
+- 2026-11-21 [WORKFLOW] DeepSeek flash rated a missing `keyword` column "major" and a cache test "green on revert" blocking; one probe each showed neither was true — run the probe before relaying any reviewer's severity
+- 2026-11-21 [REPEATED] Two long status replies were rejected ("massive wall of text", "too long didn't read"); answer in two or three lines and offer the detail
+- 2026-11-21 [POSITIVE] Timing OR queries at 4, 5 and 10 filters (median of 3) turned a reviewer's memory claim into a measured cliff at the cache size, and gave a test that fails when the fix is reverted
+- 2026-11-21 [BEHAVIOR] The screenshot agent's brief named port 8081 while my own test server still held it; give a spawned agent a port nothing else uses

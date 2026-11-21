@@ -13,6 +13,7 @@
     <link rel="stylesheet" type="text/css" href="/static/home.css?v={{ webapp_asset_version }}" />
     <link rel="stylesheet" type="text/css" href="/static/switch.css?v={{ webapp_asset_version }}" />
     <link rel="stylesheet" type="text/css" href="/static/tt.css?v={{ webapp_asset_version }}" />
+    <link rel="stylesheet" type="text/css" href="/static/db_query.css?v={{ webapp_asset_version }}" />
     <link rel="icon" type="image/svg+xml" href="/static/dpd-logo-dark.svg" />
     <link rel="alternate" type="application/rss+xml" title="DPD Updates" href="https://digitalpalidictionary.github.io/rss.xml" />
 
@@ -60,6 +61,10 @@
             <button class="tab-link" data-tab="tt-tab" id="tt-tab-link"
                 role="tab" aria-selected="false" aria-controls="tt-tab" tabindex="-1">
                 Tipiṭaka Translations
+            </button>
+            <button class="tab-link" data-tab="dq-tab" id="dq-tab-link"
+                role="tab" aria-selected="false" aria-controls="dq-tab" tabindex="-1">
+                Database Query
             </button>
         </div>
         <div class="header-controls">
@@ -416,11 +421,102 @@
         </div>
     </div>
 
+    <div id="dq-tab" class="tab-content" role="tabpanel" aria-labelledby="dq-tab-link">
+        <div class="header-pane bd-header-pane">
+            <div class="logo-title">
+                <h2 class="title">Database Query</h2>
+            </div>
+            <p class="centered-text">
+                Find DPD headwords by what their fields contain
+            </p>
+            <div class="bd-search-pane dq-pane">
+                <form id="dq-form" novalidate>
+                    <div id="dq-filters"></div>
+                    <div class="tt-search-row">
+                        <button type="button" class="search-button" id="dq-add-filter" data-max="{{ dq_max_filters }}">+ filter</button>
+                        <label class="tt-label" for="dq-columns-btn">show</label>
+                        <div class="tt-book-dropdown dq-columns-dropdown">
+                            <button type="button" id="dq-columns-btn" class="tt-book-dropdown-btn"
+                                aria-expanded="false" aria-controls="dq-columns-menu">
+                                <span id="dq-columns-text">columns</span>
+                                <span class="tt-dropdown-arrow" aria-hidden="true">▼</span>
+                            </button>
+                            <div id="dq-columns-menu" class="tt-book-dropdown-menu dq-columns-menu">
+                                <input class="search-box tt-search-box" type="search" id="dq-columns-search"
+                                    placeholder="type to find a field" aria-label="find a field"
+                                    autocomplete="off" autocapitalize="off" spellcheck="false" />
+                                <button type="button" class="dq-columns-default" id="dq-columns-default">default fields</button>
+                                {% for column in dq_columns %}
+                                <label class="tt-book-dropdown-option">
+                                    <input type="checkbox" class="dq-column" value="{{ column }}"{% if column in dq_default_columns %} checked{% endif %}>
+                                    {{ column }}
+                                </label>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <label class="tt-label" for="dq-limit">limit</label>
+                        <input class="search-box tt-search-box dq-limit" type="number" id="dq-limit"
+                            min="1" max="{{ dq_max_limit }}" value="{{ dq_max_limit }}" />
+                        <label class="tt-label dq-mode help" for="dq-responsive">
+                            <input type="checkbox" id="dq-responsive" />
+                            fetch all fields
+                            <span class="tooltip">Off: each search fetches only the fields shown, which is faster. On: each search fetches every field, so changing the fields shown needs no new search.</span>
+                        </label>
+                        <button type="submit" class="search-button" id="dq-search-button">search</button>
+                        <button type="button" class="search-button clear-button" id="dq-clear-button">clear</button>
+                    </div>
+                    <div class="tt-search-row">
+                        <label class="tt-label" for="dq-preset-select">presets</label>
+                        <select id="dq-preset-select" class="tt-select">
+                            <option value="">choose a preset</option>
+                        </select>
+                        <button type="button" class="search-button" id="dq-preset-delete">delete</button>
+                        <input class="search-box tt-search-box" type="text" id="dq-preset-name"
+                            placeholder="preset name" aria-label="preset name" autocomplete="off" />
+                        <button type="button" class="search-button" id="dq-preset-save">save</button>
+                        <button type="button" class="search-button" id="dq-export-tsv" disabled>export TSV</button>
+                        <button type="button" class="search-button" id="dq-export-json" disabled>export JSON</button>
+                    </div>
+                </form>
+                <datalist id="dq-field-list">
+                    {% for column in dq_columns %}<option value="{{ column }}"></option>{% endfor %}
+                </datalist>
+                <template id="dq-filter-template">
+                    <div class="tt-search-row dq-filter-row">
+                        <select class="tt-select dq-logic" aria-label="join with the filter above">
+                            <option value="and">and</option>
+                            <option value="or">or</option>
+                        </select>
+                        <input class="search-box tt-search-box dq-field" type="text" list="dq-field-list"
+                            placeholder="field" aria-label="field"
+                            autocomplete="off" autocapitalize="off" spellcheck="false" />
+                        <select class="tt-select dq-search-type" aria-label="search type">
+                            <option value="contains">contains</option>
+                            <option value="starts_with">starts with</option>
+                            <option value="ends_with">ends with</option>
+                            <option value="regex">regex</option>
+                        </select>
+                        <input class="search-box tt-search-box dq-value" type="text"
+                            placeholder="value" aria-label="value"
+                            autocomplete="off" autocapitalize="off" spellcheck="false" />
+                        <button type="button" class="small-button dq-remove" aria-label="remove filter">×</button>
+                    </div>
+                </template>
+            </div>
+        </div>
+        <div class="scrolling-pane" id="dq-results" aria-live="polite"></div>
+        <div class="footer-pane">
+            This searches the DPD database, which is licensed under
+            <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a>.
+        </div>
+    </div>
+
     <script src="static/app.js?v={{ webapp_asset_version }}" defer
         onerror="document.documentElement.classList.remove('search-pending')"></script>
     <script src="static/home.js?v={{ webapp_asset_version }}"></script>
     <script src="static/bold_definitions.js?v={{ webapp_asset_version }}"></script>
     <script src="static/tipitaka_translations.js?v={{ webapp_asset_version }}"></script>
+    <script src="static/db_query.js?v={{ webapp_asset_version }}"></script>
     <script src="static/dpd.js?v={{ webapp_asset_version }}"></script>
     <script src="static/sorter.js?v={{ webapp_asset_version }}"></script>
 </body>

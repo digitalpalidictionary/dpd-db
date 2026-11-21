@@ -157,7 +157,10 @@ def _check_pattern(expr: str) -> None:
             raise PatternRejected(TOO_COMPLEX_MESSAGE)
 
 
-@lru_cache(maxsize=4)
+# Each REGEXP in one query is called once per row, in turn. With more patterns
+# than slots, every call misses and recompiles: the Database Query tab's 5
+# filters took 2.4 s against 0.7 s for 4. 16 covers its 10-filter cap.
+@lru_cache(maxsize=16)
 def _compile(expr: str) -> "regex.Pattern[str]":
     """SQLite calls REGEXP once per row. regex.search re-resolves the pattern
     each call, which made a full scan 3-6x slower than `re`."""

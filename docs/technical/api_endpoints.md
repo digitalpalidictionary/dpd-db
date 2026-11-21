@@ -10,19 +10,19 @@ All API endpoints can be tested here [https://www.dpdict.net/docs](https://www.d
 
 DPD dictionary data is released under [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/) — attribution required, non-commercial use only, derivatives shared alike.
 
-Every endpoint that returns dictionary data (`/search_json`, `/search_html`, `/gd`) sends the licence as an RFC 8288 link header:
+Every endpoint that returns dictionary data (`/search_json`, `/search_html`, `/gd`, `/dq_search`) sends the licence as an RFC 8288 link header:
 
 ```
 Link: <https://creativecommons.org/licenses/by-nc-sa/4.0/>; rel="license"; title="CC BY-NC-SA 4.0"
 ```
 
-`/search_json` additionally ends its response body with a `license` object.
+`/search_json` and `/dq_search` also end their response body with a `license` object.
 
 The rendered entries themselves end with a small visible notice — the four Creative Commons marks (inlined SVG, so they survive offline in GoldenDict) followed by `Digital Pāḷi Dictionary CC BY-NC-SA 4.0`, linking to the deed. It is appended to the results HTML rather than to a page footer, so it travels with the data into GoldenDict, the JSON `dpd_html` field and any third-party embed of the fragment. A "no results" page carries no notice.
 
 ### Busy answers
 
-`/search_json`, `/search_html` and `/gd` take turns: two lookups run at a time and up to 20 more wait for up to 20 seconds. Anyone beyond that, or still waiting after 20 seconds, gets HTTP `503` with a `Retry-After: 10` header, the same cross-origin and licence `Link` headers as a normal answer and the text "The server is busy. Try again in a moment." `/search_json` keeps its normal shape (`summary_html` empty, the text in `dpd_html`, plus `license`), so the web page shows the message. `/bd_search` and `/tt_search` have their own turn-taking, described under each. Only `GET` requests take turns: a browser's cross-origin preflight (`OPTIONS`) is answered at once. Other routes such as `/status` and `/audio/{headword}` are never held up.
+`/search_json`, `/search_html` and `/gd` take turns: two lookups run at a time and up to 20 more wait for up to 20 seconds. Anyone beyond that, or still waiting after 20 seconds, gets HTTP `503` with a `Retry-After: 10` header, the same cross-origin and licence `Link` headers as a normal answer and the text "The server is busy. Try again in a moment." `/search_json` keeps its normal shape (`summary_html` empty, the text in `dpd_html`, plus `license`), so the web page shows the message. `/bd_search`, `/tt_search` and `/dq_search` have their own turn-taking, described under each. Only `GET` requests take turns: a browser's cross-origin preflight (`OPTIONS`) is answered at once. Other routes such as `/status` and `/audio/{headword}` are never held up.
 
 Tipiṭaka translations (`/tt_search`), bold definitions (`/bd_search`) and audio (`/audio/{headword}`) are licensed separately and carry none of the above.
 
@@ -139,6 +139,30 @@ Check out this guide for setting up the API in [GoldenDict](https://digitalpalid
         "error": "The search took too long. Use a more specific search."
     }
     ```
+
+### Database Query Search
+- **URL:** `/dq_search`
+- **Method:** `GET`
+- **Description:** Finds headwords by the contents of their `DpdHeadword` fields. Used by the Database Query tab (`/?tab=dq`).
+- **Parameters:**
+    - `field`, `search`, `value`, `logic` (repeated, one of each per filter): the field name, the search type (`contains`, `starts_with`, `ends_with` or `regex`), the value, and how the filter joins the one before it (`and` or `or`). Filters are ANDed, and an `or` starts a new group, so `a and b or c` means `(a and b) or (c)`. A filter with an empty value is skipped.
+    - `columns` (str): comma-separated field names to return. Empty returns `id`, `pos`, `grammar`, `lemma_1`, `meaning_1`, `meaning_lit`, `meaning_2`, `construction`.
+    - `limit` (int): rows to return, from 1 to 100 (default 100).
+- **Limits:**
+    - At most 10 filters.
+    - Every search type runs as a case-sensitive regular expression. Numbers and dates are matched as text. An empty field never matches.
+    - Rows come back in `id` order. `more` is `true` when there are more than `limit` matches.
+    - The regex search has the same time budget, pattern rules and turn-taking as `/tt_search`.
+- **Response:** JSON
+    ```json
+    {
+        "columns": ["id", "lemma_1"],
+        "rows": [[1, "a 1.1"]],
+        "more": false,
+        "license": {"name": "CC BY-NC-SA 4.0", "...": "..."}
+    }
+    ```
+    The licence `Link` header is sent too. An unknown field, search type or logic, or more than 10 filters, returns HTTP `400` with empty `rows` and an `error` text such as "Unknown field: rt". A stopped search returns empty `rows` and one of the `/tt_search` error texts.
 
 ## Resources
 

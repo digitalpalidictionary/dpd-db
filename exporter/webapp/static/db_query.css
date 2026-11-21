@@ -1,0 +1,133 @@
+/* Database Query Tab Styles */
+
+.dq-filter-row {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+/* Hidden on the first filter, but still taking its place, so the rows line up */
+.dq-filter-row .dq-logic[hidden] {
+  display: inline-block;
+  visibility: hidden;
+}
+
+/* An "or" starts a new group of filters */
+.dq-filter-row.dq-or {
+  border-top: 1px dashed var(--primary);
+  padding-top: 10px;
+}
+
+.dq-filter-row .dq-field {
+  width: 12em;
+}
+
+.dq-filter-row .dq-value {
+  flex: 1;
+  min-width: 10em;
+}
+
+.dq-field[aria-invalid="true"] {
+  border-color: #b00020;
+}
+
+.dq-remove:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.dq-limit {
+  width: 5em;
+}
+
+.dq-mode {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+}
+
+.dq-mode .tooltip {
+  white-space: normal;
+  width: 18em;
+}
+
+.dq-columns-menu {
+  min-width: 14em;
+  max-height: 50vh;
+}
+
+.dq-columns-menu .tt-search-box {
+  box-sizing: border-box;
+  width: 100%;
+  margin-bottom: 5px;
+}
+
+.dq-columns-menu .tt-book-dropdown-option[hidden] {
+  display: none;
+}
+
+.dq-columns-default {
+  background: none;
+  border: none;
+  color: var(--primary);
+  cursor: pointer;
+  padding: 4px 0;
+  text-decoration: underline;
+}
+
+/* The table fills the results pane and scrolls both ways inside it,
+   with its header row kept in view */
+#dq-results {
+  display: flex;
+  flex-direction: column;
+}
+
+.dq-table-wrap {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  max-width: 100%;
+}
+
+.dq-table {
+  border-collapse: collapse;
+  font-size: 0.9em;
+}
+
+.dq-table th,
+.dq-table td {
+  border: 1px solid var(--gray-transparent);
+  padding: 4px 8px;
+  text-align: left;
+  vertical-align: top;
+}
+
+.dq-table td {
+  max-width: 30em;
+  overflow-wrap: break-word;
+  white-space: pre-wrap;
+}
+
+.dq-table th {
+  position: sticky;
+  top: 0;
+  background-color: var(--light);
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+.dark-mode .dq-table th {
+  background-color: var(--dark);
+}
+
+@media (max-width: 576px) {
+  /* No room to keep the first filter in line with the others */
+  .dq-filter-row .dq-logic[hidden] {
+    display: none;
+  }
+
+  .dq-filter-row .dq-field {
+    width: auto;
+    flex: 1;
+  }
+}

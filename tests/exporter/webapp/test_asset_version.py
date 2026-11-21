@@ -15,10 +15,12 @@ ASSETS = (
     "home.css",
     "switch.css",
     "tt.css",
+    "db_query.css",
     "app.js",
     "home.js",
     "bold_definitions.js",
     "tipitaka_translations.js",
+    "db_query.js",
     "dpd.js",
     "sorter.js",
 )
