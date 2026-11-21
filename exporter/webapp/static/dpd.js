@@ -24,6 +24,24 @@ window.playAudio = playAudio;
 
 // Global delegated click listener
 document.addEventListener("click", function (event) {
+    // A long variants list starts folded (variant.html); its button shows or hides the rest
+    var moreButton = event.target.closest(".variants-more");
+    if (moreButton) {
+        var table = moreButton.closest(".dpd").querySelector("table.variants");
+        var expand = moreButton.getAttribute("aria-expanded") !== "true";
+        table.querySelectorAll(".variant-more").forEach(function (row) {
+            row.classList.toggle("hidden", !expand);
+        });
+        moreButton.setAttribute("aria-expanded", expand ? "true" : "false");
+        moreButton.textContent = expand
+            ? moreButton.getAttribute("data-less")
+            : moreButton.getAttribute("data-more");
+        if (!expand) {
+            moreButton.scrollIntoView({ block: "nearest" });
+        }
+        return;
+    }
+
     var playButton = event.target.closest(".dpd-button.play");
     if (playButton) {
         const audioHeadword = playButton.getAttribute("data-audio-headword");

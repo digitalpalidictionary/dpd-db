@@ -308,7 +308,8 @@ div.button-box {
   flex-wrap: wrap;
 }
 
-a.dpd-button {
+a.dpd-button,
+button.variants-more {
   background-color: var(--primary);
   border: 1px solid var(--primary);
   border-radius: 7px;
@@ -336,7 +337,8 @@ a.dpd-button.active {
   user-select: none;
 }
 
-a.dpd-button:hover {
+a.dpd-button:hover,
+button.variants-more:hover {
   box-shadow: var(--shadow-hover);
   border: 1px solid var(--primary-alt);
   background-color: var(--primary-alt);
@@ -521,6 +523,10 @@ table.grammar_dict {
 .variants td:first-child,
 .variants td:nth-child(2) {
   white-space: nowrap;
+}
+
+button.variants-more {
+  font-family: inherit;
 }
 
 /* help */

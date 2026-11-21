@@ -68,11 +68,21 @@ class DeconstructorData:
 
 
 class VariantData:
+    # A long list shows its first rows, and a button shows the rest.
+    # Only lists at least twice this long fold, so a few rows are never hidden.
+    rows_shown = 10
+
     def __init__(self, result: Lookup):
         self.headword = result.lookup_key
         self.variants = result.variant_unpack
         self.app_name = "dpdict.net"
         self.date = year_month_day_dash()
+        self.row_count = sum(
+            len(entries)
+            for books in self.variants.values()
+            for entries in books.values()
+        )
+        self.folded = self.row_count >= 2 * self.rows_shown
 
 
 class SeeData:

@@ -8,11 +8,13 @@
             <th>variant</th>
         </tr>
 
+        {# rows past the first few of a folded list start hidden, see dpd.js #}
+        {% set row = namespace(n=0) %}
         {% set old_corpus = None %}
         {% for corpus, data2 in d.variants.items() %}
 
         {% if old_corpus != corpus %}
-        <tr>
+        <tr{% if d.folded and row.n >= d.rows_shown %} class="variant-more hidden"{% endif %}>
             <td colspan="4">
                 <hr class="dpd">
             </td>
@@ -21,18 +23,25 @@
 
         {% for book, data3 in data2.items() %}
         {% for data4 in data3 %}
-        <tr>
+        <tr{% if d.folded and row.n >= d.rows_shown %} class="variant-more hidden"{% endif %}>
             <td>{{ corpus }}</td>
             <td>{{ book }}</td>
             <td>{{ data4[0] }}</td>
             <td>{{ data4[1] }}</td>
         </tr>
+        {% set row.n = row.n + 1 %}
         {% endfor %}
         {% endfor %}
 
         {% set old_corpus = corpus %}
         {% endfor %}
     </table>
+    {% if d.folded %}
+    <p>
+        <button type="button" class="variants-more" aria-expanded="false"
+            data-more="show all {{ d.row_count }} variants" data-less="show fewer">show all {{ d.row_count }} variants</button>
+    </p>
+    {% endif %}
     <p class="dpd-footer">
         For details on how to use this, please <a class="dpd-link" href='https://digitalpalidictionary.github.io/features/variants/' target='_blank'>read the docs</a>.
     </p>
