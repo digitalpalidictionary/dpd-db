@@ -1,21 +1,4 @@
 {
-    "pājiyamānāpi": {
-        "lemma_1": "pājiyamāna",
-        "lemma_2": "pājiyamāna",
-        "pos": "prp",
-        "grammar": "prp of pājeti",
-        "meaning_2": "being driven forward; being caused to go",
-        "root_key": "√aj",
-        "root_sign": "*e iya",
-        "root_base": "√aj + *e > pāje (caus); pāje + iya > pājiya",
-        "family_root": "pa √aj",
-        "construction": "pa + √aj + *e iya + māna",
-        "stem": "pājiyamāna",
-        "pattern": "māna prp",
-        "comment": "[deepseek: deepseek-v4-flash] Present participle masculine plural of pājeti, causative of ajati. In the text with -pi: 'even when being driven forward'. The sequence -āpi is the emphatic particle; the headword is pājiyamāna.",
-        "example_1": "Athassa goṇā taṃ ṭhānaṃ patvā dhuraṃ chaḍḍesuṃ, punappunaṃ āropetvā pājiyamānāpi purato na gacchiṃsu.",
-        "translation_1": "Again and again he tried to drive them forward, but they refused."
-    },
     "heti": {
         "lemma_1": "heti",
         "lemma_2": "heti",
