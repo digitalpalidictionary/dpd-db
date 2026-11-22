@@ -3,7 +3,21 @@
 <head>
     <meta charset="utf-8">
     <link href="dpd-css-and-fonts.css" rel="stylesheet">
+    <link href="variants.js" class="load_variants_js" rel="preload" as="script">
     <title>DPD Variant Readings</title>
     <style>
     </style>
+    <script>
+        var els2load = document.getElementsByClassName("load_variants_js");
+        if (typeof variants_js_already_loaded === "undefined") {
+            var variants_js_already_loaded = true;
+            var elsArray = Array.from(els2load);
+            elsArray.forEach(el => {
+                var s = document.createElement("script");
+                var elName = el.getAttribute("href");
+                s.src = elName;
+                document.head.appendChild(s);
+            });
+        };
+    </script>
 </head>

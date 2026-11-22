@@ -54,6 +54,15 @@ describe('searchWord', () => {
     expect(panel.setContent).toHaveBeenCalledWith('<b>s</b><hr class="dpd"><i>d</i>');
   });
 
+  it('asks the server to fold long variant lists', async () => {
+    sendSpy.mockResolvedValue({ success: true, data: { dpd_html: '<i>d</i>' } });
+    await searchWord('dhamma', makePanel(false));
+    expect(sendSpy).toHaveBeenCalledWith({
+      action: 'fetchData',
+      endpoint: '/search_json?q=dhamma&fold=1',
+    });
+  });
+
   it('shows "No results" on an empty 200 response', async () => {
     sendSpy.mockResolvedValue({ success: true, data: {} });
     const panel = makePanel(false);

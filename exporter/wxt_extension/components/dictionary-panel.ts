@@ -3,6 +3,7 @@ import { browser } from 'wxt/browser';
 import { getAudioUrl } from '../utils/api';
 import { replaceFeedbackSource } from '../utils/utils';
 import { normalizeHostname, isDefaultOnDomain } from '../utils/domains';
+import { toggleVariants } from '../utils/variants';
 
 // Define helper functions first
 export function wrapApostrophesInHTML(html: string): string {
@@ -466,6 +467,12 @@ export class DictionaryPanel {
   _setupEvents() {
     this.content.addEventListener("click", (event) => {
       const target = event.target as Element;
+      const moreButton = target.closest(".variants-more");
+      if (moreButton) {
+        toggleVariants(moreButton);
+        return;
+      }
+
       const button = target.closest(".dpd-button");
       if (button && button.hasAttribute("data-target")) {
         event.preventDefault();

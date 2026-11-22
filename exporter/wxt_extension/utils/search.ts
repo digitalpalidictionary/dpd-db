@@ -37,7 +37,7 @@ export async function searchWord(rawWord: string, panel: DictionaryPanel | null)
   try {
     const response: any = await browser.runtime.sendMessage({
       action: 'fetchData',
-      endpoint: '/search_json?q=' + encodeURIComponent(q),
+      endpoint: '/search_json?q=' + encodeURIComponent(q) + '&fold=1',
     });
     if (isStale()) return; // a newer search started while this was in flight
     if (response?.success) {

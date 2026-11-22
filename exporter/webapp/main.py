@@ -218,6 +218,7 @@ def db_search_html(request: Request, q: str):
         roots_count_dict,
         headwords_clean_set,
         ascii_to_unicode_dict,
+        fold_variants=True,
     )
     return templates.TemplateResponse(
         request,
@@ -232,11 +233,12 @@ def db_search_html(request: Request, q: str):
 
 
 @app.get("/search_json", response_class=JSONResponse)
-def db_search_json(request: Request, q: str, lazy: bool = False):
+def db_search_json(request: Request, q: str, lazy: bool = False, fold: bool = False):
     """Main search route for website.
 
     With lazy=1, hidden panels are sent empty and their contents arrive in
-    "panels", for the browser to build when each is opened."""
+    "panels", for the browser to build when each is opened.
+    With fold=1, a long variants table shows its first rows and a button."""
 
     q_roman = auto_translit_to_roman(q)
 
@@ -247,6 +249,7 @@ def db_search_json(request: Request, q: str, lazy: bool = False):
         roots_count_dict,
         headwords_clean_set,
         ascii_to_unicode_dict,
+        fold_variants=fold,
     )
     response_data = {
         "summary_html": summary_html,
@@ -275,6 +278,7 @@ def db_search_gd(request: Request, search: str):
         roots_count_dict,
         headwords_clean_set,
         ascii_to_unicode_dict,
+        fold_variants=True,
     )
     global dpd_css, dpd_js, home_simple_css
 
