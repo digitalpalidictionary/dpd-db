@@ -173,6 +173,9 @@ def get_variants_in_page(text: str) -> dict[str, str]:
     """Find variants in the page"""
 
     page_vars: dict[str, str] = {}
+    # A footnote range such as "1-3" looks like a marker, so the footnote section
+    # must not be searched: it made "footnote:" a headword and replaced real markers.
+    text = text.split("footnote:", 1)[0]
     matches = _PAGE_VAR_RE.findall(text)
     for context, number in matches:
         page_vars[number] = context

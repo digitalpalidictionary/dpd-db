@@ -217,3 +217,41 @@ def test_extract_sya_variants_stats_reset_between_calls() -> None:
     stats2 = _SyaStats()
     extract_sya_variants("VIN1", _TEXT_NORMAL, {}, stats2)
     assert stats2.successes == first_successes
+
+
+# ---------------------------------------------------------------------------
+# footnote ranges must not be read as body markers
+# ---------------------------------------------------------------------------
+
+# "footnote: 1-3 ..." looks like a body marker (" 1-") to the page regex. It made
+# "footnote:" a headword (key_cleaner drops the "f", leaving "ootnote") and replaced
+# the real marker 1 of the page.
+_PAGE_RANGE_AFTER_BODY = (
+    "page number: 007 tāni cīvarāni ciraṃ 1- nikkhittāni 2- honti"
+    "   footnote: 1-2 ma. yu. nikkhittāni."
+    " -------------------------------------------------"
+)
+
+
+def test_get_variants_in_page_ignores_a_footnote_range() -> None:
+    result = get_variants_in_page(_PAGE_RANGE_AFTER_BODY)
+    assert result == {"1": "cīvarāni ciraṃ", "2": "nikkhittāni"}
+
+
+def test_get_variants_in_page_ignores_ranges_in_a_second_footnote_block() -> None:
+    page = (
+        "āvuso 1- abhūtaṃ   footnote: 1 yu. abbhutaṃ. footnote: 2-4 ma. yu. na dissati."
+    )
+    assert get_variants_in_page(page) == {"1": "āvuso"}
+
+
+def test_extract_sya_variants_footnote_range_makes_no_footnote_headword() -> None:
+    stats = _SyaStats()
+    result = extract_sya_variants("VIN2", _PAGE_RANGE_AFTER_BODY, {}, stats)
+    assert "ootnote" not in result
+    assert result["ciraṃ"]["SYA"]["VIN2"] == [
+        ("cīvarāni ciraṃ", "ma. yu. nikkhittāni.")
+    ]
+    assert result["nikkhittāni"]["SYA"]["VIN2"] == [
+        ("nikkhittāni", "ma. yu. nikkhittāni.")
+    ]
