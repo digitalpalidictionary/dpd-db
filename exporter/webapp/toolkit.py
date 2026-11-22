@@ -84,6 +84,7 @@ def make_dpd_html(
     roots_count_dict,
     headwords_clean_set,
     ascii_to_unicode_dict,
+    fold_variants: bool = False,
 ) -> tuple[str, str]:
     retries = 3
     vm = get_variant_manager()
@@ -239,7 +240,7 @@ def make_dpd_html(
 
                             # variant
                             if lookup_result.variant:
-                                d = VariantData(lookup_result)
+                                d = VariantData(lookup_result, fold=fold_variants)
                                 summary_html += templates.get_template(
                                     pth.template_variant_summary
                                 ).render(d=d)

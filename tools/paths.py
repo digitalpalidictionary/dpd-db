@@ -219,6 +219,7 @@ class ProjectPaths:
         )
         self.main_js_path = base_dir / "exporter/goldendict/javascript/main.js"
         self.sorter_js_path = base_dir / "exporter/goldendict/javascript/sorter.js"
+        self.variants_js_path = base_dir / "exporter/goldendict/javascript/variants.js"
 
         # exporter/goldendict/templates
         self.see_templ_path = base_dir / "exporter/goldendict/templates/dpd_see.jinja"

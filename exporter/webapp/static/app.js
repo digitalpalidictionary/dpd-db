@@ -259,7 +259,7 @@ async function performSearch(addHistory = true, syncTerms = true) {
         }
 
         const response = await fetch(
-          `/search_json?q=${encodeURIComponent(appState.dpd.searchTerm)}&lazy=1`
+          `/search_json?q=${encodeURIComponent(appState.dpd.searchTerm)}&lazy=1&fold=1`
         );
         if (!response.ok) throw await responseError(response);
         const data = await response.json();

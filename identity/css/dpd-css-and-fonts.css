@@ -478,6 +478,15 @@ table.grammar_dict {
   white-space: nowrap;
 }
 
+button.variants-more {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: inherit;
+  padding: 0;
+}
+
 /* help */
 
 div.tertiary {

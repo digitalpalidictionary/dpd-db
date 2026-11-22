@@ -55,7 +55,7 @@ Tipiṭaka translations (`/tt_search`), bold definitions (`/bd_search`) and audi
 ### HTML Search
 - **URL:** `/search_html`
 - **Method:** `GET`
-- **Description:** Performs a dictionary search and returns the results rendered within the home page template. Used for direct page loads with search results.
+- **Description:** Performs a dictionary search and returns the results rendered within the home page template. Used for direct page loads with search results. A variants table of 20 rows or more always shows its first 10 rows and a **show all** button.
 - **Parameters:**
     - `q` (str): The search query (Pali word or English term).
 - **Response:** HTML (`home.html` populated with results)
@@ -67,6 +67,7 @@ Tipiṭaka translations (`/tt_search`), bold definitions (`/bd_search`) and audi
 - **Parameters:**
     - `q` (str): The search query.
     - `lazy` (bool, optional): used by the webapp. Hidden panels come empty in `dpd_html`, with their contents in a `panels` map keyed by panel id. Other callers can leave it out and get the full HTML.
+    - `fold` (bool, optional): fold a variants table of 20 rows or more to its first 10 rows, with a **show all** button after it. The button needs a click handler in the page, like the one in `dpd.js`. Other callers can leave it out and get every row.
 - **Response:** JSON
     ```json
     {
@@ -84,7 +85,7 @@ Tipiṭaka translations (`/tt_search`), bold definitions (`/bd_search`) and audi
 ### GoldenDict / MDict Search
 - **URL:** `/gd`
 - **Method:** `GET`
-- **Description:** Returns a simplified HTML version of the search results, optimized for external dictionary applications like GoldenDict and MDict.
+- **Description:** Returns a simplified HTML version of the search results, optimized for external dictionary applications like GoldenDict and MDict. A variants table of 20 rows or more always shows its first 10 rows and a **show all** button; the page's own script handles the button.
 - **Parameters:**
     - `search` (str): The search query.
 - **Response:** HTML (`home_simple.html`)
