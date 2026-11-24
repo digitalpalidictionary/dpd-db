@@ -69,6 +69,7 @@ nav:
       - Resources: "contributing/resources.md"
   - Missing Words: "missing_words.md"
   - Other Dictionaries: other_dicts.md
+  - Pāḷi Resources: pali_resources.md
   - What Users Say: users_say.md
   - Abbreviations: "abbreviations.md"
   - Bibliography: "bibliography.md"
@@ -129,6 +130,11 @@ theme:
 extra_css:
   - stylesheets/dpd-variables.css
   - stylesheets/extra.css
+  - stylesheets/pali_resources.css
+
+# device filter for docs/pali_resources.md; does nothing on other pages
+extra_javascript:
+  - javascripts/pali_resources.js
 
 extra:
   alternate:

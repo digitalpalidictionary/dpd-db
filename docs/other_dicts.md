@@ -14,10 +14,8 @@ Download the latest dictionary files from the [GitHub Releases page](https://git
 | Buddhist Hybrid Sanskrit | [bhs-gd.zip](https://github.com/digitalpalidictionary/other-dictionaries/releases/latest/download/bhs-gd.zip) |
 | Buddhist Wiki | [buddhist-wiki-gd.zip](https://github.com/digitalpalidictionary/other-dictionaries/releases/latest/download/buddhist-wiki-gd.zip) |
 | CST Bold Definitions | [bold-def-gd.zip](https://github.com/digitalpalidictionary/other-dictionaries/releases/latest/download/bold-def-gd.zip) |
-| Critical Pāli Dictionary | [cpd-gd.zip](https://github.com/digitalpalidictionary/other-dictionaries/releases/latest/download/cpd-gd.zip) |
 | Dictionary of Pāli Proper Names | [dppn-gd.zip](https://github.com/digitalpalidictionary/other-dictionaries/releases/latest/download/dppn-gd.zip) |
 | DPR Analysis | [dpr-gd.zip](https://github.com/digitalpalidictionary/other-dictionaries/releases/latest/download/dpr-gd.zip) |
-| Margaret Cone Dictionary | [cone-gd.zip](https://github.com/digitalpalidictionary/other-dictionaries/releases/latest/download/cone-gd.zip) |
 | Monier Williams (Cologne) | [mw-gd.zip](https://github.com/digitalpalidictionary/other-dictionaries/releases/latest/download/mw-gd.zip) |
 | Nyanatiloka's Buddhist Dictionary | [nyanatiloka-gd.zip](https://github.com/digitalpalidictionary/other-dictionaries/releases/latest/download/nyanatiloka-gd.zip) |
 | Pali English Ultimate | [peu-gd.zip](https://github.com/digitalpalidictionary/other-dictionaries/releases/latest/download/peu-gd.zip) |
@@ -36,10 +34,8 @@ Download the latest dictionary files from the [GitHub Releases page](https://git
 | Buddhist Hybrid Sanskrit | [bhs-mdict.zip](https://github.com/digitalpalidictionary/other-dictionaries/releases/latest/download/bhs-mdict.zip) |
 | Buddhist Wiki | [buddhist-wiki-mdict.zip](https://github.com/digitalpalidictionary/other-dictionaries/releases/latest/download/buddhist-wiki-mdict.zip) |
 | CST Bold Definitions | [bold-def-mdict.zip](https://github.com/digitalpalidictionary/other-dictionaries/releases/latest/download/bold-def-mdict.zip) |
-| Critical Pāli Dictionary | [cpd-mdict.zip](https://github.com/digitalpalidictionary/other-dictionaries/releases/latest/download/cpd-mdict.zip) |
 | Dictionary of Pāli Proper Names | [dppn-mdict.zip](https://github.com/digitalpalidictionary/other-dictionaries/releases/latest/download/dppn-mdict.zip) |
 | DPR Analysis | [dpr-mdict.zip](https://github.com/digitalpalidictionary/other-dictionaries/releases/latest/download/dpr-mdict.zip) |
-| Margaret Cone Dictionary | [cone-mdict.zip](https://github.com/digitalpalidictionary/other-dictionaries/releases/latest/download/cone-mdict.zip) |
 | Monier Williams (Cologne) | [mw-mdict.zip](https://github.com/digitalpalidictionary/other-dictionaries/releases/latest/download/mw-mdict.zip) |
 | Nyanatiloka's Buddhist Dictionary | [nyanatiloka-mdict.zip](https://github.com/digitalpalidictionary/other-dictionaries/releases/latest/download/nyanatiloka-mdict.zip) |
 | Pali English Ultimate | [peu-mdict.zip](https://github.com/digitalpalidictionary/other-dictionaries/releases/latest/download/peu-mdict.zip) |
@@ -76,7 +72,7 @@ The DPPN by G. P. Malalasekera has been updated and revised by Ven. Ānandajoti 
 About 23,800 articles on Buddhism from English Wikipedia: teachings, texts, schools, people, temples and places. The articles come from Wikipedia's Buddhism category tree, five levels deep. Each entry is the article's text with images, tables and references removed. Links between articles open the linked entry within the dictionary. Text from English Wikipedia, licensed under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/){target="_blank"}; each entry links back to its online article. Not affiliated with or endorsed by Wikipedia or the Wikimedia Foundation.
 
 ## PTS Pāḷi-English Dictionary
-*The Pali Text Society's Pali-English Dictionary* by T. W. Rhys Davids and William Stede, 1921–25. The text comes from the [BuddhaDust](https://obo.genaud.net/backmatter/glossology/ped/pts_ped/ped.htm){target="_blank"} edition, which follows the PTS 2015 corrected reprint. BuddhaDust states that the corrected reprint is © The Pāḷi Text Society, licensed CC BY-NC, with commercial rights reserved. BuddhaDust's own notes and the material it merged from other dictionaries are left out, and its lost references to the Atthasālinī (DhsA) are restored. A few untagged BuddhaDust edits may remain. The links above package it for offline use, and it is also built into the DPD app.
+*The Pali Text Society's Pali-English Dictionary* by T. W. Rhys Davids and William Stede, 1921–25. The text comes from the [BuddhaDust](https://obo.genaud.net/backmatter/glossology/ped/pts_ped/ped.htm){target="_blank"} edition, which follows the PTS 2015 corrected reprint. BuddhaDust states that the corrected reprint is © The Pāḷi Text Society, licensed CC BY-NC, with commercial rights reserved. BuddhaDust's own notes and the material it merged from other dictionaries are left out, and its lost references to the Atthasālinī (DhsA) are restored. A few untagged BuddhaDust edits may remain. The links above package it for offline use, and it is also built into the DPD app. The Society's Pāḷi texts, translations and grammars are sold on its [Publications](https://palitextsociety.org/publications/){target="_blank"} page.
 
 ## CST Bold Definitions
 These are are the bold-defined terms contained in Chaṭṭha Saṅgāyana Tipiṭaka texts. The same data is searchable on [www.dpdict.net](https://www.dpdict.net/?tab=bd&q1=&q2=&option=regex){target="_blank"}.

@@ -15,7 +15,7 @@ The plugin is made by [Ven. Nirodhavihāri](https://github.com/nirodhav){target=
 - compounds split into their parts, each with a brief meaning — tap a part to expand it, or follow it to its own entry
 - declension and conjugation tables, roots, families and frequency
 - search in Pāḷi or English, with spelling suggestions
-- DPD's other dictionaries too, such as CPD and DPPN
+- DPD's other dictionaries too, such as PTS and DPPN
 
 Here a long compound from a sutta is looked up while reading. Each part of the compound is listed with its own meaning:
 
