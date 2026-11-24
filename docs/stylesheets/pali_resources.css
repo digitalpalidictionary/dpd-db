@@ -1,0 +1,186 @@
+/* Device filter for the Pāḷi Resources page (docs/pali_resources.md).
+   Colours come from the theme palette and the project's dpd-variables.css, so
+   light and dark mode both work without a scheme-specific rule. */
+
+/* --- filter panel ------------------------------------------------------- */
+
+.md-typeset .dpd-filter {
+  margin: 0 0 1.6em;
+}
+
+.md-typeset .dpd-filter fieldset {
+  margin: 0;
+  padding: 0.6em 0.8em;
+  border: 1px solid var(--md-default-fg-color--lightest);
+  border-radius: 0.2rem;
+}
+
+.md-typeset .dpd-filter legend {
+  padding: 0 0.4em;
+  font-size: 0.64rem;
+  font-weight: 700;
+  color: var(--md-default-fg-color--light);
+}
+
+/* The chip is drawn on the <label>, because a browser sizes a checkbox by its
+   default box, not by its text. The input itself stays in the label, invisible
+   but still the click target and the focus target. */
+.md-typeset .dpd-filter label {
+  position: relative;
+  display: inline-block;
+  margin: 0.2em 0.3em 0.2em 0;
+  padding: 0.4em 1em;
+  border: 1px solid var(--md-default-fg-color--lightest);
+  border-radius: 1.2em;
+  color: var(--md-default-fg-color--light);
+  font-size: 0.64rem;
+  font-weight: 700;
+  /* the height of the 14px star, so every chip is the same height */
+  line-height: 14px;
+  cursor: pointer;
+  transition: background-color 125ms, color 125ms, border-color 125ms;
+}
+
+.md-typeset .dpd-filter input[type="checkbox"] {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  opacity: 0;
+}
+
+.md-typeset .dpd-filter label:hover {
+  border-color: var(--primary-text);
+  color: var(--primary-text);
+}
+
+/* the project's --primary is the same blue in light and dark mode, so its text
+   is the project's dark ink in both */
+.md-typeset .dpd-filter label:has(input:checked) {
+  border-color: var(--primary);
+  background: var(--primary);
+  color: var(--dark);
+}
+
+.md-typeset .dpd-filter label:has(input:focus-visible) {
+  outline: 2px solid var(--md-accent-fg-color);
+  outline-offset: 2px;
+}
+
+.md-typeset .dpd-filter button {
+  vertical-align: top;
+  margin: 0.2em 0 0.2em 0.6em;
+  padding: 0.4em 1em;
+  border: 1px solid var(--md-default-fg-color--lightest);
+  border-radius: 1.2em;
+  background: transparent;
+  color: var(--md-default-fg-color--light);
+  font-size: 0.64rem;
+  font-weight: 700;
+  line-height: 14px; /* the same height as the chips beside it */
+  cursor: pointer;
+}
+
+.md-typeset .dpd-filter button:hover {
+  border-color: var(--primary-text);
+  color: var(--primary-text);
+}
+
+.md-typeset .dpd-filter-status {
+  margin: 0.6em 0 0;
+  font-size: 0.64rem;
+  color: var(--md-default-fg-color--light);
+}
+
+/* --- resource entries --------------------------------------------------- */
+
+.md-typeset .res {
+  margin: 0 0 0.8em;
+}
+
+.md-typeset .res > p {
+  margin: 0;
+}
+
+/* --- the Recommended star ------------------------------------------------
+   Drawn in green with a CSS mask, so the shape is the same in every font.
+   The shade is picked per colour mode for contrast against the page. */
+.md-typeset {
+  --res-star: hsl(158, 85%, 30%);
+}
+
+[data-md-color-scheme="slate"] .md-typeset {
+  --res-star: hsl(150, 75%, 60%);
+}
+
+.md-typeset .res-star,
+.md-typeset .res[data-rec] > p::before,
+.md-typeset .dpd-filter label:has(input[value="rec"])::before {
+  content: "";
+  display: inline-block;
+  /* one size everywhere, so the star matches beside a chip and beside an entry.
+     In px on purpose: the theme's root font is 20px, so a rem here is too big */
+  width: 14px;
+  height: 14px;
+  margin-right: 0.35em;
+  vertical-align: -0.05em;
+  background-color: var(--res-star);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 1.8l3.1 6.6 7.2.8-5.4 4.9 1.5 7.1L12 17.6l-6.4 3.6 1.5-7.1-5.4-4.9 7.2-.8z'/%3E%3C/svg%3E")
+    center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 1.8l3.1 6.6 7.2.8-5.4 4.9 1.5 7.1L12 17.6l-6.4 3.6 1.5-7.1-5.4-4.9 7.2-.8z'/%3E%3C/svg%3E")
+    center / contain no-repeat;
+}
+
+/* a recommended entry carries a data-rec attribute; the star is drawn from it,
+   so it shows without JavaScript, at the start of the entry's text */
+
+/* seat the chip's star inside the shared 14px line box: the text baseline sits
+   3px above the box's bottom, and the star is exactly the box's height */
+.md-typeset .dpd-filter label:has(input[value="rec"])::before {
+  vertical-align: -3px;
+}
+
+/* a ticked chip is filled with the primary blue, so its star takes the chip's
+   own text colour rather than staying green on blue */
+.md-typeset .dpd-filter label:has(input[value="rec"]:checked)::before {
+  background-color: currentColor;
+}
+
+/* platform badges, added by JavaScript from the entry's data-p attribute */
+.md-typeset .res-p {
+  display: block;
+  margin-top: 0.35em;
+}
+
+.md-typeset .res-p-badge {
+  display: inline-block;
+  margin: 0 0.3em 0.2em 0;
+  padding: 0.15em 0.6em;
+  border-radius: 0.8em;
+  background: var(--md-code-bg-color);
+  color: var(--md-default-fg-color--light);
+  font-size: 0.52rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 1.5;
+  text-transform: uppercase;
+}
+
+/* the `hidden` attribute must win over any display the theme sets on an element */
+.md-content [hidden],
+.md-sidebar--secondary [hidden] {
+  display: none !important;
+}
+
+/* the filter only ever hides; print and no-JS readers see everything */
+@media print {
+  .md-typeset .dpd-filter {
+    display: none;
+  }
+
+  .md-typeset [hidden] {
+    display: block !important;
+  }
+}
