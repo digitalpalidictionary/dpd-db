@@ -35,5 +35,9 @@
     "manual_corrections_deva.tsv": [
         "dadāmiha\tdadāmi + ahaṃ",
         "yettha\tye + ettha"
+    ],
+    "variant_readings_cjyeh.tsv": [
+        "āḷambo\tāḷambara",
+        "sujaka\tbhujaka"
     ]
 }
