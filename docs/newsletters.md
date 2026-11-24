@@ -1620,7 +1620,7 @@ The only other tool which does a similar job is [DPR Analysis](https://www.digit
   
 For those of you interested in Computational Linguistics, I am using a dumb, over-generative [recursive algorithm](https://github.com/digitalpalidictionary/dpd-db/blob/main/sandhi/splitter.py), the results of which get [post-processed](https://github.com/digitalpalidictionary/dpd-db/blob/main/sandhi/postprocess.py) to yield the most likely candidates. It is still a work in progress, far from perfect, but in almost all cases it is giving equal or better results than DPR Analysis, so I am happy to release it, with the understanding that it is a work in progress and will certainly get refined over time.  
   
-Finally, here's one more gift, a very nicely formatted GoldenDict version of [Monier-Williams Sanskrit-English Dictionary](https://github.com/bdhrs/other-dictionaries-goldendict/blob/main/output/mw.zip) from 1899 courtesy of (prefers not to be named).  
+Finally, here's one more gift, a very nicely formatted GoldenDict version of [Monier-Williams Sanskrit-English Dictionary](https://github.com/digitalpalidictionary/other-dictionaries/releases/latest/download/mw-gd.zip) from 1899 courtesy of (prefers not to be named).  
   
 With that, here is today's release. Please use these links to download the latest version.  
   
