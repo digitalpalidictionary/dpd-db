@@ -595,7 +595,7 @@ def export_other_dictionaries(
 
         pr.yes(len(batch))
     else:
-        raise _missing_source_error("CPD", g.pth.cpd_source_path)
+        pr.no("missing")
 
     # --- MW (Monier-Williams from Cologne source) ---
     pr.green_tmr("exporting Monier Williams")

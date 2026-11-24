@@ -1736,8 +1736,6 @@ So far I have added about 300 families, my data suggests there are another 1500 
 
 I have started a [bibliography](https://digitalpalidictionary.github.io/bibliography.html) and a [thanks](https://digitalpalidictionary.github.io/thanks.html) section which can be found on the website as well as in the dictionary by just searching for "bibliography" and "thanks".
 
-Here are a few more useful dictionaries for download in GoldenDict format. Click the link to get the [Critical Pāli Dictionary](https://github.com/bdhrs/other-dictionaries-goldendict/blob/main/output/cpd.zip) and, for those of you who study Sanskrit, here's a nicely formatted version of [Whitney's Roots](https://github.com/bdhrs/other-dictionaries-goldendict/blob/main/output/whitney.zip). Just drop them into your documents/GoldenDict folder.
-
 With that, here is your monthly DPD update and links to download the latest version.
 
 [DPD for GoldenDict](https://github.com/digitalpalidictionary/digitalpalidictionary/releases/download/2023-01-06/dpd-goldendict.zip)  
