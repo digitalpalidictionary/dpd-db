@@ -26,7 +26,7 @@ def _row(
     return su
 
 
-def test_a_sutta_links_by_its_suttacentral_code_in_lower_case() -> None:
+def test_a_sutta_links_by_its_dpd_code_in_lower_case() -> None:
     su = _row(
         "AN4.126",
         "dutiyamettāsutta",
@@ -44,7 +44,19 @@ def test_a_group_page_has_no_web_link_either() -> None:
     assert su.epitaka_web_link is None
 
 
-def test_the_suttacentral_code_wins_over_the_dpd_code() -> None:
+def test_the_dpd_code_wins_where_the_suttacentral_code_is_one_off() -> None:
+    su = _row(
+        "SN45.172",
+        "oghasutta",
+        "SN45.171",
+        cst_vagga="8. Oghavaggo",
+        sc_vagga="14. Oghavagga",
+        bjt_vagga="16. oghavaggo",
+    )
+    assert su.epitaka_link == "epitaka://sutta?code=sn45.172"
+
+
+def test_a_verse_book_links_by_its_dpd_code() -> None:
     su = _row(
         "TH1",
         "subhūtittheragāthā",
@@ -53,10 +65,10 @@ def test_the_suttacentral_code_wins_over_the_dpd_code() -> None:
         sc_vagga="Ekakanipāta, Paṭhamavagga",
         bjt_vagga="4. mahāvaggo",
     )
-    assert su.epitaka_link == "epitaka://sutta?code=thag1.1"
+    assert su.epitaka_link == "epitaka://sutta?code=th1"
 
 
-def test_the_dpd_code_is_used_when_there_is_no_suttacentral_code() -> None:
+def test_a_row_with_no_suttacentral_code_links_by_its_dpd_code() -> None:
     su = _row(
         "SN46.36",
         "yonisomanasikārasutta",

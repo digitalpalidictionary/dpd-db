@@ -738,14 +738,14 @@ class SuttaInfo(Base):
     def epitaka_code(self) -> str | None:
         """The code an ePitaka sutta link carries, or None.
 
-        ePitaka stores SuttaCentral codes, so `sc_code` comes first: the DPD
-        code opens a neighbouring sutta in about 125 cases and finds nothing
-        for the Theragāthā, Udāna, Suttanipāta and similar books. Group pages
-        (saṃyutta, nipāta, vagga, paṇṇāsaka) have no sutta to open.
+        It is the DPD code, which follows the CST numbering that ePitaka's texts
+        follow. The SuttaCentral code is off by one or two in the Saṃyutta and
+        Aṅguttara nikāyas, so it is not used. Group pages (saṃyutta, nipāta,
+        vagga, paṇṇāsaka) have no sutta to open.
         """
         if self.is_samyutta or self.is_nipata or self.is_vagga or self.is_pannasaka:
             return None
-        code = (self.sc_code or self.dpd_code or "").strip().lower()
+        code = (self.dpd_code or "").strip().lower()
         return code or None
 
     @cached_property
