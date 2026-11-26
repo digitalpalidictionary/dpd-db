@@ -735,6 +735,36 @@ class SuttaInfo(Base):
         return False
 
     @cached_property
+    def epitaka_code(self) -> str | None:
+        """The code an ePitaka sutta link carries, or None.
+
+        ePitaka stores SuttaCentral codes, so `sc_code` comes first: the DPD
+        code opens a neighbouring sutta in about 125 cases and finds nothing
+        for the Theragāthā, Udāna, Suttanipāta and similar books. Group pages
+        (saṃyutta, nipāta, vagga, paṇṇāsaka) have no sutta to open.
+        """
+        if self.is_samyutta or self.is_nipata or self.is_vagga or self.is_pannasaka:
+            return None
+        code = (self.sc_code or self.dpd_code or "").strip().lower()
+        return code or None
+
+    @cached_property
+    def epitaka_link(self) -> str | None:
+        """A link that opens this sutta in the ePitaka app, or None."""
+        if not self.epitaka_code:
+            return None
+        return f"epitaka://sutta?code={self.epitaka_code}"
+
+    @cached_property
+    def epitaka_web_link(self) -> str | None:
+        """The same sutta as a web link, for pages whose reader program only
+        hands web links to the system (GoldenDict). epitaka.org shows a page
+        with an Open App button, and Android opens the app directly."""
+        if not self.epitaka_code:
+            return None
+        return f"https://epitaka.org/app/sutta?code={self.epitaka_code}"
+
+    @cached_property
     def sc_vagga_link(self) -> str | None:
         import unicodedata
 

@@ -212,6 +212,17 @@
         </tr>
         {% endif %}
 
+        {% if d.su.epitaka_web_link %}
+        <tr>
+            <th>
+                ePitaka
+            </th>
+            <td>
+                <a href="{{ d.su.epitaka_web_link }}" target="_blank">Open in ePitaka</a>
+            </td>
+        </tr>
+        {% endif %}
+
         {% if d.su.cst_code %}
         <tr>
             <th>

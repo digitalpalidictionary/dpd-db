@@ -7,13 +7,17 @@ import re
 import sys
 import types
 from types import SimpleNamespace
+from typing import cast
 
 from jinja2 import Environment, FileSystemLoader
 
 sys.modules.setdefault(
     "aksharamukha",
-    types.SimpleNamespace(
-        transliterate=types.SimpleNamespace(process=lambda *args, **kwargs: "")
+    cast(
+        types.ModuleType,
+        types.SimpleNamespace(
+            transliterate=types.SimpleNamespace(process=lambda *args, **kwargs: "")
+        ),
     ),
 )
 
@@ -27,7 +31,7 @@ def _make_env() -> Environment:
     )
 
 
-def _minimal_d(su: SimpleNamespace) -> SimpleNamespace:
+def _minimal_d(su: SimpleNamespace | SuttaInfo) -> SimpleNamespace:
     """Build the minimal template context object."""
     i = SimpleNamespace(
         pos="ind",
@@ -257,6 +261,28 @@ class TestNormalSuttaRow:
         assert "English" in html
         assert "SC Vagga Card" not in html
         assert "SC Saṃyutta Card" not in html
+
+
+class TestEpitakaLink:
+    # GoldenDict does not hand an epitaka:// link to the system (checked by
+    # hand, 2026-11-26), so the row carries the web link, which epitaka.org
+    # turns into the app.
+    def test_row_carries_the_web_link_not_the_app_link(self):
+        su = _minimal_su(
+            epitaka_web_link="https://epitaka.org/app/sutta?code=an4.126",
+            epitaka_link="epitaka://sutta?code=an4.126",
+        )
+        html = _render(_minimal_d(su))
+        assert (
+            '<a href="https://epitaka.org/app/sutta?code=an4.126" '
+            'target="_blank">Open in ePitaka</a>'
+        ) in html
+        assert "epitaka://" not in html
+
+    def test_no_row_without_a_link(self):
+        su = _minimal_su(epitaka_web_link=None)
+        html = _render(_minimal_d(su))
+        assert "Open in ePitaka" not in html
 
 
 class TestVaggaRow:

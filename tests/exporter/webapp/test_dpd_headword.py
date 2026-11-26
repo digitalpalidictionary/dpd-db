@@ -191,6 +191,29 @@ def test_dpd_headword_shows_dhamma_gift_short_link() -> None:
     assert "https://dhamma.gift/sn1.1" in html
 
 
+def test_dpd_headword_shows_epitaka_link_on_a_sutta() -> None:
+    su = SuttaInfo()
+    su.dpd_sutta = "dutiyamettāsutta"
+    su.dpd_code = "AN4.126"
+    su.sc_code = "AN4.126"
+
+    html = _render_template(su)
+
+    assert '<a href="epitaka://sutta?code=an4.126">Open in ePitaka</a>' in html
+
+
+def test_dpd_headword_hides_epitaka_link_on_a_group_page() -> None:
+    su = SuttaInfo()
+    su.dpd_sutta = "devatāsaṃyutta"
+    su.dpd_code = "SN1"
+    su.sc_code = "SN1.1"
+
+    html = _render_template(su)
+
+    assert "epitaka://" not in html
+    assert "Open in ePitaka" not in html
+
+
 def _render_compound_families(counts: dict[str, int]) -> str:
     """Render the compound family block(s) and collapse whitespace."""
     su = SuttaInfo()
