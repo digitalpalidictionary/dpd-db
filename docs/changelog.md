@@ -5,6 +5,29 @@ search:
 
 # Changelog
 
+## 2026-11-24
+
+### GitHub Issues Closed
+- [#208 TheBuddhasWords and Dhamma.gift Tbw legacy links in dpd sutta table](https://github.com/digitalpalidictionary/dpd-db/issues/208)
+- [#277 Webapp: Speed up dictionary searches](https://github.com/digitalpalidictionary/dpd-db/issues/277)
+- [#290 Feature Request: AI-Generated Multilingual Dictionaries Using the Digital Pali Dictionary as a Source](https://github.com/digitalpalidictionary/dpd-db/issues/290)
+
+
+### Dictionary Data Updates
+- 89 860 headwords, 55 068 (61.3%) complete, 9 080 (10.1%) partially complete, 25 712 (28.6%) incomplete entries
+- 753 roots, 3 328 root families, 37 160 words derived from roots
+- 852 426 deconstructed compounds
+- 1 502 572 unique inflected forms recognized
+- 2 302 412 cells of Pāḷi word data
+- 18 311 cells of Pāḷi root data
+- Pass1 complete: VIN1-4, DN1-3, MN1-3, SN1-5, AN1-11, KN1-5, KN8-9
+- Pass1 in progress: VIN5
+- Pass2 complete: DN1-3, MN1-3, SN1-5, AN1-5
+- Pass2 in progress: AN6
+- numerous additions and corrections based on user feedback
+
+### New Words
+aṅgulī 3, accharāgaṇaghosita, añjanasavhaya, aḍḍhabhāga, adhigayha, anekasataṭhāna, abbhāgatānāsanaka, abhibbhavitvā, abhihessati, ānandabhadda, āsaḷhī, āsevayitvā, āḷamba, itthivimāna, idhāgatosi, ucchāgāra, upagañchu, ubbarī, ummattarūpa, kakkārika, kaṭhinabhūmi, kanakamayasaṅghāṭa, kampala, kaliṅgaraṭṭhavisaya, kiṭakasama, kururājacariyā, kusaṭṭhakadāyakattherassāpadāna, khīṇāyuka, khettavaruttama, gedhitamana, jhānaparāyana, ṭhānasata, tadānuga, tiṃsapāramisampuṇṇa, therāpadānapāḷi, dasaṅgulī, dāsi, dīyatū, duṭṭhavāca, nabhamuggata, nāgadāna, nidassayi, nivātaja, nekabhumma, pañcapaññāsaka, paṭikittetvā, paṭutama, paṭutara, paṭhamapīṭhavimāna, paṇḍupāvura, padassati, pabhinnamātaṅga, pavīsati, pājiyamāna, pāvura, piyasīla, pihayanta 2, pūrayituṃ, phussatī, buddhaapadāna, bhāgaḍḍhabhāga, bhikkhūnī, bhumyā, bhojanatthika, maṅgalasampanna, maṅgalasammata, malya, malyadhara, mahāgama, mahāsudassanacariyā, mālyadhara, muddikāma, muḷha, morahattha, rūpiyabhūmiya, revatīvimāna, vappita, vicittathambha, vicittamalyavitata, vimānamāruyha, vimuttichattapatti, visaya 4, vissami, saṅkhacariyā, saṅkhasavhaya, saṅgāmavijayuttama, sanigama, sabbaññubhāva, sambodhimukha, saṃpūretvā, saṃsavaka, sutikkhapañña, suddhamānasa, sumedhanāma, suvattha, susaṇṭhahitvā, sovaṇṇarūpa [97]
 ## 2026-10-26
 
 ### GitHub Issues Closed

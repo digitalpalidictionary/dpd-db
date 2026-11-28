@@ -6,7 +6,7 @@ There are two types of abbreviations: Grammatical and Textual.
 ## Grammatical Abbreviations
 |Abbreviation|Meaning|Explanation|
 |:---|:---|:---|
-|3|declined in all three gender||
+|3|declined in all three genders||
 |･|root has verbs which are derived from it||
 |()|letters deleted from construction||
 |[]|letters added to construction||
@@ -119,7 +119,7 @@ There are two types of abbreviations: Grammatical and Textual.
 |ADht|Abhidhamma Ṭīkā||
 |AN|Aṅguttara Nikāya|Book 4 of the Sutta Piṭaka; Numbered Discourses; lit. one part more collection|
 |ANa|Aṅguttara Nikāya Aṭṭhakathā|Commentary on the Aṅguttara Nikāya compiled by Ven. Buddhaghosa; the “Fulfiller of Wishes”; lit. which fills with mental delight|
-|ANt|Aṅguttara Nikāya Tīkā||
+|ANt|Aṅguttara Nikāya Ṭīkā||
 |AP|Abhidhānappadīpikāpāṭha, by Ven. Moggallāna|A fourteenth century Pāḷi thesaurus.|
 |APA|Therāpadāna|Book 10 of the Khuddaka Nikāya; Legends of the Elder Monks|
 |APAa|Therāpadāna Aṭṭhakathā|Book 11 of the Khuddaka Nikāya; Legends of the Elder Nuns|
@@ -143,7 +143,7 @@ There are two types of abbreviations: Grammatical and Textual.
 |CST|Chaṭṭha Saṅgāyana Tipiṭaka, Sixth Council Version of the texts encoded by the Vipassana Research Institute||
 |DHK|Dhātukathāpāḷi||
 |DHP|Dhammapada|Book 2 of the Khuddaka Nikāya; Dhamma Verses|
-|DHPa|Dhammapada Aṭṭhakathā,|Commentary to Dhammapada compiled by Ven. Buddhaghosa; part of  “Illumination of the Ultimate Truth”|
+|DHPa|Dhammapada Aṭṭhakathā|Commentary to Dhammapada compiled by Ven. Buddhaghosa; part of  “Illumination of the Ultimate Truth”|
 |DHS|Dhammasaṅgaṇīpāḷi||
 |DhS|Dhammasaṅgaṇī|Book 1 of the Abhidhamma Piṭaka; enumeration of phenomena|
 |DhSa|Dhammasaṅgaṇī aṭṭhakathā|Commentary on the Dhammasaṅgaṇi compiled by Ven. Buddhaghosa;  “Exposition of Meaning”|
@@ -170,8 +170,8 @@ There are two types of abbreviations: Grammatical and Textual.
 |MD|Maṅgaladīpanī, Thai commentary on the Maṅgalasutta||
 |MIL|Milindapañha|Book 19 of the Khuddaka Nikāya; the “Questions of Milinda”|
 |MLDB|Middle Length Discourses of the Buddha, translated by Bhikkhu Bodhi|Book 19 of the Khuddaka Nikāya; the “Questions of Milinda”|
-|MN|Majjhimā Nikāya|Book 2 of the Sutta Piṭaka; Collection of Middle-length Discourses; lit. middle collection |
-|MNa|Majjhimā Nikāya Aṭṭhakathā, Papañcasūdanī|Commentary on the Majjhima Nikāya compiled by Ven. Buddhaghosa; “Destruction of Obstacles [to Progress]”; lit. setting mental proliferation in order|
+|MN|Majjhima Nikāya|Book 2 of the Sutta Piṭaka; Collection of Middle-length Discourses; lit. middle collection |
+|MNa|Majjhima Nikāya Aṭṭhakathā, Papañcasūdanī|Commentary on the Majjhima Nikāya compiled by Ven. Buddhaghosa; “Destruction of Obstacles [to Progress]”; lit. setting mental proliferation in order|
 |MNt|Majjhima Nikāya Ṭīkā||
 |MOGG|Moggallāna Byākaraṇaṃ||
 |MST|Mahāsaṅgīti Tipiṭaka (Sutta Central)||
@@ -227,7 +227,7 @@ There are two types of abbreviations: Grammatical and Textual.
 |VINt|Vinaya Piṭaka Ṭīkā, Sāratthadīpanīṭīkā||
 |VISM|Visuddhimagga|Path of purification; commentarial treatise by Ven. Buddhaghosa|
 |VISMa|Visuddhimagga Aṭṭhakathā|Commentary to Visuddhimagga |
-|VMVt|Vimativinodanī Tīkā, Vinaya sub-commentary||
+|VMVt|Vimativinodanī Ṭīkā, Vinaya sub-commentary||
 |VSa|Vinayasaṅgaha Aṭṭhakathā, Vinaya sub-commentary||
 |VV|Vimānavatthu|Book 6 of the Khuddaka Nikāya; story about Celestial Abodes|
 |VVa|Vimānavatthu Aṭṭhakathā, Paramatthadīpanī||
