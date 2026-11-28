@@ -50,23 +50,6 @@
         "example_2": "Atha ‘ na mayaṃ dassāmā ’ ti vutte gharaṃ lañchāpetvā amhe bahi kārāpesī ’’ ti.",
         "translation_2": "“Then, when we said, ‘We will not give her up,’ he had the house sealed and had us turned out.”"
     },
-    "vikkhālāpetvā": {
-        "lemma_1": "vikkhālāpetvā",
-        "lemma_2": "vikkhālāpetvā",
-        "pos": "abs",
-        "grammar": "abs of vikkhālāpeti",
-        "meaning_2": "having made (someone) wash (the mouth); having had (the mouth) rinsed",
-        "root_key": "√khal 2",
-        "root_sign": "ṇāpe",
-        "root_base": "√khal + ṇāpe > khālāpe (caus)",
-        "family_root": "vi √khal",
-        "construction": "vi + khālāpe + tvā",
-        "stem": "-",
-        "pattern": "",
-        "comment": "[deepseek: deepseek-v4-flash] Causative absolutive; in the sentence with mukhaṃ it means having had the infants' mouths washed. PEU splits as vi + khala + ṇāpe + tvā.",
-        "example_1": "Antamaso thanapāyinopi dārake mukhaṃ vikkhālāpetvā catumadhuraṃ mukhe pakkhipāpetvā mahāseṭṭhi uposathike kāreti.",
-        "translation_1": "“Even the nursing infants have their mouths washed and are given the four sweet foods to eat, and so the great rich man has them keep the Uposatha.”"
-    },
     "tepissa": {
         "lemma_1": "te",
         "lemma_2": "te",
