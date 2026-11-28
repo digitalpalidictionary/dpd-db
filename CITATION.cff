@@ -11,11 +11,11 @@ authors:
   - family-names: Bodhirasa
     name-suffix: Bhikkhu
     email: digitalpalidictionary@gmail.com
-version: v0.4.20261026
-date-released: '2026-10-26'
+version: v0.4.20261124
+date-released: '2026-11-24'
 url: https://www.dpdict.net/
 repository-code: https://github.com/digitalpalidictionary/dpd-db
-repository-artifact: https://github.com/digitalpalidictionary/dpd-db/releases/tag/v0.4.20261026
+repository-artifact: https://github.com/digitalpalidictionary/dpd-db/releases/tag/v0.4.20261124
 license: CC-BY-NC-SA-4.0
 doi: 10.5281/zenodo.22979413
 abstract: >-
